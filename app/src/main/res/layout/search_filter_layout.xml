@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/background_primary_layout" />
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_search_filter_layout" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/cardRadius"
+            app:cardElevation="@dimen/lg_elevation"
+            app:cardUseCompatPadding="true"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!--app:layout_constraintTop_toBottomOf="@+id/guideline"-->
+            <!--app:layout_constraintBottom_toTopOf="@+id/guideline"-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/md_padding">
+
+                <TextView
+                    style="@style/AppTheme.TextAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Searchkeyword"
+                    android:textColor="@color/lightgray" />
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/filter_searchKeyword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/ic_search_24dp"
+                    android:drawableRight="@drawable/ic_search_24dp"
+                    android:hint="@string/Keyword"
+                    app:backgroundTint="@color/lightgray" />
+
+                <TextView
+                    style="@style/AppTheme.TextAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/sm_margin"
+                    android:text="@string/Category"
+                    android:textColor="@color/lightgray" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/filter_categories"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/recyclerviewTagHeight"
+                    app:tagBackgroundColor="@color/colorPrimary" />
+
+                <TextView
+                    style="@style/AppTheme.TextAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/sm_margin"
+                    android:text="@string/SubCategory"
+                    android:textColor="@color/lightgray" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/filter_subCategories"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/recyclerviewTagHeight"
+                    app:tagBackgroundColor="@color/colorPrimary" />
+
+
+                <TextView
+                    style="@style/AppTheme.TextAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/sm_margin"
+                    android:text="@string/City"
+                    android:textColor="@color/lightgray" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/filter_cities"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/recyclerviewTagHeight"
+                    app:tagBackgroundColor="@color/colorPrimary" />
+
+
+                <TextView
+                    style="@style/AppTheme.TextAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/md_margin"
+                    android:text="@string/Area"
+                    android:textColor="@color/lightgray" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/filter_locations"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/recyclerviewTagHeight"
+                    app:tagBackgroundColor="@color/colorPrimary" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/loginBtn"
+                    style="@style/AppTheme.NormalButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/md_margin"
+                    android:background="@drawable/button_bg"
+                    android:padding="@dimen/md_padding"
+                    android:shadowColor="@color/black"
+                    android:text="@string/Apply"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>

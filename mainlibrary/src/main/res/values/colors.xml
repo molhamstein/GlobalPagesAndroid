@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimaryDark">#F3C100</color>
+    <color name="colorPrimary">#F3C100</color>
+    <color name="colorAccent">#3F4547</color>
+    <color name="colorAlphaPrimary">#44F3C100</color>
+
+    <color name="black">@android:color/black</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="transparent">@android:color/transparent</color>
+    <color name="lightgray">@android:color/darker_gray</color>
+
+    <color name="si_default_text_color">#FF0000</color>
+    <color name="si_default_text_color_selected">#FF00FF</color>
+    <color name="si_default_indicator_bg">#ee9999</color>
+
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ToggleButton
+        android:id="@+id/location_toggle"
+        style="@style/AppTheme.MainToggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/xxsm_margin"
+        android:background="@drawable/ic_cat_tag_bg"
+        android:maxLines="1"
+        android:padding="@dimen/xsm_padding"
+        android:textColor="@drawable/ic_tag_color" />
+
+</LinearLayout>

@@ -1,0 +1,34 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
+    <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+    <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+    <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+    <!--<item name="colorAccent">@color/colorAccent</item>-->
+    <!--</style>-->
+
+    <style name="headerTextView" parent="Widget.AppCompat.AutoCompleteTextView">
+        <item name="android:textColor">@color/grayDarkTextColor</item>
+        <item name="android:gravity">center</item>
+        <!--<item name="android:textAlignment">gravity</item>-->
+        <item name="android:background">@color/transparent</item>
+    </style>
+
+    <style name="ErrorText" parent="TextAppearance.Design.Error">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/grayDarkTextColor</item>
+    </style>
+
+    <style name="HintText" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/grayDarkTextColor</item>
+    </style>
+
+    <style name="ToolBarWithCustomNavigationBack" parent="@style/toolbar">
+        <item name="navigationIcon">@drawable/ic_arrow_back_black_24dp</item>
+
+    </style>
+
+
+</resources>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="@dimen/elevation"
+        app:cardUseCompatPadding="true">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/lg_padding">
+
+            <com.brainsocket.mainlibrary.Views.ProgressWheel
+                android:id="@+id/progressWheel"
+                android:layout_width="@dimen/progress_wheel_width"
+                android:layout_height="@dimen/progress_wheel_height"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/progressText"
+                app:matProg_barColor="@color/colorPrimary"
+                app:matProg_barWidth="2dp"
+                app:matProg_progressIndeterminate="true"
+                app:matProg_rimColor="@color/transparent" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/progressText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pleaseWait"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="buttonCorner">2dp</dimen>
+    <dimen name="elevation">4dp</dimen>
+    <dimen name="lg_elevation">15dp</dimen>
+    <dimen name="cardRadius">4dp</dimen>
+    <dimen name="max_margin">120dp</dimen>
+    <dimen name="sperator">1dp</dimen>
+    <dimen name="recyclerviewTagHeight">35dp</dimen>
+    <dimen name="xxsm_margin">1dp</dimen>
+    <dimen name="xxsm_padding">1dp</dimen>
+</resources>

@@ -1,0 +1,27 @@
+apply plugin: 'com.android.library'
+
+android {
+
+    compileSdkVersion COMPILE_VERSION
+    buildToolsVersion BUILD_VERSION
+    defaultConfig {
+        minSdkVersion MIN_VERSION
+        targetSdkVersion COMPILE_VERSION
+        versionCode 1
+        versionName "1.0.0"
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'consumer-proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    implementation "com.android.support:appcompat-v7:$SUPPORT_VERSION"
+}

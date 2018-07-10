@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="card_insets">2dp</dimen>
+
+    <dimen name="xsm_margin">2dp</dimen>
+    <dimen name="xsm_padding">2dp</dimen>
+
+    <dimen name="sm_margin">4dp</dimen>
+    <dimen name="sm_padding">4dp</dimen>
+
+    <dimen name="md_margin">8dp</dimen>
+    <dimen name="md_padding">8dp</dimen>
+
+    <dimen name="lg_margin">16dp</dimen>
+    <dimen name="lg_padding">16dp</dimen>
+
+    <dimen name="si_default_text_size">18sp</dimen>
+    <dimen name="si_default_radius_max">24dp</dimen>
+    <dimen name="si_default_radius_min">8dp</dimen>
+
+
+    <dimen name="progress_wheel_height">56dp</dimen>
+    <dimen name="progress_wheel_width">56dp</dimen>
+
+
+</resources>

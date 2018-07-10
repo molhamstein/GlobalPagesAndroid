@@ -1,0 +1,16 @@
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+
+echo "# GlobalPagesAndroid" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/molhamstein/GlobalPagesAndroid.git
+git push -u origin master

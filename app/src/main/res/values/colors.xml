@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--<color name="colorPrimary">#3F51B5</color>-->
+    <!--<color name="colorPrimaryDark">#303F9F</color>-->
+    <!--<color name="colorAccent">#FF4081</color>-->
+
+    <color name="milkyColor">#F6F7FB</color>
+
+    <color name="grayDarkTextColor">#677175</color>
+
+    <color name="checkBoxColor">#00AFFF</color>
+    <color name="grayLightTextColor">#BCBCBC</color>
+
+
+
+    <color name="businessGuideColor1">#2397F0</color>
+    <color name="businessGuideColor2">#FE76A1</color>
+
+    <color name="profileHeaderColor">@color/colorAccent</color>
+    <color name="unSelectedIndicator">#52747A</color>
+    <color name="selectedIndicator">#2D2E31</color>
+
+</resources>

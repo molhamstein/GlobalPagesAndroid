@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/background_header_pattern"
+            android:contentDescription="@string/contentDescription"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.5" />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/milkyColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.75" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:visibility="visible"
+        app:layout_collapseMode="pin"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        app:layout_constrainedHeight="false">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/main.appbar"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:layout_margin="0dp"
+            android:background="@color/transparent"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:elevation="0dp">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/main.collapsing"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentScrim="@color/transparent"
+                app:layout_scrollFlags="scroll|enterAlways|snap">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_collapseMode="parallax"
+                    app:layout_scrollFlags="scroll|enterAlways|snap">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/businessGuideRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_above="@+id/previousBtn1"
+                        app:layout_collapseMode="parallax"
+                        app:layout_scrollFlags="scroll|enterAlways|snap" />
+
+                    <ImageView
+                        android:id="@+id/previousBtn1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_gravity="bottom"
+                        android:contentDescription="@string/contentDescription"
+                        android:src="@drawable/ic_previous_volume_24dp"
+                        android:visibility="invisible" />
+
+                </RelativeLayout>
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nestedview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="35dp"
+            android:layout_marginTop="35dp"
+            android:background="@color/milkyColor"
+            android:fillViewport="true"
+            android:paddingBottom="0dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <com.brainsocket.mainlibrary.Views.Stateslayoutview
+                android:id="@+id/stateLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/volumesRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+
+            </com.brainsocket.mainlibrary.Views.Stateslayoutview>
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/milkyColor"
+            android:orientation="vertical"
+            app:layout_anchor="@id/main.appbar"
+            app:layout_anchorGravity="bottom"
+            app:layout_collapseMode="pin">
+
+            <RelativeLayout
+                android:id="@+id/browse_Container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_collapseMode="pin">
+
+                <ImageView
+                    android:id="@+id/previousBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/contentDescription"
+                    android:src="@drawable/ic_previous_volume_24dp" />
+
+                <TextView
+                    style="@style/AppTheme.TextAppearanceCenter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/previousBtn"
+                    android:layout_toLeftOf="@+id/nextBtn"
+                    android:layout_toRightOf="@+id/previousBtn"
+                    android:layout_toStartOf="@+id/nextBtn"
+                    android:gravity="center"
+                    android:text="03/08/2018"
+                    android:textColor="@color/grayDarkTextColor"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/nextBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:contentDescription="@string/contentDescription"
+                    android:src="@drawable/ic_next_volume_24dp" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/filter_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="@dimen/cardview_default_elevation"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="false">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.brainsocket.globalpages.views.TagSearchView
+                        android:id="@+id/tagSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@id/searchFilterBtn"
+                        android:layout_toStartOf="@id/searchFilterBtn" />
+
+                    <ImageView
+                        android:id="@+id/searchFilterBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/nearbyBtn"
+                        android:layout_toStartOf="@+id/nearbyBtn"
+                        android:src="@drawable/ic_search_24dp" />
+
+                    <ImageView
+                        android:id="@+id/nearbyBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_nearby_24dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/sperator"
+                        android:layout_below="@id/nearbyBtn"
+                        android:background="@color/colorPrimary" />
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</RelativeLayout>
+

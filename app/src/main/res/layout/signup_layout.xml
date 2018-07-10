@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/background_primary_layout" />
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/lg_margin"
+        android:background="@color/white"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/cardRadius"
+        app:cardElevation="@dimen/lg_elevation"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/md_padding">
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guidelineMoreInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/emailLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/Email"
+                app:errorEnabled="false"
+                app:errorTextAppearance="@style/ErrorText"
+                app:hintTextAppearance="@style/HintText"
+                app:layout_constraintBottom_toTopOf="@+id/userNameLayout">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:text="adhamkhwaldeh@gmail.com" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/userNameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/UserName"
+                app:errorEnabled="false"
+                app:errorTextAppearance="@style/ErrorText"
+                app:hintTextAppearance="@style/HintText"
+                app:layout_constraintBottom_toTopOf="@+id/passwordLayout">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/userName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:text="adhamkhwaldeh" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/passwordLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/Password"
+                app:errorEnabled="false"
+                app:errorTextAppearance="@style/ErrorText"
+                app:hintTextAppearance="@style/HintText"
+                app:layout_constraintBottom_toTopOf="@+id/moreInfoLayout">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:text="123456" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <RelativeLayout
+                android:id="@+id/moreInfoLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/guidelineMoreInfo">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/birthdateLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/genderTabLayout"
+                    android:layout_toStartOf="@+id/genderTabLayout"
+                    app:errorEnabled="true"
+                    app:hintEnabled="false">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/birthdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/genderTabLayout"
+                        android:layout_toStartOf="@+id/genderTabLayout"
+                        android:drawableEnd="@drawable/ic_arrow_drop_down_gray_24dp"
+                        android:drawableRight="@drawable/ic_arrow_drop_down_gray_24dp"
+                        android:enabled="true"
+                        android:focusable="false"
+                        android:hint="@string/Birthdate"
+                        app:autoSizeTextType="uniform" />
+
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/genderTabLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    app:tabGravity="center"
+                    app:tabIndicatorColor="@color/transparent"
+                    app:tabMode="fixed"
+                    app:tabPadding="0dp"
+                    app:tabSelectedTextColor="@color/colorPrimary"
+                    app:tabTextAppearance="@style/AppTheme.TextAppearance"
+                    app:tabTextColor="@color/grayDarkTextColor" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/businessOwnerCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/md_margin"
+                android:text="@string/businessOwner"
+                android:visibility="gone"
+                app:buttonTint="@color/checkBoxColor"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/moreInfoLayout" />
+
+            <LinearLayout
+                android:id="@+id/termsAndConditionsLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/businessOwnerCheckBox">
+
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:id="@+id/acceptTerms"
+                    style="@style/AppTheme.TextAppearanceSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Accept"
+                    android:textAppearance="@style/AppTheme.TextAppearanceSmall"
+                    android:textColor="@color/grayLightTextColor"
+                    app:buttonTint="@color/checkBoxColor" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    style="@style/AppTheme.TextAppearanceSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/privacypolicy"
+                    android:textAppearance="@style/AppTheme.TextAppearanceSmall"
+                    android:textColor="@color/grayDarkTextColor"
+                    android:textStyle="bold" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    style="@style/AppTheme.TextAppearanceSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/and"
+                    android:textAppearance="@style/AppTheme.TextAppearanceSmall"
+                    android:textColor="@color/grayLightTextColor" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    style="@style/AppTheme.TextAppearanceSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/termsandconditions"
+                    android:textAppearance="@style/AppTheme.TextAppearanceSmall"
+                    android:textColor="@color/grayDarkTextColor"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/signupBtnContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="6"
+                app:layout_constraintTop_toBottomOf="@+id/termsAndConditionsLayout">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/signupBtn"
+                    style="@style/AppTheme.NormalButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/md_margin"
+                    android:layout_weight="4"
+                    android:background="@drawable/button_bg"
+                    android:elevation="@dimen/elevation"
+                    android:padding="@dimen/md_padding"
+                    android:shadowColor="@color/white"
+                    android:text="@string/SignUp"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/lg_padding"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/signupBtnContainer">
+
+                <android.support.v7.widget.AppCompatTextView
+                    style="@style/AppTheme.TextAppearance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/haveanaccount"
+                    android:textColor="@color/grayLightTextColor" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/loginBtn"
+                    style="@style/AppTheme.TextAppearance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Login"
+                    android:textColor="@color/grayDarkTextColor"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+
+</android.support.constraint.ConstraintLayout>
+
+
+

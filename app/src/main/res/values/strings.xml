@@ -1,0 +1,94 @@
+<resources>
+    <string name="app_name">Global Pages</string>
+    <string name="contentDescription">content Description</string>
+
+    <string name="signInHeader">Welcome to Global Pages \n Your best destination to find \n great deals around</string>
+    <string name="Email">Email</string>
+    <string name="Password">Password</string>
+    <string name="Forgotpassword">Forgot password?</string>
+    <string name="Login">Login</string>
+    <string name="or">or</string>
+    <string name="Register">Register</string>
+    <string name="anewAccount">a new account</string>
+    <string name="forgotHeader">So you forgot your password?</string>
+    <string name="Submit">Submit</string>
+    <string name="resetPassword">Reset password</string>
+    <string name="Birthdate">Birth date</string>
+    <string name="businessOwner">I\'m Business Owner</string>
+    <string name="Accept">Accept</string>
+    <string name="SignUp">Signup</string>
+    <string name="haveanaccount">Have an account?</string>
+    <string name="UserName">UserName</string>
+    <string name="AddBusiness">Add Business</string>
+    <string name="Skip">Skip</string>
+    <string name="Phonenumber">Phone number</string>
+    <string name="Phonenumber2">Phone number2</string>
+    <string name="businessType">Business Type</string>
+    <string name="SubCategory">Sub-Category</string>
+    <string name="Location">Location</string>
+    <string name="Optional">(Optional)</string>
+    <string name="Description">Description</string>
+    <string name="Fax">Fax</string>
+    <string name="Profile">Profile</string>
+    <string name="MyProfile">My Profile</string>
+    <string name="male">male</string>
+    <string name="female">female</string>
+    <string name="privacypolicy">Privacy Policy</string>
+    <string name="and">and</string>
+    <string name="termsandconditions">Terms and conditions</string>
+    <string name="pleaseWait">Please wait...</string>
+    <string name="enteremail">Enter email</string>
+    <string name="entercorrectemail">Enter correct email</string>
+    <string name="enterusername">Enter username</string>
+    <string name="enterpassword">Enter password</string>
+    <string name="accepttermsandconditions">Accept terms and conditions</string>
+    <string name="selectBirthDate">Select Birthdate</string>
+    <string name="invalidEmailorPassword">Invalid email or password</string>
+    <string name="checkInternetConnection">Check internet connection</string>
+    <string name="emailnotExisted">Email not existed</string>
+    <string name="resetPasswordSuccesfully">Reset password succesfully</string>
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
+    <string name="doYouWantAddFirstBusiness">Do you want add first business</string>
+
+    <string name="businessGuideTitle1">Businesses Guide</string>
+    <string name="businessGuideDetails1">search for businesses  \n nearby and find them  \n on the map</string>
+    <string name="businessGuideTitle2">On Duty Pharmacies</string>
+    <string name="businessGuideDetails2">Find Open Pharmacies  \n Nearby</string>
+    <string name="Searchkeyword">Search keyword</string>
+    <string name="Keyword">Keyword</string>
+    <string name="Category">Category</string>
+    <string name="City">City</string>
+    <string name="Area">Area</string>
+    <string name="Apply">Apply</string>
+    <string name="AlreadyExisted">Already existed</string>
+    <string name="Filter">Filter</string>
+
+    <string name="lorem">
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+		In mollis est vitae erat laoreet consectetur. Mauris dui mauris,
+		dictum vel egestas vel, porta sed ante. Phasellus congue viverra ipsum,
+		in elementum arcu ultricies nec.Morbi tincidunt nisl lacinia, placerat nisi eget, luctus tortor.
+		Morbi efficitur dictum leo, sit amet volutpat lorem sodales nec. Quisque et erat et turpis fringilla condimentum.
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris auctor vulputate libero vitae iaculis.
+		Curabitur id blandit quam. Praesent massa ante, pulvinar vitae sagittis commodo, scelerisque porttitor eros.
+		Mauris suscipit a enim nec congue. Mauris tristique cursus aliquet. Nunc quis hendrerit nunc. Praesent tristique tellus purus,
+		a pretium ex gravida id. Cras laoreet malesuada nulla, at bibendum metus ultricies a. Fusce eu ornare arcu. Proin ut molestie est.
+		Vestibulum quis vehicula erat. Nam sed tempus nibh. Sed tortor ante, maximus venenatis odio sed, ultricies maximus lectus.
+		Aliquam sed volutpat ligula. Integer bibendum, magna ac lacinia suscipit,
+		risus libero rutrum justo, sed tempus augue tellus eget est. Curabitur convallis augue nisl,
+		id efficitur urna posuere faucibus. Ut sed egestas nulla, eu finibus metus. Nunc a arcu ante.
+		Aenean ullamcorper dolor non condimentum congue. Aenean mauris nunc, pellentesque at placerat vitae,
+		aliquet quis orci. Curabitur maximus augue ut bibendum sagittis.
+	</string>
+    <string name="AdsAdded">Ads Added</string>
+    <string name="SubscribetoCategory">Subscribe to categories</string>
+    <string name="MyAds">My Ads</string>
+    <string name="MyBusiness">My Business</string>
+    <string name="Addedin">Added In</string>
+    <string name="Contact">Contact</string>
+    <string name="Subscrition">Description</string>
+    <string name="BusinessName">Business name</string>
+
+
+</resources>

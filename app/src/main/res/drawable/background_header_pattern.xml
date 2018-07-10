@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <color android:color="@color/colorPrimary" />
+    </item>
+
+    <item android:drawable="@drawable/header_pattern">
+        <bitmap
+            android:filter="true"
+            android:gravity="top"
+            android:src="@drawable/header_pattern"
+            android:tileMode="mirror" />
+    </item>
+
+</layer-list>

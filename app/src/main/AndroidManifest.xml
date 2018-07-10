@@ -1,0 +1,73 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.brainsocket.globalpages">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission-sdk-23 android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!--<meta-data-->
+            <!--android:name="com.brainsocket.globalpages.configrations.GlideConfiguration"-->
+            <!--android:value="GlideModule" />-->
+
+
+        <activity android:name=".activities.SplashActivity">
+
+        </activity>
+
+        <activity
+            android:name=".activities.MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".activities.SigninActivity">
+
+        </activity>
+
+        <activity
+            android:name=".activities.SignupActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
+
+        <activity android:name=".activities.ForgotPasswordActivity">
+
+        </activity>
+
+        <activity android:name=".activities.BusinessAddActivity">
+
+        </activity>
+
+        <activity android:name=".activities.ProfileActivity">
+
+        </activity>
+
+        <activity android:name=".activities.BusinessSearchMapActivity">
+
+        </activity>
+
+        <activity android:name=".activities.PostSearchFilterActivity">
+
+        </activity>
+        <activity android:name=".activities.PostDetailsActivity">
+
+        </activity>
+
+        <activity android:name=".activities.testActivity">
+
+        </activity>
+
+    </application>
+
+</manifest>
