@@ -19,16 +19,16 @@
 
 
         <activity android:name=".activities.SplashActivity">
-
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
         </activity>
 
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
+
         </activity>
 
         <activity android:name=".activities.SigninActivity">
