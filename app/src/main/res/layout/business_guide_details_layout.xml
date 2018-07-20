@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/annonce.main.coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/flexible.example.appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/profileHeaderColor"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/flexible.example.collapsing"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:elevation="0dp"
+                android:minHeight="?android:actionBarSize"
+                app:contentScrim="@color/colorPrimary"
+                app:expandedTitleMarginBottom="94dp"
+                app:expandedTitleTextAppearance="@style/CollapsingTextAppearance.Inverse"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                app:title="">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.brainsocket.mainlibrary.SupportViews.ViewPagers.RtlViewPager
+                        android:id="@+id/mediaViewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        app:SwipePager="all" />
+
+                    <com.brainsocket.mainlibrary.ViewPagerIndicator.CircleIndicator.CircleIndicator
+                        android:id="@+id/viewPagerIndicator"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="40dp"
+                        app:ci_drawable="@drawable/selected_indicator"
+                        app:ci_drawable_unselected="@drawable/unselected_indicator" />
+
+
+                </RelativeLayout>
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:behavior_overlapTop="60dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/flexible.example.cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="15dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/info_Layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/profileHeaderColor"
+                        android:paddingEnd="@dimen/md_padding"
+                        android:paddingRight="@dimen/md_padding"
+                        android:paddingTop="@dimen/md_padding">
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/businessTitle"
+                            style="@style/AppTheme.TextAppearance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start|left"
+                            android:paddingLeft="@dimen/md_margin"
+                            android:paddingStart="@dimen/md_margin"
+                            android:text="Dr Abdo Al rahim fathi"
+                            android:textAlignment="gravity"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/settingBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/md_margin"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:srcCompat="@drawable/ic_nearby_white" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/businessSubCategories"
+                            style="@style/AppTheme.TextAppearance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start|left"
+                            android:paddingLeft="@dimen/md_margin"
+                            android:paddingStart="@dimen/md_margin"
+                            android:text="Eye Surgent"
+                            android:textAlignment="gravity"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            app:layout_constraintTop_toBottomOf="@+id/businessTitle" />
+
+                        <View
+                            android:id="@+id/subCategorySperator"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/sperator"
+                            android:layout_marginLeft="@dimen/md_margin"
+                            android:layout_marginStart="@dimen/md_margin"
+                            android:background="@color/colorPrimary"
+                            app:layout_constraintLeft_toLeftOf="@+id/businessSubCategories"
+                            app:layout_constraintTop_toBottomOf="@+id/businessSubCategories"
+                            app:layout_constraintWidth_default="percent"
+                            app:layout_constraintWidth_percent="0.3"
+                            app:layout_goneMarginLeft="@dimen/md_margin"
+                            app:layout_goneMarginStart="@dimen/md_margin" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible"
+                            app:layout_constraintTop_toBottomOf="@+id/subCategorySperator">
+
+
+                            <LinearLayout
+                                android:id="@+id/categoryLayout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/locationLayout"
+                                android:layout_marginLeft="@dimen/md_margin"
+                                android:layout_marginStart="@dimen/md_margin"
+                                android:layout_marginTop="@dimen/md_margin"
+                                android:orientation="vertical">
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    style="@style/AppTheme.TextAppearanceSmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start|left"
+                                    android:text="@string/Category"
+                                    android:textAlignment="gravity"
+                                    android:textColor="@color/lightgray" />
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    style="@style/AppTheme.TextAppearance"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="Medicine"
+                                    android:textAlignment="gravity"
+                                    android:textColor="@color/white"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/subCateogryLayout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/categoryLayout"
+                                android:layout_marginLeft="@dimen/md_margin"
+                                android:layout_marginStart="@dimen/md_margin"
+                                android:layout_marginTop="@dimen/md_margin"
+                                android:orientation="vertical">
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    style="@style/AppTheme.TextAppearanceSmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start|left"
+                                    android:text="@string/SubCategory"
+                                    android:textAlignment="gravity"
+                                    android:textColor="@color/lightgray" />
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    style="@style/AppTheme.TextAppearance"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
+                                    android:text="Eye"
+                                    android:textAlignment="gravity"
+                                    android:textColor="@color/white"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/cityLayout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/subCateogryLayout"
+                                android:layout_marginLeft="@dimen/md_margin"
+                                android:layout_marginStart="@dimen/md_margin"
+                                android:layout_marginTop="@dimen/md_margin"
+                                android:orientation="vertical">
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    style="@style/AppTheme.TextAppearanceSmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start|left"
+                                    android:text="@string/City"
+                                    android:textAlignment="gravity"
+                                    android:textColor="@color/lightgray" />
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    style="@style/AppTheme.TextAppearance"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="Damacus"
+                                    android:textAlignment="gravity"
+                                    android:textColor="@color/white"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/cityLayout"
+                                android:layout_marginLeft="@dimen/md_margin"
+                                android:layout_marginStart="@dimen/md_margin"
+                                android:layout_marginTop="@dimen/md_margin"
+                                android:orientation="vertical">
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    style="@style/AppTheme.TextAppearanceSmall"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start|left"
+                                    android:text="@string/Area"
+                                    android:textAlignment="gravity"
+                                    android:textColor="@color/lightgray" />
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    style="@style/AppTheme.TextAppearance"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="Al-Mazeh"
+                                    android:textAlignment="gravity"
+                                    android:textColor="@color/white"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/contactContainer"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_below="@id/cityLayout"
+                                android:layout_marginLeft="@dimen/md_margin"
+                                android:layout_marginStart="@dimen/md_margin"
+                                android:layout_marginTop="@dimen/md_margin"
+                                android:orientation="vertical">
+
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    style="@style/AppTheme.TextAppearance"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center|bottom"
+                                    android:drawableLeft="@drawable/ic_phone_white_24dp"
+                                    android:drawablePadding="@dimen/md_padding"
+                                    android:drawableStart="@drawable/ic_phone_white_24dp"
+                                    android:text="@string/Contact"
+                                    android:textAlignment="gravity"
+                                    android:textColor="@color/white"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/info_Layout">
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/categoryTitle"
+                            style="@style/AppTheme.TextAppearance"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/md_margin"
+                            android:text="@string/Subscrition"
+                            android:textColor="@color/profileHeaderColor"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:id="@+id/categorySperator"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/sperator"
+                            android:background="@color/colorPrimary"
+                            app:layout_constraintTop_toBottomOf="@+id/categoryTitle"
+                            app:layout_constraintWidth_default="percent"
+                            app:layout_constraintWidth_percent="0.3" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/adsDescription"
+                            style="@style/AppTheme.TextAppearance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start|left"
+                            android:layout_marginBottom="@dimen/lg_margin"
+                            android:paddingLeft="@dimen/md_margin"
+                            android:paddingStart="@dimen/md_margin"
+                            android:text="Ad desctiption that advert about they add, description the app about the description the app about the plah plah ....."
+                            android:textAlignment="gravity"
+                            android:textColor="@color/grayDarkTextColor"
+                            android:textStyle="bold"
+                            app:layout_constraintTop_toBottomOf="@+id/categorySperator" />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/servicesAndProducts"
+                            style="@style/AppTheme.TextAppearance"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/md_margin"
+                            android:text="@string/ServicesAndProducts"
+                            android:textColor="@color/profileHeaderColor"
+                            android:textStyle="bold"
+                            app:layout_constraintTop_toBottomOf="@+id/adsDescription" />
+
+                        <View
+                            android:id="@+id/servicesAndProductsSperator"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/sperator"
+                            android:background="@color/colorPrimary"
+                            app:layout_constraintTop_toBottomOf="@+id/servicesAndProducts"
+                            app:layout_constraintWidth_default="percent"
+                            app:layout_constraintWidth_percent="0.3" />
+
+                        <com.brainsocket.mainlibrary.SupportViews.ViewPagers.RtlViewPager
+                            android:id="@+id/businessViewPager"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:layout_alignParentTop="true"
+                            app:SwipePager="all"
+                            app:layout_constraintTop_toBottomOf="@+id/servicesAndProductsSperator" />
+
+
+                        <android.support.v7.widget.AppCompatButton
+                            android:id="@+id/contactBtn"
+                            style="@style/AppTheme.NormalButtonStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/md_margin"
+                            android:layout_marginBottom="@dimen/lg_margin"
+                            android:layout_marginTop="@dimen/lg_margin"
+                            android:layout_weight="4"
+                            android:background="@drawable/button_bg"
+                            android:drawableLeft="@drawable/ic_phone_white_24dp"
+                            android:drawableStart="@drawable/ic_phone_white_24dp"
+                            android:elevation="@dimen/elevation"
+                            android:paddingEnd="@dimen/lg_padding"
+                            android:paddingLeft="@dimen/lg_padding"
+                            android:paddingRight="@dimen/lg_padding"
+                            android:paddingStart="@dimen/lg_padding"
+                            android:shadowColor="@color/black"
+                            android:text="@string/Contact"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/businessViewPager"
+                            app:layout_constraintWidth_percent="0.5" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            app:layout_constraintTop_toBottomOf="@+id/contactBtn" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </android.support.v4.widget.NestedScrollView>
+
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_post_details_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
+
+

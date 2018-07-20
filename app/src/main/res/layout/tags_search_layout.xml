@@ -23,14 +23,13 @@
                 android:id="@+id/searchEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/md_margin"
                 android:layout_toEndOf="@+id/selectedTags"
                 android:layout_toRightOf="@+id/selectedTags"
                 android:background="@color/transparent"
                 android:gravity="start|left"
                 android:hint="@string/Searchkeyword"
                 android:layoutDirection="ltr"
-                android:layout_margin="@dimen/md_margin"
                 android:minWidth="100dp"
                 android:textAlignment="viewStart" />
 

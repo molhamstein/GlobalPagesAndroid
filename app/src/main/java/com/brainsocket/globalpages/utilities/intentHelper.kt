@@ -35,17 +35,25 @@ class intentHelper {
         }
 
         fun startBusinessAddActivity(context: Context) {
-            var intent = Intent(context, BusinessAddActivity::class.java)
+            var intent = Intent(context, BusinessGuideAddActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
+
+        fun startBusinessGuideDetailsActivity(context: Context) {
+            var intent = Intent(context, BusinessGuideDetailsActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
 
 
-        fun startSearchMapActivity(context: Context) {
-            var intent = Intent(context, BusinessSearchMapActivity::class.java)
+        fun startPostAddActivity(context: Context, userId: String = "-1") {
+            var intent = Intent(context, PostAddActivity::class.java)
+            intent.putExtra(PostAddActivity.USER_ID_TAG, userId)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
+
 
         fun startPostDetailsActivity(context: Context, postId: String) {
             var intent = Intent(context, PostDetailsActivity::class.java)
@@ -55,7 +63,7 @@ class intentHelper {
         }
 
         fun startPostSearchFilterActivity(context: Context) {
-            var intent = Intent(context, PostSearchFilterActivity::class.java)
+            var intent = Intent(context, PostSearchActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
@@ -66,6 +74,23 @@ class intentHelper {
             context.startActivity(intent)
         }
 
+        fun startBusinessGuideActivity(context: Context) {
+            var intent = Intent(context, BusinessGuideSearchActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
+
+        fun startNearByPharmaciesActivity(context: Context) {
+            var intent = Intent(context, PharmacyNearByActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
+
+        fun startDutyPharmacyActivity(context: Context) {
+            var intent = Intent(context, PharmacyDutySearchActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
 
     }
 }

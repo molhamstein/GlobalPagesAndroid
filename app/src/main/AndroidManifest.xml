@@ -13,10 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--<meta-data-->
-            <!--android:name="com.brainsocket.globalpages.configrations.GlideConfiguration"-->
-            <!--android:value="GlideModule" />-->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
 
+        <!--<meta-data-->
+        <!--android:name="com.brainsocket.globalpages.configrations.GlideConfiguration"-->
+        <!--android:value="GlideModule" />-->
 
         <activity android:name=".activities.SplashActivity">
             <intent-filter>
@@ -30,6 +33,15 @@
             android:label="@string/app_name">
 
         </activity>
+
+        <activity
+            android:name=".activities.CheckLocationActivity"
+            android:theme="@style/Theme.Transparent">
+
+        </activity>
+
+
+        <!--Registration Activities started-->
 
         <activity android:name=".activities.SigninActivity">
 
@@ -45,28 +57,53 @@
 
         </activity>
 
-        <activity android:name=".activities.BusinessAddActivity">
-
-        </activity>
-
         <activity android:name=".activities.ProfileActivity">
 
         </activity>
 
-        <activity android:name=".activities.BusinessSearchMapActivity">
+        <!--Registration Activities ended-->
+
+        <!--Business Activities Started-->
+
+        <activity android:name=".activities.BusinessGuideAddActivity">
 
         </activity>
 
-        <activity android:name=".activities.PostSearchFilterActivity">
+        <activity android:name=".activities.BusinessGuideDetailsActivity">
+
+        </activity>
+
+        <activity android:name=".activities.BusinessGuideSearchActivity">
+
+        </activity>
+
+        <!--Business Activities Started-->
+
+
+        <!--Post Activities started-->
+
+        <activity android:name=".activities.PostAddActivity">
+
+        </activity>
+        <activity android:name=".activities.PostSearchActivity">
 
         </activity>
         <activity android:name=".activities.PostDetailsActivity">
 
         </activity>
+        <!--Post Activities ended-->
+
 
         <activity android:name=".activities.testActivity">
 
         </activity>
+        <activity android:name=".activities.PharmacyNearByActivity">
+
+        </activity>
+        <activity android:name=".activities.PharmacyDutySearchActivity">
+
+        </activity>
+
 
     </application>
 

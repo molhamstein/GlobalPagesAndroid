@@ -23,5 +23,7 @@ class CategoryViewHolder : RecyclerView.ViewHolder {
         category_toggle.textOff = category.getTitle()
         category_toggle.textOn = category.getTitle()
         category_toggle.text = category.getTitle()
+        category_toggle.setOnCheckedChangeListener(null)
+        category_toggle.isChecked = category.isSelected
     }
 }

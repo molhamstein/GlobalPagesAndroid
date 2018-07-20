@@ -2,13 +2,12 @@ package com.brainsocket.globalpages.activities
 
 import android.os.Bundle
 import android.support.v7.widget.*
-import android.util.Log
 import android.view.View
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.brainsocket.globalpages.R
-import com.brainsocket.globalpages.adapters.BusinessGuideRecyclerViewAdapter
+import com.brainsocket.globalpages.adapters.BusinessGuideSliderRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.PostRecyclerViewAdapter
 import com.brainsocket.globalpages.data.entities.Volume
 import com.brainsocket.globalpages.di.component.DaggerVolumesComponent
@@ -21,6 +20,7 @@ import com.brainsocket.globalpages.utilities.intentHelper
 import com.brainsocket.globalpages.utilities.mainHelper
 import com.brainsocket.globalpages.views.TagSearchView
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
+import com.brainsocket.mainlibrary.Views.NotificationBadge
 import com.brainsocket.mainlibrary.Views.Stateslayoutview
 import javax.inject.Inject
 
@@ -47,6 +47,9 @@ class MainActivity : BaseActivity(), VolumesContract.View {
     @BindView(R.id.tagSearch)
     lateinit var tagSearch: TagSearchView
 
+    @BindView(R.id.badge)
+    lateinit var badge: NotificationBadge
+
     fun initToolBar() {
         toolBar.setTitle(R.string.app_name)
         setSupportActionBar(toolBar)
@@ -66,7 +69,7 @@ class MainActivity : BaseActivity(), VolumesContract.View {
         var snapHelper = LinearSnapHelper()
         businessGuideRecyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         snapHelper.attachToRecyclerView(businessGuideRecyclerView)
-        businessGuideRecyclerView.adapter = BusinessGuideRecyclerViewAdapter(this)
+        businessGuideRecyclerView.adapter = BusinessGuideSliderRecyclerViewAdapter(this, DummydataRepositories.getBusinessGuideList())
     }
 
     fun initVolumesRecyclerView() {
@@ -81,9 +84,15 @@ class MainActivity : BaseActivity(), VolumesContract.View {
         initVolumesRecyclerView()
         initDI()
 
-//        intentHelper.startBusinessAddActivity(context = this)
+        badge.setNumber(6, true)
+
         tagSearch.addSuggestionList(DummydataRepositories.getTagsRepositories())
         volumesRecyclerView.adapter = PostRecyclerViewAdapter(MainActivity@ this, DummydataRepositories.getPostList())
+
+//        intentHelper.startBusinessAddActivity(this)
+//        intentHelper.startPostAddActivity(this)
+//        intentHelper.startBusinessGuideDetailsActivity(this)
+
     }
 
     override fun onBackPressed() {
@@ -109,6 +118,22 @@ class MainActivity : BaseActivity(), VolumesContract.View {
             intentHelper.startSignInActivity(MainActivity@ this)
     }
 
+    @OnClick(R.id.businessGuideBtn)
+    fun onBusinessGuideClick(view: View) {
+        intentHelper.startBusinessGuideActivity(this)
+    }
+
+    @OnClick(R.id.findNearByBtn)
+    fun onFindNearByClick(view: View) {
+        intentHelper.startNearByPharmaciesActivity(this)
+    }
+
+    @OnClick(R.id.dutyPharmacyBtn)
+    fun onDutyPharmacyClick(view: View) {
+        intentHelper.startDutyPharmacyActivity(this)
+    }
+
+
     /*Presenter started*/
     override fun showProgress(show: Boolean) {
         if (show) {
@@ -116,7 +141,6 @@ class MainActivity : BaseActivity(), VolumesContract.View {
         } else {
             stateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
         }
-        Log.v("", "")
     }
 
     override fun showLoadErrorMessage(visible: Boolean) {
@@ -125,7 +149,6 @@ class MainActivity : BaseActivity(), VolumesContract.View {
         } else {
             stateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
         }
-        Log.v("", "")
     }
 
     override fun showEmptyView(visible: Boolean) {
@@ -134,12 +157,10 @@ class MainActivity : BaseActivity(), VolumesContract.View {
         } else {
             stateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
         }
-        Log.v("", "")
     }
 
     override fun loadedData(volume: Volume) {
         volumesRecyclerView.adapter = PostRecyclerViewAdapter(MainActivity@ this, volume.posts)
-        Log.v("", "")
     }
 
     override fun noMoreData() {

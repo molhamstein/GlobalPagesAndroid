@@ -1,5 +1,7 @@
 package com.brainsocket.globalpages.data.entities
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+
 /**
  * Created by Adhamkh on 2018-07-03.
  */
@@ -7,6 +9,9 @@ class City {
     var titleAr: String = ""
     var titleEn: String = ""
     var id: String = ""
+
+    @JsonIgnore
+    var isSelected: Boolean = false
 
     constructor()
 

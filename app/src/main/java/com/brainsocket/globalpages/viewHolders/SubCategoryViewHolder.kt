@@ -11,7 +11,7 @@ import com.brainsocket.globalpages.data.entities.SubCategory
 /**
  * Created by Adhamkh on 2018-07-03.
  */
-class SubCategoryViewHolder  : RecyclerView.ViewHolder {
+class SubCategoryViewHolder : RecyclerView.ViewHolder {
     @BindView(R.id.subCategory_toggle)
     lateinit var subCategory_toggle: ToggleButton
 
@@ -23,5 +23,7 @@ class SubCategoryViewHolder  : RecyclerView.ViewHolder {
         subCategory_toggle.textOff = subCategory.getTitle()
         subCategory_toggle.textOn = subCategory.getTitle()
         subCategory_toggle.text = subCategory.getTitle()
+        subCategory_toggle.setOnCheckedChangeListener(null)
+        subCategory_toggle.isChecked = subCategory.isSelected
     }
 }

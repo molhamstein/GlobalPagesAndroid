@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
 
@@ -28,5 +30,8 @@ dependencies {
     implementation "com.android.support:design:$SUPPORT_VERSION"
     implementation "com.android.support:recyclerview-v7:$SUPPORT_VERSION"
     implementation "com.android.support:preference-v7:$SUPPORT_VERSION"
-
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }

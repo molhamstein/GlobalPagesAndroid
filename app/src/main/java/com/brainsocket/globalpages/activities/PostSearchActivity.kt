@@ -16,7 +16,7 @@ import com.brainsocket.globalpages.repositories.DummydataRepositories
 /**
  * Created by Adhamkh on 2018-06-29.
  */
-class PostSearchFilterActivity : BaseActivity() {
+class PostSearchActivity : BaseActivity() {
 
     @BindView(R.id.toolbar)
     lateinit var toolbar: Toolbar
@@ -57,7 +57,7 @@ class PostSearchFilterActivity : BaseActivity() {
     }
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
-        setContentView(R.layout.search_filter_layout)
+        setContentView(R.layout.post_search_layout)
         ButterKnife.bind(this)
         initToolBar()
         initRecyclerViews()

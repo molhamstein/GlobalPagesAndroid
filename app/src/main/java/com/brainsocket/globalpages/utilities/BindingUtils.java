@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import com.brainsocket.globalpages.R;
 import com.brainsocket.globalpages.configrations.GlideApp;
+import com.brainsocket.globalpages.data.entities.BusinessGuide;
 import com.brainsocket.globalpages.data.entities.MediaEntity;
 import com.brainsocket.globalpages.data.entities.Post;
 
@@ -18,6 +19,19 @@ import java.util.Random;
 
 public class BindingUtils {
 
+    public static void loadBusinessGuideImage(ImageView view, BusinessGuide businessGuide) {
+        try {
+            if (businessGuide.getImageUrl().isEmpty()) {
+                view.setVisibility(View.GONE);
+                return;
+            }
+            Context context = view.getContext();
+            GlideApp.with(context).load(businessGuide.getImageUrl()).error(R.mipmap.ic_launcher)
+                    .placeholder(R.mipmap.ic_launcher).into(view);
+        } catch (Exception ex) {
+            Log.v("image load", ex.getMessage());
+        }
+    }
 
     public static void loadPostImage(ImageView view, View container, Post post) {
         try {

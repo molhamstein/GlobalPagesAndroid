@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/background_primary_layout" />
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_post_add_layout" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/baseContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/white"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/cardRadius"
+                app:cardElevation="@dimen/lg_elevation"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="@dimen/md_padding">
+
+                    <TextView
+                        style="@style/AppTheme.TextAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/AdTitleMaxchars"
+                        android:textColor="@color/lightgray" />
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/adTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/HouseForSale"
+                        app:backgroundTint="@color/lightgray" />
+
+                    <TextView
+                        style="@style/AppTheme.TextAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/Description"
+                        android:textColor="@color/lightgray" />
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/adDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/AboutYourAd"
+                        android:lines="3"
+                        app:backgroundTint="@color/lightgray" />
+
+                    <TextView
+                        style="@style/AppTheme.TextAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/sm_margin"
+                        android:text="@string/Images"
+                        android:textColor="@color/lightgray" />
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/adImages"
+                                android:layout_width="wrap_content"
+                                android:layout_height="56dp"
+                                app:tagBackgroundColor="@color/colorPrimary" />
+
+                            <ImageView
+                                android:id="@+id/addAttachmentBtn"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="top"
+                                android:layout_margin="@dimen/sm_margin"
+                                android:background="@drawable/rectangle_gray"
+                                android:padding="@dimen/md_padding"
+                                app:srcCompat="@drawable/ic_add_white_24dp" />
+                        </LinearLayout>
+
+                    </HorizontalScrollView>
+
+
+                    <android.support.v4.widget.Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/sperator"
+                        android:background="@color/lightgray" />
+
+                    <TextView
+                        style="@style/AppTheme.TextAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/sm_margin"
+                        android:text="@string/Category"
+                        android:textColor="@color/lightgray" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/adCategories"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/recyclerviewTagHeight"
+                        app:tagBackgroundColor="@color/colorPrimary" />
+
+                    <TextView
+                        style="@style/AppTheme.TextAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/sm_margin"
+                        android:text="@string/SubCategory"
+                        android:textColor="@color/lightgray" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/adSubCategories"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/recyclerviewTagHeight"
+                        app:tagBackgroundColor="@color/colorPrimary" />
+
+
+                    <TextView
+                        style="@style/AppTheme.TextAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/sm_margin"
+                        android:text="@string/City"
+                        android:textColor="@color/lightgray" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/adCities"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/recyclerviewTagHeight"
+                        app:tagBackgroundColor="@color/colorPrimary" />
+
+
+                    <TextView
+                        style="@style/AppTheme.TextAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/md_margin"
+                        android:text="@string/Area"
+                        android:textColor="@color/lightgray" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/adLocations"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/recyclerviewTagHeight"
+                        app:tagBackgroundColor="@color/colorPrimary" />
+
+                    <android.support.v7.widget.AppCompatButton
+                        android:id="@+id/adAddBtn"
+                        style="@style/AppTheme.NormalButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/md_margin"
+                        android:background="@drawable/button_bg"
+                        android:padding="@dimen/md_padding"
+                        android:shadowColor="@color/black"
+                        android:text="@string/RegisterBusiness"
+                        android:textColor="@color/white" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/resultContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:alpha="0"
+        android:background="@color/transparent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/submittedTitle"
+            style="@style/AppTheme.TitleTextAppearance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/AddSubmitted"
+            android:textAlignment="gravity"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/submittedIcon" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/submittedIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/adBackHomeBtn"
+            style="@style/AppTheme.NormalButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/submittedIcon"
+            android:layout_margin="@dimen/md_margin"
+            android:background="@drawable/button_bg"
+            android:padding="@dimen/md_padding"
+            android:shadowColor="@color/black"
+            android:text="@string/RegisterBusiness"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@+id/guideline2" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.8" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

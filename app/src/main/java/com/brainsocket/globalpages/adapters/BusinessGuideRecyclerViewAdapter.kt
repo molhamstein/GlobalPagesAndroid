@@ -5,26 +5,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.brainsocket.globalpages.R
-import com.brainsocket.globalpages.data.entities.BusinessGuideEntity
-import com.brainsocket.globalpages.utilities.intentHelper
+import com.brainsocket.globalpages.data.entities.BusinessGuide
 import com.brainsocket.globalpages.viewHolders.BusinessGuideViewHolder
 
 /**
- * Created by Adhamkh on 2018-06-28.
+ * Created by Adhamkh on 2018-07-18.
  */
-class BusinessGuideRecyclerViewAdapter constructor(var context: Context) : RecyclerView.Adapter<BusinessGuideViewHolder>() {
-
-    lateinit var businessGuideList: MutableList<BusinessGuideEntity>
-
-    init {
-        businessGuideList = mutableListOf()
-        businessGuideList.add(BusinessGuideEntity(context.resources.getColor(R.color.businessGuideColor1),
-                R.drawable.ic_nearby_24dp, R.string.businessGuideTitle1,
-                R.string.businessGuideDetails1))
-        businessGuideList.add(BusinessGuideEntity(context.resources.getColor(R.color.businessGuideColor2),
-                R.drawable.ic_nearby_24dp, R.string.businessGuideTitle2,
-                R.string.businessGuideDetails2))
-    }
+class BusinessGuideRecyclerViewAdapter constructor(var context: Context,var businessGuideList: MutableList<BusinessGuide>)
+    : RecyclerView.Adapter<BusinessGuideViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusinessGuideViewHolder {
         var view = LayoutInflater.from(context).inflate(R.layout.business_guide_item_layout, parent, false)
@@ -40,7 +28,7 @@ class BusinessGuideRecyclerViewAdapter constructor(var context: Context) : Recyc
         holder.bind(pojo)
 
         holder.itemView.setOnClickListener {
-            intentHelper.startSearchMapActivity(context)
+            //            intentHelper.startSearchMapActivity(context)
         }
     }
 

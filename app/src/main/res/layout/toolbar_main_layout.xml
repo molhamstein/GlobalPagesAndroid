@@ -24,6 +24,29 @@
             android:textColor="@color/white" />
 
         <ImageView
+            android:id="@+id/notificationBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/loginBtn"
+            android:layout_toStartOf="@+id/loginBtn"
+            android:src="@mipmap/ic_notification_24dp" />
+
+        <com.brainsocket.mainlibrary.Views.NotificationBadge
+            android:id="@+id/badge"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_alignBottom="@id/notificationBtn"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="-20dp"
+            android:layout_marginStart="-20dp"
+            android:layout_toEndOf="@+id/notificationBtn"
+            android:layout_toRightOf="@id/notificationBtn"
+            android:textSize="8sp"
+            app:nbBackground="@drawable/badge_bg_with_shadow"
+            app:nbMaxTextLength="2" />
+
+        <ImageView
             android:id="@+id/loginBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -1,5 +1,7 @@
 package com.brainsocket.globalpages.data.entities
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+
 /**
  * Created by Adhamkh on 2018-06-29.
  */
@@ -9,6 +11,10 @@ open class Category {
     var titleEn: String = ""
     var creationDate: String = ""
     var id: String = ""
+
+    @JsonIgnore
+    var isSelected: Boolean = false
+
 
     constructor()
 

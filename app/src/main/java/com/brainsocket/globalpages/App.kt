@@ -18,11 +18,11 @@ class App : MultiDexApplication() {
         super.onCreate()
         MultiDex.install(this)
 
-        val okHttpClient = OkHttpClient().newBuilder()
+//        val okHttpClient = OkHttpClient().newBuilder()
 //                .connectTimeout(600, TimeUnit.SECONDS)
 //                .readTimeout(600, TimeUnit.SECONDS)
 //                .addNetworkInterceptor()
-                .build()
+//                .build()
 //        AndroidNetworking.initialize(applicationContext, okHttpClient)
         AndroidNetworking.initialize(applicationContext)
         AndroidNetworking.setParserFactory(JacksonParserFactory())

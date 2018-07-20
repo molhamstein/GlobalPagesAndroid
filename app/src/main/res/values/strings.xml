@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Global Pages</string>
+
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDAbTRgO8FsaOZ_410l83nQb5G1-OhEdXo</string>
+
     <string name="contentDescription">content Description</string>
 
     <string name="signInHeader">Welcome to Global Pages \n Your best destination to find \n great deals around</string>
@@ -89,6 +92,20 @@
     <string name="Contact">Contact</string>
     <string name="Subscrition">Description</string>
     <string name="BusinessName">Business name</string>
+    <string name="BusinessGuide">Business Guide</string>
+    <string name="FindNearBy">Find near by</string>
+    <string name="OnDutyPharmacies">On duty pharmacies</string>
+    <string name="nearByPharmacies">Near By Pharmacies</string>
+    <string name="AddNewAd">Add New Ad</string>
+    <string name="AboutYourAd">About your ad</string>
+    <string name="Images">Images</string>
+    <string name="AdTitleMaxchars">Ad Title ( Max 35 chars )</string>
+    <string name="HouseForSale">House for sale</string>
+    <string name="RegisterBusiness">Register Business</string>
+    <string name="AddSubmitted">Add Submitted</string>
+    <string name="Edit">Edit</string>
+    <string name="ServicesAndProducts">Services and Products</string>
+    <string name="Ok">Ok</string>
 
 
 </resources>

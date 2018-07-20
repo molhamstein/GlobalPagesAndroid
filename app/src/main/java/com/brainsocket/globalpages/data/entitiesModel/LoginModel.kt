@@ -6,5 +6,4 @@ package com.brainsocket.globalpages.data.entitiesModel
 class LoginModel {
     var email: String = ""
     var password: String = ""
-
 }

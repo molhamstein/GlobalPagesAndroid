@@ -20,8 +20,8 @@ import com.brainsocket.globalpages.viewHolders.SigninViewHolder
 import javax.inject.Inject
 
 /**
- * Created by Adhamkh on 2018-06-08.
- */
+  * Created by Adhamkh on 2018-06-08.
+ **/
 class SigninActivity : BaseActivity(), SigninContract.View {
 
     @Inject
@@ -38,7 +38,6 @@ class SigninActivity : BaseActivity(), SigninContract.View {
         component.inject(this)
         presenter.attachView(this)
         presenter.subscribe()
-
     }
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
@@ -93,4 +92,5 @@ class SigninActivity : BaseActivity(), SigninContract.View {
         Log.v("", "")
     }
     /*Presenter ended*/
+
 }

@@ -44,15 +44,15 @@ class ForgotPasswordActivity : BaseActivity(), ForgotPasswordContract.View {
     }
 
     fun initToolBar() {
-        toolbar.setNavigationOnClickListener { onBackPressed() }
         setSupportActionBar(toolbar)
+        toolbar.setNavigationOnClickListener { onBackPressed() }
     }
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.forgotpassword_layout)
         ButterKnife.bind(this)
-        initDI()
         initToolBar()
+        initDI()
         viewHolder = ForgotPasswordViewHolder(findViewById(android.R.id.content))
         progressDialog = ProgressDialog.newInstance()
     }

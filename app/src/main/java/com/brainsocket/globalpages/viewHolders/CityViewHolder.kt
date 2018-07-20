@@ -24,5 +24,7 @@ class CityViewHolder : RecyclerView.ViewHolder {
         city_toggle.textOff = city.getTitle()
         city_toggle.textOn = city.getTitle()
         city_toggle.text = city.getTitle()
+        city_toggle.setOnCheckedChangeListener(null)
+        city_toggle.isChecked = city.isSelected
     }
 }
