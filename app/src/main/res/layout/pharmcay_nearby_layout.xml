@@ -61,4 +61,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/filter_container" />
 
+    <fragment
+        android:id="@+id/map"
+        class="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?android:actionBarSize" />
+
+
 </android.support.constraint.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.brainsocket.globalpages.activities
 
 import android.os.Bundle
 import android.support.v7.widget.*
+import android.util.Log
 import android.view.View
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -24,9 +25,7 @@ import com.brainsocket.mainlibrary.Views.NotificationBadge
 import com.brainsocket.mainlibrary.Views.Stateslayoutview
 import javax.inject.Inject
 
-/**
- * Created by Adhamkh on 2018-06-08.
- */
+
 class MainActivity : BaseActivity(), VolumesContract.View {
 
     @Inject
@@ -65,14 +64,14 @@ class MainActivity : BaseActivity(), VolumesContract.View {
         // presenter.loadDefaultVolume()
     }
 
-    fun initBusinessGuideRecyclerView() {
-        var snapHelper = LinearSnapHelper()
+    private fun initBusinessGuideRecyclerView() {
+        val snapHelper = LinearSnapHelper()
         businessGuideRecyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         snapHelper.attachToRecyclerView(businessGuideRecyclerView)
         businessGuideRecyclerView.adapter = BusinessGuideSliderRecyclerViewAdapter(this, DummydataRepositories.getBusinessGuideList())
     }
 
-    fun initVolumesRecyclerView() {
+    private fun initVolumesRecyclerView() {
         volumesRecyclerView.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
     }
 
@@ -89,9 +88,11 @@ class MainActivity : BaseActivity(), VolumesContract.View {
         tagSearch.addSuggestionList(DummydataRepositories.getTagsRepositories())
         volumesRecyclerView.adapter = PostRecyclerViewAdapter(MainActivity@ this, DummydataRepositories.getPostList())
 
-//        intentHelper.startBusinessAddActivity(this)
 //        intentHelper.startPostAddActivity(this)
+//        intentHelper.startBusinessAddActivity(this)
 //        intentHelper.startBusinessGuideDetailsActivity(this)
+
+//        intentHelper.startBusinessGuideSearchActivity(this)
 
     }
 
@@ -107,30 +108,35 @@ class MainActivity : BaseActivity(), VolumesContract.View {
     @OnClick(R.id.searchFilterBtn)
     fun onSearchFilterBtnClick(view: View) {
         intentHelper.startPostSearchFilterActivity(MainActivity@ this)
+        Log.v("View Clicked", view.id.toString())
     }
 
     @OnClick(R.id.loginBtn)
     fun onLoginBtnClick(view: View) {
-        var usr = userRepository(this).getUser()
+        val usr = userRepository(this).getUser()
         if (usr != null)
             intentHelper.startProfileActivity(this)
         else
             intentHelper.startSignInActivity(MainActivity@ this)
+        Log.v("View Clicked", view.id.toString())
     }
 
     @OnClick(R.id.businessGuideBtn)
     fun onBusinessGuideClick(view: View) {
-        intentHelper.startBusinessGuideActivity(this)
+        intentHelper.startBusinessGuideSearchActivity(this)
+        Log.v("View Clicked", view.id.toString())
     }
 
     @OnClick(R.id.findNearByBtn)
     fun onFindNearByClick(view: View) {
         intentHelper.startNearByPharmaciesActivity(this)
+        Log.v("View Clicked", view.id.toString())
     }
 
     @OnClick(R.id.dutyPharmacyBtn)
     fun onDutyPharmacyClick(view: View) {
         intentHelper.startDutyPharmacyActivity(this)
+        Log.v("View Clicked", view.id.toString())
     }
 
 

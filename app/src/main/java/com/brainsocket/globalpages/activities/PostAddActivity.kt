@@ -1,10 +1,8 @@
 package com.brainsocket.globalpages.activities
 
-import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.os.Bundle
-import android.support.annotation.FloatRange
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
@@ -19,9 +17,7 @@ import com.brainsocket.globalpages.adapters.*
 import com.brainsocket.globalpages.data.entities.Attachment
 import com.brainsocket.globalpages.repositories.DummydataRepositories
 
-/**
- * Created by Adhamkh on 2018-07-18.
- */
+
 class PostAddActivity : BaseActivity() {
     companion object {
         var USER_ID_TAG: String = "USER_ID"
@@ -52,12 +48,12 @@ class PostAddActivity : BaseActivity() {
     @BindView(R.id.resultContainer)
     lateinit var resultContainer: View
 
-    fun initToolBar() {
+    private fun initToolBar() {
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener { onBackPressed() }
     }
 
-    fun initRecyclerViews() {
+    private fun initRecyclerViews() {
         adImages.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         adImages.adapter = AttachmentRecyclerViewAdapter(this, DummydataRepositories.getAttachmentList())
 
@@ -87,30 +83,33 @@ class PostAddActivity : BaseActivity() {
     @OnClick(R.id.addAttachmentBtn)
     fun onAddAttachmentClick(view: View) {
         (adImages.adapter as AttachmentRecyclerViewAdapter).addItem(Attachment())
+        Log.v("View Clicked", view.id.toString())
     }
 
     @OnClick(R.id.adAddBtn)
     fun onAdAddBtn(view: View) {
         animate()
-        Log.v("", "")
+        Log.v("View Clicked", view.id.toString())
     }
 
     @OnClick(R.id.adBackHomeBtn)
     fun onAddBackHomeClick(view: View) {
         finish()
+        Log.v("View Clicked", view.id.toString())
     }
 
-    fun animate() {
+    private fun animate() {
         resultContainer.visibility = View.VISIBLE
-        var baseAnimator: ObjectAnimator = ObjectAnimator.ofFloat(baseContainer, "alpha", 1.0f, 0.0f)
-        var baseTranslationYAnimator: ObjectAnimator = ObjectAnimator.ofFloat(baseContainer, "translationY", 0.0f, -baseContainer.height.toFloat())
-        var baseTranslationZAnimator: ObjectAnimator = ObjectAnimator.ofFloat(baseContainer, "translationZ", 0.0f, 10.0f)
+        val baseAnimator: ObjectAnimator = ObjectAnimator.ofFloat(baseContainer, "alpha", 1.0f, 0.0f)
+        val baseTranslationYAnimator: ObjectAnimator = ObjectAnimator.ofFloat(baseContainer, "translationY", 0.0f, -baseContainer.height.toFloat())
+        val baseTranslationZAnimator: ObjectAnimator = ObjectAnimator.ofFloat(baseContainer, "translationZ", 0.0f, 10.0f)
 
-        var resultAnimator: ObjectAnimator = ObjectAnimator.ofFloat(resultContainer, "alpha", 0.0f, 1.0f)
-        var resultTranslationYAnimator: ObjectAnimator = ObjectAnimator.ofFloat(resultContainer, "translationY", baseContainer.height.toFloat(), .0f)
-        var resultTranslationZAnimator: ObjectAnimator = ObjectAnimator.ofFloat(resultContainer, "translationZ", 10.0f, 0.0f)
+        //Hard code toolbar margin top
+        val resultAnimator: ObjectAnimator = ObjectAnimator.ofFloat(resultContainer, "alpha", 0.0f, 1.0f)
+        val resultTranslationYAnimator: ObjectAnimator = ObjectAnimator.ofFloat(resultContainer, "translationY", baseContainer.height.toFloat() - 56, .0f)
+        val resultTranslationZAnimator: ObjectAnimator = ObjectAnimator.ofFloat(resultContainer, "translationZ", 10.0f, 0.0f)
 
-        var animatorSet = AnimatorSet()
+        val animatorSet = AnimatorSet()
         animatorSet.interpolator = LinearInterpolator()
         animatorSet.duration = 2000
         animatorSet.playTogether(baseAnimator, resultAnimator, baseTranslationYAnimator, baseTranslationZAnimator,

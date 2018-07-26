@@ -105,7 +105,9 @@
                             android:paddingStart="@dimen/md_padding"
                             android:text="Real-Estate"
                             android:textAlignment="center"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -289,7 +291,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/md_margin"
-                            android:text="@string/Subscrition"
+                            android:text="@string/Description"
                             android:textColor="@color/profileHeaderColor"
                             android:textStyle="bold" />
 
@@ -298,6 +300,8 @@
                             android:layout_width="0dp"
                             android:layout_height="@dimen/sperator"
                             android:background="@color/colorPrimary"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/categoryTitle"
                             app:layout_constraintWidth_default="percent"
                             app:layout_constraintWidth_percent="0.3" />

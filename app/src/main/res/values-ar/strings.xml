@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="contentDescription">محتوى الصورة</string>
+
+    <!--SignUp started-->
+    <string name="Email">البريد الإلكتروني</string>
+    <string name="UserName">اسم المستخدم</string>
+    <string name="Password">كلمة السر</string>
+    <string name="Birthdate">تاريخ الميلاد</string>
+    <string name="male">ذكر</string>
+    <string name="female">انثى</string>
+    <string name="businessOwner">أنا صاحب عمل</string>
+    <string name="Accept">قبول</string>
+    <string name="privacypolicy">سياسة الخصوصية</string>
+    <string name="and">و</string>
+    <string name="termsandconditions">الأحكام والشروط</string>
+    <string name="SignUp">سجل</string>
+    <string name="haveanaccount">لديك حساب؟</string>
+    <string name="Login">تسجيل الدخول</string>
+    <string name="pleaseWait">الرجاء الإنتظار  &#8230;</string>
+    <string name="enteremail">أدخل البريد الإلكتروني</string>
+    <string name="entercorrectemail">أدخل بريد إلكتروني صحيح</string>
+    <string name="enterusername">أدخل اسم المستخدم</string>
+    <string name="enterpassword">أدخل كلمة السر</string>
+    <string name="accepttermsandconditions">أوافق على الشروط و الأحكام</string>
+    <string name="selectBirthDate">حدد تاريخ الميلاد</string>
+    <string name="invalidEmailorPassword">البريد الإلكتروني أو كلمة السر خاطئة</string>
+    <string name="checkInternetConnection">تحقق من اتصال الإنترنت</string>
+    <string name="Yes">نعم</string>
+    <string name="No">لا</string>
+    <string name="doYouWantAddFirstBusiness">هل تريد إضافة أول عمل لك</string>
+    <string name="AlreadyExisted">موجود مسبقا</string>
+
+    <!--Sign in started-->
+    <string name="signInHeader">مرحبًا بك في الصفحات العالمية \n أفضل وجهة للعثور على \n صفقات رائعة</string>
+    <string name="Forgotpassword">نسيت كلمة السر؟</string>
+    <string name="or">أو</string>
+    <string name="Register">تسجيل</string>
+    <string name="anewAccount">حساب جديد</string>
+
+    <!--forget password-->
+    <string name="forgotHeader">هل نسيت كلمة المرور الخاصة بك؟</string>
+    <string name="Submit">طلب</string>
+    <string name="resetPassword">إعادة تعيين كلمة المرور</string>
+    <string name="emailnotExisted">البريد الإلكتروني غير موجود</string>
+    <string name="resetPasswordSuccesfully">إعادة تعيين كلمة المرور بنجاح</string>
+
+    <!--filter started-->
+    <string name="Filter">الفلترة</string>
+    <string name="Searchkeyword">كلمة البحث</string>
+    <string name="Keyword">الكلمة</string>
+    <string name="Category">التصنيف</string>
+    <string name="SubCategory">الفئة الفرعية</string>
+    <string name="City">المدينة</string>
+    <string name="Area">المنطقة</string>
+    <string name="Apply">تطبيق</string>
+
+    <!--home-->
+    <string name="BusinessGuide">دليل الأعمال</string>
+    <string name="FindNearBy">البحث بالقرب منك</string>
+
+    <!--post details-->
+    <string name="Addedin">أضيف في</string>
+    <string name="Contact">اتصل</string>
+    <string name="Description">الوصف</string>
+
+    <!--profile-->
+    <string name="AdsAdded">الإعلانات المضافة</string>
+    <string name="SubscribetoCategory">اشترك في الأصناف</string>
+    <string name="MyAds">إعلاناتي</string>
+    <string name="MyBusiness">أعمالي</string>
+    <string name="Profile">الملف الشخصي</string>
+    <string name="MyProfile">ملفي الشخصي</string>
+
+    <!--add post-->
+    <string name="AddNewAd">إضافة إعلان جديد</string>
+    <string name="AdTitleMaxchars">عنوان الإعلان (الحد الأقصى 35 حرفًا)</string>
+    <string name="HouseForSale">منزل للبيع</string>
+    <string name="AboutYourAd">حول إعلانك</string>
+    <string name="Images">صور</string>
+    <string name="RegisterBusiness">تسجيل العمل</string>
+    <string name="AddSubmitted">تمت عملية الإضافة</string>
+    <string name="Backtohome">العودة للرئيسية</string>
+    <string name="WeWillReviewYourAdAndContactYouBack">سنتابع إعلانك ونقوم بالاتصال بك \n مرة أخرى</string>
+
+    <!--add business-->
+    <string name="AddBusiness">إضافة الأعمال</string>
+    <string name="Skip">تخطي</string>
+    <string name="BusinessName">الاسم التجاري</string>
+    <string name="Phonenumber">رقم الهاتف</string>
+    <string name="Phonenumber2">رقم الهاتف الثاني</string>
+    <string name="businessType">نوع العمل</string>
+    <string name="Location">الموقع</string>
+    <string name="Optional">(إختياري)</string>
+    <string name="Fax">الفاكس</string>
+
+    <!--business details-->
+    <string name="Edit">تعديل</string>
+    <string name="Ok">موافق</string>
+    <string name="ServicesAndProducts">الخدمات والمنتجات</string>
+    <string name="OnDutyPharmacies">الصيدليات المناوبة</string>
+
+
+</resources>

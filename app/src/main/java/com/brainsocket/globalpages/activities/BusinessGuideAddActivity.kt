@@ -3,6 +3,7 @@ package com.brainsocket.globalpages.activities
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -14,9 +15,7 @@ import com.brainsocket.globalpages.adapters.SubCategoryRecyclerViewAdapter
 import com.brainsocket.globalpages.data.entities.Attachment
 import com.brainsocket.globalpages.repositories.DummydataRepositories
 
-/**
- * Created by Adhamkh on 2018-06-08.
- */
+
 class BusinessGuideAddActivity : BaseActivity() {
 
     @BindView(R.id.businessImages)
@@ -28,7 +27,7 @@ class BusinessGuideAddActivity : BaseActivity() {
     @BindView(R.id.businessSubCategories)
     lateinit var businessSubCategories: RecyclerView
 
-    fun initRecyclerView() {
+    private fun initRecyclerView() {
         businessImages.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         businessImages.adapter = AttachmentRecyclerViewAdapter(this, DummydataRepositories.getAttachmentList())
 
@@ -50,11 +49,13 @@ class BusinessGuideAddActivity : BaseActivity() {
     @OnClick(R.id.addAttachmentBtn)
     fun onAddAttachmentClick(view: View) {
         (businessImages.adapter as AttachmentRecyclerViewAdapter).addItem(Attachment())
+        Log.v("View Clicked", view.id.toString())
     }
 
     @OnClick(R.id.skipBtn)
-    fun OnSkipClick(view: View) {
+    fun onSkipClick(view: View) {
         finish()
+        Log.v("View Clicked", view.id.toString())
     }
 
 }

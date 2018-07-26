@@ -2,7 +2,6 @@ package com.brainsocket.globalpages.activities
 
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
-import android.support.v4.app.DialogFragment
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.Toolbar
 import android.util.Log
@@ -19,9 +18,6 @@ import com.brainsocket.globalpages.dialogs.ContactDialog
 import com.brainsocket.globalpages.repositories.DummydataRepositories
 import com.brainsocket.mainlibrary.ViewPagerIndicator.CircleIndicator.CircleIndicator
 
-/**
- * Created by Adhamkh on 2018-07-19.
- */
 class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener {
 
     @BindView(R.id.mediaViewPager)
@@ -36,7 +32,7 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
     @BindView(R.id.toolbar)
     lateinit var toolbar: Toolbar
 
-    fun initToolBar() {
+    private fun initToolBar() {
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener {
             onBackPressed()
@@ -52,9 +48,8 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
 
         appbar.addOnOffsetChangedListener(this)
 
-
-
         initToolBar()
+
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
@@ -76,9 +71,9 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
     @Optional
     @OnClick(R.id.contactContainer, R.id.contactBtn)
     fun onContactContainerClick(view: View) {
-        var contactDialog = ContactDialog.newInstance()
+        val contactDialog = ContactDialog.newInstance()
         contactDialog.show(supportFragmentManager, ContactDialog.ContactDialog_Tag)
-        Log.v("", "")
+        Log.v("View Clicked", view.id.toString())
     }
 
 

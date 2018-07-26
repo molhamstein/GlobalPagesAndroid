@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
-            app:behavior_overlapTop="78dp"
+            app:behavior_overlapTop="90dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <android.support.v7.widget.CardView
@@ -165,7 +165,6 @@
 
                     </android.support.constraint.ConstraintLayout>
 
-
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -186,10 +185,19 @@
                             android:layout_width="0dp"
                             android:layout_height="@dimen/sperator"
                             android:background="@color/colorPrimary"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/categoryTitle"
                             app:layout_constraintWidth_default="percent"
                             app:layout_constraintWidth_percent="0.3" />
 
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/myCategories"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/recyclerviewTagHeight"
+                            android:layout_marginTop="@dimen/lg_margin"
+                            app:layout_constraintTop_toBottomOf="@id/categorySperator"
+                            app:tagBackgroundColor="@color/colorPrimary" />
 
                         <android.support.v7.widget.AppCompatTextView
                             android:id="@+id/AdsTitle"
@@ -200,17 +208,26 @@
                             android:text="@string/MyAds"
                             android:textColor="@color/profileHeaderColor"
                             android:textStyle="bold"
-                            app:layout_constraintTop_toBottomOf="@+id/categorySperator" />
+                            app:layout_constraintTop_toBottomOf="@+id/myCategories" />
 
                         <View
                             android:id="@+id/AdsSperator"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/sperator"
                             android:background="@color/colorPrimary"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/AdsTitle"
                             app:layout_constraintWidth_default="percent"
                             app:layout_constraintWidth_percent="0.3" />
 
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/myPosts"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/myAdsRecyclerHeight"
+                            android:layout_marginTop="@dimen/lg_margin"
+                            app:layout_constraintTop_toBottomOf="@id/AdsSperator"
+                            app:tagBackgroundColor="@color/colorPrimary" />
 
                         <android.support.v7.widget.AppCompatTextView
                             android:id="@+id/businessTitle"
@@ -221,15 +238,26 @@
                             android:text="@string/MyBusiness"
                             android:textColor="@color/profileHeaderColor"
                             android:textStyle="bold"
-                            app:layout_constraintTop_toBottomOf="@+id/AdsSperator" />
+                            app:layout_constraintTop_toBottomOf="@+id/myPosts" />
 
                         <View
+                            android:id="@+id/BusinessSperator"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/sperator"
                             android:background="@color/colorPrimary"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/businessTitle"
                             app:layout_constraintWidth_default="percent"
                             app:layout_constraintWidth_percent="0.3" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/myBusiness"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/lg_margin"
+                            app:layout_constraintTop_toBottomOf="@id/BusinessSperator"
+                            app:tagBackgroundColor="@color/colorPrimary" />
 
                     </android.support.constraint.ConstraintLayout>
 
@@ -239,16 +267,14 @@
 
         </android.support.v4.widget.NestedScrollView>
 
-        <android.support.design.widget.FloatingActionButton
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/flexible.example.fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@drawable/userprofile"
             android:elevation="8dp"
-            app:backgroundTint="@color/colorPrimary"
             app:layout_anchor="@id/flexible.example.cardview"
-            app:layout_anchorGravity="top|center|center_horizontal"
-            tools:ignore="RtlHardcoded" />
+            app:layout_anchorGravity="top|center|center_horizontal" />
 
     </android.support.design.widget.CoordinatorLayout>
 

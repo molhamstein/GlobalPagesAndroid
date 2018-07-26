@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true">
 
     <include layout="@layout/background_primary_layout" />
 
@@ -88,6 +89,7 @@
                     android:id="@+id/filter_subCategories"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/recyclerviewTagHeight"
+                    android:visibility="gone"
                     app:tagBackgroundColor="@color/colorPrimary" />
 
 
@@ -118,10 +120,11 @@
                     android:id="@+id/filter_locations"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/recyclerviewTagHeight"
+                    android:visibility="gone"
                     app:tagBackgroundColor="@color/colorPrimary" />
 
                 <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/loginBtn"
+                    android:id="@+id/filterBtn"
                     style="@style/AppTheme.NormalButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

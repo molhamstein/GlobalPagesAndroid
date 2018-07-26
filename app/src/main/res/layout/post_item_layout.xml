@@ -25,6 +25,7 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:background="@color/colorPrimary"
+                android:contentDescription="@string/contentDescription"
                 android:src="@mipmap/ic_launcher"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
@@ -58,7 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:gravity="left|start"
+                    android:gravity="start"
                     android:maxLines="6"
                     android:shadowColor="@color/lightgray"
                     android:shadowRadius="@integer/textShadow"

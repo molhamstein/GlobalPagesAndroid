@@ -208,6 +208,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
+        <include layout="@layout/background_primary_layout" />
+
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/submittedTitle"
             style="@style/AppTheme.TitleTextAppearance"
@@ -232,6 +234,16 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/AppTheme.TextAppearance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/WeWillReviewYourAdAndContactYouBack"
+            android:textAlignment="gravity"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@+id/submittedIcon" />
+
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/adBackHomeBtn"
             style="@style/AppTheme.NormalButtonStyle"
@@ -242,7 +254,7 @@
             android:background="@drawable/button_bg"
             android:padding="@dimen/md_padding"
             android:shadowColor="@color/black"
-            android:text="@string/RegisterBusiness"
+            android:text="@string/Backtohome"
             android:textColor="@color/white"
             app:layout_constraintTop_toBottomOf="@+id/guideline2" />
 

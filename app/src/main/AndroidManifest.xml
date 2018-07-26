@@ -35,8 +35,11 @@
         </activity>
 
         <activity
-            android:name=".activities.CheckLocationActivity"
+            android:name=".activities.LocationCheckActivity"
             android:theme="@style/Theme.Transparent">
+
+        </activity>
+        <activity android:name=".activities.LocationPickupActivity">
 
         </activity>
 

@@ -23,7 +23,7 @@
                 android:id="@+id/flexible.example.collapsing"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:elevation="0dp"
+                android:elevation="@dimen/zero"
                 android:minHeight="?android:actionBarSize"
                 app:contentScrim="@color/colorPrimary"
                 app:expandedTitleMarginBottom="94dp"
@@ -88,7 +88,9 @@
                         android:layout_height="wrap_content"
                         android:background="@color/profileHeaderColor"
                         android:paddingEnd="@dimen/md_padding"
+                        android:paddingLeft="0dp"
                         android:paddingRight="@dimen/md_padding"
+                        android:paddingStart="0dp"
                         android:paddingTop="@dimen/md_padding">
 
                         <android.support.v7.widget.AppCompatTextView
@@ -96,20 +98,25 @@
                             style="@style/AppTheme.TextAppearance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="start|left"
+                            android:layout_gravity="start"
+                            android:paddingEnd="@dimen/zero"
                             android:paddingLeft="@dimen/md_margin"
+                            android:paddingRight="@dimen/zero"
                             android:paddingStart="@dimen/md_margin"
                             android:text="Dr Abdo Al rahim fathi"
                             android:textAlignment="gravity"
                             android:textColor="@color/white"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
 
                         <ImageView
-                            android:id="@+id/settingBtn"
+                            android:id="@+id/locationBtn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/md_margin"
                             app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
                             app:srcCompat="@drawable/ic_nearby_white" />
 
                         <android.support.v7.widget.AppCompatTextView
@@ -118,28 +125,34 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start|left"
+                            android:paddingEnd="0dp"
                             android:paddingLeft="@dimen/md_margin"
+                            android:paddingRight="0dp"
                             android:paddingStart="@dimen/md_margin"
                             android:text="Eye Surgent"
                             android:textAlignment="gravity"
                             android:textColor="@color/white"
                             android:textStyle="bold"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/businessTitle" />
 
                         <View
                             android:id="@+id/subCategorySperator"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/sperator"
+                            android:layout_margin="@dimen/sm_margin"
                             android:layout_marginLeft="@dimen/md_margin"
                             android:layout_marginStart="@dimen/md_margin"
                             android:background="@color/colorPrimary"
-                            app:layout_constraintLeft_toLeftOf="@+id/businessSubCategories"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/businessSubCategories"
                             app:layout_constraintWidth_default="percent"
-                            app:layout_constraintWidth_percent="0.3"
-                            app:layout_goneMarginLeft="@dimen/md_margin"
-                            app:layout_goneMarginStart="@dimen/md_margin" />
+                            app:layout_constraintWidth_percent="0.3" />
 
+                        <!--app:layout_constraintLeft_toLeftOf="@+id/businessSubCategories"-->
+                        <!--app:layout_constraintTop_toBottomOf="@+id/businessSubCategories"-->
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -313,7 +326,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/md_margin"
-                            android:text="@string/Subscrition"
+                            android:text="@string/Description"
                             android:textColor="@color/profileHeaderColor"
                             android:textStyle="bold" />
 
@@ -322,6 +335,8 @@
                             android:layout_width="0dp"
                             android:layout_height="@dimen/sperator"
                             android:background="@color/colorPrimary"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/categoryTitle"
                             app:layout_constraintWidth_default="percent"
                             app:layout_constraintWidth_percent="0.3" />
@@ -335,6 +350,7 @@
                             android:layout_marginBottom="@dimen/lg_margin"
                             android:paddingLeft="@dimen/md_margin"
                             android:paddingStart="@dimen/md_margin"
+
                             android:text="Ad desctiption that advert about they add, description the app about the description the app about the plah plah ....."
                             android:textAlignment="gravity"
                             android:textColor="@color/grayDarkTextColor"
@@ -357,6 +373,8 @@
                             android:layout_width="0dp"
                             android:layout_height="@dimen/sperator"
                             android:background="@color/colorPrimary"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/servicesAndProducts"
                             app:layout_constraintWidth_default="percent"
                             app:layout_constraintWidth_percent="0.3" />

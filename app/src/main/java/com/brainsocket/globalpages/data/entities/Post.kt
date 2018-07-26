@@ -37,4 +37,6 @@ class Post {
 
     var subCategory: SubCategory = SubCategory()
 
+
+
 }

@@ -32,9 +32,9 @@ import com.brainsocket.globalpages.R;
 
 import org.jetbrains.annotations.NotNull;
 
-public class CheckLocationActivity extends AppCompatActivity {
+public class LocationCheckActivity extends AppCompatActivity {
 
-//    public static final int Request_Permission_code = 4;
+    //    public static final int Request_Permission_code = 4;
     public static final int Response_GPS_OK = 5;
     public static final int Response_GPS_FAIL = 6;
     public static final int Response_Location_Permission_FAIL = 7;
@@ -58,7 +58,7 @@ public class CheckLocationActivity extends AppCompatActivity {
     /* Initiate Google API Client  */
     private void initGoogleAPIClient() {
         //Without Google API Client Auto Location Dialog will not work
-        mGoogleApiClient = new GoogleApiClient.Builder(CheckLocationActivity.this)
+        mGoogleApiClient = new GoogleApiClient.Builder(LocationCheckActivity.this)
                 .addApi(LocationServices.API)
                 .build();
         mGoogleApiClient.connect();
@@ -67,7 +67,7 @@ public class CheckLocationActivity extends AppCompatActivity {
     /* Check Location Permission for Marshmallow Devices */
     private void checkPermissions() {
         if (Build.VERSION.SDK_INT >= 23) {
-            if (ContextCompat.checkSelfPermission(CheckLocationActivity.this,
+            if (ContextCompat.checkSelfPermission(LocationCheckActivity.this,
                     Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED)
                 requestLocationPermission();
@@ -80,13 +80,13 @@ public class CheckLocationActivity extends AppCompatActivity {
 
     /*  Show Popup to access User Permission  */
     private void requestLocationPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(CheckLocationActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-            ActivityCompat.requestPermissions(CheckLocationActivity.this,
+        if (ActivityCompat.shouldShowRequestPermissionRationale(LocationCheckActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            ActivityCompat.requestPermissions(LocationCheckActivity.this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     ACCESS_FINE_LOCATION_INTENT_ID);
             Log.v("ElseLog", "");
         } else {
-            ActivityCompat.requestPermissions(CheckLocationActivity.this,
+            ActivityCompat.requestPermissions(LocationCheckActivity.this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     ACCESS_FINE_LOCATION_INTENT_ID);
         }
@@ -121,7 +121,7 @@ public class CheckLocationActivity extends AppCompatActivity {
                         try {
                             // Show the dialog by calling startResolutionForResult(),
                             // and check the result in onActivityResult().
-                            status.startResolutionForResult(CheckLocationActivity.this, REQUEST_CHECK_SETTINGS);
+                            status.startResolutionForResult(LocationCheckActivity.this, REQUEST_CHECK_SETTINGS);
                         } catch (IntentSender.SendIntentException e) {
                             e.printStackTrace();
                             // Ignore the error.
@@ -237,7 +237,7 @@ public class CheckLocationActivity extends AppCompatActivity {
 
                 } else {
                     updateGPSStatus(Response_Location_Permission_FAIL);
-                    Toast.makeText(CheckLocationActivity.this, "Location Permission denied.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LocationCheckActivity.this, "Location Permission denied.", Toast.LENGTH_SHORT).show();
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                 }

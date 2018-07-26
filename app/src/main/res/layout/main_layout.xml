@@ -202,6 +202,7 @@
                 android:id="@+id/browse_Container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/md_margin"
                 app:layout_collapseMode="pin">
 
                 <ImageView
@@ -209,6 +210,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:contentDescription="@string/contentDescription"
+                    android:padding="@dimen/xsm_padding"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_previous_volume_24dp" />
 
@@ -233,6 +235,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:contentDescription="@string/contentDescription"
+                    android:padding="@dimen/xsm_padding"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_next_volume_24dp" />
 
@@ -264,9 +267,11 @@
                         android:id="@+id/searchFilterBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/nearbyBtn"
                         android:layout_toStartOf="@+id/nearbyBtn"
-                        android:src="@drawable/ic_search_24dp" />
+                        android:contentDescription="@string/contentDescription"
+                        android:src="@drawable/places_ic_search" />
 
                     <ImageView
                         android:id="@+id/nearbyBtn"
@@ -274,6 +279,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/contentDescription"
                         android:src="@drawable/ic_nearby_24dp" />
 
                     <View

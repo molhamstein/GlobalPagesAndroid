@@ -8,12 +8,14 @@ import android.widget.CompoundButton
 import android.widget.ToggleButton
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.data.entities.Category
+import com.brainsocket.globalpages.listeners.OnCategorySelectListener
 import com.brainsocket.globalpages.viewHolders.CategoryViewHolder
 
 /**
  * Created by Adhamkh on 2018-07-03.
  */
-class CategoryRecyclerViewAdapter constructor(var context: Context, var categoriesList: MutableList<Category>) :
+class CategoryRecyclerViewAdapter constructor(var context: Context, var categoriesList: MutableList<Category>
+                                              , var onCategorySelectListener: OnCategorySelectListener? = null) :
         RecyclerView.Adapter<CategoryViewHolder>() {
 
 
@@ -34,6 +36,7 @@ class CategoryRecyclerViewAdapter constructor(var context: Context, var categori
                     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
                         if (isChecked) {
                             setCheck(pojo)
+                            onCategorySelectListener?.onSelectCategory(pojo)
                         } else {
                             buttonView?.setOnCheckedChangeListener(null)
                             pojo.isSelected = false

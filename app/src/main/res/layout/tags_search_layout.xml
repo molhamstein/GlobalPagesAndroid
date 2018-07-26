@@ -29,10 +29,8 @@
                 android:background="@color/transparent"
                 android:gravity="start|left"
                 android:hint="@string/Searchkeyword"
-                android:layoutDirection="ltr"
-                android:minWidth="100dp"
-                android:textAlignment="viewStart" />
-
+                android:minWidth="150dp"
+                android:textAlignment="gravity" />
 
         </RelativeLayout>
 

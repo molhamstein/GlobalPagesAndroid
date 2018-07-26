@@ -8,12 +8,14 @@ import android.widget.CompoundButton
 import android.widget.ToggleButton
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.data.entities.City
+import com.brainsocket.globalpages.listeners.OnCitySelectListener
 import com.brainsocket.globalpages.viewHolders.CityViewHolder
 
 /**
  * Created by Adhamkh on 2018-07-03.
  */
-class CityRecyclerViewAdapter constructor(var context: Context, var citiesListList: MutableList<City>) :
+class CityRecyclerViewAdapter constructor(var context: Context, var citiesListList: MutableList<City>
+                                          , var onCitySelectListener: OnCitySelectListener? = null) :
         RecyclerView.Adapter<CityViewHolder>() {
 
 
@@ -34,6 +36,7 @@ class CityRecyclerViewAdapter constructor(var context: Context, var citiesListLi
                     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
                         if (isChecked) {
                             setCheck(pojo)
+                            onCitySelectListener?.onSelectCity(pojo)
                         } else {
                             buttonView?.setOnCheckedChangeListener(null)
                             pojo.isSelected = false

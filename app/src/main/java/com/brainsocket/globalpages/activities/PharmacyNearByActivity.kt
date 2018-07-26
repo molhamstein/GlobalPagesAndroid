@@ -14,11 +14,14 @@ import com.brainsocket.globalpages.adapters.BusinessGuideRecyclerViewAdapter
 import com.brainsocket.globalpages.repositories.DummydataRepositories
 import com.brainsocket.globalpages.views.TagSearchView
 import com.brainsocket.mainlibrary.SupportViews.RecyclerViewDecoration.GridDividerDecoration
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 
 /**
  * Created by Adhamkh on 2018-07-18.
  */
-class PharmacyNearByActivity : BaseActivity() {
+class PharmacyNearByActivity : BaseActivity(), OnMapReadyCallback {
 
     @BindView(R.id.businessGuideRecyclerView)
     lateinit var businessGuideRecyclerView: RecyclerView
@@ -28,6 +31,8 @@ class PharmacyNearByActivity : BaseActivity() {
 
     @BindView(R.id.tagSearchView)
     lateinit var tagSearchView: TagSearchView
+
+    private lateinit var mMap: GoogleMap
 
     fun initToolBar() {
         setSupportActionBar(toolbar)
@@ -44,7 +49,12 @@ class PharmacyNearByActivity : BaseActivity() {
         ButterKnife.bind(this)
 
         initToolBar()
+
         initRecyclerView()
+
+        val mapFragment = supportFragmentManager
+                .findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
 
         businessGuideRecyclerView.adapter = BusinessGuideRecyclerViewAdapter(this
                 , DummydataRepositories.getBusinessGuideList())
@@ -54,6 +64,13 @@ class PharmacyNearByActivity : BaseActivity() {
     @OnClick(R.id.tagSearchView)
     fun onTagSearchViewClick(view: View) {
         Log.v("", "")
+    }
+
+    override fun onMapReady(googleMap: GoogleMap?) {
+        mMap = googleMap!!
+        mMap.uiSettings.isZoomControlsEnabled = true
+        //    mMap.setOnMarkerClickListener(this)
+        //  setUpMap()
     }
 
 }

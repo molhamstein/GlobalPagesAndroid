@@ -11,7 +11,8 @@
     <dimen name="sperator">1dp</dimen>
 
     <dimen name="recyclerviewTagHeight">35dp</dimen>
-
+    <dimen name="myAdsRecyclerHeight">100dp</dimen>
+    <dimen name="zero">0dp</dimen>
 
 
 </resources>

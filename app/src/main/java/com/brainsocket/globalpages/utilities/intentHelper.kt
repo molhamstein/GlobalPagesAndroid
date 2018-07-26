@@ -74,7 +74,7 @@ class intentHelper {
             context.startActivity(intent)
         }
 
-        fun startBusinessGuideActivity(context: Context) {
+        fun startBusinessGuideSearchActivity(context: Context) {
             var intent = Intent(context, BusinessGuideSearchActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)

@@ -11,9 +11,7 @@ import com.brainsocket.globalpages.adapters.MediaViewPagerAdapter
 import com.brainsocket.globalpages.repositories.DummydataRepositories
 import com.brainsocket.mainlibrary.ViewPagerIndicator.CircleIndicator.CircleIndicator
 
-/**
- * Created by Adhamkh on 2018-06-29.
- */
+
 class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener {
 
     companion object {

@@ -1,1 +1,1 @@
-include ':app', ':mainlibrary', ':calligraphy', ':materialDialoglibrary'
+include ':app', ':mainlibrary', ':calligraphy'
