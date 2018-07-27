@@ -13,7 +13,7 @@ import butterknife.ButterKnife
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.data.entities.User
 import com.brainsocket.globalpages.data.entitiesModel.DuplicateModel
-import com.brainsocket.globalpages.data.entitiesModel.SignupModel
+import com.brainsocket.globalpages.data.entitiesModel.SignUpModel
 import com.brainsocket.globalpages.data.validations.ValidationHelper
 import com.brainsocket.globalpages.enums.UserGender
 import com.brainsocket.globalpages.utilities.mainHelper
@@ -21,7 +21,7 @@ import com.brainsocket.globalpages.utilities.mainHelper
 /**
  * Created by Adhamkh on 2018-06-15.
  */
-class SignupViewHolder : RecyclerView.ViewHolder {
+class SignUpViewHolder : RecyclerView.ViewHolder {
     var context: Context
 
     constructor(view: View) : super(view) {
@@ -55,37 +55,37 @@ class SignupViewHolder : RecyclerView.ViewHolder {
 
 
     fun isValid(): Boolean {
-        var signupModel = getSignupModel()
-        if (ValidationHelper.isEmpty(signupModel.email)) {
+        var signUpModel = getSignUpModel()
+        if (ValidationHelper.isEmpty(signUpModel.email)) {
             email.error = context.resources.getString(R.string.enteremail)
             email.requestFocus()
             return false
         }
-        if (!ValidationHelper.isEmail(signupModel.email)) {
+        if (!ValidationHelper.isEmail(signUpModel.email)) {
             email.error = context.resources.getString(R.string.entercorrectemail)
             email.requestFocus()
             return false
         }
-        if (ValidationHelper.isNullorEmpty(signupModel.username)) {
+        if (ValidationHelper.isNullorEmpty(signUpModel.username)) {
             userName.error = context.resources.getString(R.string.enterusername)
             userName.requestFocus()
             return false
         }
-        if (ValidationHelper.isNullorEmpty(signupModel.password)) {
+        if (ValidationHelper.isNullorEmpty(signUpModel.password)) {
             password.error = context.resources.getString(R.string.enterpassword)
             password.requestFocus()
             return false
         }
 
-//        if (!ValidationHelper.isDate(signupModel.birthdate!!)) {
-        if ((signupModel.birthdate == null) || (signupModel.birthdate!!.isEmpty())) {
+//        if (!ValidationHelper.isDate(signUpModel.birthdate!!)) {
+        if ((signUpModel.birthdate == null) || (signUpModel.birthdate!!.isEmpty())) {
 //            birthdate.error = context.resources.getString(R.string.selectBirthDate)
             birthdateLayout.error = context.resources.getString(R.string.selectBirthDate)
 //            birthdate.requestFocus()
             return false
         }
 
-        if (!signupModel.termAndCondition) {
+        if (!signUpModel.termAndCondition) {
             mainHelper.hideKeyboard(itemView)
             Toast.makeText(context, R.string.accepttermsandconditions, Toast.LENGTH_LONG).show()
             return false
@@ -94,20 +94,20 @@ class SignupViewHolder : RecyclerView.ViewHolder {
         return true
     }
 
-    fun getSignupModel(): SignupModel {
-        var signupModel = SignupModel()
-        signupModel.email = email.text.toString()
-        signupModel.username = userName.text.toString()
-        signupModel.password = password.text.toString()
-        signupModel.birthdate = birthdate.text.toString()
+    fun getSignUpModel(): SignUpModel {
+        var signUpModel = SignUpModel()
+        signUpModel.email = email.text.toString()
+        signUpModel.username = userName.text.toString()
+        signUpModel.password = password.text.toString()
+        signUpModel.birthdate = birthdate.text.toString()
         if ((genderTabLayout.selectedTabPosition == 0))
-            signupModel.gender = UserGender.male.gender
+            signUpModel.gender = UserGender.male.gender
         else
-            signupModel.gender = UserGender.female.gender
+            signUpModel.gender = UserGender.female.gender
 
-        signupModel.termAndCondition = acceptTerms.isChecked
+        signUpModel.termAndCondition = acceptTerms.isChecked
 
-        return signupModel
+        return signUpModel
     }
 
     fun checkDuplicate(duplicateModel: DuplicateModel) {

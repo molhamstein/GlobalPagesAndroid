@@ -10,6 +10,7 @@ import butterknife.OnClick
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.BusinessGuideSliderRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.PostRecyclerViewAdapter
+import com.brainsocket.globalpages.adapters.TagsRecyclerViewAdapter
 import com.brainsocket.globalpages.data.entities.Volume
 import com.brainsocket.globalpages.di.component.DaggerVolumesComponent
 import com.brainsocket.globalpages.di.module.VolumesModule
@@ -18,8 +19,7 @@ import com.brainsocket.globalpages.di.ui.VolumesPresenter
 import com.brainsocket.globalpages.repositories.DummydataRepositories
 import com.brainsocket.globalpages.repositories.userRepository
 import com.brainsocket.globalpages.utilities.intentHelper
-import com.brainsocket.globalpages.utilities.mainHelper
-import com.brainsocket.globalpages.views.TagSearchView
+import com.brainsocket.globalpages.views.SelectedTagsView
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
 import com.brainsocket.mainlibrary.Views.NotificationBadge
 import com.brainsocket.mainlibrary.Views.Stateslayoutview
@@ -43,18 +43,18 @@ class MainActivity : BaseActivity(), VolumesContract.View {
     @BindView(R.id.stateLayout)
     lateinit var stateLayout: Stateslayoutview
 
-    @BindView(R.id.tagSearch)
-    lateinit var tagSearch: TagSearchView
+    @BindView(R.id.selectedTagsView)
+    lateinit var selectedTagsView: SelectedTagsView
 
     @BindView(R.id.badge)
     lateinit var badge: NotificationBadge
 
-    fun initToolBar() {
+    private fun initToolBar() {
         toolBar.setTitle(R.string.app_name)
         setSupportActionBar(toolBar)
     }
 
-    fun initDI() {
+    private fun initDI() {
         val component = DaggerVolumesComponent.builder()
                 .volumesModule(VolumesModule(this))
                 .build()
@@ -85,7 +85,8 @@ class MainActivity : BaseActivity(), VolumesContract.View {
 
         badge.setNumber(6, true)
 
-        tagSearch.addSuggestionList(DummydataRepositories.getTagsRepositories())
+        selectedTagsView.setAdapter(TagsRecyclerViewAdapter(this, DummydataRepositories.getTagsDefaultRepositories()))
+//        tagSearch.addSuggestionList(DummydataRepositories.getTagsRepositories())
         volumesRecyclerView.adapter = PostRecyclerViewAdapter(MainActivity@ this, DummydataRepositories.getPostList())
 
 //        intentHelper.startPostAddActivity(this)
@@ -97,17 +98,19 @@ class MainActivity : BaseActivity(), VolumesContract.View {
     }
 
     override fun onBackPressed() {
-        if (tagSearch.isExpand()) {
-            tagSearch.setExpand(false)
-            mainHelper.hideKeyboard(tagSearch)
-        } else {
-            super.onBackPressed()
-        }
+        super.onBackPressed()
+//        if (tagSearch.isExpand()) {
+//            tagSearch.setExpand(false)
+//            mainHelper.hideKeyboard(tagSearch)
+//        } else {
+//            super.onBackPressed()
+//        }
     }
 
     @OnClick(R.id.searchFilterBtn)
     fun onSearchFilterBtnClick(view: View) {
-        intentHelper.startPostSearchFilterActivity(MainActivity@ this)
+        var list = (selectedTagsView.selectedTags.adapter as TagsRecyclerViewAdapter).tagsListList
+        intentHelper.startPostSearchFilterActivity(MainActivity@ this, list)
         Log.v("View Clicked", view.id.toString())
     }
 
@@ -129,7 +132,9 @@ class MainActivity : BaseActivity(), VolumesContract.View {
 
     @OnClick(R.id.findNearByBtn)
     fun onFindNearByClick(view: View) {
-        intentHelper.startNearByPharmaciesActivity(this)
+        val activityName = PharmacyNearByActivity::class.java.canonicalName
+        intentHelper.startLocationCheckActivity(this, activityName)
+//        intentHelper.startNearByPharmaciesActivity(this)
         Log.v("View Clicked", view.id.toString())
     }
 

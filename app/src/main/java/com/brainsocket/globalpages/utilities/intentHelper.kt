@@ -2,7 +2,10 @@ package com.brainsocket.globalpages.utilities
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import com.brainsocket.globalpages.activities.*
+import com.brainsocket.globalpages.data.entities.TagEntity
+import com.google.gson.Gson
 
 /**
  * Created by Adhamkh on 2018-06-08.
@@ -11,44 +14,44 @@ class intentHelper {
 
     companion object {
         fun startMainActivity(context: Context) {
-            var intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
 
         fun startSignInActivity(context: Context) {
-            var intent = Intent(context, SigninActivity::class.java)
+            val intent = Intent(context, SignInActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
 
         fun startSignUpActivity(context: Context) {
-            var intent = Intent(context, SignupActivity::class.java)
+            val intent = Intent(context, SignUpActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
 
         fun startForgotPasswordActivity(context: Context) {
-            var intent = Intent(context, ForgotPasswordActivity::class.java)
+            val intent = Intent(context, ForgotPasswordActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
 
         fun startBusinessAddActivity(context: Context) {
-            var intent = Intent(context, BusinessGuideAddActivity::class.java)
+            val intent = Intent(context, BusinessGuideAddActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
 
         fun startBusinessGuideDetailsActivity(context: Context) {
-            var intent = Intent(context, BusinessGuideDetailsActivity::class.java)
+            val intent = Intent(context, BusinessGuideDetailsActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
 
 
         fun startPostAddActivity(context: Context, userId: String = "-1") {
-            var intent = Intent(context, PostAddActivity::class.java)
+            val intent = Intent(context, PostAddActivity::class.java)
             intent.putExtra(PostAddActivity.USER_ID_TAG, userId)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
@@ -56,40 +59,60 @@ class intentHelper {
 
 
         fun startPostDetailsActivity(context: Context, postId: String) {
-            var intent = Intent(context, PostDetailsActivity::class.java)
+            val intent = Intent(context, PostDetailsActivity::class.java)
             intent.putExtra(PostDetailsActivity.PostId_Tag, postId)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
 
-        fun startPostSearchFilterActivity(context: Context) {
-            var intent = Intent(context, PostSearchActivity::class.java)
+        fun startPostSearchFilterActivity(context: Context, tagList: MutableList<TagEntity> = mutableListOf()) {
+            val intent = Intent(context, PostSearchActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            intent.putExtra(PostSearchActivity.Suggestion_List_Tag, Gson().toJson(tagList.toTypedArray()))
             context.startActivity(intent)
         }
 
         fun startProfileActivity(context: Context) {
-            var intent = Intent(context, ProfileActivity::class.java)
+            val intent = Intent(context, ProfileActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
 
         fun startBusinessGuideSearchActivity(context: Context) {
-            var intent = Intent(context, BusinessGuideSearchActivity::class.java)
+            val intent = Intent(context, BusinessGuideSearchActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
 
         fun startNearByPharmaciesActivity(context: Context) {
-            var intent = Intent(context, PharmacyNearByActivity::class.java)
+            val intent = Intent(context, PharmacyNearByActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
 
         fun startDutyPharmacyActivity(context: Context) {
-            var intent = Intent(context, PharmacyDutySearchActivity::class.java)
+            val intent = Intent(context, PharmacyDutySearchActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
+        }
+
+        fun startLocationCheckActivity(context: Context, activityName: String) {
+            val intent = Intent(context, LocationCheckActivity::class.java)
+            intent.putExtra(LocationCheckActivity.Target_Tag, activityName)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
+
+        fun startActivityByName(context: Context, activityName: String) {
+            try {
+                val intent = Intent()
+                intent.setClassName(context, activityName)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                context.startActivity(intent)
+            } catch (ex: Exception) {
+                Log.v("", "")
+                Log.v("", "")
+            }
         }
 
     }

@@ -51,7 +51,7 @@
     <string name="Searchkeyword">كلمة البحث</string>
     <string name="Keyword">الكلمة</string>
     <string name="Category">التصنيف</string>
-    <string name="SubCategory">الفئة الفرعية</string>
+    <string name="SubCategory">التصنيف الفرعي</string>
     <string name="City">المدينة</string>
     <string name="Area">المنطقة</string>
     <string name="Apply">تطبيق</string>
@@ -101,5 +101,7 @@
     <string name="ServicesAndProducts">الخدمات والمنتجات</string>
     <string name="OnDutyPharmacies">الصيدليات المناوبة</string>
 
+    <string name="Categories">الأصناف</string>
+    <string name="SubCategories">الأصناف الفرعية</string>
 
 </resources>

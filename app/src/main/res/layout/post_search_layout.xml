@@ -11,6 +11,7 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar_search_filter_layout" />
 
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -38,9 +39,6 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <!--app:layout_constraintTop_toBottomOf="@+id/guideline"-->
-            <!--app:layout_constraintBottom_toTopOf="@+id/guideline"-->
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -54,14 +52,45 @@
                     android:text="@string/Searchkeyword"
                     android:textColor="@color/lightgray" />
 
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/filter_searchKeyword"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableEnd="@drawable/ic_search_24dp"
-                    android:drawableRight="@drawable/ic_search_24dp"
-                    android:hint="@string/Keyword"
-                    app:backgroundTint="@color/lightgray" />
+                    android:layout_height="wrap_content">
+
+                    <com.brainsocket.globalpages.views.SearchTagView
+                        android:id="@+id/searchTagView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/searchIcon"
+                        android:layout_toStartOf="@+id/searchIcon" />
+
+                    <ImageView
+                        android:id="@+id/searchIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/contentDescription"
+                        android:src="@drawable/ic_search_24dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/sperator"
+                        android:layout_below="@+id/searchTagView"
+                        android:background="@color/lightgray" />
+
+                </RelativeLayout>
+
+
+                <!--<android.support.v7.widget.AppCompatEditText-->
+                <!--android:id="@+id/filter_searchKeyword"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:drawableEnd="@drawable/ic_search_24dp"-->
+                <!--android:drawableRight="@drawable/ic_search_24dp"-->
+                <!--android:hint="@string/Keyword"-->
+                <!--android:visibility="gone"-->
+                <!--app:backgroundTint="@color/lightgray" />-->
 
                 <TextView
                     style="@style/AppTheme.TextAppearance"
@@ -74,7 +103,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/filter_categories"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/recyclerviewTagHeight"
+                    android:layout_height="wrap_content"
                     app:tagBackgroundColor="@color/colorPrimary" />
 
                 <TextView
@@ -88,7 +117,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/filter_subCategories"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/recyclerviewTagHeight"
+                    android:layout_height="wrap_content"
                     android:visibility="gone"
                     app:tagBackgroundColor="@color/colorPrimary" />
 

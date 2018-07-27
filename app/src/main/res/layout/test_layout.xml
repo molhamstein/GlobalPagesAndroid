@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.brainsocket.globalpages.views.TagSearchView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.brainsocket.globalpages.views.SearchTagView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tagSearch"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" />

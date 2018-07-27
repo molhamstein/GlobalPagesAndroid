@@ -2,18 +2,21 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar_nearby_layout"
+    <fragment
+        android:id="@+id/map"
+        class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent" />
+
 
     <android.support.v7.widget.CardView
         android:id="@+id/filter_container"
         android:layout_width="match_parent"
         android:layout_height="?android:actionBarSize"
+        android:layout_margin="@dimen/sm_margin"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="@dimen/cardview_default_radius"
         app:cardElevation="@dimen/cardview_default_elevation"
@@ -24,12 +27,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.brainsocket.globalpages.views.TagSearchView
+            <com.brainsocket.globalpages.views.SearchTagView
                 android:id="@+id/tagSearchView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_toLeftOf="@+id/SearchBtn"
-                android:layout_toStartOf="@+id/SearchBtn" />
+                android:layout_toStartOf="@+id/SearchBtn"
+                android:gravity="center" />
 
             <ImageView
                 android:id="@+id/SearchBtn"
@@ -37,16 +41,20 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/viewTypeToggle"
+                android:layout_toStartOf="@+id/viewTypeToggle"
+                android:contentDescription="@string/contentDescription"
                 android:padding="@dimen/sm_padding"
                 android:src="@drawable/ic_search_24dp" />
 
             <ToggleButton
                 android:id="@+id/viewTypeToggle"
                 android:layout_width="36dp"
-                android:layout_height="wrap_content"
+                android:layout_height="36dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:background="@drawable/ic_view_type_bg"
+                android:padding="@dimen/md_margin"
                 android:textOff=""
                 android:textOn="" />
 
@@ -58,15 +66,14 @@
         android:id="@+id/businessGuideRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/filter_container" />
 
-    <fragment
-        android:id="@+id/map"
-        class="com.google.android.gms.maps.SupportMapFragment"
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_nearby_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?android:actionBarSize" />
-
+        android:layout_height="wrap_content" />
 
 </android.support.constraint.ConstraintLayout>

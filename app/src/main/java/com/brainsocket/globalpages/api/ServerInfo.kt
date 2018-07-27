@@ -10,7 +10,7 @@ class ServerInfo {
 
         var SigninUrl = baseUrl + "users/login/?include=user"
 
-        var SignupUrl = baseUrl + "users/"
+        var SignUpUrl = baseUrl + "users/"
 
         var ForgotPasswordUrl = baseUrl + "users/forgotPassword/"
 

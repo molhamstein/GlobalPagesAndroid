@@ -17,9 +17,7 @@ import com.brainsocket.globalpages.dialogs.ProgressDialog
 import com.brainsocket.globalpages.viewHolders.ForgotPasswordViewHolder
 import javax.inject.Inject
 
-/**
- * Created by Adhamkh on 2018-06-08.
- */
+
 class ForgotPasswordActivity : BaseActivity(), ForgotPasswordContract.View {
 
 
@@ -58,9 +56,10 @@ class ForgotPasswordActivity : BaseActivity(), ForgotPasswordContract.View {
     }
 
     @OnClick(R.id.forgotPasswordBtn)
-    fun onForgorPasswordClick(view: View) {
+    fun onForgotPasswordClick(view: View) {
         if (viewHolder.isValid())
             presenter.requestPassword(viewHolder.getForgotModel())
+        Log.v("View Clicked", view.id.toString())
     }
 
 

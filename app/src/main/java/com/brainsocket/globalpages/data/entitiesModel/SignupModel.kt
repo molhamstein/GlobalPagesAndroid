@@ -7,7 +7,7 @@ import java.util.*
 /**
  * Created by Adhamkh on 2018-06-17.
  */
-class SignupModel {
+class SignUpModel {
     var email: String = ""
     var username: String? = null
     var password: String = ""

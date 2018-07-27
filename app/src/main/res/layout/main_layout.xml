@@ -254,14 +254,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.brainsocket.globalpages.views.TagSearchView
-                        android:id="@+id/tagSearch"
+                    <com.brainsocket.globalpages.views.SelectedTagsView
+                        android:id="@+id/selectedTagsView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_toLeftOf="@id/searchFilterBtn"
                         android:layout_toStartOf="@id/searchFilterBtn"
                         android:textAlignment="gravity" />
+
+                    <!--<com.brainsocket.globalpages.views.SearchTagViewView&ndash;&gt;-->
+                    <!--android:id="@+id/tagSearch"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentTop="true"-->
+                    <!--android:layout_toLeftOf="@id/searchFilterBtn"-->
+                    <!--android:layout_toStartOf="@id/searchFilterBtn"-->
+                    <!--android:textAlignment="gravity" />-->
 
                     <ImageView
                         android:id="@+id/searchFilterBtn"

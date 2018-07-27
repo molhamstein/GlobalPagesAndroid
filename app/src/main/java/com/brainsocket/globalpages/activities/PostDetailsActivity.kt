@@ -15,7 +15,7 @@ import com.brainsocket.mainlibrary.ViewPagerIndicator.CircleIndicator.CircleIndi
 class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener {
 
     companion object {
-        val PostId_Tag = "PostId"
+        const val PostId_Tag = "PostId"
     }
 
     @BindView(R.id.mediaViewPager)
@@ -30,7 +30,7 @@ class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener
     @BindView(R.id.toolbar)
     lateinit var toolbar: Toolbar
 
-    fun initToolBar() {
+    private fun initToolBar() {
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener {
             onBackPressed()

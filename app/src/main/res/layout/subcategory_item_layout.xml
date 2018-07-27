@@ -9,7 +9,7 @@
         android:id="@+id/subCategory_toggle"
         style="@style/AppTheme.MainToggle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/recyclerviewTagHeight"
         android:layout_margin="@dimen/xxsm_margin"
         android:background="@drawable/ic_cat_tag_bg"
         android:maxLines="1"

@@ -16,7 +16,7 @@ class App : MultiDexApplication() {
 
     companion object {
         var systemLanguage: String = ""
-        lateinit var app: App;
+        lateinit var app: App
     }
 
 
@@ -38,23 +38,20 @@ class App : MultiDexApplication() {
                 .setFontAttrId(R.attr.fontPath)
                 .build())
 
-        var locale = "ar"//DataStore . getInstance ().getLocale();
-        systemLanguage = "ar"
-        if (!locale.isEmpty()) {
-            LocaleUtils.setLocale(Locale(locale))
+
+        val locale = Locale.getDefault()
+        var localeCode = "ar"
+        if (locale.displayName.contains("en", true)) {
+            localeCode = "en"
+        }
+        systemLanguage = localeCode
+        if (!localeCode.isEmpty()) {
+            LocaleUtils.setLocale(Locale(localeCode))
             LocaleUtils.updateConfig(this, resources.configuration)
         }
 
     }
 
-    fun getSystemLanguage(): String {
-        return systemLanguage
-    }
-
-    fun isArabic(): Boolean {
-        val locale = systemLanguage
-        return if (locale !== "" && locale != null) locale!!.equals("ar", ignoreCase = true)
-        else getSystemLanguage().equals("ar", false)
-    }
+    fun isArabic(): Boolean = systemLanguage.equals("ar", false)
 
 }

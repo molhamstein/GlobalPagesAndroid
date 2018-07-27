@@ -19,6 +19,7 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.brainsocket.globalpages.utilities.intentHelper;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -31,8 +32,9 @@ import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.brainsocket.globalpages.R;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class LocationCheckActivity extends AppCompatActivity {
+public class LocationCheckActivity extends BaseActivity {
 
     //    public static final int Request_Permission_code = 4;
     public static final int Response_GPS_OK = 5;
@@ -46,9 +48,12 @@ public class LocationCheckActivity extends AppCompatActivity {
     private static final String BROADCAST_ACTION = "android.location.PROVIDERS_CHANGED";
     private TextView gps_status;
 
+
+    public static String Target_Tag = "Target";
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onBaseCreate(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.checklocation_layout);
         gps_status = findViewById(R.id.gps_status);
         initGoogleAPIClient();//Init Google API Client
@@ -75,7 +80,6 @@ public class LocationCheckActivity extends AppCompatActivity {
                 showSettingDialog();
         } else
             showSettingDialog();
-
     }
 
     /*  Show Popup to access User Permission  */
@@ -211,6 +215,9 @@ public class LocationCheckActivity extends AppCompatActivity {
 
     //Method to update GPS status text
     private void updateGPSStatus(Integer status) {
+        if (status == Response_GPS_OK) {
+            intentHelper.Companion.startActivityByName(getBaseContext(), getIntent().getStringExtra(Target_Tag));
+        }
         setResult(status);
         finish();
         gps_status.setText(String.valueOf(status));
@@ -226,15 +233,12 @@ public class LocationCheckActivity extends AppCompatActivity {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
                     //If permission granted show location dialog if APIClient is not null
                     if (mGoogleApiClient == null) {
                         initGoogleAPIClient();
                         showSettingDialog();
                     } else
                         showSettingDialog();
-
-
                 } else {
                     updateGPSStatus(Response_Location_Permission_FAIL);
                     Toast.makeText(LocationCheckActivity.this, "Location Permission denied.", Toast.LENGTH_SHORT).show();

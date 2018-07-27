@@ -9,7 +9,7 @@ import com.brainsocket.globalpages.data.entities.User
 import com.brainsocket.globalpages.data.entitiesResponses.LoginResponse
 import com.brainsocket.globalpages.data.entities.Volume
 import com.brainsocket.globalpages.data.entitiesModel.ForgotPasswordModel
-import com.brainsocket.globalpages.data.entitiesModel.SignupModel
+import com.brainsocket.globalpages.data.entitiesModel.SignUpModel
 import com.google.gson.Gson
 
 
@@ -35,11 +35,11 @@ class ApiService {
                 .getAsJSONObject(requestListener)
     }
 
-    fun postUserSignUp(url: String, signupModel: SignupModel, requestListener: ParsedRequestListener<User>) {
+    fun postUserSignUp(url: String, signUpModel: SignUpModel, requestListener: ParsedRequestListener<User>) {
         AndroidNetworking.post(url)
                 .setContentType("application/json")
                 .setPriority(Priority.HIGH)
-                .addBodyParameter(signupModel)
+                .addBodyParameter(signUpModel)
                 .build()
                 .getAsObject(User::class.java, requestListener)
     }

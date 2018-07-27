@@ -1,21 +1,20 @@
 package com.brainsocket.globalpages.activities
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
 import com.brainsocket.globalpages.utilities.LocaleUtils
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
-/**
- * Created by Adhamkh on 2018-06-08.
- */
 abstract class BaseActivity : AppCompatActivity(), LocaleUtils.LanguageListener {
 
     init {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
-        LocaleUtils.updateConfig(this)
+        LocaleUtils.updateConfig(BaseActivity@ this)
     }
+
 
     override fun onLanguageChange() {
         this.recreate()

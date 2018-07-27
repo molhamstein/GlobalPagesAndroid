@@ -31,6 +31,8 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:$SUPPORT_VERSION"
     implementation "com.android.support:preference-v7:$SUPPORT_VERSION"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation 'com.google.android:flexbox:1.0.0'
 }
 repositories {
     mavenCentral()

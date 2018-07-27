@@ -14,91 +14,91 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/selectedTags"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/searchEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/md_margin"
-                android:layout_toEndOf="@+id/selectedTags"
-                android:layout_toRightOf="@+id/selectedTags"
                 android:background="@color/transparent"
                 android:gravity="start|left"
-                android:hint="@string/Searchkeyword"
-                android:minWidth="150dp"
+                android:hint="@string/Keyword"
                 android:textAlignment="gravity" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/selectedTags"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/searchEditText"
+                android:layout_toRightOf="@+id/searchEditText" />
+
 
         </RelativeLayout>
 
     </HorizontalScrollView>
 
-    <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/flexBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/searchContainer"
-        android:animateLayoutChanges="true"
-        android:visibility="gone"
-        app:alignContent="space_around"
-        app:alignItems="baseline"
-        app:flexWrap="wrap"
-        app:justifyContent="space_evenly"
-        app:layout_order="1">
+    <!--<com.google.android.flexbox.FlexboxLayout-->
+    <!--android:id="@+id/flexBox"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/searchContainer"-->
+    <!--android:animateLayoutChanges="true"-->
+    <!--android:visibility="gone"-->
+    <!--app:alignContent="space_around"-->
+    <!--app:alignItems="baseline"-->
+    <!--app:flexWrap="wrap"-->
+    <!--app:justifyContent="space_evenly"-->
+    <!--app:layout_order="1">-->
 
-        <!--<TextView-->
-        <!--android:id="@+id/textview1"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="123"-->
-        <!--app:layout_alignSelf="flex_start"-->
-        <!--app:layout_order="1" />-->
+    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/textview1"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="123"&ndash;&gt;-->
+    <!--&lt;!&ndash;app:layout_alignSelf="flex_start"&ndash;&gt;-->
+    <!--&lt;!&ndash;app:layout_order="1" />&ndash;&gt;-->
 
-        <!--<TextView-->
-        <!--android:id="@+id/textview2"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="asddddd"-->
-        <!--app:layout_alignSelf="baseline" />-->
+    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/textview2"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="asddddd"&ndash;&gt;-->
+    <!--&lt;!&ndash;app:layout_alignSelf="baseline" />&ndash;&gt;-->
 
-        <!--<TextView-->
-        <!--android:id="@+id/textview3"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="asd"-->
-        <!--app:layout_alignSelf="baseline" />-->
+    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/textview3"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="asd"&ndash;&gt;-->
+    <!--&lt;!&ndash;app:layout_alignSelf="baseline" />&ndash;&gt;-->
 
-        <!--<TextView-->
-        <!--android:id="@+id/textview5"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="asddddddddddddddddddddddddd"-->
-        <!--app:layout_alignSelf="baseline" />-->
+    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/textview5"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="asddddddddddddddddddddddddd"&ndash;&gt;-->
+    <!--&lt;!&ndash;app:layout_alignSelf="baseline" />&ndash;&gt;-->
 
-        <!--<TextView-->
-        <!--android:id="@+id/textview6"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="asd"-->
-        <!--app:layout_alignSelf="baseline" />-->
+    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/textview6"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="asd"&ndash;&gt;-->
+    <!--&lt;!&ndash;app:layout_alignSelf="baseline" />&ndash;&gt;-->
 
-        <!--<TextView-->
-        <!--android:id="@+id/textview7"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="asddddddddddddddddddddddddd"-->
-        <!--app:layout_alignSelf="baseline" />-->
+    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/textview7"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="asddddddddddddddddddddddddd"&ndash;&gt;-->
+    <!--&lt;!&ndash;app:layout_alignSelf="baseline" />&ndash;&gt;-->
 
-        <!--<TextView-->
-        <!--android:id="@+id/textview8"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="asd"-->
-        <!--app:layout_alignSelf="baseline" />-->
-        <!---->
-    </com.google.android.flexbox.FlexboxLayout>
+    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/textview8"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="asd"&ndash;&gt;-->
+    <!--&lt;!&ndash;app:layout_alignSelf="baseline" />&ndash;&gt;-->
+    <!--&lt;!&ndash;&ndash;&gt;-->
+    <!--</com.google.android.flexbox.FlexboxLayout>-->
 
 </RelativeLayout>

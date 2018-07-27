@@ -15,12 +15,19 @@ import com.brainsocket.globalpages.adapters.LocationEntityRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.SubCategoryRecyclerViewAdapter
 import com.brainsocket.globalpages.data.entities.Category
 import com.brainsocket.globalpages.data.entities.City
+import com.brainsocket.globalpages.data.entities.TagEntity
 import com.brainsocket.globalpages.listeners.OnCategorySelectListener
 import com.brainsocket.globalpages.listeners.OnCitySelectListener
 import com.brainsocket.globalpages.repositories.DummydataRepositories
+import com.brainsocket.globalpages.views.SearchTagView
+import com.google.gson.Gson
 
 
 class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelectListener {
+
+    companion object {
+        const val Suggestion_List_Tag = "Suggestion_List"
+    }
 
     @BindView(R.id.toolbar)
     lateinit var toolbar: Toolbar
@@ -37,6 +44,8 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
     @BindView(R.id.filter_locations)
     lateinit var filterLocations: RecyclerView
 
+    @BindView(R.id.searchTagView)
+    lateinit var searchTagView: SearchTagView
 
     private fun initRecyclerViews() {
         filterCategories.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
@@ -63,26 +72,23 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
     override fun onBaseCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.post_search_layout)
         ButterKnife.bind(this)
+        val tags: MutableList<TagEntity> = Gson().fromJson(intent.extras.getString(Suggestion_List_Tag).toString(),
+                Array<TagEntity>::class.java).toMutableList()
+        searchTagView.setSuggestionList(tags)
+
         initToolBar()
         initRecyclerViews()
+
     }
 
     override fun onSelectCategory(category: Category) {
         filterSubCategories.visibility = View.GONE
-        Handler().postDelayed(object : Runnable {
-            override fun run() {
-                filterSubCategories.visibility = View.VISIBLE
-            }
-        }, 500)
+        Handler().postDelayed({ filterSubCategories.visibility = View.VISIBLE }, 500)
     }
 
     override fun onSelectCity(city: City) {
         filterLocations.visibility = View.GONE
-        Handler().postDelayed(object : Runnable {
-            override fun run() {
-                filterLocations.visibility = View.VISIBLE
-            }
-        }, 500)
+        Handler().postDelayed({ filterLocations.visibility = View.VISIBLE }, 500)
     }
 
 }

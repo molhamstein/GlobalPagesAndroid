@@ -1,6 +1,6 @@
 package com.brainsocket.globalpages.di.component
 
-import com.brainsocket.globalpages.activities.SigninActivity
+import com.brainsocket.globalpages.activities.SignInActivity
 import com.brainsocket.globalpages.di.module.SigninModule
 import com.brainsocket.globalpages.di.scope.PerActivity
 import dagger.Component
@@ -11,5 +11,5 @@ import dagger.Component
 @PerActivity
 @Component(modules = [SigninModule::class])
 public interface SigninComponent {
-    fun inject(signinActivity: SigninActivity)
+    fun inject(signInActivity: SignInActivity)
 }

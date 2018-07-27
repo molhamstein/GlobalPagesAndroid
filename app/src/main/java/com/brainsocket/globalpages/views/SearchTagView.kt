@@ -28,11 +28,11 @@ import com.google.gson.Gson
 /**
  * Created by Adhamkh on 2018-07-05.
  */
-class TagSearchView : RelativeLayout, TextWatcher, CompoundButton.OnCheckedChangeListener,
-        OnTagSelectListener, View.OnFocusChangeListener, View.OnTouchListener {
+class SearchTagView : RelativeLayout, OnTagSelectListener /*, TextWatcher , CompoundButton.OnCheckedChangeListener,
+        View.OnFocusChangeListener, View.OnTouchListener */ {
 
     lateinit var selectedTags: RecyclerView
-    lateinit var flexBox: FlexboxLayout
+    //    lateinit var flexBox: FlexboxLayout
     lateinit var searchEditText: EditText
     lateinit var tagsAdapter: TagsRecyclerViewAdapter
 
@@ -48,63 +48,78 @@ class TagSearchView : RelativeLayout, TextWatcher, CompoundButton.OnCheckedChang
         initView(context)
     }
 
-    fun initView(context: Context) {
+    private fun initView(context: Context) {
         View.inflate(context, R.layout.tags_search_layout, this)
         searchEditText = findViewById(R.id.searchEditText)
         selectedTags = findViewById(R.id.selectedTags)
-        flexBox = findViewById(R.id.flexBox)
+//        flexBox = findViewById(R.id.flexBox)
 
         selectedTags.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         tagsAdapter = TagsRecyclerViewAdapter(context, mutableListOf())
         selectedTags.adapter = tagsAdapter
+
         tagsAdapter.onTagSelectListener = this
-        searchEditText.addTextChangedListener(this)
-        onFocusChangeListener = this
-        setOnTouchListener(this)
+//        searchEditText.addTextChangedListener(this)
+//        onFocusChangeListener = this
+//        setOnTouchListener(this)
     }
 
 
+    public fun setSuggestionList(tagList: MutableList<TagEntity>) {
+        tagsAdapter.tagsListList = tagList
+        tagsAdapter.notifyDataSetChanged()
+    }
+
+    override fun onSelectTag(tagEntity: TagEntity) {
+    }
+
+    /*
     fun addSuggestionList(tagEntityList: MutableList<TagEntity>) {
         tagEntityList.forEach {
             addTagEntity(it)
         }
     }
+    */
 
-    fun addTagEntity(it: TagEntity) {
-        var context = this.context
-        var tagId: String = flexBox.childCount.toString()
+    /*
+      fun addTagEntity(it: TagEntity) {
+          var context = this.context
+          var tagId: String = flexBox.childCount.toString()
 
-        var view: View = LayoutInflater.from(context).inflate(R.layout.tag_item_layout, null, false)
-        view.tag = tagId
+          var view: View = LayoutInflater.from(context).inflate(R.layout.tag_item_layout, null, false)
+          view.tag = tagId
 
-        var tag = view.findViewById<ToggleButton>(R.id.tag_toggle)
-        tag.tag = Gson().toJson(it)
+          var tag = view.findViewById<ToggleButton>(R.id.tag_toggle)
+          tag.tag = Gson().toJson(it)
 
-        tag.textOn = it.getTitle()
-        tag.textOff = it.getTitle()
-        tag.text = it.getTitle()
-        tag.setCompoundDrawables(null, null, null, null)
-        if (Build.VERSION.SDK_INT >= 17) {
-            tag.setCompoundDrawablesRelative(null, null, null, null)
-        }
+          tag.textOn = it.getTitle()
+          tag.textOff = it.getTitle()
+          tag.text = it.getTitle()
+          tag.setCompoundDrawables(null, null, null, null)
+          if (Build.VERSION.SDK_INT >= 17) {
+              tag.setCompoundDrawablesRelative(null, null, null, null)
+          }
 
-        if (view.parent != null)
-            (view.parent as ViewGroup).removeView(view)
+          if (view.parent != null)
+              (view.parent as ViewGroup).removeView(view)
 
-        tag.setOnCheckedChangeListener(this)
-        var param: FlexboxLayout.LayoutParams = FlexboxLayout.LayoutParams(
-                FlexboxLayout.LayoutParams.WRAP_CONTENT,
-                FlexboxLayout.LayoutParams.WRAP_CONTENT)
-        param.order = 1
+          tag.setOnCheckedChangeListener(this)
+          var param: FlexboxLayout.LayoutParams = FlexboxLayout.LayoutParams(
+                  FlexboxLayout.LayoutParams.WRAP_CONTENT,
+                  FlexboxLayout.LayoutParams.WRAP_CONTENT)
+          param.order = 1
 
-        flexBox.addView(view, param)
-    }
+          flexBox.addView(view, param)
+      }
+  */
+
 
     fun addTag2Search(it: TagEntity, parentTag: String) {
         it.tagId = parentTag
         tagsAdapter.addTag(it)
     }
 
+    /*
     fun isExpand(): Boolean {
         return flexBox.visibility == View.VISIBLE
     }
@@ -115,7 +130,9 @@ class TagSearchView : RelativeLayout, TextWatcher, CompoundButton.OnCheckedChang
         else
             flexBox.visibility = View.GONE
     }
+*/
 
+    /*
     /*Listeners Started*/
     override fun afterTextChanged(s: Editable?) {
 
@@ -158,16 +175,16 @@ class TagSearchView : RelativeLayout, TextWatcher, CompoundButton.OnCheckedChang
         }
     }
 
-    override fun onSelectTag(tagEntity: TagEntity) {
-        var view = flexBox.findViewWithTag<View>(tagEntity.tagId)
-        if (view != null)
-            view.visibility = View.VISIBLE
-    }
+  */
 
+
+/*
     override fun onFocusChange(v: View?, hasFocus: Boolean) {
         if (!hasFocus)
             flexBox.visibility = View.GONE
     }
+*/
+/*
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
         if (event != null && v != null) {
@@ -186,5 +203,6 @@ class TagSearchView : RelativeLayout, TextWatcher, CompoundButton.OnCheckedChang
         return false
     }
     /*Listeners Ended*/
+    */
 
 }

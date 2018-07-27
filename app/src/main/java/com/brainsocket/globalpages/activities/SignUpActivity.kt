@@ -14,31 +14,29 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.brainsocket.globalpages.R
-import com.brainsocket.globalpages.data.entitiesModel.SignupModel
-import com.brainsocket.globalpages.di.component.DaggerSignupComponent
-import com.brainsocket.globalpages.di.module.SignupModule
-import com.brainsocket.globalpages.di.ui.SignupContract
-import com.brainsocket.globalpages.di.ui.SignupPresenter
+import com.brainsocket.globalpages.data.entitiesModel.SignUpModel
+import com.brainsocket.globalpages.di.component.DaggerSignUpComponent
+import com.brainsocket.globalpages.di.module.SignUpModule
+import com.brainsocket.globalpages.di.ui.SignUpContract
+import com.brainsocket.globalpages.di.ui.SignUpPresenter
 import com.brainsocket.globalpages.dialogs.ProgressDialog
 import com.brainsocket.globalpages.normalization.DateNormalizer
 import com.brainsocket.globalpages.utilities.intentHelper
 import com.brainsocket.globalpages.views.CustomTabView
-import com.brainsocket.globalpages.viewHolders.SignupViewHolder
+import com.brainsocket.globalpages.viewHolders.SignUpViewHolder
 import java.util.*
 import javax.inject.Inject
 import android.content.DialogInterface
+import android.support.v4.content.ContextCompat
 import com.brainsocket.globalpages.data.entities.User
 import com.brainsocket.globalpages.data.entitiesModel.DuplicateModel
 import com.brainsocket.globalpages.repositories.userRepository
 
 
-/**
- * Created by Adhamkh on 2018-06-08.
- */
-class SignupActivity : BaseActivity(), SignupContract.View {
+class SignUpActivity : BaseActivity(), SignUpContract.View {
 
     @Inject
-    lateinit var presenter: SignupPresenter
+    lateinit var presenter: SignUpPresenter
 
     @BindView(R.id.genderTabLayout)
     lateinit var genderTabLayout: TabLayout
@@ -46,13 +44,13 @@ class SignupActivity : BaseActivity(), SignupContract.View {
     @BindView(R.id.birthdate)
     lateinit var birthdate: EditText
 
-    lateinit var viewHolder: SignupViewHolder
+    private lateinit var viewHolder: SignUpViewHolder
 
-    lateinit var progressDialog: ProgressDialog
+    private lateinit var progressDialog: ProgressDialog
 
-    fun initDI() {
-        val component = DaggerSignupComponent.builder()
-                .signupModule(SignupModule(this))
+    private fun initDI() {
+        val component = DaggerSignUpComponent.builder()
+                .signUpModule(SignUpModule(this))
                 .build()
         component.inject(this)
         presenter.attachView(this)
@@ -60,10 +58,10 @@ class SignupActivity : BaseActivity(), SignupContract.View {
 
     }
 
-    fun initTabLayout() {
-        var maleTab = genderTabLayout.newTab().setCustomView(CustomTabView(context = baseContext)
+    private fun initTabLayout() {
+        val maleTab = genderTabLayout.newTab().setCustomView(CustomTabView(context = baseContext)
                 .setGender(R.string.male, R.mipmap.ic_male_24dp)).setText(R.string.male)
-        var femaleTab = genderTabLayout.newTab().setCustomView(CustomTabView(context = baseContext)
+        val femaleTab = genderTabLayout.newTab().setCustomView(CustomTabView(context = baseContext)
                 .setGender(R.string.female, R.mipmap.ic_female_24dp)).setText(R.string.female)
 
         genderTabLayout.addTab(maleTab)
@@ -76,12 +74,12 @@ class SignupActivity : BaseActivity(), SignupContract.View {
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
                 tab?.customView?.findViewById<TextView>(android.R.id.text1)
-                        ?.setTextColor(baseContext.resources.getColor(R.color.grayDarkTextColor))
+                        ?.setTextColor(ContextCompat.getColor(baseContext, R.color.grayDarkTextColor))
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 tab?.customView?.findViewById<TextView>(android.R.id.text1)
-                        ?.setTextColor(baseContext.resources.getColor(R.color.colorPrimary))
+                        ?.setTextColor(ContextCompat.getColor(baseContext, R.color.grayDarkTextColor))
             }
         })
 
@@ -98,7 +96,7 @@ class SignupActivity : BaseActivity(), SignupContract.View {
 
         initTabLayout()
 
-        viewHolder = SignupViewHolder(this.findViewById(R.id.rootView))
+        viewHolder = SignUpViewHolder(this.findViewById(R.id.rootView))
         progressDialog = ProgressDialog.newInstance()
 
     }
@@ -106,13 +104,14 @@ class SignupActivity : BaseActivity(), SignupContract.View {
     @OnClick(R.id.birthdate)
     fun onBirthDateClick(view: View) {
         initDatePicker()
+        Log.v("View Clicked", view.id.toString())
     }
 
-    fun initDatePicker() {
-        var date: java.util.GregorianCalendar = java.util.GregorianCalendar(Locale.ENGLISH)
+    private fun initDatePicker() {
+        val date: java.util.GregorianCalendar = java.util.GregorianCalendar(Locale.ENGLISH)
         val datePicker = DatePickerDialog(this, R.style.AppTheme_DialogSlideAnimwithback,
-                DatePickerDialog.OnDateSetListener() { datePicker: DatePicker, year: Int, month: Int,
-                                                       dayOfMonth: Int ->
+                DatePickerDialog.OnDateSetListener { datePicker: DatePicker, year: Int, month: Int,
+                                                     dayOfMonth: Int ->
                     date.set(Calendar.YEAR, year)
                     date.set(Calendar.MONTH, month)
                     date.set(Calendar.DAY_OF_MONTH, dayOfMonth)
@@ -123,14 +122,16 @@ class SignupActivity : BaseActivity(), SignupContract.View {
         datePicker.show()
     }
 
-    @OnClick(R.id.signupBtn)
+    @OnClick(R.id.signUpBtn)
     fun onSignUpClick(view: View) {
         presenter.trySignUp()
+        Log.v("View Clicked", view.id.toString())
     }
 
     @OnClick(R.id.loginBtn)
     fun onSignInClick(view: View) {
-        intentHelper.startSignInActivity(SignupActivity@ this)
+        intentHelper.startSignInActivity(SignUpActivity@ this)
+        Log.v("View Clicked", view.id.toString())
     }
 
     /*Presenter Started*/
@@ -138,20 +139,20 @@ class SignupActivity : BaseActivity(), SignupContract.View {
         return viewHolder.isValid()
     }
 
-    override fun getUser(): SignupModel {
-        return viewHolder.getSignupModel()
+    override fun getUser(): SignUpModel {
+        return viewHolder.getSignUpModel()
     }
 
-    override fun NavigateAfterSignUp(user: User) {
+    override fun navigateAfterSignUp(user: User) {
         userRepository(context = this).addUser(user)
-        val builder = AlertDialog.Builder(SignupActivity@ this)
+        val builder = AlertDialog.Builder(SignUpActivity@ this)
         val dialogClickListener = DialogInterface.OnClickListener { dialog, which ->
             when (which) {
                 DialogInterface.BUTTON_POSITIVE -> {
-                    signup2Business(user)
+                    signUp2Business(user)
                 }
                 DialogInterface.BUTTON_NEGATIVE -> {
-                    signupSuccesfully(user)
+                    signUpSuccessfully(user)
                 }
             }
         }
@@ -162,21 +163,21 @@ class SignupActivity : BaseActivity(), SignupContract.View {
         // return viewHolder.businessOwnerCheckBox.isChecked
     }
 
-    override fun signupduplicate(duplicateModel: DuplicateModel) {
+    override fun signUpDuplicate(duplicateModel: DuplicateModel) {
         viewHolder.checkDuplicate(duplicateModel)
     }
 
-    override fun signupSuccesfully(user: User) {
+    override fun signUpSuccessfully(user: User) {
         intentHelper.startMainActivity(this)
         Log.v("", "")
     }
 
-    override fun signup2Business(user: User) {
+    override fun signUp2Business(user: User) {
         intentHelper.startBusinessAddActivity(this)
         Log.v("", "")
     }
 
-    override fun signupFail() {
+    override fun signUpFail() {
 
         Log.v("", "")
     }

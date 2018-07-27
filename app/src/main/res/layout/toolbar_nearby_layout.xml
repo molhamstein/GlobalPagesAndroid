@@ -22,7 +22,7 @@
             android:shadowColor="@color/grayLightTextColor"
             android:shadowRadius="@integer/textShadow"
             android:text="@string/FindNearBy"
-            android:textColor="@color/grayDarkTextColor"
+            android:textColor="@color/black"
             android:textStyle="bold" />
 
     </RelativeLayout>

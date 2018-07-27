@@ -7,13 +7,13 @@
         style="@style/AppTheme.MainToggle"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/recyclerviewTagHeight"
-        android:layout_margin="@dimen/xxsm_margin"
+        android:layout_margin="@dimen/sm_margin"
         android:background="@drawable/ic_view_tag_bg"
-        android:drawableEnd="@drawable/ic_close_black_24dp"
+        android:drawableEnd="@drawable/ic_close_white_24dp"
         android:drawablePadding="@dimen/xxsm_padding"
-        android:drawableRight="@drawable/ic_close_black_24dp"
+        android:drawableRight="@drawable/ic_close_white_24dp"
         android:maxLines="1"
-        android:padding="@dimen/xsm_padding"
-        android:textColor="@color/colorPrimary" />
+        android:padding="@dimen/sm_padding"
+        android:textColor="@color/white" />
 
 </LinearLayout>

@@ -8,16 +8,16 @@ import com.brainsocket.globalpages.api.ApiService
 import com.brainsocket.globalpages.api.ServerInfo
 import com.brainsocket.globalpages.data.entities.User
 import com.brainsocket.globalpages.data.entitiesModel.DuplicateModel
-import com.brainsocket.globalpages.data.entitiesModel.SignupModel
+import com.brainsocket.globalpages.data.entitiesModel.SignUpModel
 import io.reactivex.disposables.CompositeDisposable
 
 /**
  * Created by Adhamkh on 2018-06-15.
  */
-class SignupPresenter constructor(val context: Context) : SignupContract.Presenter {
+class SignUpPresenter constructor(val context: Context) : SignUpContract.Presenter {
 
     private val subscriptions = CompositeDisposable()
-    private lateinit var view: SignupContract.View
+    private lateinit var view: SignUpContract.View
 
     init {
 
@@ -27,7 +27,7 @@ class SignupPresenter constructor(val context: Context) : SignupContract.Present
 
     }
 
-    override fun attachView(view: SignupContract.View) {
+    override fun attachView(view: SignUpContract.View) {
         this.view = view
     }
 
@@ -40,19 +40,19 @@ class SignupPresenter constructor(val context: Context) : SignupContract.Present
             signUp(view.getUser())
     }
 
-    override fun signUp(signupModel: SignupModel) {
+    override fun signUp(signUpModel: SignUpModel) {
         view.showProgress(true)
-        ApiService().postUserSignUp(ServerInfo.SignupUrl, signupModel, object : ParsedRequestListener<User> {
+        ApiService().postUserSignUp(ServerInfo.SignUpUrl, signUpModel, object : ParsedRequestListener<User> {
             override fun onResponse(response: User?) {
                 if (response != null) {
-                    view.NavigateAfterSignUp(response)
+                    view.navigateAfterSignUp(response)
 //                    if (view.isBusiness(response))
-//                        view.signup2Business(response)
+//                        view.signUp2Business(response)
 //                    else
-//                        view.signupSuccesfully(response)
+//                        view.signUpSuccessfully(response)
                     Log.v("", "")
                 } else {
-                    view.signupFail()
+                    view.signUpFail()
                 }
             }
 
@@ -63,7 +63,7 @@ class SignupPresenter constructor(val context: Context) : SignupContract.Present
                         422 -> {
                             var isDuplicateEmail: Boolean = anError.errorBody.contains("email", true)
                             var isDuplicateUserName: Boolean = anError.errorBody.contains("username", true)
-                            view.signupduplicate(DuplicateModel(isDuplicateEmail, isDuplicateUserName))
+                            view.signUpDuplicate(DuplicateModel(isDuplicateEmail, isDuplicateUserName))
                             return
                         }
                     }

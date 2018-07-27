@@ -4,7 +4,7 @@
     android:id="@+id/businessCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/lg_margin"
+    android:layout_margin="@dimen/sm_margin"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/cardview_default_radius"
     app:cardElevation="@dimen/cardview_default_elevation"
@@ -12,37 +12,53 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/businessIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/businesslogo"
+            app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.2" />
 
         <LinearLayout
             android:id="@+id/contentContainer"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="vertical"
+            android:padding="@dimen/xsm_margin"
+            app:layout_constraintEnd_toStartOf="@+id/tagContainer"
             app:layout_constraintLeft_toRightOf="@+id/businessIcon"
-            app:layout_constraintRight_toLeftOf="@+id/tagContainer">
+            app:layout_constraintRight_toLeftOf="@+id/tagContainer"
+            app:layout_constraintStart_toEndOf="@+id/businessIcon">
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/businessTitle"
                 style="@style/AppTheme.TitleTextAppearance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white" />
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Shawarma shack"
+                android:textColor="@color/black" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/businessDetails"
                 style="@style/AppTheme.TextAppearance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="3"
-                android:textColor="@color/white" />
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Arabic and Turkish Doner"
+                android:textColor="@color/grayDarkTextColor" />
 
         </LinearLayout>
 
@@ -51,24 +67,30 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            app:layout_constraintRight_toRightOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.3">
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/businessCategory"
                 style="@style/AppTheme.TextAppearance"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="0dp"
                 android:layout_marginRight="0dp"
                 android:layout_marginTop="@dimen/sm_margin"
                 android:background="@drawable/ic_tag_bg2"
+                android:gravity="center"
                 android:padding="@dimen/sm_padding"
-                android:text="asddddddsdaaaaaa"
+                android:text="Real Estate"
+                android:textAlignment="gravity"
                 android:textColor="@color/white" />
 
             <android.support.v7.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="right|end"
                 app:srcCompat="@drawable/ic_arrow_forward_black_24dp" />
 
         </LinearLayout>

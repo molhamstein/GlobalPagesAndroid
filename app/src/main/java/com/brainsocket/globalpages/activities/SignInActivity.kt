@@ -19,19 +19,17 @@ import com.brainsocket.globalpages.utilities.mainHelper
 import com.brainsocket.globalpages.viewHolders.SigninViewHolder
 import javax.inject.Inject
 
-/**
-  * Created by Adhamkh on 2018-06-08.
- **/
-class SigninActivity : BaseActivity(), SigninContract.View {
+
+class SignInActivity : BaseActivity(), SigninContract.View {
 
     @Inject
     lateinit var presenter: SigninPresenter
 
-    lateinit var viewHolder: SigninViewHolder
+    private lateinit var viewHolder: SigninViewHolder
 
-    lateinit var progressDialog: ProgressDialog
+    private lateinit var progressDialog: ProgressDialog
 
-    fun initDI() {
+    private fun initDI() {
         val component = DaggerSigninComponent.builder()
                 .signinModule(SigninModule(this))
                 .build()
@@ -54,16 +52,19 @@ class SigninActivity : BaseActivity(), SigninContract.View {
     fun onLoginBtnClick(view: View) {
         if (viewHolder.isValid())
             presenter.authenticate(viewHolder.getLoginModel())
+        Log.v("View Clicked", view.id.toString())
     }
 
     @OnClick(R.id.registerTextViewLink)
     fun onRegisterClick(view: View) {
-        intentHelper.startSignUpActivity(SigninActivity@ this)
+        intentHelper.startSignUpActivity(SignInActivity@ this)
+        Log.v("View Clicked", view.id.toString())
     }
 
     @OnClick(R.id.forgotTextViewLink)
     fun onForgotClick(view: View) {
-        intentHelper.startForgotPasswordActivity(SigninActivity@ this)
+        intentHelper.startForgotPasswordActivity(SignInActivity@ this)
+        Log.v("View Clicked", view.id.toString())
     }
 
     /*Presenter started*/

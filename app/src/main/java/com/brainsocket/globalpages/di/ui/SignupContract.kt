@@ -2,25 +2,25 @@ package com.brainsocket.globalpages.di.ui
 
 import com.brainsocket.globalpages.data.entities.User
 import com.brainsocket.globalpages.data.entitiesModel.DuplicateModel
-import com.brainsocket.globalpages.data.entitiesModel.SignupModel
+import com.brainsocket.globalpages.data.entitiesModel.SignUpModel
 
 /**
  * Created by Adhamkh on 2018-06-15.
  */
-class SignupContract {
+class SignUpContract {
     interface Presenter : BaseContract.Presenter<View> {
         fun trySignUp()
-        fun signUp(signupModel: SignupModel)
+        fun signUp(signUpModel: SignUpModel)
     }
 
     interface View : BaseContract.View {
         fun checkValidation(): Boolean
-        fun getUser(): SignupModel
-        fun NavigateAfterSignUp(user: User)
+        fun getUser(): SignUpModel
+        fun navigateAfterSignUp(user: User)
 
-        fun signupFail()
-        fun signupduplicate(duplicateModel: DuplicateModel)
-        fun signupSuccesfully(user: User)
-        fun signup2Business(user: User)
+        fun signUpFail()
+        fun signUpDuplicate(duplicateModel: DuplicateModel)
+        fun signUpSuccessfully(user: User)
+        fun signUp2Business(user: User)
     }
 }

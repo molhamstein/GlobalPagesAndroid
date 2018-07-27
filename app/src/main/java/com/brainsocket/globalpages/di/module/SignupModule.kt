@@ -2,7 +2,7 @@ package com.brainsocket.globalpages.di.module
 
 import android.app.Activity
 import android.content.Context
-import com.brainsocket.globalpages.di.ui.SignupPresenter
+import com.brainsocket.globalpages.di.ui.SignUpPresenter
 import dagger.Module
 import dagger.Provides
 
@@ -10,7 +10,7 @@ import dagger.Provides
  * Created by Adhamkh on 2018-06-15.
  */
 @Module
-class SignupModule constructor(private var activity: Activity) {
+class SignUpModule constructor(private var activity: Activity) {
 
     @Provides
     fun provideContext(): Context {
@@ -23,8 +23,8 @@ class SignupModule constructor(private var activity: Activity) {
     }
 
     @Provides
-    fun getSignupPresenter(): SignupPresenter {
-        return SignupPresenter(provideContext())
+    fun getSignUpPresenter(): SignUpPresenter {
+        return SignUpPresenter(provideContext())
     }
 
 }

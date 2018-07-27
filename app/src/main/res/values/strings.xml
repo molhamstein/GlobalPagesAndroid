@@ -17,7 +17,7 @@
     <string name="privacypolicy">Privacy Policy</string>
     <string name="and">and</string>
     <string name="termsandconditions">Terms and conditions</string>
-    <string name="SignUp">Signup</string>
+    <string name="SignUp">SignUp</string>
     <string name="haveanaccount">Have an account?</string>
     <string name="Login">Login</string>
     <string name="pleaseWait">Please wait &#8230;</string>
@@ -102,6 +102,10 @@
     <string name="Edit">Edit</string>
     <string name="Ok">OK</string>
     <string name="ServicesAndProducts">Services and products</string>
+    <string name="Your">Your</string>
+    <string name="selectWhatAreYou">select what are you look for \n and we will find you top 3 nearby ones</string>
+    <string name="Categories">Categories</string>
+    <string name="SubCategories">SubCategories</string>
 
 
 </resources>

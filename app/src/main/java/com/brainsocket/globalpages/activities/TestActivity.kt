@@ -2,31 +2,14 @@ package com.brainsocket.globalpages.activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.widget.EditText
-import android.widget.ToggleButton
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.data.entities.TagEntity
-import com.google.android.flexbox.FlexboxLayout
-import android.view.ViewGroup
-import android.widget.CompoundButton
-import com.brainsocket.globalpages.adapters.TagsRecyclerViewAdapter
-import com.brainsocket.globalpages.listeners.OnTagSelectListener
-import com.brainsocket.globalpages.views.TagSearchView
+import com.brainsocket.globalpages.views.SearchTagView
 
 
-/**
- * Created by Adhamkh on 2018-07-02.
- */
-class testActivity : AppCompatActivity()/*, TextWatcher, CompoundButton.OnCheckedChangeListener,
+class TestActivity : AppCompatActivity()/*, TextWatcher, CompoundButton.OnCheckedChangeListener,
         OnTagSelectListener */ {
 
     /*@BindView(R.id.selectedTags)
@@ -41,7 +24,7 @@ class testActivity : AppCompatActivity()/*, TextWatcher, CompoundButton.OnChecke
     lateinit var tagsAdapter: TagsRecyclerViewAdapter*/
 
     @BindView(R.id.tagSearch)
-    lateinit var tagSearch: TagSearchView
+    lateinit var searchTag: SearchTagView
 
     var list: MutableList<TagEntity> = mutableListOf()
 
@@ -62,7 +45,7 @@ class testActivity : AppCompatActivity()/*, TextWatcher, CompoundButton.OnChecke
         super.onCreate(savedInstanceState)
         setContentView(R.layout.test_layout)
         ButterKnife.bind(this)
-        tagSearch.addSuggestionList(list)
+//        searchTag.addSuggestionList(list)
 //        searchEditText.addTextChangedListener(this)
 //
 //        selectedTags.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)

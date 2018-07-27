@@ -10,14 +10,39 @@ class DummydataRepositories {
     companion object {
 
         fun getCategoiesList() = mutableListOf<Category>().apply {
+            add(Category("سيارات", "Cars Cars", "1"))
+            add(Category("أثاث", "Furnitures Cars", "2"))
+            add(Category("ألبسة", "Clothes", "3"))
+            add(Category("عقارات", "Houses", "4"))
+            add(Category("إلكترونيات", "Electrics", "5"))
+
             add(Category("سيارات", "Cars", "1"))
             add(Category("أثاث", "Furnitures", "2"))
             add(Category("ألبسة", "Clothes", "3"))
             add(Category("عقارات", "Houses", "4"))
             add(Category("إلكترونيات", "Electrics", "5"))
+
+            add(Category("سيارات", "Cars", "1"))
+            add(Category("أثاث", "Furnitures", "2"))
+            add(Category("ألبسة", "Clothes", "3"))
+            add(Category("عقارات", "Houses", "4"))
+            add(Category("إلكترونيات", "Electrics", "5"))
+
         }
 
         fun getSubCategoriesList() = mutableListOf<SubCategory>().apply {
+            add(SubCategory("مارسيديس", "Marcedes", "1"))
+            add(SubCategory("أودي", "Audi", "2"))
+            add(SubCategory("نيسان", "Nissan", "3"))
+            add(SubCategory("شام", "Sham", "4"))
+            add(SubCategory("تيوتا", "Toyota", "5"))
+
+            add(SubCategory("مارسيديس", "Marcedes", "1"))
+            add(SubCategory("أودي", "Audi", "2"))
+            add(SubCategory("نيسان", "Nissan", "3"))
+            add(SubCategory("شام", "Sham", "4"))
+            add(SubCategory("تيوتا", "Toyota", "5"))
+
             add(SubCategory("مارسيديس", "Marcedes", "1"))
             add(SubCategory("أودي", "Audi", "2"))
             add(SubCategory("نيسان", "Nissan", "3"))
@@ -41,8 +66,14 @@ class DummydataRepositories {
             add(LocationEntity("المهجرين", "Sywida", "5"))
         }
 
+
+        fun getTagsDefaultRepositories() = mutableListOf<TagEntity>().apply {
+            add(TagEntity("دمشق", "Damascus"))
+            add(TagEntity("الكل", "All"))
+        }
+
         fun getTagsRepositories() = mutableListOf<TagEntity>().apply {
-            add(TagEntity("دمشق شسيسيشسيش", "Damascus"))
+            add(TagEntity("دمشق", "Damascus"))
             add(TagEntity("حلب", "Aleppo"))
             add(TagEntity("الكل", "All"))
             add(TagEntity("سيارات", "Cars"))

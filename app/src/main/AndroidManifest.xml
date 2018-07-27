@@ -4,6 +4,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission-sdk-23 android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission-sdk-23 android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:name=".App"
         android:allowBackup="false"
@@ -46,12 +49,12 @@
 
         <!--Registration Activities started-->
 
-        <activity android:name=".activities.SigninActivity">
+        <activity android:name=".activities.SignInActivity">
 
         </activity>
 
         <activity
-            android:name=".activities.SignupActivity"
+            android:name=".activities.SignUpActivity"
             android:theme="@style/AppTheme">
 
         </activity>
@@ -97,7 +100,7 @@
         <!--Post Activities ended-->
 
 
-        <activity android:name=".activities.testActivity">
+        <activity android:name=".activities.TestActivity">
 
         </activity>
         <activity android:name=".activities.PharmacyNearByActivity">
