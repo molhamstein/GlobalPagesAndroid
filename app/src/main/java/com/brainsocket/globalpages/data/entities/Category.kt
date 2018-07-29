@@ -1,5 +1,6 @@
 package com.brainsocket.globalpages.data.entities
 
+import com.brainsocket.globalpages.App
 import com.fasterxml.jackson.annotation.JsonIgnore
 
 /**
@@ -25,7 +26,7 @@ open class Category {
     }
 
     fun getTitle(): String {
-        return titleEn
+        return if (App.app.isArabic()) titleAr else titleEn
     }
 
 }

@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
-            app:behavior_overlapTop="90dp"
+            app:behavior_overlapTop="130dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <android.support.v7.widget.CardView
@@ -137,6 +137,7 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/emailLayout"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/userNameLayout"
@@ -160,6 +161,59 @@
                                     android:textStyle="bold" />
 
                             </LinearLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/moreInfoLayout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/emailLayout"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent">
+
+                                <android.support.design.widget.TextInputLayout
+                                    android:id="@+id/birthdateLayout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toLeftOf="@+id/genderTabLayout"
+                                    android:layout_toStartOf="@+id/genderTabLayout"
+                                    app:errorEnabled="false"
+                                    app:hintEnabled="false">
+
+                                    <android.support.v7.widget.AppCompatEditText
+                                        android:id="@+id/birthdate"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_toLeftOf="@+id/genderTabLayout"
+                                        android:layout_toStartOf="@+id/genderTabLayout"
+                                        android:drawableEnd="@drawable/ic_arrow_drop_down_white_24dp"
+                                        android:drawableRight="@drawable/ic_arrow_drop_down_white_24dp"
+                                        android:enabled="true"
+                                        android:focusable="false"
+                                        android:hint="@string/Birthdate"
+                                        android:textColor="@color/white"
+                                        android:textColorHint="@color/white"
+                                        app:autoSizeTextType="uniform"
+                                        app:backgroundTint="@color/white" />
+
+
+                                </android.support.design.widget.TextInputLayout>
+
+                                <android.support.design.widget.TabLayout
+                                    android:id="@+id/genderTabLayout"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentTop="true"
+                                    app:tabGravity="center"
+                                    app:tabIndicatorColor="@color/transparent"
+                                    app:tabMode="fixed"
+                                    app:tabPadding="0dp"
+                                    app:tabSelectedTextColor="@color/colorPrimary"
+                                    app:tabTextAppearance="@style/AppTheme.TextAppearance"
+                                    app:tabTextColor="@color/grayDarkTextColor" />
+
+                            </RelativeLayout>
 
                         </RelativeLayout>
 
@@ -194,7 +248,7 @@
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/myCategories"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/recyclerviewTagHeight"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/lg_margin"
                             app:layout_constraintTop_toBottomOf="@id/categorySperator"
                             app:tagBackgroundColor="@color/colorPrimary" />
@@ -224,7 +278,7 @@
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/myPosts"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/myAdsRecyclerHeight"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/lg_margin"
                             app:layout_constraintTop_toBottomOf="@id/AdsSperator"
                             app:tagBackgroundColor="@color/colorPrimary" />

@@ -103,5 +103,7 @@
 
     <string name="Categories">الأصناف</string>
     <string name="SubCategories">الأصناف الفرعية</string>
+    <string name="Your">أنت</string>
+    <string name="selectWhatAreYou"> أختر ما تبحث عنه \n وسوف نعرض لك اقرب ثلاث خيارات </string>
 
 </resources>

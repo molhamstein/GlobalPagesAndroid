@@ -1,6 +1,5 @@
 package com.brainsocket.globalpages.viewHolders
 
-import android.graphics.drawable.RippleDrawable
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
@@ -11,10 +10,12 @@ import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.data.entities.Post
 import com.brainsocket.globalpages.utilities.BindingUtils
 
-/**
- * Created by Adhamkh on 2018-06-29.
- */
-class PostViewHolder : RecyclerView.ViewHolder {
+
+class PostViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+    init {
+        ButterKnife.bind(this, view)
+    }
 
     @BindView(R.id.post_Title)
     lateinit var postTitle: TextView
@@ -22,8 +23,11 @@ class PostViewHolder : RecyclerView.ViewHolder {
     @BindView(R.id.post_Image)
     lateinit var postImage: ImageView
 
-    @BindView(R.id.post_Details_Container)
-    lateinit var postDetailsContainer: View
+    @BindView(R.id.post_city)
+    lateinit var postCity: TextView
+
+    @BindView(R.id.post_area)
+    lateinit var postArea: TextView
 
     @BindView(R.id.post_details)
     lateinit var postDetails: TextView
@@ -32,16 +36,14 @@ class PostViewHolder : RecyclerView.ViewHolder {
     lateinit var postTag: TextView
 
 
-    constructor(view: View) : super(view) {
-        ButterKnife.bind(this, view)
-    }
-
     fun bind(post: Post) {
-        postTitle.setText(post.title)
-        postDetails.setText(post.description)
-        var catTitle = (post.category.getTitle())
-        postTag.text = catTitle
-        BindingUtils.loadPostImage(postImage, postDetailsContainer, post)
+        postTitle.text = post.title
+        postDetails.text = post.description
+        postTag.text = post.category.getTitle()
+        postCity.text = post.city.getTitle()
+        postArea.text = post.area.getTitle()
+
+        BindingUtils.loadPostImage(postImage, post)
     }
 
 

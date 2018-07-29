@@ -1,5 +1,6 @@
 package com.brainsocket.globalpages.data.entities
 
+import com.brainsocket.globalpages.App
 import com.fasterxml.jackson.annotation.JsonIgnore
 
 /**
@@ -21,6 +22,6 @@ class LocationEntity {
     }
 
     fun getTitle(): String {
-        return titleAr
+        return if (App.app.isArabic()) titleAr else titleEn
     }
 }

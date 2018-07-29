@@ -2,19 +2,25 @@ package com.brainsocket.globalpages.activities
 
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
+import android.support.design.widget.TabLayout
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.BusinessGuideRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.CategoryRecyclerViewAdapter
+import com.brainsocket.globalpages.adapters.PostRecyclerViewAdapter
 import com.brainsocket.globalpages.repositories.DummydataRepositories
+import com.brainsocket.globalpages.views.CustomTabView
 
 
 class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener {
@@ -37,6 +43,9 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener {
     @BindView(R.id.myBusiness)
     lateinit var myBusiness: RecyclerView
 
+    @BindView(R.id.genderTabLayout)
+    lateinit var genderTabLayout: TabLayout
+
     private val percentageToShowImage = 20
 
     private var mMaxScrollSize: Int = 0
@@ -52,17 +61,49 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener {
         myCategories.adapter = CategoryRecyclerViewAdapter(this, DummydataRepositories.getCategoiesList())
 
         myPosts.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-//        myPosts.adapter = PostRecyclerViewAdapter(this, DummydataRepositories.getPostList())
+        myPosts.adapter = PostRecyclerViewAdapter(this, DummydataRepositories.getPostList(), true)
 
         myBusiness.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         myBusiness.adapter = BusinessGuideRecyclerViewAdapter(this, DummydataRepositories.getBusinessGuideList())
     }
+
+    private fun initTabLayout() {
+        val maleTab = genderTabLayout.newTab().setCustomView(CustomTabView(context = baseContext)
+                .setGender(R.string.male, R.mipmap.ic_male_24dp)).setText(R.string.male)
+        val femaleTab = genderTabLayout.newTab().setCustomView(CustomTabView(context = baseContext)
+                .setGender(R.string.female, R.mipmap.ic_female_24dp)).setText(R.string.female)
+
+        genderTabLayout.addTab(maleTab)
+        genderTabLayout.addTab(femaleTab)
+
+        genderTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                Log.v("", "")
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                tab?.customView?.findViewById<TextView>(android.R.id.text1)
+                        ?.setTextColor(ContextCompat.getColor(baseContext, R.color.grayDarkTextColor))
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                tab?.customView?.findViewById<TextView>(android.R.id.text1)
+                        ?.setTextColor(ContextCompat.getColor(baseContext, R.color.white))
+            }
+        })
+
+        femaleTab.select()
+        maleTab.select()
+
+    }
+
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.profile_layout)
         ButterKnife.bind(this)
         initToolBar()
         initRecyclerViews()
+        initTabLayout()
         appbar.addOnOffsetChangedListener(this)
     }
 

@@ -91,7 +91,10 @@
         <activity android:name=".activities.PostAddActivity">
 
         </activity>
-        <activity android:name=".activities.PostSearchActivity">
+        <activity
+            android:name=".activities.PostSearchActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustPan">
 
         </activity>
         <activity android:name=".activities.PostDetailsActivity">

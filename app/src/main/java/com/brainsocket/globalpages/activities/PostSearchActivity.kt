@@ -9,10 +9,7 @@ import android.view.View
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.brainsocket.globalpages.R
-import com.brainsocket.globalpages.adapters.CategoryRecyclerViewAdapter
-import com.brainsocket.globalpages.adapters.CityRecyclerViewAdapter
-import com.brainsocket.globalpages.adapters.LocationEntityRecyclerViewAdapter
-import com.brainsocket.globalpages.adapters.SubCategoryRecyclerViewAdapter
+import com.brainsocket.globalpages.adapters.*
 import com.brainsocket.globalpages.data.entities.Category
 import com.brainsocket.globalpages.data.entities.City
 import com.brainsocket.globalpages.data.entities.TagEntity
@@ -20,6 +17,7 @@ import com.brainsocket.globalpages.listeners.OnCategorySelectListener
 import com.brainsocket.globalpages.listeners.OnCitySelectListener
 import com.brainsocket.globalpages.repositories.DummydataRepositories
 import com.brainsocket.globalpages.views.SearchTagView
+import com.brainsocket.globalpages.views.SuggestionTagView
 import com.google.gson.Gson
 
 
@@ -47,6 +45,9 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
     @BindView(R.id.searchTagView)
     lateinit var searchTagView: SearchTagView
 
+    @BindView(R.id.suggestionTagsView)
+    lateinit var suggestionTagsView: SuggestionTagView
+
     private fun initRecyclerViews() {
         filterCategories.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         filterCategories.adapter = CategoryRecyclerViewAdapter(this, DummydataRepositories.getCategoiesList(), this)
@@ -59,6 +60,8 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
 
         filterLocations.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         filterLocations.adapter = LocationEntityRecyclerViewAdapter(this, DummydataRepositories.getLocationList())
+
+        suggestionTagsView.setAdapter(TagsRecyclerViewAdapter(this, DummydataRepositories.getTagsRepositories(), false))
 
     }
 

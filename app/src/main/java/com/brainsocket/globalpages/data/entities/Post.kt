@@ -1,5 +1,7 @@
 package com.brainsocket.globalpages.data.entities
 
+import com.brainsocket.globalpages.enums.PostType
+
 /**
  * Created by Adhamkh on 2018-06-29.
  */
@@ -9,13 +11,16 @@ class Post {
 
     }
 
-    constructor(title: String, description: String, status: String, image: String, category: Category, subCategory: SubCategory) {
+    constructor(title: String, description: String, status: String, image: String,
+                category: Category, subCategory: SubCategory, city: City, area: LocationEntity) {
         this.title = title
         this.description = description
         this.status = status
         this.image = image
         this.category = category
         this.subCategory = subCategory
+        this.city = city
+        this.area = area
     }
 
     var title: String = ""
@@ -37,6 +42,15 @@ class Post {
 
     var subCategory: SubCategory = SubCategory()
 
+    var city: City = City()
+    var area: LocationEntity = LocationEntity()
+
+    fun getPostType(): Int {
+        if (!image.isNullOrEmpty()) {
+            return PostType.WITH_IMAGE.type
+        }
+        return PostType.WITH_TEXT.type
+    }
 
 
 }

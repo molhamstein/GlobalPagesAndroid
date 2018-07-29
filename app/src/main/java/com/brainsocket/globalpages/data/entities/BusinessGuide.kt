@@ -1,5 +1,7 @@
 package com.brainsocket.globalpages.data.entities
 
+import com.brainsocket.globalpages.App
+
 /**
  * Created by Adhamkh on 2018-07-18.
  */
@@ -21,7 +23,7 @@ class BusinessGuide {
     }
 
     fun getName(): String {
-        return nameAr
+        return if (App.app.isArabic()) nameAr else nameAr
     }
 
 

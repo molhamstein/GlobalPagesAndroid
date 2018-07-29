@@ -14,5 +14,8 @@
     <dimen name="myAdsRecyclerHeight">100dp</dimen>
     <dimen name="zero">0dp</dimen>
 
+    <dimen name="postItemWidth">160dp</dimen>
+    <dimen name="postItemHeight">160dp</dimen>
+
 
 </resources>

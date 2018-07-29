@@ -67,7 +67,7 @@ class SignUpActivity : BaseActivity(), SignUpContract.View {
         genderTabLayout.addTab(maleTab)
         genderTabLayout.addTab(femaleTab)
 
-        genderTabLayout.setOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        genderTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 Log.v("", "")
             }
@@ -110,7 +110,7 @@ class SignUpActivity : BaseActivity(), SignUpContract.View {
     private fun initDatePicker() {
         val date: java.util.GregorianCalendar = java.util.GregorianCalendar(Locale.ENGLISH)
         val datePicker = DatePickerDialog(this, R.style.AppTheme_DialogSlideAnimwithback,
-                DatePickerDialog.OnDateSetListener { datePicker: DatePicker, year: Int, month: Int,
+                DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, month: Int,
                                                      dayOfMonth: Int ->
                     date.set(Calendar.YEAR, year)
                     date.set(Calendar.MONTH, month)
@@ -146,7 +146,7 @@ class SignUpActivity : BaseActivity(), SignUpContract.View {
     override fun navigateAfterSignUp(user: User) {
         userRepository(context = this).addUser(user)
         val builder = AlertDialog.Builder(SignUpActivity@ this)
-        val dialogClickListener = DialogInterface.OnClickListener { dialog, which ->
+        val dialogClickListener = DialogInterface.OnClickListener { _, which ->
             when (which) {
                 DialogInterface.BUTTON_POSITIVE -> {
                     signUp2Business(user)

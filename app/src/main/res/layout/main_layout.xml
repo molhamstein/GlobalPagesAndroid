@@ -153,6 +153,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_gravity="bottom"
+                        android:layout_marginBottom="@dimen/sm_margin"
                         android:contentDescription="@string/contentDescription"
                         android:src="@drawable/ic_previous_volume_24dp"
                         android:visibility="invisible" />

@@ -1,5 +1,7 @@
 package com.brainsocket.globalpages.data.entities
 
+import com.brainsocket.globalpages.App
+
 /**
  * Created by Adhamkh on 2018-06-29.
  */
@@ -14,5 +16,9 @@ class Volume {
     var postsIds: MutableList<String> = mutableListOf()
 
     var posts: MutableList<Post> = mutableListOf()
+
+    fun getTitle(): String {
+        return if (App.app.isArabic()) titleAr else titleEn
+    }
 
 }

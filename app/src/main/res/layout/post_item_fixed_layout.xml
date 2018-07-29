@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="@dimen/postItemWidth"
+    android:layout_height="@dimen/postItemHeight">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="@dimen/md_margin"
         android:padding="0dp"
         app:cardBackgroundColor="@color/white"
@@ -17,16 +17,17 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/post_Image"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:adjustViewBounds="true"
                 android:background="@color/colorPrimary"
                 android:contentDescription="@string/contentDescription"
                 android:src="@mipmap/ic_launcher"
+                app:layout_constraintHeight_percent="0.5"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
 
@@ -70,62 +71,61 @@
 
             </RelativeLayout>
 
-            <LinearLayout
-                android:id="@+id/locationLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/tagContainer">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/post_city"
-                    style="@style/AppTheme.TitleTextAppearance"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/grayDarkTextColor" />
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/post_area"
-                    style="@style/AppTheme.TitleTextAppearance"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/grayDarkTextColor" />
-
-            </LinearLayout>
-
-            <View
-                android:id="@+id/post_separator"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/sperator"
-                android:background="@color/colorPrimary"
-                app:layout_constraintTop_toBottomOf="@+id/locationLayout" />
-
             <TextView
                 android:id="@+id/post_Title"
                 style="@style/AppTheme.TextAppearance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
                 android:shadowColor="@color/lightgray"
                 android:shadowRadius="@integer/textShadow"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/post_separator" />
+                app:layout_constraintTop_toBottomOf="@+id/tagContainer" />
 
-            <TextView
-                android:id="@+id/post_details"
-                style="@style/AppTheme.TextAppearanceSmall"
+            <LinearLayout
+                android:id="@+id/post_Details_Container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:gravity="start"
-                android:maxLines="6"
-                android:shadowColor="@color/lightgray"
-                android:shadowRadius="@integer/textShadow"
-                android:textAlignment="gravity"
-                android:textColor="@color/grayDarkTextColor"
-                android:textStyle="bold"
+                android:orientation="vertical"
                 android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@+id/tagContainer" />
+                app:layout_constraintTop_toBottomOf="@+id/post_Title">
+
+                <TextView
+                    android:id="@+id/post_details"
+                    style="@style/AppTheme.TextAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:maxLines="6"
+                    android:shadowColor="@color/lightgray"
+                    android:shadowRadius="@integer/textShadow"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/grayDarkTextColor"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/locationLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/post_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/post_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
         </android.support.constraint.ConstraintLayout>
 

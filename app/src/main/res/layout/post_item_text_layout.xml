@@ -19,23 +19,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/post_Image"
-                android:layout_width="0dp"
+
+            <TextView
+                android:id="@+id/post_Title"
+                style="@style/AppTheme.TextAppearance"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:background="@color/colorPrimary"
-                android:contentDescription="@string/contentDescription"
-                android:src="@mipmap/ic_launcher"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+                android:shadowColor="@color/lightgray"
+                android:shadowRadius="@integer/textShadow"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <RelativeLayout
                 android:id="@+id/tagContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/post_Image"
-                app:layout_constraintTop_toBottomOf="@+id/post_Image">
+                app:layout_constraintTop_toBottomOf="@+id/post_Title">
 
                 <View
                     android:layout_width="match_parent"
@@ -70,47 +69,6 @@
 
             </RelativeLayout>
 
-            <LinearLayout
-                android:id="@+id/locationLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/tagContainer">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/post_city"
-                    style="@style/AppTheme.TitleTextAppearance"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/grayDarkTextColor" />
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/post_area"
-                    style="@style/AppTheme.TitleTextAppearance"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/grayDarkTextColor" />
-
-            </LinearLayout>
-
-            <View
-                android:id="@+id/post_separator"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/sperator"
-                android:background="@color/colorPrimary"
-                app:layout_constraintTop_toBottomOf="@+id/locationLayout" />
-
-            <TextView
-                android:id="@+id/post_Title"
-                style="@style/AppTheme.TextAppearance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:shadowColor="@color/lightgray"
-                android:shadowRadius="@integer/textShadow"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/post_separator" />
-
             <TextView
                 android:id="@+id/post_details"
                 style="@style/AppTheme.TextAppearanceSmall"
@@ -124,8 +82,50 @@
                 android:textAlignment="gravity"
                 android:textColor="@color/grayDarkTextColor"
                 android:textStyle="bold"
-                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@+id/tagContainer" />
+
+            <View
+                android:id="@+id/post_separator"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/sperator"
+                android:background="@color/colorPrimary"
+                app:layout_constraintTop_toBottomOf="@+id/post_details" />
+
+            <LinearLayout
+                android:id="@+id/locationLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/post_separator">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/post_city"
+                    style="@style/AppTheme.TextAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/grayLightTextColor" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/post_area"
+                    style="@style/AppTheme.TextAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/grayLightTextColor" />
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/post_Image"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:background="@color/colorPrimary"
+                android:contentDescription="@string/contentDescription"
+                android:src="@mipmap/ic_launcher"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
 

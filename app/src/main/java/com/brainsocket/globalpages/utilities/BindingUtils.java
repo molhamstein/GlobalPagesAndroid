@@ -33,14 +33,14 @@ public class BindingUtils {
         }
     }
 
-    public static void loadPostImage(ImageView view, View container, Post post) {
+    public static void loadPostImage(ImageView view,/* View container,*/ Post post) {
         try {
-            if (post.getImage().isEmpty()) {
+            /*if (post.getImage().isEmpty()) {
                 view.setVisibility(View.GONE);
                 return;
             } else {
                 container.setVisibility(View.GONE);
-            }
+            }*/
             Context context = view.getContext();
             GlideApp.with(context).load(post.getImage()).error(R.mipmap.ic_launcher)
                     .placeholder(R.mipmap.ic_launcher).into(view);

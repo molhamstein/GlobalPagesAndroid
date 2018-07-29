@@ -1,5 +1,7 @@
 package com.brainsocket.globalpages.data.entities
 
+import com.brainsocket.globalpages.App
+
 /**
  * Created by Adhamkh on 2018-07-04.
  */
@@ -14,10 +16,10 @@ class TagEntity {
 
     var titleAr: String = ""
     var titleEn: String = ""
-    var tagId: String=""
+    var tagId: String = ""
     var isSelected = false
 
     fun getTitle(): String {
-        return titleAr
+        return if (App.app.isArabic()) titleAr else titleEn
     }
 }
