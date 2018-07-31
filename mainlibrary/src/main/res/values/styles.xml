@@ -221,7 +221,8 @@
         <item name="android:gravity">center_vertical|center_horizontal</item>
     </style>
 
-    <style name="AppTheme.MainToggle" parent="@style/AppTheme">
+    /*parent="@style/AppTheme"*/
+    <style name="AppTheme.MainToggle">
 
 
     </style>
