@@ -1,19 +1,31 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
+
+    <!--<ImageView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:contentDescription="@string/contentDescription"-->
+    <!--android:src="@drawable/ic_close_white_24dp"-->
+    <!--app:layout_constraintEnd_toEndOf="@+id/tag_toggle" />-->
 
     <ToggleButton
         android:id="@+id/tag_toggle"
         style="@style/AppTheme.MainToggle"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/recyclerviewTagHeight"
+        android:layout_centerInParent="true"
         android:layout_margin="@dimen/sm_margin"
         android:background="@drawable/ic_view_tag_bg"
         android:drawableEnd="@drawable/ic_close_white_24dp"
-        android:drawablePadding="@dimen/xxsm_padding"
+        android:drawablePadding="@dimen/sm_padding"
         android:drawableRight="@drawable/ic_close_white_24dp"
+        android:gravity="center_vertical|center_horizontal"
         android:maxLines="1"
         android:padding="@dimen/sm_padding"
+        android:textAlignment="gravity"
         android:textColor="@color/white" />
 
-</LinearLayout>
+
+</RelativeLayout>

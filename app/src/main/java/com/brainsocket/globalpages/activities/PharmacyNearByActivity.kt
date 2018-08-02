@@ -21,6 +21,7 @@ import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.BusinessGuideRecyclerViewAdapter
 import com.brainsocket.globalpages.dialogs.bottomSheetFragments.BusinessGuideSnippetBottomFragment
 import com.brainsocket.globalpages.dialogs.bottomSheetFragments.CategoryFilterBottomSheet
+import com.brainsocket.globalpages.dialogs.bottomSheetFragments.SubCategoryBottomSheet
 import com.brainsocket.globalpages.repositories.DummydataRepositories
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
@@ -191,10 +192,19 @@ class PharmacyNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
         initLocation()
         createLocationRequest()
 
+        val categoryFilterBottomSheet = CategoryFilterBottomSheet.getNewInstance()
+        categoryFilterBottomSheet.show(supportFragmentManager, CategoryFilterBottomSheet.CategoryFilterBottmSheet_Tag)
     }
 
     @OnClick(R.id.tagSearchView)
     fun onTagSearchViewClick(view: View) {
+        try {
+            var fragment = supportFragmentManager.findFragmentByTag(SubCategoryBottomSheet.SubCategoryBottomSheet_Tag)
+            if (fragment != null) {
+                (fragment as SubCategoryBottomSheet).dismiss()
+            }
+        } catch (ex: Exception) {
+        }
         Log.v("View Clicked", view.id.toString())
     }
 

@@ -73,5 +73,6 @@ class CategoryFilterBottomSheet : BottomSheetDialogFragment(), OnCategorySelectL
     override fun onSelectCategory(category: Category) {
         val subCategoryBottomSheet = SubCategoryBottomSheet.getNewInstance()
         subCategoryBottomSheet.show(fragmentManager, SubCategoryBottomSheet.SubCategoryBottomSheet_Tag)
+        dismiss()
     }
 }

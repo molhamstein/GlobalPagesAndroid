@@ -3,7 +3,9 @@
 
     <item>
         <shape>
-            <solid android:color="@color/colorPrimary" />
+            <!--<solid android:color="@color/colorPrimary" />-->
+            <gradient android:startColor="@color/colorGradientStart"
+                android:endColor="@color/colorGradientEnd"/>
             <corners android:radius="180dp" />
         </shape>
 

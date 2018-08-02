@@ -42,11 +42,11 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
     @BindView(R.id.filter_locations)
     lateinit var filterLocations: RecyclerView
 
-    @BindView(R.id.searchTagView)
-    lateinit var searchTagView: SearchTagView
-
-    @BindView(R.id.suggestionTagsView)
-    lateinit var suggestionTagsView: SuggestionTagView
+//    @BindView(R.id.searchTagView)
+//    lateinit var searchTagView: SearchTagView
+//
+//    @BindView(R.id.suggestionTagsView)
+//    lateinit var suggestionTagsView: SuggestionTagView
 
     private fun initRecyclerViews() {
         filterCategories.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
@@ -61,7 +61,7 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
         filterLocations.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         filterLocations.adapter = LocationEntityRecyclerViewAdapter(this, DummydataRepositories.getLocationList())
 
-        suggestionTagsView.setAdapter(TagsRecyclerViewAdapter(this, DummydataRepositories.getTagsRepositories(), false))
+//        suggestionTagsView.setAdapter(TagsRecyclerViewAdapter(this, DummydataRepositories.getTagsRepositories(), false))
 
     }
 
@@ -77,7 +77,7 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
         ButterKnife.bind(this)
         val tags: MutableList<TagEntity> = Gson().fromJson(intent.extras.getString(Suggestion_List_Tag).toString(),
                 Array<TagEntity>::class.java).toMutableList()
-        searchTagView.setSuggestionList(tags)
+//        searchTagView.setSuggestionList(tags)
 
         initToolBar()
         initRecyclerViews()

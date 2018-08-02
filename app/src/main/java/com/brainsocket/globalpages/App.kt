@@ -41,9 +41,9 @@ class App : MultiDexApplication() {
 
         val locale = Locale.getDefault()
         var localeCode = "ar"
-        if (locale.displayName.contains("en", true)) {
-            localeCode = "en"
-        }
+//        if (locale.displayName.contains("en", true)) {
+//            localeCode = "en"
+//        }
         systemLanguage = localeCode
         if (!localeCode.isEmpty()) {
             LocaleUtils.setLocale(Locale(localeCode))

@@ -2,20 +2,26 @@
 <resources>
 
     <dimen name="buttonCorner">2dp</dimen>
+
     <dimen name="elevation">4dp</dimen>
+    <dimen name="md_elevation">8dp</dimen>
     <dimen name="lg_elevation">15dp</dimen>
 
     <dimen name="cardRadius">4dp</dimen>
+    <dimen name="md_cardRadius">8dp</dimen>
+    <dimen name="lg_cardRadius">16dp</dimen>
+
     <dimen name="max_margin">120dp</dimen>
 
     <dimen name="sperator">1dp</dimen>
 
-    <dimen name="recyclerviewTagHeight">35dp</dimen>
+    <dimen name="recyclerviewTagHeight">25dp</dimen>
     <dimen name="myAdsRecyclerHeight">100dp</dimen>
     <dimen name="zero">0dp</dimen>
 
     <dimen name="postItemWidth">160dp</dimen>
     <dimen name="postItemHeight">160dp</dimen>
+    <dimen name="businessItemWidth">200dp</dimen>
 
 
 </resources>

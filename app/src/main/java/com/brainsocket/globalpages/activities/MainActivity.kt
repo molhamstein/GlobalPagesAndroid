@@ -138,6 +138,15 @@ class MainActivity : BaseActivity(), VolumesContract.View {
         Log.v("View Clicked", view.id.toString())
     }
 
+    @OnClick(R.id.addBusinessBtn)
+    fun onAddBusinessBtnClick(view: View) {
+        var user = userRepository(this).getUser()
+        if (user != null)
+            intentHelper.startBusinessAddActivity(this)
+        else
+            intentHelper.startSignInActivity(this)
+    }
+
     @OnClick(R.id.dutyPharmacyBtn)
     fun onDutyPharmacyClick(view: View) {
         intentHelper.startDutyPharmacyActivity(this)

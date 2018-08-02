@@ -13,6 +13,8 @@ import com.brainsocket.globalpages.data.entities.Post;
 
 import java.util.Random;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 /**
  * Created by Adhamkh on 2018-06-29.
  */
@@ -27,7 +29,7 @@ public class BindingUtils {
             }
             Context context = view.getContext();
             GlideApp.with(context).load(businessGuide.getImageUrl()).error(R.mipmap.ic_launcher)
-                    .placeholder(R.mipmap.ic_launcher).into(view);
+                    .placeholder(R.mipmap.ic_launcher).transform(new RoundedCornersTransformation(30, 10)).into(view);
         } catch (Exception ex) {
             Log.v("image load", ex.getMessage());
         }

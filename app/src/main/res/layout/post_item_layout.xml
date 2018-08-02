@@ -9,11 +9,11 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/md_margin"
         android:padding="0dp"
-        app:cardBackgroundColor="@color/white"
+        app:cardBackgroundColor="@color/transparent"
         app:cardCornerRadius="@dimen/cardview_default_radius"
         app:cardMaxElevation="@dimen/cardview_default_radius"
         app:cardUseCompatPadding="true"
-        app:contentPadding="0dp">
+        app:contentPadding="@dimen/zero">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -74,19 +74,20 @@
                 android:id="@+id/locationLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/md_margin"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@+id/tagContainer">
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/post_city"
-                    style="@style/AppTheme.TitleTextAppearance"
+                    style="@style/AppTheme.TextAppearance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/grayDarkTextColor" />
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/post_area"
-                    style="@style/AppTheme.TitleTextAppearance"
+                    style="@style/AppTheme.TextAppearance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/grayDarkTextColor" />
@@ -105,6 +106,7 @@
                 style="@style/AppTheme.TextAppearance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/md_margin"
                 android:shadowColor="@color/lightgray"
                 android:shadowRadius="@integer/textShadow"
                 android:textColor="@color/black"

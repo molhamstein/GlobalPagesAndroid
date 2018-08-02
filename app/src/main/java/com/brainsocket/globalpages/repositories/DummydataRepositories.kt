@@ -134,27 +134,27 @@ class DummydataRepositories {
         fun getBusinessGuideList() = mutableListOf<BusinessGuide>().apply {
             add(BusinessGuide("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
                     "Honda Car", "Honda Car", Category("سيارات", "Cars", "1"), SubCategory("مارسيديس", "Marcedes", "1")))
-            add(BusinessGuide("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hondaurbanev-1520532361.jpg",
+            add(BusinessGuide("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
                     "Honda Car", "Honda Car", Category("سيارات", "Cars", "1"), SubCategory("مارسيديس", "Marcedes", "1")))
             add(BusinessGuide("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
                     "Honda Car", "Honda Car", Category("سيارات", "Cars", "1"), SubCategory("مارسيديس", "Marcedes", "1")))
-            add(BusinessGuide("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hondaurbanev-1520532361.jpg",
+            add(BusinessGuide("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
                     "Honda Car", "Honda Car", Category("سيارات", "Cars", "1"), SubCategory("مارسيديس", "Marcedes", "1")))
             add(BusinessGuide("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
                     "Honda Car", "Honda Car", Category("سيارات", "Cars", "1"), SubCategory("مارسيديس", "Marcedes", "1")))
-            add(BusinessGuide("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hondaurbanev-1520532361.jpg",
+            add(BusinessGuide("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
                     "Honda Car", "Honda Car", Category("سيارات", "Cars", "1"), SubCategory("مارسيديس", "Marcedes", "1")))
             add(BusinessGuide("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
                     "Honda Car", "Honda Car", Category("سيارات", "Cars", "1"), SubCategory("مارسيديس", "Marcedes", "1")))
-            add(BusinessGuide("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hondaurbanev-1520532361.jpg",
+            add(BusinessGuide("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
                     "Honda Car", "Honda Car", Category("سيارات", "Cars", "1"), SubCategory("مارسيديس", "Marcedes", "1")))
             add(BusinessGuide("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
                     "Honda Car", "Honda Car", Category("سيارات", "Cars", "1"), SubCategory("مارسيديس", "Marcedes", "1")))
-            add(BusinessGuide("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hondaurbanev-1520532361.jpg",
+            add(BusinessGuide("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
                     "Honda Car", "Honda Car", Category("سيارات", "Cars", "1"), SubCategory("مارسيديس", "Marcedes", "1")))
             add(BusinessGuide("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
                     "Honda Car", "Honda Car", Category("سيارات", "Cars", "1"), SubCategory("مارسيديس", "Marcedes", "1")))
-            add(BusinessGuide("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hondaurbanev-1520532361.jpg",
+            add(BusinessGuide("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
                     "Honda Car", "Honda Car", Category("سيارات", "Cars", "1"), SubCategory("مارسيديس", "Marcedes", "1")))
         }
 

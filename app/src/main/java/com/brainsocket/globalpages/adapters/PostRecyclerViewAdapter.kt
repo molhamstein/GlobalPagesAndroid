@@ -14,7 +14,7 @@ import com.brainsocket.globalpages.viewHolders.PostViewHolder
 /**
  * Created by Adhamkh on 2018-06-29.
  */
-class PostRecyclerViewAdapter constructor(var context: Context, var postsList: MutableList<Post>,private var isFixed: Boolean = false) :
+class PostRecyclerViewAdapter constructor(var context: Context, var postsList: MutableList<Post>, private var isFixed: Boolean = false) :
         RecyclerView.Adapter<PostViewHolder>() {
 
 

@@ -74,7 +74,7 @@ class SignUpActivity : BaseActivity(), SignUpContract.View {
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
                 tab?.customView?.findViewById<TextView>(android.R.id.text1)
-                        ?.setTextColor(ContextCompat.getColor(baseContext, R.color.grayDarkTextColor))
+                        ?.setTextColor(ContextCompat.getColor(baseContext, R.color.grayLightTextColor))
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {

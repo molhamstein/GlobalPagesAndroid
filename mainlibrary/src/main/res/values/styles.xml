@@ -208,6 +208,7 @@
         <item name="android:textStyle">bold</item>
         <item name="android:height">20dp</item>
         <item name="android:textSize">12sp</item>
+        <item name="android:padding">@dimen/md_padding</item>
     </style>
 
     <style name="IconButton" parent="Base.Widget.AppCompat.Button">
