@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--notification shadow started-->
+    <declare-styleable name="ms9_MaterialShadowContainerView">
+        <attr name="ms9_shadowTranslationZ" format="dimension" />
+        <attr name="ms9_shadowElevation" format="dimension" />
+        <attr name="ms9_spotShadowDrawablesList" format="reference" />
+        <attr name="ms9_ambientShadowDrawablesList" format="reference" />
+        <attr name="ms9_forceUseCompatShadow" format="boolean" />
+        <attr name="ms9_affectsDisplayedPosition" format="boolean" />
+        <attr name="ms9_useAmbientShadow" format="boolean" />
+        <attr name="ms9_useSpotShadow" format="boolean" />
+    </declare-styleable>
+
+</resources>

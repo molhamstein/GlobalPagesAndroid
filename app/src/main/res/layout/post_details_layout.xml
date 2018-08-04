@@ -60,7 +60,7 @@
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:fillViewport="true"
             app:behavior_overlapTop="60dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -77,6 +77,7 @@
                 app:cardUseCompatPadding="true"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
+
                 app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
 
@@ -285,8 +286,9 @@
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
                         android:background="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/info_Layout">
 
                         <android.support.v7.widget.AppCompatTextView
@@ -326,36 +328,55 @@
                             app:layout_constraintTop_toBottomOf="@+id/categorySperator" />
 
 
-                        <android.support.v7.widget.AppCompatButton
-                            android:id="@+id/contactBtn"
-                            style="@style/AppTheme.NormalButtonStyle"
+                        <com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView
+                            android:id="@+id/contactBtnContainer"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/md_margin"
-                            android:layout_marginBottom="@dimen/lg_margin"
-                            android:layout_marginTop="@dimen/lg_margin"
+                            android:layout_marginTop="@dimen/xlg_margin"
                             android:layout_weight="4"
-                            android:background="@drawable/button_bg"
-                            android:drawableLeft="@drawable/ic_phone_white_24dp"
-                            android:drawableStart="@drawable/ic_phone_white_24dp"
-                            android:elevation="@dimen/elevation"
-                            android:paddingEnd="@dimen/lg_padding"
-                            android:paddingLeft="@dimen/lg_padding"
-                            android:paddingRight="@dimen/lg_padding"
-                            android:paddingStart="@dimen/lg_padding"
-                            android:shadowColor="@color/black"
-                            android:text="@string/Contact"
-                            android:textColor="@color/white"
-                            android:textStyle="bold"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/adsDescription"
-                            app:layout_constraintWidth_percent="0.5" />
+                            app:layout_constraintWidth_percent="0.5"
+                            app:ms9_shadowElevation="@dimen/md_elevation">
+
+                            <LinearLayout
+                                style="@style/commonNinePatchShadowItemViewStyle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/md_margin"
+                                android:background="@drawable/white_radius_bg"
+                                android:padding="@dimen/zero">
+
+
+                                <android.support.v7.widget.AppCompatButton
+                                    android:id="@+id/contactBtn"
+                                    style="@style/AppTheme.NormalButtonStyle"
+                                    android:layout_width="0dp"
+                                    android:layout_height="@dimen/sm_btn_height"
+                                    android:layout_margin="@dimen/zero"
+                                    android:layout_weight="4"
+                                    android:background="@drawable/button_bg"
+                                    android:drawableEnd="@drawable/ic_transparent_bg"
+                                    android:drawableLeft="@drawable/ic_phone_white_24dp"
+                                    android:drawableRight="@drawable/ic_transparent_bg"
+                                    android:drawableStart="@drawable/ic_phone_white_24dp"
+                                    android:elevation="@dimen/elevation"
+                                    android:paddingEnd="@dimen/lg_padding"
+                                    android:paddingLeft="@dimen/lg_padding"
+                                    android:paddingRight="@dimen/lg_padding"
+                                    android:paddingStart="@dimen/lg_padding"
+                                    android:shadowColor="@color/black"
+                                    android:text="@string/Contact"
+                                    android:textColor="@color/white"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+                        </com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView>
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
-                            app:layout_constraintTop_toBottomOf="@+id/contactBtn" />
+                            app:layout_constraintTop_toBottomOf="@+id/contactBtnContainer" />
 
                     </android.support.constraint.ConstraintLayout>
 

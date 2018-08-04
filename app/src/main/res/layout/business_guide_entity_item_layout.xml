@@ -4,28 +4,49 @@
     android:layout_width="@dimen/businessItemWidth"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/businessCard"
+    <!--<android.support.v7.widget.CardView-->
+    <!--android:id="@+id/businessCard"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_margin="@dimen/zero"-->
+    <!--app:cardBackgroundColor="@color/transparent"-->
+    <!--app:cardCornerRadius="@dimen/md_cardRadius"-->
+    <!--app:cardElevation="@dimen/md_elevation"-->
+    <!--app:cardPreventCornerOverlap="false"-->
+    <!--app:cardUseCompatPadding="true"-->
+    <!--app:contentPadding="@dimen/zero">-->
+
+    <com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView
+        style="@style/ms9_DefaultShadowStyleZ18"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/zero"
-        app:cardBackgroundColor="@color/transparent"
-        app:cardCornerRadius="@dimen/md_cardRadius"
-        app:cardElevation="@dimen/md_elevation"
-        app:cardPreventCornerOverlap="false"
-        app:cardUseCompatPadding="true"
-        app:contentPadding="@dimen/zero">
+        android:padding="@dimen/zero"
+        app:ms9_shadowElevation="@dimen/lg_elevation">
+
+        <!--style="@style/commonNinePatchShadowContainerStyle"-->
 
         <android.support.constraint.ConstraintLayout
+            style="@style/commonNinePatchShadowItemViewStyle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/sm_margin"
+            android:layout_marginEnd="@dimen/md_margin"
+            android:layout_marginLeft="@dimen/md_margin"
+            android:layout_marginRight="@dimen/md_margin"
+            android:layout_marginStart="@dimen/md_margin"
+            android:layout_marginTop="@dimen/md_margin"
+            android:background="@drawable/white_radius_bg"
+            android:padding="@dimen/zero">
+            <!--android:background="@color/transparent"-->
+            <!--android:background="@color/transparent"-->
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/businessIcon"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/zero"
                 android:adjustViewBounds="true"
+                android:background="@drawable/transparent_radius_bg"
                 android:padding="@dimen/zero"
                 android:scaleType="center" />
 
@@ -43,7 +64,16 @@
                 app:layout_constraintBottom_toBottomOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
+    </com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView>
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_margin="@dimen/md_margin"-->
+    <!--app:ms9_shadowElevation="@dimen/md_elevation">-->
 
-    </android.support.v7.widget.CardView>
+
+    <!--<!jawad.sons.com.ninepatchlibrary.MaterialShadowContainerViewView>&ndash;&gt;-->
+
+
+    <!--</android.support.v7.widget.CardView>-->
 
 </RelativeLayout>

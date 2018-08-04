@@ -172,8 +172,7 @@
             android:id="@+id/nestedview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="35dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="45dp"
             android:background="@color/milkyColor"
             android:fillViewport="true"
             android:paddingBottom="0dp"
@@ -182,7 +181,7 @@
             <com.brainsocket.mainlibrary.Views.Stateslayoutview
                 android:id="@+id/stateLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/volumesRecyclerView"
@@ -228,6 +227,8 @@
                     android:layout_toRightOf="@+id/previousBtn"
                     android:layout_toStartOf="@+id/nextBtn"
                     android:gravity="center"
+                    android:shadowColor="@color/grayDarkTextColor"
+                    android:shadowRadius="@integer/textShadow"
                     android:text="03/08/2018"
                     android:textColor="@color/grayDarkTextColor"
                     android:textStyle="bold" />
@@ -256,13 +257,14 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/sm_padding">
 
                     <com.brainsocket.globalpages.views.SelectedTagsView
                         android:id="@+id/selectedTagsView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
+                        android:layout_centerInParent="true"
                         android:layout_toLeftOf="@id/searchFilterBtn"
                         android:layout_toStartOf="@id/searchFilterBtn"
                         android:textAlignment="gravity" />

@@ -5,13 +5,15 @@
 
     <dimen name="elevation">4dp</dimen>
     <dimen name="md_elevation">8dp</dimen>
-    <dimen name="lg_elevation">15dp</dimen>
+    <dimen name="lg_elevation">16dp</dimen>
+    <dimen name="xlg_elevation">32dp</dimen>
+    <dimen name="xxlg_elevation">64dp</dimen>
 
     <dimen name="cardRadius">4dp</dimen>
     <dimen name="md_cardRadius">8dp</dimen>
     <dimen name="lg_cardRadius">16dp</dimen>
 
-    <dimen name="max_margin">120dp</dimen>
+    <dimen name="max_margin">60dp</dimen>
 
     <dimen name="sperator">1dp</dimen>
 
@@ -22,6 +24,7 @@
     <dimen name="postItemWidth">160dp</dimen>
     <dimen name="postItemHeight">160dp</dimen>
     <dimen name="businessItemWidth">200dp</dimen>
+    <dimen name="sm_btn_height">36dp</dimen>
 
 
 </resources>

@@ -8,10 +8,6 @@ import com.jacksonandroidnetworking.JacksonParserFactory
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 import java.util.*
 
-
-/**
- * Created by Adhamkh on 2018-06-08.
- */
 class App : MultiDexApplication() {
 
     companion object {

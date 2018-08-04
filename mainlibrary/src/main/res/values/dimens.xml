@@ -20,6 +20,9 @@
     <dimen name="lg_margin">16dp</dimen>
     <dimen name="lg_padding">16dp</dimen>
 
+    <dimen name="xlg_margin">32dp</dimen>
+    <dimen name="xlg_padding">32dp</dimen>
+
     <dimen name="si_default_text_size">18sp</dimen>
     <dimen name="si_default_radius_max">24dp</dimen>
     <dimen name="si_default_radius_min">8dp</dimen>
@@ -27,6 +30,14 @@
 
     <dimen name="progress_wheel_height">56dp</dimen>
     <dimen name="progress_wheel_width">56dp</dimen>
+
+    <dimen name="sm_radius">8dp</dimen>
+    <dimen name="md_radius">16dp</dimen>
+    <dimen name="lg_radius">32dp</dimen>
+
+    <dimen name="sm_trans_z">8dp</dimen>
+    <dimen name="md_trans_z">16dp</dimen>
+    <dimen name="lg_trans_z">32dp</dimen>
 
 
 </resources>

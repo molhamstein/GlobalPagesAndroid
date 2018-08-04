@@ -29,7 +29,7 @@ public class BindingUtils {
             }
             Context context = view.getContext();
             GlideApp.with(context).load(businessGuide.getImageUrl()).error(R.mipmap.ic_launcher)
-                    .placeholder(R.mipmap.ic_launcher).transform(new RoundedCornersTransformation(30, 10)).into(view);
+                    .placeholder(R.mipmap.ic_launcher).transform(new RoundedCornersTransformation(16, 0)).into(view);
         } catch (Exception ex) {
             Log.v("image load", ex.getMessage());
         }

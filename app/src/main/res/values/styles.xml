@@ -32,7 +32,7 @@
 
 
     <style name="AppTheme.EditTextStyle" parent="Base.V7.Widget.AppCompat.EditText">
-
+        <item name="android:layout_height">42dp</item>
     </style>
 
 </resources>

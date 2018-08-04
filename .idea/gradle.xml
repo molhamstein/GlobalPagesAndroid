@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/calligraphy" />
             <option value="$PROJECT_DIR$/mainlibrary" />
+            <option value="$PROJECT_DIR$/ninepatchlibrary" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

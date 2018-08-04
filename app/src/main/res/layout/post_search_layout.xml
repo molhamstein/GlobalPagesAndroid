@@ -47,7 +47,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_above="@+id/filterBtn"
+                    android:layout_above="@+id/filterBtnContainer"
                     android:orientation="vertical"
                     android:padding="@dimen/md_padding">
 
@@ -195,18 +195,50 @@
 
                 </LinearLayout>
 
-                <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/filterBtn"
-                    style="@style/AppTheme.NormalButtonStyle"
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/filterBtnContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_margin="@dimen/md_margin"
-                    android:background="@drawable/button_bg"
-                    android:padding="@dimen/md_padding"
-                    android:shadowColor="@color/black"
-                    android:text="@string/Apply"
-                    android:textColor="@color/white" />
+                    android:layout_alignParentBottom="true">
+
+                    <com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintWidth_percent="0.6"
+                        app:ms9_shadowElevation="@dimen/md_elevation">
+
+                        <LinearLayout
+                            style="@style/commonNinePatchShadowItemViewStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="@dimen/md_margin"
+                            android:background="@drawable/white_radius_bg"
+                            android:padding="@dimen/zero">
+
+
+                            <android.support.v7.widget.AppCompatButton
+                                android:id="@+id/filterBtn"
+                                style="@style/AppTheme.NormalButtonStyle"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/sm_btn_height"
+                                android:layout_margin="@dimen/zero"
+                                android:background="@drawable/button_bg"
+                                android:padding="@dimen/sm_padding"
+                                android:shadowColor="@color/black"
+                                android:text="@string/Apply"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+
+                    </com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView>
+
+                </android.support.constraint.ConstraintLayout>
+
 
             </RelativeLayout>
 

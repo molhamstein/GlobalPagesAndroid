@@ -219,20 +219,37 @@
                     android:layout_height="0dp"
                     android:layout_weight="1" />
 
-                <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/signUpBtn"
-                    style="@style/AppTheme.NormalButtonStyle"
+                <com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="@dimen/md_margin"
                     android:layout_weight="4"
-                    android:background="@drawable/button_bg"
-                    android:elevation="@dimen/elevation"
-                    android:padding="@dimen/md_padding"
-                    android:shadowColor="@color/white"
-                    android:text="@string/SignUp"
-                    android:textColor="@color/white" />
+                    app:ms9_shadowElevation="@dimen/md_elevation">
+
+                    <LinearLayout
+                        style="@style/commonNinePatchShadowItemViewStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/md_margin"
+                        android:background="@drawable/white_radius_bg"
+                        android:padding="@dimen/zero">
+
+                        <android.support.v7.widget.AppCompatButton
+                            android:id="@+id/signUpBtn"
+                            style="@style/AppTheme.NormalButtonStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/sm_btn_height"
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/zero"
+                            android:layout_weight="4"
+                            android:background="@drawable/button_bg"
+                            android:elevation="@dimen/elevation"
+                            android:padding="@dimen/sm_padding"
+                            android:shadowColor="@color/white"
+                            android:text="@string/SignUp"
+                            android:textColor="@color/white" />
+
+                    </LinearLayout>
+                </com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView>
 
             </LinearLayout>
 

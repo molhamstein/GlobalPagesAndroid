@@ -11,7 +11,7 @@ import com.brainsocket.globalpages.viewHolders.BusinessGuideSliderViewHolder
 /**
  * Created by Adhamkh on 2018-06-28.
  */
-class BusinessGuideSliderRecyclerViewAdapter constructor(var context: Context,var businessGuideList: MutableList<BusinessGuide>)
+class BusinessGuideSliderRecyclerViewAdapter constructor(var context: Context, var businessGuideList: MutableList<BusinessGuide>)
     : RecyclerView.Adapter<BusinessGuideSliderViewHolder>() {
 
 
