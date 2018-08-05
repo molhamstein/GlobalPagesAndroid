@@ -47,7 +47,7 @@
         <android.support.design.widget.AppBarLayout
             android:id="@+id/main.appbar"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="230dp"
             android:layout_margin="0dp"
             android:background="@color/transparent"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -98,10 +98,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="35dp"
                                 android:layout_weight="1"
+
                                 android:background="#00AFFF"
                                 android:backgroundTint="#00AFFF"
-                                android:shadowColor="@color/black"
-                                android:shadowRadius="@integer/textShadow"
                                 android:text="@string/BusinessGuide"
                                 android:textStyle="bold"
                                 app:backgroundTint="#00AFFF" />
@@ -217,7 +216,7 @@
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_previous_volume_24dp" />
 
-                <TextView
+                <android.support.v7.widget.AppCompatTextView
                     style="@style/AppTheme.TextAppearanceCenter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -230,8 +229,10 @@
                     android:shadowColor="@color/grayDarkTextColor"
                     android:shadowRadius="@integer/textShadow"
                     android:text="03/08/2018"
+                    app:fontFamily="@font/roboto_thinltalic"
                     android:textColor="@color/grayDarkTextColor"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    />
 
                 <ImageView
                     android:id="@+id/nextBtn"
@@ -256,6 +257,7 @@
                 app:cardUseCompatPadding="false">
 
                 <RelativeLayout
+                    android:id="@+id/searchContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/sm_padding">

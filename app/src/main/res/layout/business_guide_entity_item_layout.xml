@@ -17,7 +17,6 @@
     <!--app:contentPadding="@dimen/zero">-->
 
     <com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView
-        style="@style/ms9_DefaultShadowStyleZ18"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/zero"
@@ -30,14 +29,15 @@
             style="@style/commonNinePatchShadowItemViewStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/sm_margin"
-            android:layout_marginEnd="@dimen/md_margin"
-            android:layout_marginLeft="@dimen/md_margin"
-            android:layout_marginRight="@dimen/md_margin"
-            android:layout_marginStart="@dimen/md_margin"
-            android:layout_marginTop="@dimen/md_margin"
+            android:layout_margin="@dimen/md_margin"
             android:background="@drawable/white_radius_bg"
             android:padding="@dimen/zero">
+            <!--android:layout_marginBottom="@dimen/md_margin"-->
+            <!--android:layout_marginEnd="@dimen/md_margin"-->
+            <!--android:layout_marginLeft="@dimen/md_margin"-->
+            <!--android:layout_marginRight="@dimen/md_margin"-->
+            <!--android:layout_marginStart="@dimen/md_margin"-->
+            <!--android:layout_marginTop="@dimen/md_margin"-->
             <!--android:background="@color/transparent"-->
             <!--android:background="@color/transparent"-->
             <android.support.v7.widget.AppCompatImageView

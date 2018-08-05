@@ -12,7 +12,6 @@
         android:layout_margin="@dimen/zero"
         android:background="@drawable/transparent_radius_bg"
         android:padding="@dimen/md_padding"
-
         app:ms9_shadowElevation="@dimen/lg_elevation">
         <!--android:rotation="180"-->
 
@@ -105,7 +104,6 @@
                 android:id="@+id/locationLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/md_margin"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@+id/tagContainer">
 
@@ -114,34 +112,45 @@
                     style="@style/AppTheme.TextAppearance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/grayDarkTextColor" />
+                    android:paddingBottom="@dimen/sm_padding"
+                    android:paddingEnd="@dimen/sm_padding"
+                    android:paddingLeft="@dimen/sm_padding"
+                    android:paddingRight="@dimen/sm_padding"
+                    android:paddingStart="@dimen/sm_padding"
+                    android:paddingTop="@dimen/zero"
+                    android:textColor="@color/grayDarkTextColor"
+                    app:fontFamily="@font/junicode" />
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/post_area"
                     style="@style/AppTheme.TextAppearance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/grayDarkTextColor" />
+                    android:padding="@dimen/sm_padding"
+                    android:textColor="@color/grayDarkTextColor"
+                    app:fontFamily="@font/junicode" />
 
             </LinearLayout>
 
             <View
                 android:id="@+id/post_separator"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/sperator"
                 android:background="@color/colorPrimary"
-                app:layout_constraintTop_toBottomOf="@+id/locationLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/locationLayout"
+                app:layout_constraintWidth_percent="0.75" />
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/post_Title"
                 style="@style/AppTheme.TextAppearance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/md_margin"
+                android:padding="@dimen/md_padding"
                 android:shadowColor="@color/lightgray"
                 android:shadowRadius="@integer/textShadow"
                 android:textColor="@color/black"
                 android:textStyle="bold"
+                app:fontFamily="@font/roboto_bold"
                 app:layout_constraintTop_toBottomOf="@+id/post_separator" />
 
             <TextView

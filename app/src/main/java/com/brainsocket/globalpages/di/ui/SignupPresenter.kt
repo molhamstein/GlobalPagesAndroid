@@ -45,6 +45,7 @@ class SignUpPresenter constructor(val context: Context) : SignUpContract.Present
         ApiService().postUserSignUp(ServerInfo.SignUpUrl, signUpModel, object : ParsedRequestListener<User> {
             override fun onResponse(response: User?) {
                 if (response != null) {
+                    view.showProgress(false)
                     view.navigateAfterSignUp(response)
 //                    if (view.isBusiness(response))
 //                        view.signUp2Business(response)

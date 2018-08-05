@@ -3,11 +3,15 @@ package com.brainsocket.globalpages.adapters
 import android.content.Context
 import android.os.Build
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.View
 import android.view.ViewGroup
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.data.entities.TagEntity
 import com.brainsocket.globalpages.listeners.OnTagSelectListener
+import com.brainsocket.globalpages.listeners.RightDrawableOnTouchListener
 import com.brainsocket.globalpages.viewHolders.TagEntityViewHolder
 
 /**
@@ -31,20 +35,46 @@ class TagsRecyclerViewAdapter constructor(var context: Context, var tagsListList
         var pojo = tagsListList[holder.adapterPosition]
         holder.bind(pojo)
 
+
         if (!withClose) {
-            holder.tag_toggle.setCompoundDrawables(null, null, null, null)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                holder.tag_toggle.setCompoundDrawablesRelative(null, null, null, null)
-            }
+            holder.tag_close.visibility = View.GONE
+//            holder.tag_toggle.setCompoundDrawables(null, null, null, null)
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+//                holder.tag_toggle.setCompoundDrawablesRelative(null, null, null, null)
+//            }
+        } else {
+            holder.tag_close.visibility = View.VISIBLE
+            holder.tag_close.bringToFront()
         }
 
-        holder.tag_toggle.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked && buttonView != null) {
+        holder.tag_close.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
                 tagsListList.removeAt(holder.adapterPosition)
                 notifyItemRemoved(holder.adapterPosition)
                 onTagSelectListener?.onSelectTag(pojo)
+                Log.v("", "")
             }
-        }
+        })
+
+//        var listener = object : RightDrawableOnTouchListener(holder.tag_toggle) {
+//            override fun onDrawableTouch(event: MotionEvent?): Boolean {
+//                tagsListList.removeAt(holder.adapterPosition)
+//                notifyItemRemoved(holder.adapterPosition)
+//                onTagSelectListener?.onSelectTag(pojo)
+//                Log.v("", "")
+//                return false
+//            }
+//        }
+//
+//        holder.tag_toggle.setOnTouchListener(listener)
+//        holder.tag_toggle.setOnCheckedChangeListener { buttonView, isChecked ->
+//            if (isChecked && buttonView != null) {
+//                tagsListList.removeAt(holder.adapterPosition)
+//                notifyItemRemoved(holder.adapterPosition)
+//                onTagSelectListener?.onSelectTag(pojo)
+//            }
+//        }
+
     }
 
     fun addTag(tagEntity: TagEntity) {

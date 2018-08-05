@@ -27,14 +27,11 @@
     <!--android:padding="@dimen/zero">-->
 
     <com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView
-        style="@style/ms9_DefaultShadowStyleZ18"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/white_radius_bg"
+        android:background="@drawable/transparent_radius_bg"
         android:padding="@dimen/zero"
-        app:ms9_shadowElevation="@dimen/xxlg_elevation"
-        app:ms9_useAmbientShadow="true"
-        app:ms9_useSpotShadow="true">
+        app:ms9_shadowElevation="@dimen/lg_elevation">
         <!--android:rotation="180"-->
 
         <android.support.constraint.ConstraintLayout
@@ -111,10 +108,11 @@
 
             <View
                 android:id="@+id/post_separator"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/sperator"
                 android:background="@color/colorPrimary"
-                app:layout_constraintTop_toBottomOf="@+id/post_details" />
+                app:layout_constraintTop_toBottomOf="@+id/post_details"
+                app:layout_constraintWidth_percent="0.75" />
 
             <LinearLayout
                 android:id="@+id/locationLayout"
@@ -128,6 +126,7 @@
                     style="@style/AppTheme.TextAppearance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="@dimen/sm_padding"
                     android:textColor="@color/grayLightTextColor" />
 
                 <android.support.v7.widget.AppCompatTextView
@@ -135,6 +134,7 @@
                     style="@style/AppTheme.TextAppearance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="@dimen/sm_padding"
                     android:textColor="@color/grayLightTextColor" />
 
 

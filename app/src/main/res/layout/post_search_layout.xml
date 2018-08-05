@@ -128,27 +128,36 @@
                         android:layout_marginTop="@dimen/sm_margin"
                         android:background="@color/black" />
 
-                    <TextView
-                        style="@style/AppTheme.TextAppearance"
+                    <LinearLayout
+                        android:id="@+id/subCategoryContainer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/sm_margin"
-                        android:text="@string/SubCategory"
-                        android:textColor="@color/lightgray" />
+                        android:orientation="vertical">
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/filter_subCategories"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        app:tagBackgroundColor="@color/colorPrimary" />
+                        <TextView
+                            style="@style/AppTheme.TextAppearance"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/sm_margin"
+                            android:text="@string/SubCategory"
+                            android:textColor="@color/lightgray" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/sperator"
-                        android:layout_marginBottom="@dimen/md_margin"
-                        android:layout_marginTop="@dimen/sm_margin"
-                        android:background="@color/black" />
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/filter_subCategories"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible"
+                            app:tagBackgroundColor="@color/colorPrimary" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/sperator"
+                            android:layout_marginBottom="@dimen/md_margin"
+                            android:layout_marginTop="@dimen/sm_margin"
+                            android:background="@color/black" />
+
+                    </LinearLayout>
+
 
                     <TextView
                         style="@style/AppTheme.TextAppearance"
@@ -171,27 +180,34 @@
                         android:layout_marginTop="@dimen/sm_margin"
                         android:background="@color/black" />
 
-                    <TextView
-                        style="@style/AppTheme.TextAppearance"
+                    <LinearLayout
+                        android:id="@+id/areaContainer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/md_margin"
-                        android:text="@string/Area"
-                        android:textColor="@color/lightgray" />
+                        android:orientation="vertical">
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/filter_locations"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        app:tagBackgroundColor="@color/colorPrimary" />
+                        <TextView
+                            style="@style/AppTheme.TextAppearance"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/md_margin"
+                            android:text="@string/Area"
+                            android:textColor="@color/lightgray" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/sperator"
-                        android:layout_marginBottom="@dimen/md_margin"
-                        android:layout_marginTop="@dimen/sm_margin"
-                        android:background="@color/black" />
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/filter_locations"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="visible"
+                            app:tagBackgroundColor="@color/colorPrimary" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/sperator"
+                            android:layout_marginBottom="@dimen/md_margin"
+                            android:layout_marginTop="@dimen/sm_margin"
+                            android:background="@color/black" />
+                    </LinearLayout>
 
                 </LinearLayout>
 

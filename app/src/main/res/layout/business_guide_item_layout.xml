@@ -42,7 +42,7 @@
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/businessTitle"
-                style="@style/AppTheme.TitleTextAppearance"
+                style="@style/AppTheme.TextAppearance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -52,12 +52,14 @@
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/businessDetails"
-                style="@style/AppTheme.TextAppearance"
-                android:layout_width="wrap_content"
+                style="@style/AppTheme.TextAppearanceSmall"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
+                android:gravity="start|left"
                 android:maxLines="1"
                 android:text="Arabic and Turkish Doner"
+                android:textAlignment="gravity"
                 android:textColor="@color/grayDarkTextColor" />
 
         </LinearLayout>
@@ -65,27 +67,47 @@
         <LinearLayout
             android:id="@+id/tagContainer"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintWidth_default="percent"
             app:layout_constraintWidth_percent="0.3">
 
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/businessCategory"
-                style="@style/AppTheme.TextAppearance"
+            <com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="0dp"
-                android:layout_marginRight="0dp"
-                android:layout_marginTop="@dimen/sm_margin"
-                android:background="@drawable/ic_tag_bg2"
-                android:gravity="center"
-                android:padding="@dimen/sm_padding"
-                android:text="Real Estate"
-                android:textAlignment="gravity"
-                android:textColor="@color/white" />
+                app:ms9_shadowElevation="@dimen/md_elevation">
+
+                <android.support.constraint.ConstraintLayout
+                    style="@style/commonNinePatchShadowItemViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/zero"
+                    android:layout_marginRight="@dimen/zero"
+                    android:layout_marginLeft="@dimen/sm_margin"
+                    android:layout_marginStart="@dimen/sm_margin"
+                    android:layout_marginTop="@dimen/sm_margin"
+                    android:layout_marginBottom="@dimen/sm_margin"
+                    android:background="@drawable/white_radius_bg"
+                    android:padding="@dimen/zero">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/businessCategory"
+                        style="@style/AppTheme.TextAppearance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="0dp"
+                        android:layout_marginRight="0dp"
+                        android:layout_marginTop="@dimen/sm_margin"
+                        android:background="@drawable/ic_tag_bg2"
+                        android:gravity="center"
+                        android:padding="@dimen/xsm_padding"
+                        android:text="Real Estate"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/white" />
+                </android.support.constraint.ConstraintLayout>
+            </com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView>
 
             <android.support.v7.widget.AppCompatImageView
                 android:layout_width="wrap_content"

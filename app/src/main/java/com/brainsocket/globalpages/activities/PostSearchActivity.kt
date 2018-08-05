@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.View
+import android.widget.LinearLayout
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.brainsocket.globalpages.R
@@ -41,6 +42,12 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
 
     @BindView(R.id.filter_locations)
     lateinit var filterLocations: RecyclerView
+
+    @BindView(R.id.subCategoryContainer)
+    lateinit var subCategoryContainer: LinearLayout
+
+    @BindView(R.id.areaContainer)
+    lateinit var areaContainer: LinearLayout
 
 //    @BindView(R.id.searchTagView)
 //    lateinit var searchTagView: SearchTagView
@@ -85,13 +92,13 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
     }
 
     override fun onSelectCategory(category: Category) {
-        filterSubCategories.visibility = View.GONE
-        Handler().postDelayed({ filterSubCategories.visibility = View.VISIBLE }, 500)
+        subCategoryContainer.visibility = View.GONE
+        Handler().postDelayed({ subCategoryContainer.visibility = View.VISIBLE }, 500)
     }
 
     override fun onSelectCity(city: City) {
-        filterLocations.visibility = View.GONE
-        Handler().postDelayed({ filterLocations.visibility = View.VISIBLE }, 500)
+        areaContainer.visibility = View.GONE
+        Handler().postDelayed({ areaContainer.visibility = View.VISIBLE }, 500)
     }
 
 }

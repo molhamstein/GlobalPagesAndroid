@@ -14,13 +14,15 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.SubCategoryRecyclerViewAdapter
+import com.brainsocket.globalpages.data.entities.SubCategory
+import com.brainsocket.globalpages.listeners.OnSubCategorySelectListener
 import com.brainsocket.globalpages.repositories.DummydataRepositories
 import com.brainsocket.globalpages.views.SuggestionTagView
 
 /**
  * Created by Adhamkh on 2018-07-27.
  */
-class SubCategoryBottomSheet : BottomSheetDialogFragment() {
+class SubCategoryBottomSheet : BottomSheetDialogFragment(), OnSubCategorySelectListener {
 
     companion object {
         val SubCategoryBottomSheet_Tag = "SubCategoryBottomSheet"
@@ -52,7 +54,7 @@ class SubCategoryBottomSheet : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         dialog.window.attributes.windowAnimations = R.style.BottomSheetAnimation
         suggestionTags.setAdapter(SubCategoryRecyclerViewAdapter(context!!,
-                DummydataRepositories.getSubCategoriesList()))
+                DummydataRepositories.getSubCategoriesList(), this))
 //        dialog.window.findViewById<View>(R.id.design_bottom_sheet).setBackgroundResource(android.R.color.transparent)
     }
 
@@ -68,5 +70,8 @@ class SubCategoryBottomSheet : BottomSheetDialogFragment() {
         return dialog
     }
 
+    override fun onSelectSubCategory(subCategory: SubCategory) {
+        dismiss()
+    }
 }
 

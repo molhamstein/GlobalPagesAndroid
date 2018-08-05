@@ -15,7 +15,7 @@
 
     <dimen name="max_margin">60dp</dimen>
 
-    <dimen name="sperator">1dp</dimen>
+    <dimen name="sperator">1.5dp</dimen>
 
     <dimen name="recyclerviewTagHeight">25dp</dimen>
     <dimen name="myAdsRecyclerHeight">100dp</dimen>
@@ -23,7 +23,7 @@
 
     <dimen name="postItemWidth">160dp</dimen>
     <dimen name="postItemHeight">160dp</dimen>
-    <dimen name="businessItemWidth">200dp</dimen>
+    <dimen name="businessItemWidth">250dp</dimen>
     <dimen name="sm_btn_height">36dp</dimen>
 
 
