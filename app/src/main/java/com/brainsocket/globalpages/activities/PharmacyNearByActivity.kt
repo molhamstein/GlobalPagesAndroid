@@ -22,7 +22,7 @@ import com.brainsocket.globalpages.adapters.BusinessGuideRecyclerViewAdapter
 import com.brainsocket.globalpages.dialogs.bottomSheetFragments.BusinessGuideSnippetBottomFragment
 import com.brainsocket.globalpages.dialogs.bottomSheetFragments.CategoryFilterBottomSheet
 import com.brainsocket.globalpages.dialogs.bottomSheetFragments.SubCategoryBottomSheet
-import com.brainsocket.globalpages.repositories.DummydataRepositories
+import com.brainsocket.globalpages.repositories.DummyDataRepositories
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.location.places.ui.PlacePicker
@@ -187,7 +187,7 @@ class PharmacyNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
         mapFragment.getMapAsync(this)
 
         businessGuideRecyclerView.adapter = BusinessGuideRecyclerViewAdapter(this
-                , DummydataRepositories.getBusinessGuideList())
+                , DummyDataRepositories.getBusinessGuideList())
 
         initLocation()
         createLocationRequest()

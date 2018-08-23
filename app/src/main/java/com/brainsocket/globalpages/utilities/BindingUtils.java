@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.brainsocket.globalpages.R;
+import com.brainsocket.globalpages.api.ServerInfo;
 import com.brainsocket.globalpages.configrations.GlideApp;
 import com.brainsocket.globalpages.data.entities.BusinessGuide;
 import com.brainsocket.globalpages.data.entities.MediaEntity;
@@ -28,8 +29,8 @@ public class BindingUtils {
                 return;
             }
             Context context = view.getContext();
-            GlideApp.with(context).load(businessGuide.getImageUrl()).error(R.mipmap.ic_launcher)
-                    .placeholder(R.mipmap.ic_launcher).transform(new RoundedCornersTransformation(24, 0)).into(view);
+            GlideApp.with(context).load(businessGuide.getImageUrl()).error(R.drawable.ic_launcher_web)
+                    .placeholder(R.drawable.ic_launcher_web).transform(new RoundedCornersTransformation(24, 0)).into(view);
         } catch (Exception ex) {
             Log.v("image load", ex.getMessage());
         }
@@ -43,9 +44,11 @@ public class BindingUtils {
             } else {
                 container.setVisibility(View.GONE);
             }*/
+
             Context context = view.getContext();
-            GlideApp.with(context).load(post.getImage()).error(R.mipmap.ic_launcher)
-                    .placeholder(R.mipmap.ic_launcher).into(view);
+            String url = /*ServerInfo.Companion.getImagesBaseUrl() +*/ post.getMedia().get(0).toString();
+            GlideApp.with(context).load(url).error(R.drawable.ic_launcher_web)
+                    .placeholder(R.drawable.ic_launcher_web).into(view);
         } catch (Exception ex) {
             Log.v("image load", ex.getMessage());
         }
@@ -54,8 +57,8 @@ public class BindingUtils {
     public static void loadMediaImage(ImageView imageView, MediaEntity mediaEntity) {
         try {
             Context context = imageView.getContext();
-            GlideApp.with(context).load(mediaEntity.getUrl()).error(R.mipmap.ic_launcher)
-                    .placeholder(R.mipmap.ic_launcher).into(imageView);
+            GlideApp.with(context).load(mediaEntity.getUrl()).error(R.drawable.ic_launcher_web)
+                    .placeholder(R.drawable.ic_launcher_web).into(imageView);
         } catch (Exception ex) {
             Log.v("image load", ex.getMessage());
         }

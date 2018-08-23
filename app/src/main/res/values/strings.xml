@@ -106,6 +106,9 @@
     <string name="selectWhatAreYou">select what are you look for \n and we will find you top 3 nearby ones</string>
     <string name="Categories">Categories</string>
     <string name="SubCategories">SubCategories</string>
+    <string name="NoDataFound">No data found</string>
+    <string name="Retry">Retry</string>
+    <string name="noMoreVolumeFound">No more volume found</string>
 
 
 </resources>

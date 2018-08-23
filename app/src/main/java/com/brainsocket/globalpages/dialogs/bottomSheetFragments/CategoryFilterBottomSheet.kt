@@ -16,7 +16,7 @@ import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.CategoryRecyclerViewAdapter
 import com.brainsocket.globalpages.data.entities.Category
 import com.brainsocket.globalpages.listeners.OnCategorySelectListener
-import com.brainsocket.globalpages.repositories.DummydataRepositories
+import com.brainsocket.globalpages.repositories.DummyDataRepositories
 import com.brainsocket.globalpages.views.SuggestionTagView
 
 /**
@@ -55,7 +55,7 @@ class CategoryFilterBottomSheet : BottomSheetDialogFragment(), OnCategorySelectL
         super.onViewCreated(view, savedInstanceState)
         dialog.window.attributes.windowAnimations = R.style.BottomSheetAnimation
         suggestionTags.setAdapter(CategoryRecyclerViewAdapter(context!!,
-                DummydataRepositories.getCategoiesList(), this))
+                DummyDataRepositories.getCategoriesList(), this))
     }
 
 

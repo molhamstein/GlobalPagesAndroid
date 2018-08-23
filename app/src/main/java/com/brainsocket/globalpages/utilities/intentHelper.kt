@@ -2,6 +2,7 @@ package com.brainsocket.globalpages.utilities
 
 import android.content.Context
 import android.content.Intent
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.brainsocket.globalpages.activities.*
 import com.brainsocket.globalpages.data.entities.TagEntity
@@ -70,6 +71,13 @@ class intentHelper {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             intent.putExtra(PostSearchActivity.Suggestion_List_Tag, Gson().toJson(tagList.toTypedArray()))
             context.startActivity(intent)
+        }
+
+        fun startPostSearchFilterActivityForResult(activity: AppCompatActivity, tagList: MutableList<TagEntity> = mutableListOf()) {
+            val intent = Intent(activity, PostSearchActivity::class.java)
+//            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            intent.putExtra(PostSearchActivity.Suggestion_List_Tag, Gson().toJson(tagList.toTypedArray()))
+            activity.startActivityForResult(intent, PostSearchActivity.PostSearchActivity_ResultCode)
         }
 
         fun startProfileActivity(context: Context) {

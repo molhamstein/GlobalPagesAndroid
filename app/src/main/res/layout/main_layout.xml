@@ -174,13 +174,18 @@
             android:layout_marginTop="45dp"
             android:background="@color/milkyColor"
             android:fillViewport="true"
+            android:minHeight="250dp"
             android:paddingBottom="0dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <com.brainsocket.mainlibrary.Views.Stateslayoutview
                 android:id="@+id/stateLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:NoConnectionLayout="@layout/state_layout_noconnection"
+                app:NoDataLayout="@layout/state_layout_nodata"
+                app:RefreshbtnRes="@+id/retryBtn"
+                app:WaitingLayout="@layout/state_layout_waiting">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/volumesRecyclerView"
@@ -217,6 +222,7 @@
                     android:src="@drawable/ic_previous_volume_24dp" />
 
                 <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/volumeTitle"
                     style="@style/AppTheme.TextAppearanceCenter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -229,10 +235,9 @@
                     android:shadowColor="@color/grayDarkTextColor"
                     android:shadowRadius="@integer/textShadow"
                     android:text="03/08/2018"
-                    app:fontFamily="@font/roboto_thinltalic"
                     android:textColor="@color/grayDarkTextColor"
                     android:textStyle="bold"
-                    />
+                    app:fontFamily="@font/cairo_regular" />
 
                 <ImageView
                     android:id="@+id/nextBtn"

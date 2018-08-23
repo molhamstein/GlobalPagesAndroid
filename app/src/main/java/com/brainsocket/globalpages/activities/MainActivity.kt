@@ -1,29 +1,35 @@
 package com.brainsocket.globalpages.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.*
 import android.util.Log
 import android.view.View
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
-import butterknife.Optional
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.BusinessGuideSliderRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.PostRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.TagsRecyclerViewAdapter
 import com.brainsocket.globalpages.data.entities.Volume
+import com.brainsocket.globalpages.data.filtration.FilterEntity
 import com.brainsocket.globalpages.di.component.DaggerVolumesComponent
 import com.brainsocket.globalpages.di.module.VolumesModule
 import com.brainsocket.globalpages.di.ui.VolumesContract
 import com.brainsocket.globalpages.di.ui.VolumesPresenter
-import com.brainsocket.globalpages.repositories.DummydataRepositories
+import com.brainsocket.globalpages.repositories.DummyDataRepositories
 import com.brainsocket.globalpages.repositories.userRepository
 import com.brainsocket.globalpages.utilities.intentHelper
 import com.brainsocket.globalpages.views.SelectedTagsView
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
+import com.brainsocket.mainlibrary.Listeners.OnRefreshLayoutListener
 import com.brainsocket.mainlibrary.Views.NotificationBadge
 import com.brainsocket.mainlibrary.Views.Stateslayoutview
+import com.google.gson.Gson
 import javax.inject.Inject
 
 
@@ -50,6 +56,10 @@ class MainActivity : BaseActivity(), VolumesContract.View {
     @BindView(R.id.badge)
     lateinit var badge: NotificationBadge
 
+    @BindView(R.id.volumeTitle)
+    lateinit var volumeTitle: TextView
+
+
     private fun initToolBar() {
         toolBar.setTitle(R.string.app_name)
         setSupportActionBar(toolBar)
@@ -62,14 +72,14 @@ class MainActivity : BaseActivity(), VolumesContract.View {
         component.inject(this)
         presenter.attachView(this)
         presenter.subscribe()
-        // presenter.loadDefaultVolume()
+        presenter.loadDefaultVolume()
     }
 
     private fun initBusinessGuideRecyclerView() {
         val snapHelper = LinearSnapHelper()
         businessGuideRecyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         snapHelper.attachToRecyclerView(businessGuideRecyclerView)
-        businessGuideRecyclerView.adapter = BusinessGuideSliderRecyclerViewAdapter(this, DummydataRepositories.getBusinessGuideList())
+        businessGuideRecyclerView.adapter = BusinessGuideSliderRecyclerViewAdapter(this, DummyDataRepositories.getBusinessGuideList())
     }
 
     private fun initVolumesRecyclerView() {
@@ -86,9 +96,9 @@ class MainActivity : BaseActivity(), VolumesContract.View {
 
         badge.setNumber(6, true)
 
-        selectedTagsView.setAdapter(TagsRecyclerViewAdapter(this, DummydataRepositories.getTagsDefaultRepositories()))
+        selectedTagsView.setAdapter(TagsRecyclerViewAdapter(this, DummyDataRepositories.getTagsDefaultRepositories()))
 //        tagSearch.addSuggestionList(DummydataRepositories.getTagsRepositories())
-        volumesRecyclerView.adapter = PostRecyclerViewAdapter(MainActivity@ this, DummydataRepositories.getPostList())
+//        volumesRecyclerView.adapter = PostRecyclerViewAdapter(MainActivity@ this, DummyDataRepositories.getPostList())
 
 //        intentHelper.startPostAddActivity(this)
 //        intentHelper.startBusinessAddActivity(this)
@@ -96,22 +106,47 @@ class MainActivity : BaseActivity(), VolumesContract.View {
 
 //        intentHelper.startBusinessGuideSearchActivity(this)
 
+        stateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
+            override fun onRefresh() {
+                presenter.loadDefaultVolume()
+            }
+
+            override fun onRequestPermission() {
+
+            }
+        })
+
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-//        if (tagSearch.isExpand()) {
-//            tagSearch.setExpand(false)
-//            mainHelper.hideKeyboard(tagSearch)
-//        } else {
-//            super.onBackPressed()
-//        }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (resultCode) {
+            PostSearchActivity.PostSearchActivity_ResultCode -> {
+                var filter = data!!.extras[PostSearchActivity.PostSearchActivity_Filter_Tag].toString()
+                var filterEntity = Gson().fromJson(filter, FilterEntity::class.java)
+                if (volumesRecyclerView.adapter != null) {
+                    (volumesRecyclerView.adapter as PostRecyclerViewAdapter).filterByCreteria(filterEntity)
+                }
+                Log.v("", "")
+            }
+        }
+
+    }
+
+    @OnClick(R.id.previousBtn)
+    fun onPreviousButtonClick(view: View) {
+        presenter.loadPreviousVolume()
+    }
+
+    @OnClick(R.id.nextBtn)
+    fun onNextButtonClick(view: View) {
+        presenter.loadNextVolume()
     }
 
     @OnClick(R.id.searchFilterBtn)
     fun onSearchFilterBtnClick(view: View) {
         var list = (selectedTagsView.selectedTags.adapter as TagsRecyclerViewAdapter).tagsListList
-        intentHelper.startPostSearchFilterActivity(MainActivity@ this, list)
+        intentHelper.startPostSearchFilterActivityForResult(MainActivity@ this, list)
         Log.v("View Clicked", view.id.toString())
     }
 
@@ -135,7 +170,6 @@ class MainActivity : BaseActivity(), VolumesContract.View {
     fun onFindNearByClick(view: View) {
         val activityName = PharmacyNearByActivity::class.java.canonicalName
         intentHelper.startLocationCheckActivity(this, activityName)
-//        intentHelper.startNearByPharmaciesActivity(this)
         Log.v("View Clicked", view.id.toString())
     }
 
@@ -181,11 +215,12 @@ class MainActivity : BaseActivity(), VolumesContract.View {
     }
 
     override fun loadedData(volume: Volume) {
+        volumeTitle.text = volume.getTitle()
         volumesRecyclerView.adapter = PostRecyclerViewAdapter(MainActivity@ this, volume.posts)
     }
 
     override fun noMoreData() {
-
+        Toast.makeText(this, R.string.noMoreVolumeFound, Toast.LENGTH_LONG).show()
     }
     /*Presenter ended*/
 }

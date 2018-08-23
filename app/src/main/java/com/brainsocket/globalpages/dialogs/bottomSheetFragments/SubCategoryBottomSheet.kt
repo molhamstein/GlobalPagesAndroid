@@ -16,7 +16,7 @@ import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.SubCategoryRecyclerViewAdapter
 import com.brainsocket.globalpages.data.entities.SubCategory
 import com.brainsocket.globalpages.listeners.OnSubCategorySelectListener
-import com.brainsocket.globalpages.repositories.DummydataRepositories
+import com.brainsocket.globalpages.repositories.DummyDataRepositories
 import com.brainsocket.globalpages.views.SuggestionTagView
 
 /**
@@ -54,7 +54,7 @@ class SubCategoryBottomSheet : BottomSheetDialogFragment(), OnSubCategorySelectL
         super.onViewCreated(view, savedInstanceState)
         dialog.window.attributes.windowAnimations = R.style.BottomSheetAnimation
         suggestionTags.setAdapter(SubCategoryRecyclerViewAdapter(context!!,
-                DummydataRepositories.getSubCategoriesList(), this))
+                DummyDataRepositories.getSubCategoriesList(), this))
 //        dialog.window.findViewById<View>(R.id.design_bottom_sheet).setBackgroundResource(android.R.color.transparent)
     }
 

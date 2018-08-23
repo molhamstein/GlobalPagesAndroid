@@ -54,6 +54,12 @@ class CityRecyclerViewAdapter constructor(var context: Context, var citiesListLi
         }
         notifyDataSetChanged()
     }
-
+    fun getCurrentCity(): City? {
+        citiesListList.forEach {
+            if (it.isSelected)
+                return it
+        }
+        return null
+    }
 
 }

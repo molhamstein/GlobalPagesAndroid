@@ -1,6 +1,5 @@
 package com.brainsocket.globalpages.viewHolders
 
-import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
@@ -9,7 +8,6 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.data.entities.BusinessGuide
-import com.brainsocket.globalpages.data.entities.BusinessGuideEntity
 import com.brainsocket.globalpages.utilities.BindingUtils
 
 /**

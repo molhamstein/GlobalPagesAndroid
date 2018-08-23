@@ -55,4 +55,12 @@ class SubCategoryRecyclerViewAdapter constructor(var context: Context, var subCa
         notifyDataSetChanged()
     }
 
+    fun getCurrentSubCategory(): SubCategory? {
+        subCategoriesList.forEach {
+            if (it.isSelected)
+                return it
+        }
+        return null
+    }
+
 }

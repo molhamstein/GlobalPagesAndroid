@@ -9,6 +9,8 @@ class VolumesContract {
 
     interface Presenter : BaseContract.Presenter<View> {
         fun loadDefaultVolume()
+        fun loadNextVolume()
+        fun loadPreviousVolume()
         fun loadVolumeById(id: String)
     }
 

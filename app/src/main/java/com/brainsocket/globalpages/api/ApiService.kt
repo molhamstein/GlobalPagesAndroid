@@ -5,9 +5,8 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
 import com.androidnetworking.interfaces.ParsedRequestListener
-import com.brainsocket.globalpages.data.entities.User
+import com.brainsocket.globalpages.data.entities.*
 import com.brainsocket.globalpages.data.entitiesResponses.LoginResponse
-import com.brainsocket.globalpages.data.entities.Volume
 import com.brainsocket.globalpages.data.entitiesModel.ForgotPasswordModel
 import com.brainsocket.globalpages.data.entitiesModel.SignUpModel
 import com.google.gson.Gson
@@ -52,6 +51,30 @@ class ApiService {
                 .addQueryParameter("filter", criteria)
                 .build()
                 .getAsObjectList(Volume::class.java, requestListener)
+    }
+
+    fun getBusinessCategories(url: String, requestListener: ParsedRequestListener<MutableList<BusinessGuideCategory>>) {
+        AndroidNetworking.get(url)
+//                .setContentType("application/json")
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsObjectList(BusinessGuideCategory::class.java, requestListener)
+    }
+
+    fun getPostCategories(url: String, requestListener: ParsedRequestListener<MutableList<PostCategory>>) {
+        AndroidNetworking.get(url)
+//                .setContentType("application/json")
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsObjectList(PostCategory::class.java, requestListener)
+    }
+
+    fun getCities(url: String, requestListener: ParsedRequestListener<MutableList<City>>) {
+        AndroidNetworking.get(url)
+//                .setContentType("application/json")
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsObjectList(City::class.java, requestListener)
     }
 
 

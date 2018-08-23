@@ -15,7 +15,7 @@ import butterknife.OnClick
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.*
 import com.brainsocket.globalpages.data.entities.Attachment
-import com.brainsocket.globalpages.repositories.DummydataRepositories
+import com.brainsocket.globalpages.repositories.DummyDataRepositories
 
 
 class PostAddActivity : BaseActivity() {
@@ -55,19 +55,19 @@ class PostAddActivity : BaseActivity() {
 
     private fun initRecyclerViews() {
         adImages.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        adImages.adapter = AttachmentRecyclerViewAdapter(this, DummydataRepositories.getAttachmentList())
+        adImages.adapter = AttachmentRecyclerViewAdapter(this, DummyDataRepositories.getAttachmentList())
 
         adCategories.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        adCategories.adapter = CategoryRecyclerViewAdapter(this, DummydataRepositories.getCategoiesList())
+        adCategories.adapter = CategoryRecyclerViewAdapter(this, DummyDataRepositories.getCategoriesList())
 
         adSubCategories.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        adSubCategories.adapter = SubCategoryRecyclerViewAdapter(this, DummydataRepositories.getSubCategoriesList())
+        adSubCategories.adapter = SubCategoryRecyclerViewAdapter(this, DummyDataRepositories.getSubCategoriesList())
 
         adCities.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        adCities.adapter = CityRecyclerViewAdapter(this, DummydataRepositories.getCityList())
+        adCities.adapter = CityRecyclerViewAdapter(this, DummyDataRepositories.getCityList())
 
         adLocations.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        adLocations.adapter = LocationEntityRecyclerViewAdapter(this, DummydataRepositories.getLocationList())
+        adLocations.adapter = LocationEntityRecyclerViewAdapter(this, DummyDataRepositories.getLocationList())
 
     }
 

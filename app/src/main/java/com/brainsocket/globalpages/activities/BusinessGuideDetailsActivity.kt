@@ -15,7 +15,7 @@ import butterknife.Optional
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.MediaViewPagerAdapter
 import com.brainsocket.globalpages.dialogs.ContactDialog
-import com.brainsocket.globalpages.repositories.DummydataRepositories
+import com.brainsocket.globalpages.repositories.DummyDataRepositories
 import com.brainsocket.mainlibrary.ViewPagerIndicator.CircleIndicator.CircleIndicator
 
 class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener {
@@ -43,7 +43,7 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
     override fun onBaseCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.business_guide_details_layout)
         ButterKnife.bind(this)
-        mediaViewPager.adapter = MediaViewPagerAdapter(this, DummydataRepositories.getMediaList())
+        mediaViewPager.adapter = MediaViewPagerAdapter(this, DummyDataRepositories.getMediaList())
         viewPagerIndicator.setViewPager(mediaViewPager)
 
         appbar.addOnOffsetChangedListener(this)

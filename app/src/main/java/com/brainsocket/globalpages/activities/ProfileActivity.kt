@@ -19,7 +19,7 @@ import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.BusinessGuideRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.CategoryRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.PostRecyclerViewAdapter
-import com.brainsocket.globalpages.repositories.DummydataRepositories
+import com.brainsocket.globalpages.repositories.DummyDataRepositories
 import com.brainsocket.globalpages.views.CustomTabView
 
 
@@ -58,13 +58,13 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener {
 
     private fun initRecyclerViews() {
         myCategories.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        myCategories.adapter = CategoryRecyclerViewAdapter(this, DummydataRepositories.getCategoiesList())
+        myCategories.adapter = CategoryRecyclerViewAdapter(this, DummyDataRepositories.getCategoriesList())
 
         myPosts.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        myPosts.adapter = PostRecyclerViewAdapter(this, DummydataRepositories.getPostList(), true)
+        myPosts.adapter = PostRecyclerViewAdapter(this, DummyDataRepositories.getPostList(), true)
 
         myBusiness.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        myBusiness.adapter = BusinessGuideRecyclerViewAdapter(this, DummydataRepositories.getBusinessGuideList())
+        myBusiness.adapter = BusinessGuideRecyclerViewAdapter(this, DummyDataRepositories.getBusinessGuideList())
     }
 
     private fun initTabLayout() {

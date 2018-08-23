@@ -32,7 +32,6 @@ import com.brainsocket.globalpages.data.entities.User
 import com.brainsocket.globalpages.data.entitiesModel.DuplicateModel
 import com.brainsocket.globalpages.repositories.userRepository
 
-
 class SignUpActivity : BaseActivity(), SignUpContract.View {
 
     @Inject
@@ -197,4 +196,5 @@ class SignUpActivity : BaseActivity(), SignUpContract.View {
     }
 
     /*Presenter ended*/
+
 }

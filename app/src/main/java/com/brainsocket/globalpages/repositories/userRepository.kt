@@ -9,15 +9,7 @@ import com.google.gson.Gson
 /**
  * Created by Adhamkh on 2018-06-30.
  */
-class userRepository constructor(var context: Context) {
-
-    var pref: SharedPreferences
-    var editor: SharedPreferences.Editor
-
-    init {
-        pref = PreferenceManager.getDefaultSharedPreferences(context)
-        editor = pref.edit()
-    }
+class userRepository constructor( context: Context):Repository(context)  {
 
     companion object {
         var USER_TAG: String = "USER"
@@ -38,5 +30,6 @@ class userRepository constructor(var context: Context) {
     fun flushUser() {
         editor.putString(USER_TAG, "")
     }
+
 
 }

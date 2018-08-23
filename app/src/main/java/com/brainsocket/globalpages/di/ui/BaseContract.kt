@@ -12,8 +12,8 @@ class BaseContract {
     }
 
     interface View {
-        fun showProgress(show: Boolean)
-        fun showLoadErrorMessage(visible: Boolean)
+        fun showProgress(show: Boolean){}
+        fun showLoadErrorMessage(visible: Boolean){}
         fun showEmptyView(visible: Boolean) {}
     }
 

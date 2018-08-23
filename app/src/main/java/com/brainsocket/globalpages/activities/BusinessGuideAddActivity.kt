@@ -13,7 +13,7 @@ import com.brainsocket.globalpages.adapters.AttachmentRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.CategoryRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.SubCategoryRecyclerViewAdapter
 import com.brainsocket.globalpages.data.entities.Attachment
-import com.brainsocket.globalpages.repositories.DummydataRepositories
+import com.brainsocket.globalpages.repositories.DummyDataRepositories
 
 
 class BusinessGuideAddActivity : BaseActivity() {
@@ -29,13 +29,13 @@ class BusinessGuideAddActivity : BaseActivity() {
 
     private fun initRecyclerView() {
         businessImages.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        businessImages.adapter = AttachmentRecyclerViewAdapter(this, DummydataRepositories.getAttachmentList())
+        businessImages.adapter = AttachmentRecyclerViewAdapter(this, DummyDataRepositories.getAttachmentList())
 
         businessTypes.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        businessTypes.adapter = CategoryRecyclerViewAdapter(this, DummydataRepositories.getCategoiesList())
+        businessTypes.adapter = CategoryRecyclerViewAdapter(this, DummyDataRepositories.getCategoriesList())
 
         businessSubCategories.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        businessSubCategories.adapter = SubCategoryRecyclerViewAdapter(this, DummydataRepositories.getSubCategoriesList())
+        businessSubCategories.adapter = SubCategoryRecyclerViewAdapter(this, DummyDataRepositories.getSubCategoriesList())
 
     }
 

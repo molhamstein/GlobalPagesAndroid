@@ -16,7 +16,15 @@ class ServerInfo {
 
         var VolumeUrl = baseUrl + "volumes"
 
-//        var imageUrl = "https://cdn.mangaeden.com/mangasimg/"
+        var businessCategoriesUrl = baseUrl + "businessCategories"
+
+        var postCategoriesUrl = baseUrl + "postCategories"
+
+        var citiesUrl = baseUrl + "cities"
+
+
+        var imagesBaseUrl = baseUrl + "attachments/images/upload/"
+
     }
 
 }

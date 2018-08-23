@@ -55,12 +55,12 @@ class CategoryRecyclerViewAdapter constructor(var context: Context, var categori
         notifyDataSetChanged()
     }
 
-//    fun getCurrentCategory(): Category {
-//        categoriesList.forEach {
-//            if (it.isSelected)
-//                return it
-//        }
-//        return GeneralRepositories.getDefaultCategory()
-//    }
+    fun getCurrentCategory(): Category? {
+        categoriesList.forEach {
+            if (it.isSelected)
+                return it
+        }
+        return null
+    }
 
 }

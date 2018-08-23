@@ -8,7 +8,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.MediaViewPagerAdapter
-import com.brainsocket.globalpages.repositories.DummydataRepositories
+import com.brainsocket.globalpages.repositories.DummyDataRepositories
 import com.brainsocket.mainlibrary.ViewPagerIndicator.CircleIndicator.CircleIndicator
 
 
@@ -40,7 +40,7 @@ class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener
     override fun onBaseCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.post_details_layout)
         ButterKnife.bind(this)
-        mediaViewPager.adapter = MediaViewPagerAdapter(this, DummydataRepositories.getMediaList())
+        mediaViewPager.adapter = MediaViewPagerAdapter(this, DummyDataRepositories.getMediaList())
         viewPagerIndicator.setViewPager(mediaViewPager)
 
         appbar.addOnOffsetChangedListener(this)

@@ -12,7 +12,7 @@ class Post {
     }
 
     constructor(title: String, description: String, status: String, image: String,
-                category: Category, subCategory: SubCategory, city: City, area: LocationEntity) {
+                category: PostCategory, subCategory: SubCategory, city: City, area: LocationEntity) {
         this.title = title
         this.description = description
         this.status = status
@@ -38,7 +38,7 @@ class Post {
 
     var owner: Owner = Owner()
 
-    var category: Category = Category()
+    var category: PostCategory = PostCategory()
 
     var subCategory: SubCategory = SubCategory()
 

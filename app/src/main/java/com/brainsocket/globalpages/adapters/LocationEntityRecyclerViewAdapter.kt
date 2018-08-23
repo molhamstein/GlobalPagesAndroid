@@ -51,5 +51,12 @@ class LocationEntityRecyclerViewAdapter constructor(var context: Context, var lo
         notifyDataSetChanged()
     }
 
+    fun getCurrentLocation(): LocationEntity? {
+        locationsListList.forEach {
+            if (it.isSelected)
+                return it
+        }
+        return null
+    }
 
 }

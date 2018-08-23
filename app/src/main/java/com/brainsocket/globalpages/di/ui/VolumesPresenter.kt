@@ -18,6 +18,8 @@ class VolumesPresenter constructor(val context: Context) : VolumesContract.Prese
     private val subscriptions = CompositeDisposable()
     private lateinit var view: VolumesContract.View
 
+    private var Index: Int = 0;
+
     init {
 
     }
@@ -34,15 +36,7 @@ class VolumesPresenter constructor(val context: Context) : VolumesContract.Prese
         subscriptions.clear()
     }
 
-    override fun loadDefaultVolume() {
-        view.showProgress(true)
-
-        var criteria: MutableMap<String, String> = HashMap()
-        criteria.apply {
-            put("limit", "1")
-            put("order", "id DESC")
-        }
-
+    fun loadData(criteria: MutableMap<String, String>) {
         ApiService().getVolumes(ServerInfo.VolumeUrl, criteria, object : ParsedRequestListener<MutableList<Volume>> {
             override fun onResponse(response: MutableList<Volume>?) {
                 if ((response != null)) {
@@ -61,6 +55,49 @@ class VolumesPresenter constructor(val context: Context) : VolumesContract.Prese
             }
         })
 
+    }
+
+    override fun loadDefaultVolume() {
+        view.showProgress(true)
+
+        var criteria: MutableMap<String, String> = HashMap()
+        criteria.apply {
+            put("limit", "1")
+            put("order", "id DESC")
+            put("skip", Index.toString())
+        }
+        loadData(criteria)
+    }
+
+    override fun loadNextVolume() {
+        view.showProgress(true)
+        Index--
+        if (Index < 0) {
+            Index = 0
+            view.noMoreData()
+        }
+        var criteria: MutableMap<String, String> = HashMap()
+        criteria.apply {
+            put("limit", "1")
+            put("order", "id DESC")
+            put("skip", Index.toString())
+        }
+        loadData(criteria)
+    }
+
+    override fun loadPreviousVolume() {
+        view.showProgress(true)
+
+        Index++
+        Index = Math.max(Index, 0)
+
+        var criteria: MutableMap<String, String> = HashMap()
+        criteria.apply {
+            put("limit", "1")
+            put("order", "id DESC")
+            put("skip", Index.toString())
+        }
+        loadData(criteria)
     }
 
     override fun loadVolumeById(id: String) {

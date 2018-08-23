@@ -45,6 +45,7 @@
                 style="@style/headerTextView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:maxLines="3"
                 android:padding="@dimen/lg_padding"
                 android:text="@string/signInHeader"
                 android:textStyle="normal"

@@ -8,7 +8,7 @@ class BusinessGuide {
     var nameAr: String = ""
     var nameEn: String = ""
 
-    var category: Category = Category()
+    var category: Category = BusinessGuideCategory()
     var subCategory: SubCategory = SubCategory()
 
     constructor(imageUrl: String, nameAr: String, nameEn: String, category: Category, subCategory: SubCategory) {
