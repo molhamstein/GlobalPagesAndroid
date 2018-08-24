@@ -19,9 +19,22 @@ import butterknife.OnCheckedChanged
 import butterknife.OnClick
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.BusinessGuideRecyclerViewAdapter
+import com.brainsocket.globalpages.data.entities.BusinessGuide
+import com.brainsocket.globalpages.data.entities.BusinessGuideCategory
+import com.brainsocket.globalpages.data.entities.Category
+import com.brainsocket.globalpages.data.entities.SubCategory
+import com.brainsocket.globalpages.di.component.DaggerPharmacyNearByComponent
+import com.brainsocket.globalpages.di.module.BusinessGuidesModule
+import com.brainsocket.globalpages.di.module.TagsCollectionModule
+import com.brainsocket.globalpages.di.ui.BusinessGuidesContract
+import com.brainsocket.globalpages.di.ui.BusinessGuidesPresenter
+import com.brainsocket.globalpages.di.ui.TagsCollectionContact
+import com.brainsocket.globalpages.di.ui.TagsCollectionPresenter
 import com.brainsocket.globalpages.dialogs.bottomSheetFragments.BusinessGuideSnippetBottomFragment
 import com.brainsocket.globalpages.dialogs.bottomSheetFragments.CategoryFilterBottomSheet
 import com.brainsocket.globalpages.dialogs.bottomSheetFragments.SubCategoryBottomSheet
+import com.brainsocket.globalpages.listeners.OnCategorySelectListener
+import com.brainsocket.globalpages.listeners.OnSubCategorySelectListener
 import com.brainsocket.globalpages.repositories.DummyDataRepositories
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
@@ -33,9 +46,11 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import javax.inject.Inject
 
 
-class PharmacyNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
+class PharmacyNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMapReadyCallback,
+        TagsCollectionContact.View, BusinessGuidesContract.View, OnSubCategorySelectListener, OnCategorySelectListener {
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -174,6 +189,31 @@ class PharmacyNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
 
     /*GPS Track Ended */
 
+
+    @Inject
+    lateinit var presenter: TagsCollectionPresenter
+
+    @Inject
+    lateinit var businessGuidesPresenter: BusinessGuidesPresenter
+
+
+    private fun initDI() {
+        val component = DaggerPharmacyNearByComponent.builder()
+                .tagsCollectionModule(TagsCollectionModule(this))
+                .businessGuidesModule(BusinessGuidesModule(this))
+                .build()
+        component.inject(this)
+
+        presenter.attachView(this)
+        presenter.subscribe()
+        presenter.loadBusinessCategories(true)
+
+        businessGuidesPresenter.attachView(this)
+        presenter.subscribe()
+
+    }
+
+
     override fun onBaseCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.pharmcay_nearby_layout)
         ButterKnife.bind(this)
@@ -182,18 +222,19 @@ class PharmacyNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
 
         initRecyclerView()
 
+        initDI()
+
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        businessGuideRecyclerView.adapter = BusinessGuideRecyclerViewAdapter(this
-                , DummyDataRepositories.getBusinessGuideList())
+//        businessGuideRecyclerView.adapter = BusinessGuideRecyclerViewAdapter(this
+//                , DummyDataRepositories.getBusinessGuideList())
 
         initLocation()
         createLocationRequest()
 
-        val categoryFilterBottomSheet = CategoryFilterBottomSheet.getNewInstance()
-        categoryFilterBottomSheet.show(supportFragmentManager, CategoryFilterBottomSheet.CategoryFilterBottmSheet_Tag)
+
     }
 
     @OnClick(R.id.tagSearchView)
@@ -210,8 +251,7 @@ class PharmacyNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
 
     @OnClick(R.id.SearchBtn)
     fun onSearchBtnClick(view: View) {
-        val categoryFilterBottomSheet = CategoryFilterBottomSheet.getNewInstance()
-        categoryFilterBottomSheet.show(supportFragmentManager, CategoryFilterBottomSheet.CategoryFilterBottmSheet_Tag)
+        presenter.loadBusinessCategories(true)
         Log.v("View Clicked", view.id.toString())
     }
 
@@ -283,4 +323,28 @@ class PharmacyNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
         return false
     }
 
+
+    /*Tags Presenter started*/
+    override fun onBusinessCategoriesLoaded(categoriesList: MutableList<BusinessGuideCategory>) {
+        val categoryFilterBottomSheet = CategoryFilterBottomSheet.getNewInstance(categoriesList.toMutableList(), this)
+        categoryFilterBottomSheet.show(supportFragmentManager, CategoryFilterBottomSheet.CategoryFilterBottmSheet_Tag)
+        Log.v("", "")
+    }
+    /*Tags Presenter ended*/
+
+    /*Business Guides Presenter started*/
+    override fun onLoadBusinessGuideListSuccessfully(businessGuideList: MutableList<BusinessGuide>) {
+        businessGuideRecyclerView.adapter = BusinessGuideRecyclerViewAdapter(this, businessGuideList)
+        Log.v("", "")
+    }
+    /*Business Guides Presenter ended*/
+
+    override fun onSelectSubCategory(subCategory: SubCategory) {
+        businessGuidesPresenter.loadBusinessGuideList(subCategory)
+    }
+
+    override fun onSelectCategory(category: Category) {
+        val subCategoryBottomSheet = SubCategoryBottomSheet.getNewInstance(category.subCategoriesList, this)
+        subCategoryBottomSheet.show(supportFragmentManager, SubCategoryBottomSheet.SubCategoryBottomSheet_Tag)
+    }
 }

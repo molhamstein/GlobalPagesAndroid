@@ -8,19 +8,29 @@ class ServerInfo {
     companion object {
         var baseUrl = "http://104.217.253.15:3000/api/"
 
+        /*Registration started*/
         var SigninUrl = baseUrl + "users/login/?include=user"
 
         var SignUpUrl = baseUrl + "users/"
 
         var ForgotPasswordUrl = baseUrl + "users/forgotPassword/"
 
-        var VolumeUrl = baseUrl + "volumes"
+        /*Registration ended*/
 
+
+
+        /*Tagging started*/
         var businessCategoriesUrl = baseUrl + "businessCategories"
 
         var postCategoriesUrl = baseUrl + "postCategories"
 
         var citiesUrl = baseUrl + "cities"
+        /*Tagging ended*/
+
+
+        var volumeUrl = baseUrl + "volumes"
+
+        var businessGuideUrl = baseUrl + "businesses"
 
 
         var imagesBaseUrl = baseUrl + "attachments/images/upload/"

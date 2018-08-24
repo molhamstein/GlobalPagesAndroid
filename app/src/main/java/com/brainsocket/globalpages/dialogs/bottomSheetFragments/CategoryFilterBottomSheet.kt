@@ -24,16 +24,21 @@ import com.brainsocket.globalpages.views.SuggestionTagView
  */
 class CategoryFilterBottomSheet : BottomSheetDialogFragment(), OnCategorySelectListener {
 
+
+    lateinit var categoriesList: MutableList<Category>
+    var onCategorySelectListener: OnCategorySelectListener? = null
+
     companion object {
         val CategoryFilterBottmSheet_Tag = "CategoryFilterBottmSheet"
-        fun getNewInstance(): CategoryFilterBottomSheet {
+        fun getNewInstance(categoriesList: MutableList<Category>, onCategorySelectListener: OnCategorySelectListener? = null): CategoryFilterBottomSheet {
             val categoryFilterBottmSheet = CategoryFilterBottomSheet()
+            categoryFilterBottmSheet.categoriesList = categoriesList
+            categoryFilterBottmSheet.onCategorySelectListener = onCategorySelectListener;
             val bundle = Bundle()
             categoryFilterBottmSheet.arguments = bundle
             return categoryFilterBottmSheet
         }
     }
-
 
     @BindView(R.id.suggestionTags)
     lateinit var suggestionTags: SuggestionTagView
@@ -55,7 +60,7 @@ class CategoryFilterBottomSheet : BottomSheetDialogFragment(), OnCategorySelectL
         super.onViewCreated(view, savedInstanceState)
         dialog.window.attributes.windowAnimations = R.style.BottomSheetAnimation
         suggestionTags.setAdapter(CategoryRecyclerViewAdapter(context!!,
-                DummyDataRepositories.getCategoriesList(), this))
+                categoriesList, this))
     }
 
 
@@ -71,8 +76,9 @@ class CategoryFilterBottomSheet : BottomSheetDialogFragment(), OnCategorySelectL
     }
 
     override fun onSelectCategory(category: Category) {
-        val subCategoryBottomSheet = SubCategoryBottomSheet.getNewInstance()
-        subCategoryBottomSheet.show(fragmentManager, SubCategoryBottomSheet.SubCategoryBottomSheet_Tag)
+        onCategorySelectListener?.onSelectCategory(category)
+
         dismiss()
     }
+
 }

@@ -13,10 +13,12 @@ import com.brainsocket.globalpages.adapters.AttachmentRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.CategoryRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.SubCategoryRecyclerViewAdapter
 import com.brainsocket.globalpages.data.entities.Attachment
+import com.brainsocket.globalpages.data.entities.BusinessGuideCategory
+import com.brainsocket.globalpages.di.ui.TagsCollectionContact
 import com.brainsocket.globalpages.repositories.DummyDataRepositories
 
 
-class BusinessGuideAddActivity : BaseActivity() {
+class BusinessGuideAddActivity : BaseActivity(){
 
     @BindView(R.id.businessImages)
     lateinit var businessImages: RecyclerView
@@ -57,5 +59,6 @@ class BusinessGuideAddActivity : BaseActivity() {
         finish()
         Log.v("View Clicked", view.id.toString())
     }
+
 
 }

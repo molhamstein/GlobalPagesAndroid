@@ -24,12 +24,12 @@ public class BindingUtils {
 
     public static void loadBusinessGuideImage(ImageView view, BusinessGuide businessGuide) {
         try {
-            if (businessGuide.getImageUrl().isEmpty()) {
+            if (businessGuide.getLogo().isEmpty()) {
                 view.setVisibility(View.GONE);
                 return;
             }
             Context context = view.getContext();
-            GlideApp.with(context).load(businessGuide.getImageUrl()).error(R.drawable.ic_launcher_web)
+            GlideApp.with(context).load(businessGuide.getLogo()).error(R.drawable.ic_launcher_web)
                     .placeholder(R.drawable.ic_launcher_web).transform(new RoundedCornersTransformation(24, 0)).into(view);
         } catch (Exception ex) {
             Log.v("image load", ex.getMessage());

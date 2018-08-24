@@ -24,10 +24,17 @@ import com.brainsocket.globalpages.views.SuggestionTagView
  */
 class SubCategoryBottomSheet : BottomSheetDialogFragment(), OnSubCategorySelectListener {
 
+
+    lateinit var subCategoryList: MutableList<SubCategory>
+    var onSubCategorySelectListener: OnSubCategorySelectListener? = null
+
     companion object {
         val SubCategoryBottomSheet_Tag = "SubCategoryBottomSheet"
-        fun getNewInstance(): SubCategoryBottomSheet {
+        fun getNewInstance(subCategoryList: MutableList<SubCategory>, onSubCategorySelectListener: OnSubCategorySelectListener? = null)
+                : SubCategoryBottomSheet {
             val subCategoryFilterBottmSheet = SubCategoryBottomSheet()
+            subCategoryFilterBottmSheet.subCategoryList = subCategoryList
+            subCategoryFilterBottmSheet.onSubCategorySelectListener = onSubCategorySelectListener
             val bundle = Bundle()
             subCategoryFilterBottmSheet.arguments = bundle
             return subCategoryFilterBottmSheet
@@ -54,7 +61,7 @@ class SubCategoryBottomSheet : BottomSheetDialogFragment(), OnSubCategorySelectL
         super.onViewCreated(view, savedInstanceState)
         dialog.window.attributes.windowAnimations = R.style.BottomSheetAnimation
         suggestionTags.setAdapter(SubCategoryRecyclerViewAdapter(context!!,
-                DummyDataRepositories.getSubCategoriesList(), this))
+                subCategoryList, this))
 //        dialog.window.findViewById<View>(R.id.design_bottom_sheet).setBackgroundResource(android.R.color.transparent)
     }
 
@@ -71,7 +78,9 @@ class SubCategoryBottomSheet : BottomSheetDialogFragment(), OnSubCategorySelectL
     }
 
     override fun onSelectSubCategory(subCategory: SubCategory) {
+        onSubCategorySelectListener?.onSelectSubCategory(subCategory)
         dismiss()
     }
+
 }
 

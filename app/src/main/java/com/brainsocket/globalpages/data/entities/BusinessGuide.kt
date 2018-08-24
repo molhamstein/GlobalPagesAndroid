@@ -4,15 +4,40 @@ import com.brainsocket.globalpages.App
 
 class BusinessGuide {
 
-    var imageUrl: String = ""
-    var nameAr: String = ""
     var nameEn: String = ""
+    var nameAr: String = ""
 
-    var category: Category = BusinessGuideCategory()
+    var logo: String = ""
+    var status: String = ""
+    var description: String = ""
+    var openingDays: MutableList<String> = mutableListOf()
+    var openingDaysEnabled: Boolean = false
+    var id: String = ""
+    var ownerId: String = ""
+    var products: MutableList<ProductThumb> = mutableListOf()
+
+    var categoryId: String = ""
+    var subCategoryId: String = ""
+    var cityId: String = ""
+    var locationId: String = ""
+    var covers: MutableList<Any> = mutableListOf()
+    var cover: String = ""
+    var lat: String = ""
+    var long: String = ""
+
+    var owner: Owner = Owner()
+
+
+//    var imageUrl: String = ""
+
+
+    var category: BusinessGuideCategory = BusinessGuideCategory()
     var subCategory: SubCategory = SubCategory()
 
-    constructor(imageUrl: String, nameAr: String, nameEn: String, category: Category, subCategory: SubCategory) {
-        this.imageUrl = imageUrl
+    constructor()
+
+    constructor(logo: String, nameAr: String, nameEn: String, category: BusinessGuideCategory, subCategory: SubCategory) {
+        this.logo = logo
         this.nameAr = nameAr
         this.nameEn = nameEn
         this.category = category

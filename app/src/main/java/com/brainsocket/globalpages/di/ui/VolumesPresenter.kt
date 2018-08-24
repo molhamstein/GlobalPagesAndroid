@@ -37,7 +37,7 @@ class VolumesPresenter constructor(val context: Context) : VolumesContract.Prese
     }
 
     fun loadData(criteria: MutableMap<String, String>) {
-        ApiService().getVolumes(ServerInfo.VolumeUrl, criteria, object : ParsedRequestListener<MutableList<Volume>> {
+        ApiService().getVolumes(ServerInfo.volumeUrl, criteria, object : ParsedRequestListener<MutableList<Volume>> {
             override fun onResponse(response: MutableList<Volume>?) {
                 if ((response != null)) {
                     var pojo = response.firstOrNull()

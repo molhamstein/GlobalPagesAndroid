@@ -17,6 +17,7 @@ import com.google.gson.Gson
  */
 class ApiService {
 
+    /*Registration started*/
     fun postUserLogin(url: String, loginModel: LoginModel, requestListener: ParsedRequestListener<LoginResponse>) {
         AndroidNetworking.post(url)
                 .addBodyParameter(loginModel)
@@ -43,16 +44,10 @@ class ApiService {
                 .getAsObject(User::class.java, requestListener)
     }
 
-    fun getVolumes(url: String, filteration: Map<String, String>, requestListener: ParsedRequestListener<MutableList<Volume>>) {
-        var criteria = Gson().toJson(filteration)
-        AndroidNetworking.get(url)
-//                .setContentType("application/json")
-                .setPriority(Priority.HIGH)
-                .addQueryParameter("filter", criteria)
-                .build()
-                .getAsObjectList(Volume::class.java, requestListener)
-    }
+    /*Registration ended*/
 
+
+    /*Tagging started*/
     fun getBusinessCategories(url: String, requestListener: ParsedRequestListener<MutableList<BusinessGuideCategory>>) {
         AndroidNetworking.get(url)
 //                .setContentType("application/json")
@@ -76,6 +71,33 @@ class ApiService {
                 .build()
                 .getAsObjectList(City::class.java, requestListener)
     }
+    /*Tagging ended*/
+
+
+    /*Volumes started*/
+    fun getVolumes(url: String, filteration: Map<String, String>, requestListener: ParsedRequestListener<MutableList<Volume>>) {
+        var criteria = Gson().toJson(filteration)
+        AndroidNetworking.get(url)
+//                .setContentType("application/json")
+                .setPriority(Priority.HIGH)
+                .addQueryParameter("filter", criteria)
+                .build()
+                .getAsObjectList(Volume::class.java, requestListener)
+    }
+    /*Volumes ended*/
+
+
+    /*Business Guides started*/
+    fun getBusinessGuides(url: String, filteration: Map<String, String>, requestListener: ParsedRequestListener<MutableList<BusinessGuide>>) {
+        var criteria = Gson().toJson(filteration)
+        AndroidNetworking.get(url)
+//                .setContentType("application/json")
+                .setPriority(Priority.HIGH)
+                .addQueryParameter("filter", criteria)
+                .build()
+                .getAsObjectList(BusinessGuide::class.java, requestListener)
+    }
+    /*Business Guides ended*/
 
 
 }

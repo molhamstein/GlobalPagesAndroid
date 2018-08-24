@@ -15,7 +15,6 @@ import com.brainsocket.globalpages.data.entities.BusinessGuide
  */
 class BusinessGuideViewHolder : RecyclerView.ViewHolder {
 
-
 //    @BindView(R.id.businessCard)
 //    lateinit var businessCard: CardView
 //
