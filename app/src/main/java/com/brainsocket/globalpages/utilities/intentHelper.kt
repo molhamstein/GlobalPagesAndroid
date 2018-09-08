@@ -5,6 +5,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.brainsocket.globalpages.activities.*
+import com.brainsocket.globalpages.data.entities.Post
 import com.brainsocket.globalpages.data.entities.TagEntity
 import com.google.gson.Gson
 
@@ -59,9 +60,9 @@ class intentHelper {
         }
 
 
-        fun startPostDetailsActivity(context: Context, postId: String) {
+        fun startPostDetailsActivity(context: Context, post: Post) {
             val intent = Intent(context, PostDetailsActivity::class.java)
-            intent.putExtra(PostDetailsActivity.PostId_Tag, postId)
+            intent.putExtra(PostDetailsActivity.Post_Tag,Gson().toJson(post))
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }

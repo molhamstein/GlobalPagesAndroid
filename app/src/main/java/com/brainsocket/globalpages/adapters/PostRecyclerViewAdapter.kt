@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.data.entities.Post
+import com.brainsocket.globalpages.data.entities.TagEntity
 import com.brainsocket.globalpages.data.filtration.FilterEntity
 import com.brainsocket.globalpages.enums.PostType
+import com.brainsocket.globalpages.enums.TagType
 import com.brainsocket.globalpages.utilities.BindingUtils
 import com.brainsocket.globalpages.utilities.intentHelper
 import com.brainsocket.globalpages.viewHolders.PostViewHolder
@@ -18,6 +20,8 @@ import com.brainsocket.globalpages.viewHolders.PostViewHolder
 class PostRecyclerViewAdapter constructor(var context: Context, var postsList: MutableList<Post>, private var isFixed: Boolean = false,
                                           var postFilterList: MutableList<Post>? = null) :
         RecyclerView.Adapter<PostViewHolder>() {
+
+    var filterEntity: FilterEntity? = null
 
     init {
         postFilterList = postsList
@@ -54,11 +58,13 @@ class PostRecyclerViewAdapter constructor(var context: Context, var postsList: M
         holder.bind(pojo)
 
         holder.itemView.setOnClickListener {
-            intentHelper.startPostDetailsActivity(context, pojo.id)
+            intentHelper.startPostDetailsActivity(context, pojo)
         }
     }
 
     fun filterByCreteria(filterEntity: FilterEntity) {
+        this.filterEntity = filterEntity
+
         if (postFilterList == null)
             postFilterList = postsList
 
@@ -66,18 +72,38 @@ class PostRecyclerViewAdapter constructor(var context: Context, var postsList: M
             var result = true
             if ((filterEntity.query != null) and (!filterEntity.query.isNullOrEmpty()))
                 result = result and it.title.contains(filterEntity.query!!, false)
-            if (filterEntity.posCategory != null)
-                result = result and (it.category == filterEntity.posCategory)
+            if (filterEntity.postCategory != null)
+                result = result and (it.category == filterEntity.postCategory)
             if (filterEntity.subCategory != null)
                 result = result and (it.subCategory == filterEntity.subCategory)
             if (filterEntity.city != null)
                 result = result and (it.city == filterEntity.city)
             if (filterEntity.area != null)
-                result = result and (it.area == filterEntity.area)
+                result = result and (it.location == filterEntity.area)
             result
         }.toMutableList()
         notifyDataSetChanged()
     }
 
+    fun excludeFilter(tagEntity: TagEntity) {
+        if (filterEntity == null)
+            return
+
+        when (tagEntity.tagType) {
+            TagType.Category -> {
+                filterEntity!!.postCategory = null
+            }
+            TagType.SubCategory -> {
+                filterEntity!!.subCategory = null
+            }
+            TagType.City -> {
+                filterEntity!!.city = null
+            }
+            TagType.Location -> {
+                filterEntity!!.area = null
+            }
+        }
+        filterByCreteria(filterEntity!!)
+    }
 
 }

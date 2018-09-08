@@ -77,7 +77,6 @@
                 app:cardUseCompatPadding="true"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-
                 app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
 
@@ -97,7 +96,7 @@
                         android:paddingTop="@dimen/md_padding">
 
                         <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/tag1"
+                            android:id="@+id/postCategory"
                             style="@style/AppTheme.TextAppearance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -116,10 +115,10 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@+id/tag1">
+                            app:layout_constraintTop_toBottomOf="@+id/postCategory">
 
                             <android.support.v7.widget.AppCompatTextView
-                                android:id="@+id/tag2"
+                                android:id="@+id/postSubCategory"
                                 style="@style/AppTheme.TextAppearanceSmall"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -151,6 +150,7 @@
                                     android:textColor="@color/lightgray" />
 
                                 <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/postCreatedDate"
                                     style="@style/AppTheme.TextAppearance"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -166,13 +166,14 @@
                                 android:id="@+id/locationLayout"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/tag2"
+                                android:layout_below="@+id/postSubCategory"
                                 android:layout_marginLeft="@dimen/md_margin"
                                 android:layout_marginStart="@dimen/md_margin"
                                 android:layout_marginTop="@dimen/md_margin"
                                 android:orientation="vertical">
 
                                 <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/postTitle"
                                     style="@style/AppTheme.TextAppearance"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -183,6 +184,7 @@
                                     android:textStyle="bold" />
 
                                 <android.support.v7.widget.AppCompatTextView
+                                   android:id="@+id/postInLocation"
                                     style="@style/AppTheme.TextAppearance"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -212,6 +214,7 @@
                                     android:textColor="@color/lightgray" />
 
                                 <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/postCity"
                                     style="@style/AppTheme.TextAppearance"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -242,6 +245,7 @@
                                     android:textColor="@color/lightgray" />
 
                                 <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/postLocation"
                                     style="@style/AppTheme.TextAppearance"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -292,7 +296,7 @@
                         app:layout_constraintTop_toBottomOf="@id/info_Layout">
 
                         <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/categoryTitle"
+                            android:id="@+id/postDescriptionTitle"
                             style="@style/AppTheme.TextAppearance"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -308,12 +312,12 @@
                             android:background="@color/colorPrimary"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/categoryTitle"
+                            app:layout_constraintTop_toBottomOf="@+id/postDescriptionTitle"
                             app:layout_constraintWidth_default="percent"
                             app:layout_constraintWidth_percent="0.3" />
 
                         <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/adsDescription"
+                            android:id="@+id/postDescription"
                             style="@style/AppTheme.TextAppearance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -336,7 +340,7 @@
                             android:layout_weight="4"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/adsDescription"
+                            app:layout_constraintTop_toBottomOf="@+id/postDescription"
                             app:layout_constraintWidth_percent="0.5"
                             app:ms9_shadowElevation="@dimen/md_elevation">
 

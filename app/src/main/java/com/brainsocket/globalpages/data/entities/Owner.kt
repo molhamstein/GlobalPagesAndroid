@@ -16,6 +16,8 @@ class Owner {
     var id: String = ""
     var postCategoriesIds: MutableList<ObjectID>? = null
 
+    var image = ""
+
     class ObjectID {
         var Id: String = ""
     }

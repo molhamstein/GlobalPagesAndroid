@@ -124,7 +124,7 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
         if (filterCategories.adapter != null) {
             var category = (filterCategories.adapter as CategoryRecyclerViewAdapter).getCurrentCategory()
             if (category != null)
-                filterEntity.posCategory = category as PostCategory
+                filterEntity.postCategory = category as PostCategory
         }
         if (filterSubCategories.adapter != null)
             filterEntity.subCategory = (filterSubCategories.adapter as SubCategoryRecyclerViewAdapter).getCurrentSubCategory()

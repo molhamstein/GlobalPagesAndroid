@@ -29,7 +29,23 @@ public class BindingUtils {
                 return;
             }
             Context context = view.getContext();
-            GlideApp.with(context).load(businessGuide.getLogo()).error(R.drawable.ic_launcher_web)
+            String url = businessGuide.getLogo();
+            GlideApp.with(context).load(url).error(R.drawable.ic_launcher_web)
+                    .placeholder(R.drawable.ic_launcher_web).transform(new RoundedCornersTransformation(24, 0)).into(view);
+        } catch (Exception ex) {
+            Log.v("image load", ex.getMessage());
+        }
+    }
+
+    public static void loadBusinessGuideImage2(ImageView view, BusinessGuide businessGuide) {
+        try {
+            if (businessGuide.getLogo().isEmpty()) {
+                view.setVisibility(View.GONE);
+                return;
+            }
+            Context context = view.getContext();
+            String url = ServerInfo.Companion.getImagesBaseUrl() + businessGuide.getLogo();
+            GlideApp.with(context).load(url).error(R.drawable.ic_launcher_web)
                     .placeholder(R.drawable.ic_launcher_web).transform(new RoundedCornersTransformation(24, 0)).into(view);
         } catch (Exception ex) {
             Log.v("image load", ex.getMessage());
@@ -56,12 +72,16 @@ public class BindingUtils {
 
     public static void loadMediaImage(ImageView imageView, MediaEntity mediaEntity) {
         try {
+            String url = /* ServerInfo.Companion.getImagesBaseUrl() +*/ mediaEntity.getUrl();
+            if(!url.startsWith("http"))
+                url="http://"+url;
             Context context = imageView.getContext();
-            GlideApp.with(context).load(mediaEntity.getUrl()).error(R.drawable.ic_launcher_web)
+            GlideApp.with(context).load(url).error(R.drawable.businesslogo)
                     .placeholder(R.drawable.ic_launcher_web).into(imageView);
         } catch (Exception ex) {
             Log.v("image load", ex.getMessage());
         }
     }
+
 
 }

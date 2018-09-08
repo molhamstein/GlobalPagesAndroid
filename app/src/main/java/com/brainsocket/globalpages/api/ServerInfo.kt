@@ -18,7 +18,6 @@ class ServerInfo {
         /*Registration ended*/
 
 
-
         /*Tagging started*/
         var businessCategoriesUrl = baseUrl + "businessCategories"
 
@@ -34,6 +33,8 @@ class ServerInfo {
 
 
         var imagesBaseUrl = baseUrl + "attachments/images/upload/"
+
+        var postUrl = baseUrl + "posts"
 
     }
 

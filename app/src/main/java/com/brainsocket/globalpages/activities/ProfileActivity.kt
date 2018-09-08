@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -19,11 +20,37 @@ import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.BusinessGuideRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.CategoryRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.PostRecyclerViewAdapter
-import com.brainsocket.globalpages.repositories.DummyDataRepositories
+import com.brainsocket.globalpages.data.entities.BusinessGuide
+import com.brainsocket.globalpages.data.entities.Category
+import com.brainsocket.globalpages.data.entities.Post
+import com.brainsocket.globalpages.data.entities.User
+import com.brainsocket.globalpages.di.component.DaggerProfileComponent
+import com.brainsocket.globalpages.di.module.ProfileModule
+import com.brainsocket.globalpages.di.ui.ProfileContract
+import com.brainsocket.globalpages.di.ui.ProfilePresenter
+import com.brainsocket.globalpages.enums.UserGender
+import com.brainsocket.globalpages.repositories.UserRepository
 import com.brainsocket.globalpages.views.CustomTabView
+import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
+import com.brainsocket.mainlibrary.Views.Stateslayoutview
+import java.util.HashMap
+import javax.inject.Inject
 
 
-class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener {
+class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, ProfileContract.View {
+
+    @Inject
+    lateinit var presenter: ProfilePresenter
+
+
+    @BindView(R.id.myPostsStateLayout)
+    lateinit var myPostsStateLayout: Stateslayoutview
+
+    @BindView(R.id.myBusinessStateLayout)
+    lateinit var myBusinessStateLayout: Stateslayoutview
+
+    @BindView(R.id.myCategoriesStateLayout)
+    lateinit var myCategoriesStateLayout: Stateslayoutview
 
     @BindView(R.id.flexible_example_fab)
     lateinit var mFab: View
@@ -51,6 +78,22 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener {
     private var mMaxScrollSize: Int = 0
     private var mIsImageHidden: Boolean = false
 
+    /*User information started*/
+
+    @BindView(R.id.userName)
+    lateinit var userName: TextView
+
+    @BindView(R.id.adsCount)
+    lateinit var adsCount: TextView
+
+    @BindView(R.id.userEmail)
+    lateinit var userEmail: TextView
+
+    @BindView(R.id.birthDate)
+    lateinit var birthDate: EditText
+
+    /*User information ended*/
+
     private fun initToolBar() {
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener { onBackPressed() }
@@ -58,13 +101,13 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener {
 
     private fun initRecyclerViews() {
         myCategories.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        myCategories.adapter = CategoryRecyclerViewAdapter(this, DummyDataRepositories.getCategoriesList())
+//        myCategories.adapter = CategoryRecyclerViewAdapter(this, DummyDataRepositories.getCategoriesList())
 
         myPosts.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        myPosts.adapter = PostRecyclerViewAdapter(this, DummyDataRepositories.getPostList(), true)
+//        myPosts.adapter = PostRecyclerViewAdapter(this, DummyDataRepositories.getPostList(), true)
 
         myBusiness.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        myBusiness.adapter = BusinessGuideRecyclerViewAdapter(this, DummyDataRepositories.getBusinessGuideList())
+//        myBusiness.adapter = BusinessGuideRecyclerViewAdapter(this, DummyDataRepositories.getBusinessGuideList())
     }
 
     private fun initTabLayout() {
@@ -97,6 +140,36 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener {
 
     }
 
+    private fun initDI() {
+        val component = DaggerProfileComponent.builder()
+                .profileModule(ProfileModule(this))
+                .build()
+        component.inject(this)
+        presenter.attachView(this)
+        presenter.subscribe()
+
+        val criteria: MutableMap<String, Pair<String, String>> = HashMap()//[ownerId]
+        val user = UserRepository(context = baseContext).getUser()!!
+        criteria["where"] = Pair("ownerId", user.id!!)
+
+        presenter.loadUserPosts(criteria)
+        presenter.loadUserBusinesses(criteria)
+        presenter.loadUserCategories(user)
+
+        bindInfo(user)
+    }
+
+    private fun bindInfo(user: User) {
+        userName.text = user.username
+        userEmail.text = user.email
+        birthDate.setText((if (user.birthdate != null) user.birthdate!! else ""))
+        if ((user.gender != null) and user.gender!!.equals(UserGender.male.gender, false)) {
+            genderTabLayout.getTabAt(0)!!.select()
+        } else {
+            genderTabLayout.getTabAt(1)!!.select()
+        }
+
+    }
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.profile_layout)
@@ -104,7 +177,9 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener {
         initToolBar()
         initRecyclerViews()
         initTabLayout()
+        initDI()
         appbar.addOnOffsetChangedListener(this)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -146,5 +221,98 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener {
             }
         }
     }
+
+
+    /*My post presenter started*/
+    override fun showUserPostsProgress(show: Boolean) {
+        if (show)
+            myPostsStateLayout.FlipLayout(LayoutStatesEnum.Waitinglayout)
+        else
+            myPostsStateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+    }
+
+    override fun showUserPostsLoadErrorMessage(visible: Boolean) {
+        if (visible)
+            myPostsStateLayout.FlipLayout(LayoutStatesEnum.Noconnectionlayout)
+        else
+            myPostsStateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+    }
+
+    override fun showUserPostsEmptyView(visible: Boolean) {
+        if (visible)
+            myPostsStateLayout.FlipLayout(LayoutStatesEnum.Nodatalayout)
+        else
+            myPostsStateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+    }
+
+    override fun onUserPostsListSuccessfully(postList: MutableList<Post>) {
+        myPosts.adapter = PostRecyclerViewAdapter(baseContext, postList, true)
+        adsCount.text = postList.size.toString()
+        Log.v("", "")
+    }
+    /*My post presenter ended*/
+
+
+    /*My Businesses guide presenter started*/
+    override fun showUserBusinessesProgress(show: Boolean) {
+        if (show) {
+            myBusinessStateLayout.FlipLayout(LayoutStatesEnum.Waitinglayout)
+        } else {
+            myBusinessStateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+        }
+    }
+
+    override fun showUserBusinessesLoadErrorMessage(visible: Boolean) {
+        if (visible) {
+            myBusinessStateLayout.FlipLayout(LayoutStatesEnum.Noconnectionlayout)
+        } else {
+            myBusinessStateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+        }
+    }
+
+    override fun showUserBusinessesEmptyView(visible: Boolean) {
+        if (visible) {
+            myBusinessStateLayout.FlipLayout(LayoutStatesEnum.Nodatalayout)
+        } else {
+            myBusinessStateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+        }
+    }
+
+    override fun onUserBusinessesListSuccessfully(businessGuideList: MutableList<BusinessGuide>) {
+        myBusiness.adapter = BusinessGuideRecyclerViewAdapter(baseContext, businessGuideList)
+    }
+    /*My Businesses guide presenter ended*/
+
+
+    /*My Categories presenter started */
+    override fun showUserCategoriesProgress(show: Boolean) {
+        if (show) {
+            myCategoriesStateLayout.FlipLayout(LayoutStatesEnum.Waitinglayout)
+        } else {
+            myCategoriesStateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+        }
+    }
+
+    override fun showUserCategoriesLoadErrorMessage(visible: Boolean) {
+        if (visible) {
+            myCategoriesStateLayout.FlipLayout(LayoutStatesEnum.Noconnectionlayout)
+        } else {
+            myCategoriesStateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+        }
+    }
+
+    override fun showUserCategoriesEmptyView(visible: Boolean) {
+        if (visible) {
+            myCategoriesStateLayout.FlipLayout(LayoutStatesEnum.Nodatalayout)
+        } else {
+            myCategoriesStateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+        }
+    }
+
+    override fun onUserCategoriesListSuccessfully(categories: MutableList<Category>) {
+        myCategories.adapter = CategoryRecyclerViewAdapter(baseContext, categories)
+    }
+    /*My Categories presenter ended */
+
 
 }

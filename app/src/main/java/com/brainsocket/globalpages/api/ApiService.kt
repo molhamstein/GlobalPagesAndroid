@@ -47,10 +47,35 @@ class ApiService {
     /*Registration ended*/
 
 
+    /*User Profile started*/
+
+    fun getUserPosts(url: String, filteration: MutableMap<String, Pair<String, String>>, requestListener: ParsedRequestListener<MutableList<Post>>) {
+        val criteria = Gson().toJson(filteration)
+        AndroidNetworking.get(url)
+//                .setContentType("application/json")
+                .setPriority(Priority.HIGH)
+                .addQueryParameter("filter", criteria)
+                .build()
+                .getAsObjectList(Post::class.java, requestListener)
+    }
+
+    fun getUserBusinesses(url: String, filteration: MutableMap<String, Pair<String, String>>, requestListener: ParsedRequestListener<MutableList<BusinessGuide>>) {
+        val criteria = Gson().toJson(filteration)
+        AndroidNetworking.get(url)
+//                .setContentType("application/json")
+                .setPriority(Priority.HIGH)
+                .addQueryParameter("filter", criteria)
+                .build()
+                .getAsObjectList(BusinessGuide::class.java, requestListener)
+    }
+
+
+    /*User Profile ended*/
+
     /*Tagging started*/
     fun getBusinessCategories(url: String, requestListener: ParsedRequestListener<MutableList<BusinessGuideCategory>>) {
         AndroidNetworking.get(url)
-//                .setContentType("application/json")
+//              .setContentType("application/json")
                 .setPriority(Priority.HIGH)
                 .build()
                 .getAsObjectList(BusinessGuideCategory::class.java, requestListener)
@@ -76,7 +101,7 @@ class ApiService {
 
     /*Volumes started*/
     fun getVolumes(url: String, filteration: Map<String, String>, requestListener: ParsedRequestListener<MutableList<Volume>>) {
-        var criteria = Gson().toJson(filteration)
+        val criteria = Gson().toJson(filteration)
         AndroidNetworking.get(url)
 //                .setContentType("application/json")
                 .setPriority(Priority.HIGH)

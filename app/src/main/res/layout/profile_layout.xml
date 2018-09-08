@@ -99,6 +99,7 @@
                                     android:textColor="@color/lightgray" />
 
                                 <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/userName"
                                     style="@style/AppTheme.TextAppearance"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -125,6 +126,7 @@
                                     android:textColor="@color/lightgray" />
 
                                 <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/adsCount"
                                     style="@style/AppTheme.TextAppearance"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -153,6 +155,7 @@
                                     android:textColor="@color/lightgray" />
 
                                 <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/userEmail"
                                     style="@style/AppTheme.TextAppearance"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -180,7 +183,7 @@
                                     app:hintEnabled="false">
 
                                     <android.support.v7.widget.AppCompatEditText
-                                        android:id="@+id/birthdate"
+                                        android:id="@+id/birthDate"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_toLeftOf="@+id/genderTabLayout"
@@ -245,13 +248,25 @@
                             app:layout_constraintWidth_default="percent"
                             app:layout_constraintWidth_percent="0.3" />
 
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/myCategories"
+                        <com.brainsocket.mainlibrary.Views.Stateslayoutview
+                            android:id="@+id/myCategoriesStateLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/lg_margin"
-                            app:layout_constraintTop_toBottomOf="@id/categorySperator"
-                            app:tagBackgroundColor="@color/colorPrimary" />
+                            app:NoConnectionLayout="@layout/state_layout_noconnection"
+                            app:NoDataLayout="@layout/state_layout_nodata"
+                            app:WaitingLayout="@layout/state_layout_waiting"
+                            app:layout_constraintTop_toBottomOf="@id/categorySperator">
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/myCategories"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/lg_margin"
+
+                                app:tagBackgroundColor="@color/colorPrimary" />
+
+                        </com.brainsocket.mainlibrary.Views.Stateslayoutview>
+
 
                         <android.support.v7.widget.AppCompatTextView
                             android:id="@+id/AdsTitle"
@@ -262,7 +277,7 @@
                             android:text="@string/MyAds"
                             android:textColor="@color/profileHeaderColor"
                             android:textStyle="bold"
-                            app:layout_constraintTop_toBottomOf="@+id/myCategories" />
+                            app:layout_constraintTop_toBottomOf="@+id/myCategoriesStateLayout" />
 
                         <View
                             android:id="@+id/AdsSperator"
@@ -275,13 +290,22 @@
                             app:layout_constraintWidth_default="percent"
                             app:layout_constraintWidth_percent="0.3" />
 
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/myPosts"
+                        <com.brainsocket.mainlibrary.Views.Stateslayoutview
+                            android:id="@+id/myPostsStateLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/lg_margin"
-                            app:layout_constraintTop_toBottomOf="@id/AdsSperator"
-                            app:tagBackgroundColor="@color/colorPrimary" />
+                            app:NoConnectionLayout="@layout/state_layout_noconnection"
+                            app:NoDataLayout="@layout/state_layout_nodata"
+                            app:WaitingLayout="@layout/state_layout_waiting"
+                            app:layout_constraintTop_toBottomOf="@id/AdsSperator">
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/myPosts"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/lg_margin"
+                                app:tagBackgroundColor="@color/colorPrimary" />
+                        </com.brainsocket.mainlibrary.Views.Stateslayoutview>
 
                         <android.support.v7.widget.AppCompatTextView
                             android:id="@+id/businessTitle"
@@ -292,7 +316,7 @@
                             android:text="@string/MyBusiness"
                             android:textColor="@color/profileHeaderColor"
                             android:textStyle="bold"
-                            app:layout_constraintTop_toBottomOf="@+id/myPosts" />
+                            app:layout_constraintTop_toBottomOf="@+id/myPostsStateLayout" />
 
                         <View
                             android:id="@+id/BusinessSperator"
@@ -305,13 +329,22 @@
                             app:layout_constraintWidth_default="percent"
                             app:layout_constraintWidth_percent="0.3" />
 
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/myBusiness"
+                        <com.brainsocket.mainlibrary.Views.Stateslayoutview
+                            android:id="@+id/myBusinessStateLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/lg_margin"
-                            app:layout_constraintTop_toBottomOf="@id/BusinessSperator"
-                            app:tagBackgroundColor="@color/colorPrimary" />
+                            app:NoConnectionLayout="@layout/state_layout_noconnection"
+                            app:NoDataLayout="@layout/state_layout_nodata"
+                            app:WaitingLayout="@layout/state_layout_waiting"
+                            app:layout_constraintTop_toBottomOf="@id/BusinessSperator">
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/myBusiness"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/lg_margin"
+                                app:tagBackgroundColor="@color/colorPrimary" />
+                        </com.brainsocket.mainlibrary.Views.Stateslayoutview>
 
                     </android.support.constraint.ConstraintLayout>
 

@@ -35,9 +35,12 @@ class SelectedTagsView : RelativeLayout {
 
     }
 
-    public fun setAdapter(adapter: RecyclerView.Adapter<*>) {
+    fun setAdapter(adapter: RecyclerView.Adapter<*>) {
         selectedTags.adapter = adapter
     }
 
+    fun getAdapter(): RecyclerView.Adapter<*> {
+        return selectedTags.adapter
+    }
 
 }

@@ -11,7 +11,7 @@ import com.brainsocket.globalpages.viewHolders.BusinessGuideViewHolder
 /**
  * Created by Adhamkh on 2018-07-18.
  */
-class BusinessGuideRecyclerViewAdapter constructor(var context: Context,var businessGuideList: MutableList<BusinessGuide>)
+class BusinessGuideRecyclerViewAdapter constructor(var context: Context, var businessGuideList: MutableList<BusinessGuide>)
     : RecyclerView.Adapter<BusinessGuideViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusinessGuideViewHolder {

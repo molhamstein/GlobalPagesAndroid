@@ -40,7 +40,7 @@ class VolumesPresenter constructor(val context: Context) : VolumesContract.Prese
         ApiService().getVolumes(ServerInfo.volumeUrl, criteria, object : ParsedRequestListener<MutableList<Volume>> {
             override fun onResponse(response: MutableList<Volume>?) {
                 if ((response != null)) {
-                    var pojo = response.firstOrNull()
+                    val pojo = response.firstOrNull()
                     if (pojo != null) {
                         view.showProgress(false)
                         view.loadedData(pojo)

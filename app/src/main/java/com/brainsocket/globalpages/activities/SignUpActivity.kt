@@ -30,7 +30,7 @@ import android.content.DialogInterface
 import android.support.v4.content.ContextCompat
 import com.brainsocket.globalpages.data.entities.User
 import com.brainsocket.globalpages.data.entitiesModel.DuplicateModel
-import com.brainsocket.globalpages.repositories.userRepository
+import com.brainsocket.globalpages.repositories.UserRepository
 
 class SignUpActivity : BaseActivity(), SignUpContract.View {
 
@@ -143,7 +143,7 @@ class SignUpActivity : BaseActivity(), SignUpContract.View {
     }
 
     override fun navigateAfterSignUp(user: User) {
-        userRepository(context = this).addUser(user)
+        UserRepository(context = this).addUser(user)
         val builder = AlertDialog.Builder(SignUpActivity@ this)
         val dialogClickListener = DialogInterface.OnClickListener { _, which ->
             when (which) {

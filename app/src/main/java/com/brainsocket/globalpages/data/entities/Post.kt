@@ -1,6 +1,10 @@
 package com.brainsocket.globalpages.data.entities
 
 import com.brainsocket.globalpages.enums.PostType
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.annotation.JsonNaming
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.google.gson.annotations.SerializedName
 
 /**
  * Created by Adhamkh on 2018-06-29.
@@ -20,7 +24,7 @@ class Post {
         this.category = category
         this.subCategory = subCategory
         this.city = city
-        this.area = area
+        this.location = area
     }
 
     var title: String = ""
@@ -34,7 +38,16 @@ class Post {
     var categoryId: String = ""
     var subCategoryId: String = ""
 
-    var media: MutableList<Any> = mutableListOf()
+    var cityId: String = ""
+    var locationId: String = ""
+
+    var userId: String = ""
+
+
+    @JsonProperty("isFeatured")
+    var featured: String = ""
+
+    var media: MutableList<MediaEntity> = mutableListOf()
 
     var owner: Owner = Owner()
 
@@ -43,7 +56,7 @@ class Post {
     var subCategory: SubCategory = SubCategory()
 
     var city: City = City()
-    var area: LocationEntity = LocationEntity()
+    var location: LocationEntity = LocationEntity()
 
     fun getPostType(): Int {
         if (!image.isNullOrEmpty()) {
@@ -51,6 +64,12 @@ class Post {
         }
         return PostType.WITH_TEXT.type
     }
+
+    fun getRealCreationDate(){
+
+    }
+
+
 
 
 }

@@ -21,7 +21,7 @@ class User {
     var id: String? = null
     var termAndCondition: Boolean? = true
 
-    var postCategoriesIds: MutableList<ObjectID>? = null
+    var postCategoriesIds: MutableList<String>? = null
 
     class ObjectID {
         var Id: String = ""

@@ -13,7 +13,7 @@ import com.brainsocket.globalpages.di.module.SigninModule
 import com.brainsocket.globalpages.di.ui.SigninContract
 import com.brainsocket.globalpages.di.ui.SigninPresenter
 import com.brainsocket.globalpages.dialogs.ProgressDialog
-import com.brainsocket.globalpages.repositories.userRepository
+import com.brainsocket.globalpages.repositories.UserRepository
 import com.brainsocket.globalpages.utilities.intentHelper
 import com.brainsocket.globalpages.utilities.mainHelper
 import com.brainsocket.globalpages.viewHolders.SigninViewHolder
@@ -76,7 +76,7 @@ class SignInActivity : BaseActivity(), SigninContract.View {
     }
 
     override fun loginSuccesfully(loginResponse: LoginResponse) {
-        userRepository(context = this).addUser(loginResponse.user)
+        UserRepository(context = this).addUser(loginResponse.user)
         intentHelper.startMainActivity(this)
         Log.v("", "")
     }

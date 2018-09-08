@@ -41,7 +41,7 @@ class PostViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         postDetails.text = post.description
         postTag.text = post.category.getTitle()
         postCity.text = post.city.getTitle()
-        postArea.text = post.area.getTitle()
+        postArea.text = post.location.getTitle()
 
         BindingUtils.loadPostImage(postImage, post)
     }

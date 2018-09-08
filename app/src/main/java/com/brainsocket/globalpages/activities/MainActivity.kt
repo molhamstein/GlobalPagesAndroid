@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.v7.widget.*
 import android.util.Log
 import android.view.View
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import butterknife.BindView
@@ -13,16 +12,19 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.BusinessGuideSliderRecyclerViewAdapter
+import com.brainsocket.globalpages.adapters.CategoryRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.PostRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.TagsRecyclerViewAdapter
+import com.brainsocket.globalpages.data.entities.TagEntity
 import com.brainsocket.globalpages.data.entities.Volume
 import com.brainsocket.globalpages.data.filtration.FilterEntity
 import com.brainsocket.globalpages.di.component.DaggerVolumesComponent
 import com.brainsocket.globalpages.di.module.VolumesModule
 import com.brainsocket.globalpages.di.ui.VolumesContract
 import com.brainsocket.globalpages.di.ui.VolumesPresenter
+import com.brainsocket.globalpages.listeners.OnTagSelectListener
 import com.brainsocket.globalpages.repositories.DummyDataRepositories
-import com.brainsocket.globalpages.repositories.userRepository
+import com.brainsocket.globalpages.repositories.UserRepository
 import com.brainsocket.globalpages.utilities.intentHelper
 import com.brainsocket.globalpages.views.SelectedTagsView
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
@@ -33,7 +35,7 @@ import com.google.gson.Gson
 import javax.inject.Inject
 
 
-class MainActivity : BaseActivity(), VolumesContract.View {
+class MainActivity : BaseActivity(), VolumesContract.View, OnTagSelectListener {
 
     @Inject
     lateinit var presenter: VolumesPresenter
@@ -97,13 +99,13 @@ class MainActivity : BaseActivity(), VolumesContract.View {
         badge.setNumber(6, true)
 
         selectedTagsView.setAdapter(TagsRecyclerViewAdapter(this, DummyDataRepositories.getTagsDefaultRepositories()))
+        (selectedTagsView.getAdapter() as TagsRecyclerViewAdapter).onTagSelectListener = this
+
 //        tagSearch.addSuggestionList(DummydataRepositories.getTagsRepositories())
 //        volumesRecyclerView.adapter = PostRecyclerViewAdapter(MainActivity@ this, DummyDataRepositories.getPostList())
-
 //        intentHelper.startPostAddActivity(this)
 //        intentHelper.startBusinessAddActivity(this)
 //        intentHelper.startBusinessGuideDetailsActivity(this)
-
 //        intentHelper.startBusinessGuideSearchActivity(this)
 
         stateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
@@ -116,14 +118,17 @@ class MainActivity : BaseActivity(), VolumesContract.View {
             }
         })
 
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (resultCode) {
             PostSearchActivity.PostSearchActivity_ResultCode -> {
-                var filter = data!!.extras[PostSearchActivity.PostSearchActivity_Filter_Tag].toString()
-                var filterEntity = Gson().fromJson(filter, FilterEntity::class.java)
+                val filter = data!!.extras[PostSearchActivity.PostSearchActivity_Filter_Tag].toString()
+                val filterEntity = Gson().fromJson(filter, FilterEntity::class.java)
+                selectedTagsView.setAdapter(TagsRecyclerViewAdapter(baseContext, filterEntity.getTags()))
+                (selectedTagsView.getAdapter() as TagsRecyclerViewAdapter).onTagSelectListener = this
                 if (volumesRecyclerView.adapter != null) {
                     (volumesRecyclerView.adapter as PostRecyclerViewAdapter).filterByCreteria(filterEntity)
                 }
@@ -131,6 +136,11 @@ class MainActivity : BaseActivity(), VolumesContract.View {
             }
         }
 
+    }
+
+    override fun onSelectTag(tagEntity: TagEntity) {
+        (volumesRecyclerView.adapter as PostRecyclerViewAdapter).excludeFilter(tagEntity)
+        Log.v("", "")
     }
 
     @OnClick(R.id.previousBtn)
@@ -152,7 +162,7 @@ class MainActivity : BaseActivity(), VolumesContract.View {
 
     @OnClick(R.id.loginBtn)
     fun onLoginBtnClick(view: View) {
-        val usr = userRepository(this).getUser()
+        val usr = UserRepository(this).getUser()
         if (usr != null)
             intentHelper.startProfileActivity(this)
         else
@@ -175,7 +185,7 @@ class MainActivity : BaseActivity(), VolumesContract.View {
 
     @OnClick(R.id.addBusinessBtn)
     fun onAddBusinessBtnClick(view: View) {
-        var user = userRepository(this).getUser()
+        var user = UserRepository(this).getUser()
         if (user != null)
             intentHelper.startBusinessAddActivity(this)
         else
