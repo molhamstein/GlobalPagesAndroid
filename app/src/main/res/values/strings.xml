@@ -110,6 +110,7 @@
     <string name="Retry">Retry</string>
     <string name="noMoreVolumeFound">No more volume found</string>
     <string name="In">In</string>
+    <string name="Location_Permission_denied">Location Permission denied.</string>
 
 
 </resources>

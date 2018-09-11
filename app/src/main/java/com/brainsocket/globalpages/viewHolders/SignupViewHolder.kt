@@ -11,12 +11,11 @@ import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.brainsocket.globalpages.R
-import com.brainsocket.globalpages.data.entities.User
 import com.brainsocket.globalpages.data.entitiesModel.DuplicateModel
 import com.brainsocket.globalpages.data.entitiesModel.SignUpModel
 import com.brainsocket.globalpages.data.validations.ValidationHelper
 import com.brainsocket.globalpages.enums.UserGender
-import com.brainsocket.globalpages.utilities.mainHelper
+import com.brainsocket.globalpages.utilities.MainHelper
 
 /**
  * Created by Adhamkh on 2018-06-15.
@@ -86,7 +85,7 @@ class SignUpViewHolder : RecyclerView.ViewHolder {
         }
 
         if (!signUpModel.termAndCondition) {
-            mainHelper.hideKeyboard(itemView)
+            MainHelper.hideKeyboard(itemView)
             Toast.makeText(context, R.string.accepttermsandconditions, Toast.LENGTH_LONG).show()
             return false
         }

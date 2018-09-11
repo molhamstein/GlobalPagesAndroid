@@ -9,7 +9,7 @@ import com.google.gson.Gson
 /**
  * Created by Adhamkh on 2018-06-30.
  */
-class userRepository constructor( context: Context):Repository(context)  {
+class UserRepository constructor(context: Context):Repository(context)  {
 
     companion object {
         var USER_TAG: String = "USER"

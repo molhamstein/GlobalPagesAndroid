@@ -21,7 +21,7 @@ import com.brainsocket.globalpages.di.ui.SignUpContract
 import com.brainsocket.globalpages.di.ui.SignUpPresenter
 import com.brainsocket.globalpages.dialogs.ProgressDialog
 import com.brainsocket.globalpages.normalization.DateNormalizer
-import com.brainsocket.globalpages.utilities.intentHelper
+import com.brainsocket.globalpages.utilities.IntentHelper
 import com.brainsocket.globalpages.views.CustomTabView
 import com.brainsocket.globalpages.viewHolders.SignUpViewHolder
 import java.util.*
@@ -129,7 +129,7 @@ class SignUpActivity : BaseActivity(), SignUpContract.View {
 
     @OnClick(R.id.loginBtn)
     fun onSignInClick(view: View) {
-        intentHelper.startSignInActivity(SignUpActivity@ this)
+        IntentHelper.startSignInActivity(SignUpActivity@ this)
         Log.v("View Clicked", view.id.toString())
     }
 
@@ -167,12 +167,12 @@ class SignUpActivity : BaseActivity(), SignUpContract.View {
     }
 
     override fun signUpSuccessfully(user: User) {
-        intentHelper.startMainActivity(this)
+        IntentHelper.startMainActivity(this)
         Log.v("", "")
     }
 
     override fun signUp2Business(user: User) {
-        intentHelper.startBusinessAddActivity(this)
+        IntentHelper.startBusinessAddActivity(this)
         Log.v("", "")
     }
 

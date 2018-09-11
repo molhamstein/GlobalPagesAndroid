@@ -337,6 +337,10 @@ class PharmacyNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
         businessGuideRecyclerView.adapter = BusinessGuideRecyclerViewAdapter(this, businessGuideList)
         Log.v("", "")
     }
+
+    override fun onAddBusinessGuideSuccessfully() {
+
+    }
     /*Business Guides Presenter ended*/
 
     override fun onSelectSubCategory(subCategory: SubCategory) {

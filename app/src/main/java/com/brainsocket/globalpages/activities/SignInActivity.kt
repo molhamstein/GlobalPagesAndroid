@@ -14,8 +14,8 @@ import com.brainsocket.globalpages.di.ui.SigninContract
 import com.brainsocket.globalpages.di.ui.SigninPresenter
 import com.brainsocket.globalpages.dialogs.ProgressDialog
 import com.brainsocket.globalpages.repositories.UserRepository
-import com.brainsocket.globalpages.utilities.intentHelper
-import com.brainsocket.globalpages.utilities.mainHelper
+import com.brainsocket.globalpages.utilities.IntentHelper
+import com.brainsocket.globalpages.utilities.MainHelper
 import com.brainsocket.globalpages.viewHolders.SigninViewHolder
 import javax.inject.Inject
 
@@ -57,13 +57,13 @@ class SignInActivity : BaseActivity(), SigninContract.View {
 
     @OnClick(R.id.registerTextViewLink)
     fun onRegisterClick(view: View) {
-        intentHelper.startSignUpActivity(SignInActivity@ this)
+        IntentHelper.startSignUpActivity(SignInActivity@ this)
         Log.v("View Clicked", view.id.toString())
     }
 
     @OnClick(R.id.forgotTextViewLink)
     fun onForgotClick(view: View) {
-        intentHelper.startForgotPasswordActivity(SignInActivity@ this)
+        IntentHelper.startForgotPasswordActivity(SignInActivity@ this)
         Log.v("View Clicked", view.id.toString())
     }
 
@@ -77,12 +77,12 @@ class SignInActivity : BaseActivity(), SigninContract.View {
 
     override fun loginSuccesfully(loginResponse: LoginResponse) {
         UserRepository(context = this).addUser(loginResponse.user)
-        intentHelper.startMainActivity(this)
+        IntentHelper.startMainActivity(this)
         Log.v("", "")
     }
 
     override fun loginFail() {
-        mainHelper.hideKeyboard(findViewById(android.R.id.content))
+        MainHelper.hideKeyboard(findViewById(android.R.id.content))
         Toast.makeText(baseContext, R.string.invalidEmailorPassword, Toast.LENGTH_LONG).show()
         Log.v("", "")
     }

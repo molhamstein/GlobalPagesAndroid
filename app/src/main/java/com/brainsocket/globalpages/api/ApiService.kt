@@ -5,6 +5,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
 import com.androidnetworking.interfaces.ParsedRequestListener
+import com.androidnetworking.interfaces.StringRequestListener
 import com.brainsocket.globalpages.data.entities.*
 import com.brainsocket.globalpages.data.entitiesResponses.LoginResponse
 import com.brainsocket.globalpages.data.entitiesModel.ForgotPasswordModel
@@ -122,6 +123,16 @@ class ApiService {
                 .build()
                 .getAsObjectList(BusinessGuide::class.java, requestListener)
     }
+
+    fun postBusinessGuides(url: String, businessGuide: BusinessGuide, requestListener: StringRequestListener) {
+        AndroidNetworking.post(url)
+                .setContentType("application/json")
+                .setPriority(Priority.HIGH)
+                .addBodyParameter(businessGuide)
+                .build()
+                .getAsString(requestListener)
+    }
+
     /*Business Guides ended*/
 
 

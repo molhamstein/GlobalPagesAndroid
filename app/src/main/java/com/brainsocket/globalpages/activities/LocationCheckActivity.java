@@ -14,12 +14,11 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.brainsocket.globalpages.utilities.intentHelper;
+import com.brainsocket.globalpages.utilities.IntentHelper;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -216,7 +215,7 @@ public class LocationCheckActivity extends BaseActivity {
     //Method to update GPS status text
     private void updateGPSStatus(Integer status) {
         if (status == Response_GPS_OK) {
-            intentHelper.Companion.startActivityByName(getBaseContext(), getIntent().getStringExtra(Target_Tag));
+            IntentHelper.Companion.startActivityByName(getBaseContext(), getIntent().getStringExtra(Target_Tag));
         }
         setResult(status);
         finish();
@@ -241,7 +240,8 @@ public class LocationCheckActivity extends BaseActivity {
                         showSettingDialog();
                 } else {
                     updateGPSStatus(Response_Location_Permission_FAIL);
-                    Toast.makeText(LocationCheckActivity.this, "Location Permission denied.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LocationCheckActivity.this,getResources().getText(R.string.Location_Permission_denied),
+                            Toast.LENGTH_SHORT).show();
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                 }

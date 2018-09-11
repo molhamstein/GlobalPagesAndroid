@@ -10,8 +10,7 @@ import com.brainsocket.globalpages.data.entities.TagEntity
 import com.brainsocket.globalpages.data.filtration.FilterEntity
 import com.brainsocket.globalpages.enums.PostType
 import com.brainsocket.globalpages.enums.TagType
-import com.brainsocket.globalpages.utilities.BindingUtils
-import com.brainsocket.globalpages.utilities.intentHelper
+import com.brainsocket.globalpages.utilities.IntentHelper
 import com.brainsocket.globalpages.viewHolders.PostViewHolder
 
 /**
@@ -58,7 +57,7 @@ class PostRecyclerViewAdapter constructor(var context: Context, var postsList: M
         holder.bind(pojo)
 
         holder.itemView.setOnClickListener {
-            intentHelper.startPostDetailsActivity(context, pojo)
+            IntentHelper.startPostDetailsActivity(context, pojo)
         }
     }
 

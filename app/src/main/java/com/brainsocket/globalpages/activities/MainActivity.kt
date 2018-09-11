@@ -12,7 +12,6 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.BusinessGuideSliderRecyclerViewAdapter
-import com.brainsocket.globalpages.adapters.CategoryRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.PostRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.TagsRecyclerViewAdapter
 import com.brainsocket.globalpages.data.entities.TagEntity
@@ -25,7 +24,7 @@ import com.brainsocket.globalpages.di.ui.VolumesPresenter
 import com.brainsocket.globalpages.listeners.OnTagSelectListener
 import com.brainsocket.globalpages.repositories.DummyDataRepositories
 import com.brainsocket.globalpages.repositories.UserRepository
-import com.brainsocket.globalpages.utilities.intentHelper
+import com.brainsocket.globalpages.utilities.IntentHelper
 import com.brainsocket.globalpages.views.SelectedTagsView
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
 import com.brainsocket.mainlibrary.Listeners.OnRefreshLayoutListener
@@ -156,7 +155,7 @@ class MainActivity : BaseActivity(), VolumesContract.View, OnTagSelectListener {
     @OnClick(R.id.searchFilterBtn)
     fun onSearchFilterBtnClick(view: View) {
         var list = (selectedTagsView.selectedTags.adapter as TagsRecyclerViewAdapter).tagsListList
-        intentHelper.startPostSearchFilterActivityForResult(MainActivity@ this, list)
+        IntentHelper.startPostSearchFilterActivityForResult(MainActivity@ this, list)
         Log.v("View Clicked", view.id.toString())
     }
 
@@ -164,22 +163,22 @@ class MainActivity : BaseActivity(), VolumesContract.View, OnTagSelectListener {
     fun onLoginBtnClick(view: View) {
         val usr = UserRepository(this).getUser()
         if (usr != null)
-            intentHelper.startProfileActivity(this)
+            IntentHelper.startProfileActivity(this)
         else
-            intentHelper.startSignInActivity(MainActivity@ this)
+            IntentHelper.startSignInActivity(MainActivity@ this)
         Log.v("View Clicked", view.id.toString())
     }
 
     @OnClick(R.id.businessGuideBtn)
     fun onBusinessGuideClick(view: View) {
-        intentHelper.startBusinessGuideSearchActivity(this)
+        IntentHelper.startBusinessGuideSearchActivity(this)
         Log.v("View Clicked", view.id.toString())
     }
 
     @OnClick(R.id.findNearByBtn)
     fun onFindNearByClick(view: View) {
         val activityName = PharmacyNearByActivity::class.java.canonicalName
-        intentHelper.startLocationCheckActivity(this, activityName)
+        IntentHelper.startLocationCheckActivity(this, activityName)
         Log.v("View Clicked", view.id.toString())
     }
 
@@ -187,14 +186,14 @@ class MainActivity : BaseActivity(), VolumesContract.View, OnTagSelectListener {
     fun onAddBusinessBtnClick(view: View) {
         var user = UserRepository(this).getUser()
         if (user != null)
-            intentHelper.startBusinessAddActivity(this)
+            IntentHelper.startBusinessAddActivity(this)
         else
-            intentHelper.startSignInActivity(this)
+            IntentHelper.startSignInActivity(this)
     }
 
     @OnClick(R.id.dutyPharmacyBtn)
     fun onDutyPharmacyClick(view: View) {
-        intentHelper.startDutyPharmacyActivity(this)
+        IntentHelper.startDutyPharmacyActivity(this)
         Log.v("View Clicked", view.id.toString())
     }
 

@@ -71,7 +71,10 @@
 
         <!--Business Activities Started-->
 
-        <activity android:name=".activities.BusinessGuideAddActivity">
+        <activity
+            android:name=".activities.BusinessGuideAddActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustPan">
 
         </activity>
 

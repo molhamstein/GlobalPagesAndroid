@@ -7,7 +7,7 @@ import com.brainsocket.globalpages.di.component.DaggerSplashComponent
 import com.brainsocket.globalpages.di.module.TagsCollectionModule
 import com.brainsocket.globalpages.di.ui.TagsCollectionContact
 import com.brainsocket.globalpages.di.ui.TagsCollectionPresenter
-import com.brainsocket.globalpages.utilities.intentHelper
+import com.brainsocket.globalpages.utilities.IntentHelper
 import javax.inject.Inject
 
 
@@ -34,7 +34,7 @@ class SplashActivity : BaseActivity(), TagsCollectionContact.View {
         setContentView(R.layout.splash_layout)
         initDI()
         Handler(mainLooper).postDelayed({
-            intentHelper.startMainActivity(baseContext)
+            IntentHelper.startMainActivity(baseContext)
             finish()
         }, Splash_Delay)
 

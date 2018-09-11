@@ -185,11 +185,24 @@
                                 android:text="@string/businessType"
                                 android:textColor="@color/grayLightTextColor" />
 
-                            <android.support.v7.widget.RecyclerView
-                                android:id="@+id/businessTypes"
+                            <com.brainsocket.mainlibrary.Views.Stateslayoutview
+                                android:id="@+id/stateLayout"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                app:tagBackgroundColor="@color/colorPrimary" />
+                                android:minWidth="70dp"
+                                app:NoConnectionLayout="@layout/state_layout_noconnection"
+                                app:NoDataLayout="@layout/state_layout_nodata"
+                                app:RefreshbtnRes="@+id/retryBtn"
+                                app:WaitingLayout="@layout/state_layout_waiting">
+
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/businessTypes"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    app:tagBackgroundColor="@color/colorPrimary" />
+
+                            </com.brainsocket.mainlibrary.Views.Stateslayoutview>
+
                         </LinearLayout>
 
                         <LinearLayout
@@ -226,6 +239,7 @@
                                 android:textColor="@color/grayLightTextColor" />
 
                             <android.support.design.widget.TextInputEditText
+                                android:id="@+id/locationEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:drawableEnd="@drawable/ic_nearby_24dp"

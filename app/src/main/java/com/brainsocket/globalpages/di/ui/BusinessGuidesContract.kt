@@ -9,6 +9,7 @@ import com.brainsocket.globalpages.data.entities.SubCategory
 class BusinessGuidesContract {
     interface Presenter : BaseContract.Presenter<View> {
         fun loadBusinessGuideList(subCategory: SubCategory)
+        fun addBusinessGuide(businessGuide: BusinessGuide)
     }
 
     interface View : BaseContract.View {
@@ -17,8 +18,8 @@ class BusinessGuidesContract {
         fun showBusinessGuideLoadErrorMessage(visible: Boolean) {}
         fun showBusinessGuideEmptyView(visible: Boolean) {}
         fun onLoadBusinessGuideListSuccessfully(businessGuideList: MutableList<BusinessGuide>)
+        fun onAddBusinessGuideSuccessfully()
 
-//        fun loginSuccesfully(loginResponse: LoginResponse)
-//        fun loginFail()
     }
+
 }
