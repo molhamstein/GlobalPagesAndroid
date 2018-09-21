@@ -23,7 +23,7 @@ import com.brainsocket.globalpages.dialogs.ProgressDialog
 import com.brainsocket.globalpages.normalization.DateNormalizer
 import com.brainsocket.globalpages.utilities.IntentHelper
 import com.brainsocket.globalpages.views.CustomTabView
-import com.brainsocket.globalpages.viewHolders.SignUpViewHolder
+import com.brainsocket.globalpages.viewModel.SignUpViewHolder
 import java.util.*
 import javax.inject.Inject
 import android.content.DialogInterface

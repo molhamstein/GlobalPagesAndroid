@@ -159,11 +159,11 @@ class DummyDataRepositories {
         }
 
         fun getAttachmentList() = mutableListOf<Attachment>().apply {
-            add(Attachment())
-            add(Attachment())
-            add(Attachment())
-            add(Attachment())
-            add(Attachment())
+//            add(Attachment())
+//            add(Attachment())
+//            add(Attachment())
+//            add(Attachment())
+//            add(Attachment())
         }
 
     }

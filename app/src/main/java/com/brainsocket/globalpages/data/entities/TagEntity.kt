@@ -3,9 +3,6 @@ package com.brainsocket.globalpages.data.entities
 import com.brainsocket.globalpages.App
 import com.brainsocket.globalpages.enums.TagType
 
-/**
- * Created by Adhamkh on 2018-07-04.
- */
 class TagEntity {
 
     var titleAr: String = ""

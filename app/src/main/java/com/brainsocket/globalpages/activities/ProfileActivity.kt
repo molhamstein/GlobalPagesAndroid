@@ -30,6 +30,7 @@ import com.brainsocket.globalpages.di.ui.ProfileContract
 import com.brainsocket.globalpages.di.ui.ProfilePresenter
 import com.brainsocket.globalpages.enums.UserGender
 import com.brainsocket.globalpages.repositories.UserRepository
+import com.brainsocket.globalpages.utilities.IntentHelper
 import com.brainsocket.globalpages.views.CustomTabView
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
 import com.brainsocket.mainlibrary.Views.Stateslayoutview
@@ -41,7 +42,6 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
 
     @Inject
     lateinit var presenter: ProfilePresenter
-
 
     @BindView(R.id.myPostsStateLayout)
     lateinit var myPostsStateLayout: Stateslayoutview
@@ -190,7 +190,7 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.menu_edit -> {
-
+                IntentHelper.startProfileEditActivity(this)
             }
         }
         return true

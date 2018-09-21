@@ -11,7 +11,7 @@ buildscript {
         MIN_VERSION = 14
         SUPPORT_VERSION = "27.1.1"
         SUPPORT_SERVICE = '15.0.1'
-        RX_VERSION = '2.0.1'
+        RX_VERSION = '2.0.1'//'2.1.16'//
         DAGGER_VERSION = '2.11'
         BUTTERKNIFE_VERSION = '8.8.1'
         PICASSO_VERSION = '2.5.2'
@@ -30,6 +30,9 @@ buildscript {
         Android_Networking = "1.0.1"
 
         archRoomVersion = '1.1.1-rc1'
+
+        supportTestVersion = '1.0.2'
+        espressoVersion = '3.0.2'
 
     }
 

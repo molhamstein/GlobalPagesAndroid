@@ -184,7 +184,7 @@ class MainActivity : BaseActivity(), VolumesContract.View, OnTagSelectListener {
 
     @OnClick(R.id.addBusinessBtn)
     fun onAddBusinessBtnClick(view: View) {
-        var user = UserRepository(this).getUser()
+        val user = UserRepository(this).getUser()
         if (user != null)
             IntentHelper.startBusinessAddActivity(this)
         else
@@ -232,4 +232,5 @@ class MainActivity : BaseActivity(), VolumesContract.View, OnTagSelectListener {
         Toast.makeText(this, R.string.noMoreVolumeFound, Toast.LENGTH_LONG).show()
     }
     /*Presenter ended*/
+
 }

@@ -1,4 +1,4 @@
-package com.brainsocket.globalpages.viewHolders
+package com.brainsocket.globalpages.viewModel
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView

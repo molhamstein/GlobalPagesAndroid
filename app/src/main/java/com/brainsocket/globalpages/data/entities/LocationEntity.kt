@@ -1,18 +1,15 @@
 package com.brainsocket.globalpages.data.entities
 
 import com.brainsocket.globalpages.App
-import com.fasterxml.jackson.annotation.JsonIgnore
+//import com.fasterxml.jackson.annotation.JsonIgnore
 
-/**
- * Created by Adhamkh on 2018-07-03.
- */
 class LocationEntity {
     var nameAr: String = ""
     var nameEn: String = ""
     var id: String = ""
     var cityId: String = ""
 
-    @JsonIgnore
+//    @JsonIgnore
     var isSelected: Boolean = false
 
     constructor()

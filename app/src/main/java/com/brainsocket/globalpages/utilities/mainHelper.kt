@@ -8,7 +8,7 @@ import android.view.inputmethod.InputMethodManager
 /**
  * Created by Adhamkh on 2018-06-08.
  */
-class mainHelper {
+class MainHelper {
     companion object {
 
         fun hideKeyboard(view: View) {

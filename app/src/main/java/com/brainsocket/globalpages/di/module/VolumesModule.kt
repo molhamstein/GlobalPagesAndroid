@@ -6,9 +6,6 @@ import com.brainsocket.globalpages.di.ui.VolumesPresenter
 import dagger.Module
 import dagger.Provides
 
-/**
- * Created by Adhamkh on 2018-06-29.
- */
 @Module
 class VolumesModule constructor(private var activity: Activity) {
 

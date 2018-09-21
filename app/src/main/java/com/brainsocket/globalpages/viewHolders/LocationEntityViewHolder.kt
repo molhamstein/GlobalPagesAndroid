@@ -13,17 +13,17 @@ import com.brainsocket.globalpages.data.entities.LocationEntity
  */
 class LocationEntityViewHolder : RecyclerView.ViewHolder {
     @BindView(R.id.location_toggle)
-    lateinit var location_toggle: ToggleButton
+    lateinit var locationToggle: ToggleButton
 
     constructor(view: View) : super(view) {
         ButterKnife.bind(this, view)
     }
 
     fun bind(locationEntity: LocationEntity) {
-        location_toggle.textOff = locationEntity.getTitle()
-        location_toggle.textOn = locationEntity.getTitle()
-        location_toggle.text = locationEntity.getTitle()
-        location_toggle.setOnCheckedChangeListener(null)
-        location_toggle.isChecked = locationEntity.isSelected
+        locationToggle.textOff = locationEntity.getTitle()
+        locationToggle.textOn = locationEntity.getTitle()
+        locationToggle.text = locationEntity.getTitle()
+        locationToggle.setOnCheckedChangeListener(null)
+        locationToggle.isChecked = locationEntity.isSelected
     }
 }

@@ -1,14 +1,11 @@
 package com.brainsocket.globalpages.data.entities
 
 import com.brainsocket.globalpages.enums.PostType
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonNaming
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
+//import com.fasterxml.jackson.annotation.JsonProperty
+//import com.fasterxml.jackson.databind.annotation.JsonNaming
+//import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.google.gson.annotations.SerializedName
 
-/**
- * Created by Adhamkh on 2018-06-29.
- */
 class Post {
 
     constructor() {
@@ -44,7 +41,8 @@ class Post {
     var userId: String = ""
 
 
-    @JsonProperty("isFeatured")
+//    @JsonProperty("isFeatured")
+    @SerializedName("isFeatured")
     var featured: String = ""
 
     var media: MutableList<MediaEntity> = mutableListOf()
@@ -65,11 +63,9 @@ class Post {
         return PostType.WITH_TEXT.type
     }
 
-    fun getRealCreationDate(){
+    fun getRealCreationDate() {
 
     }
-
-
 
 
 }

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.brainsocket.mainlibrary.Views.Stateslayoutview xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/stateLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="50dp"
+    app:NoConnectionLayout="@layout/state_layout_noconnection"
+    app:NoDataLayout="@layout/state_layout_nodata"
+    app:RefreshbtnRes="@+id/retryBtn"
+    app:WaitingLayout="@layout/state_layout_waiting">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_profile_layout" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            app:cardBackgroundColor="@color/grayDarkTextColor"
+            app:cardCornerRadius="@dimen/cardview_default_radius"
+            app:cardElevation="@dimen/md_elevation"
+            app:cardUseCompatPadding="true">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/md_margin">
+
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/profileImage"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:background="@drawable/userprofile"
+                    app:elevation="8dp"
+                    app:layout_anchorGravity="top|center|center_horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/userNameLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/profileImage">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        style="@style/AppTheme.TextAppearanceSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:text="@string/UserName"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/lightgray" />
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/userNameEditText"
+                        style="@style/AppTheme.EditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/phoneLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:errorEnabled="false"
+                    app:hintEnabled="false"
+                    app:layout_constraintTop_toBottomOf="@+id/userNameLayout">
+
+                    <android.support.v7.widget.AppCompatEditText
+                        android:id="@+id/phoneNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_toLeftOf="@+id/genderTabLayout"
+                        android:layout_toStartOf="@+id/genderTabLayout"
+                        android:enabled="true"
+                        android:hint="@string/Phonenumber"
+                        android:textAlignment="gravity"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        app:autoSizeTextType="uniform"
+                        app:backgroundTint="@color/white" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <LinearLayout
+                    android:baselineAligned="false"
+                    app:layout_constraintTop_toBottomOf="@+id/phoneLayout"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/birthDateLayout"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        app:errorEnabled="false"
+                        app:hintEnabled="false"
+                        app:layout_constraintTop_toBottomOf="@+id/userNameLayout">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/birthDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@+id/genderTabLayout"
+                            android:layout_toStartOf="@+id/genderTabLayout"
+                            android:drawableEnd="@drawable/ic_arrow_drop_down_white_24dp"
+                            android:drawableRight="@drawable/ic_arrow_drop_down_white_24dp"
+                            android:enabled="true"
+                            android:focusable="false"
+                            android:hint="@string/Birthdate"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white"
+                            app:autoSizeTextType="uniform"
+                            app:backgroundTint="@color/white" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/genderTabLayout"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/phone1Layout"
+                        app:tabGravity="center"
+                        app:tabIndicatorColor="@color/transparent"
+                        app:tabMode="fixed"
+                        app:tabPadding="0dp"
+                        app:tabSelectedTextColor="@color/colorPrimary"
+                        app:tabTextAppearance="@style/AppTheme.TextAppearance"
+                        app:tabTextColor="@color/grayDarkTextColor" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/imageProfileUrl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/container">
+
+            <com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.6"
+                app:ms9_shadowElevation="@dimen/md_elevation">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/updateProfileBtn"
+                    style="@style/AppTheme.NormalButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/sm_btn_height"
+                    android:background="@drawable/button_bg"
+                    android:shadowColor="@color/black"
+                    android:text="@string/UpdateProfile"
+                    app:elevation="4dp" />
+
+            </com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </RelativeLayout>
+
+</com.brainsocket.mainlibrary.Views.Stateslayoutview>
+
+

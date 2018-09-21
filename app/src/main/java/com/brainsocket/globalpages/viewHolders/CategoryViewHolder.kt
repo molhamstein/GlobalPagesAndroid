@@ -12,6 +12,7 @@ import com.brainsocket.globalpages.data.entities.Category
  * Created by Adhamkh on 2018-07-03.
  */
 class CategoryViewHolder : RecyclerView.ViewHolder {
+
     @BindView(R.id.category_toggle)
     lateinit var category_toggle: ToggleButton
 

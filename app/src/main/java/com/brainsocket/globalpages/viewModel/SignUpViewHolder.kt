@@ -1,4 +1,4 @@
-package com.brainsocket.globalpages.viewHolders
+package com.brainsocket.globalpages.viewModel
 
 import android.content.Context
 import android.support.design.widget.TabLayout
@@ -17,9 +17,6 @@ import com.brainsocket.globalpages.data.validations.ValidationHelper
 import com.brainsocket.globalpages.enums.UserGender
 import com.brainsocket.globalpages.utilities.MainHelper
 
-/**
- * Created by Adhamkh on 2018-06-15.
- */
 class SignUpViewHolder : RecyclerView.ViewHolder {
     var context: Context
 

@@ -5,9 +5,6 @@ import com.brainsocket.globalpages.enums.UserStatus
 import com.brainsocket.globalpages.normalization.DateNormalizer
 import java.util.*
 
-/**
- * Created by Adhamkh on 2018-06-15.
- */
 class User {
     var email: String = ""
     var username: String? = null
@@ -20,6 +17,9 @@ class User {
     var emailVerified: Boolean? = true
     var id: String? = null
     var termAndCondition: Boolean? = true
+
+    var imageProfile: String = ""
+    var phoneNumber: String = ""
 
     var postCategoriesIds: MutableList<String>? = null
 

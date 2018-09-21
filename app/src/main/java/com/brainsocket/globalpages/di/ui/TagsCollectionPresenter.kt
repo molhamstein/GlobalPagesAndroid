@@ -9,7 +9,9 @@ import com.brainsocket.globalpages.data.entities.BusinessGuideCategory
 import com.brainsocket.globalpages.data.entities.City
 import com.brainsocket.globalpages.data.entities.PostCategory
 import com.brainsocket.globalpages.repositories.DataStoreRepositories
+import com.brainsocket.globalpages.repositories.UserRepository
 import io.reactivex.disposables.CompositeDisposable
+import java.util.HashMap
 
 /**
  * Created by Adhamkh on 2018-08-09.
@@ -46,8 +48,12 @@ class TagsCollectionPresenter constructor(val context: Context) : TagsCollection
                 return
             }
         }
+
+        val criteriaCategory: MutableMap<String, String> = HashMap()//[ownerId]
+        criteriaCategory["include"] = "subCategories"
+
         //businessCategoriesUrl
-        ApiService().getBusinessCategories(ServerInfo.postCategoriesUrl, object : ParsedRequestListener<MutableList<BusinessGuideCategory>> {
+        ApiService().getBusinessCategories(ServerInfo.businessCategoriesUrl, criteriaCategory, object : ParsedRequestListener<MutableList<BusinessGuideCategory>> {
             override fun onResponse(response: MutableList<BusinessGuideCategory>?) {
                 view.showProgress(false)
                 if (response != null) {
@@ -77,7 +83,10 @@ class TagsCollectionPresenter constructor(val context: Context) : TagsCollection
             }
         }
 
-        ApiService().getPostCategories(ServerInfo.postCategoriesUrl, object : ParsedRequestListener<MutableList<PostCategory>> {
+        val criteriaCategory: MutableMap<String, String> = HashMap()//[ownerId]
+        criteriaCategory["include"] = "subCategories"
+
+        ApiService().getPostCategories(ServerInfo.postCategoriesUrl, criteriaCategory, object : ParsedRequestListener<MutableList<PostCategory>> {
             override fun onResponse(response: MutableList<PostCategory>?) {
                 view.showPostCategoriesProgress(false)
                 if (response != null) {
@@ -106,7 +115,10 @@ class TagsCollectionPresenter constructor(val context: Context) : TagsCollection
             }
         }
 
-        ApiService().getCities(ServerInfo.citiesUrl, object : ParsedRequestListener<MutableList<City>> {
+        val criteriaCity: MutableMap<String, String> = HashMap()//[ownerId]
+        criteriaCity["include"] = "locations"
+
+        ApiService().getCities(ServerInfo.citiesUrl, criteriaCity, object : ParsedRequestListener<MutableList<City>> {
             override fun onResponse(response: MutableList<City>?) {
                 view.showCitiesProgress(false)
                 if (response != null) {
@@ -122,6 +134,7 @@ class TagsCollectionPresenter constructor(val context: Context) : TagsCollection
                 view.showCitiesLoadErrorMessage(true)
             }
         })
+
     }
 
 }

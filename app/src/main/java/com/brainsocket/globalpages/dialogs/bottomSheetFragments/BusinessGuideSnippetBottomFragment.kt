@@ -6,27 +6,49 @@ import android.support.design.widget.BottomSheetBehavior
 import android.support.design.widget.BottomSheetDialog
 import android.support.design.widget.BottomSheetDialogFragment
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import butterknife.BindView
 import butterknife.ButterKnife
 import com.brainsocket.globalpages.R
+import com.brainsocket.globalpages.adapters.BusinessGuideRecyclerViewAdapter
+import com.brainsocket.globalpages.data.entities.BusinessGuide
 
 /**
  * Created by Adhamkh on 2018-07-27.
  */
 class BusinessGuideSnippetBottomFragment : BottomSheetDialogFragment() {
 
+    lateinit var businessGuide: BusinessGuide
+
+
     companion object {
-        val BusinessGuideSnippetBottomFragment_Tag = "BusinessGuideSnippetBottomFragment"
-        fun getNewInstance(): BusinessGuideSnippetBottomFragment {
+
+        const val BusinessGuideSnippetBottomFragment_Tag = "BusinessGuideSnippetBottomFragment"
+
+        fun getNewInstance(businessGuide: BusinessGuide): BusinessGuideSnippetBottomFragment {
             val businessGuideSnippetBottomFragment = BusinessGuideSnippetBottomFragment()
+            businessGuideSnippetBottomFragment.businessGuide = businessGuide
             val bundle = Bundle()
             businessGuideSnippetBottomFragment.arguments = bundle
             return businessGuideSnippetBottomFragment
         }
+
+    }
+
+    @BindView(R.id.recyclerView)
+    lateinit var recyclerView: RecyclerView
+
+    private fun initRecyclerView() {
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+        val list: MutableList<BusinessGuide> = mutableListOf()
+        list.add(businessGuide)
+        recyclerView.adapter = BusinessGuideRecyclerViewAdapter(context!!, list)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,8 +66,9 @@ class BusinessGuideSnippetBottomFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dialog.window.attributes.windowAnimations = R.style.BottomSheetAnimation;
-//        dialog.window.findViewById<View>(R.id.design_bottom_sheet).setBackgroundResource(android.R.color.transparent)
+        dialog.window.attributes.windowAnimations = R.style.BottomSheetAnimation
+        initRecyclerView()
+
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

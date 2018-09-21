@@ -2,14 +2,12 @@ package com.brainsocket.globalpages.di.ui
 
 import com.brainsocket.globalpages.data.entities.BusinessGuide
 import com.brainsocket.globalpages.data.entities.SubCategory
+import com.brainsocket.globalpages.data.entitiesModel.BusinessGuideModel
 
-/**
- * Created by Adhamkh on 2018-08-24.
- */
 class BusinessGuidesContract {
     interface Presenter : BaseContract.Presenter<View> {
         fun loadBusinessGuideList(subCategory: SubCategory)
-        fun addBusinessGuide(businessGuide: BusinessGuide)
+        fun addBusinessGuide(businessGuide: BusinessGuideModel)
     }
 
     interface View : BaseContract.View {

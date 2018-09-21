@@ -3,23 +3,18 @@ package com.brainsocket.globalpages.di.ui
 import android.content.Context
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.ParsedRequestListener
+import com.androidnetworking.interfaces.StringRequestListener
 import com.brainsocket.globalpages.api.ApiService
 import com.brainsocket.globalpages.api.ServerInfo
 import com.brainsocket.globalpages.data.entities.*
+import com.brainsocket.globalpages.data.entitiesModel.ProfileModel
 import com.brainsocket.globalpages.repositories.DataStoreRepositories
 import io.reactivex.disposables.CompositeDisposable
-import java.util.HashMap
 
-/**
- * Created by Adhamkh on 2018-08-31.
- */
 class ProfilePresenter constructor(val context: Context) : ProfileContract.Presenter {
-
 
     private val subscriptions = CompositeDisposable()
     private lateinit var view: ProfileContract.View
-
-    private var Index: Int = 0;
 
     init {
 
@@ -107,51 +102,21 @@ class ProfilePresenter constructor(val context: Context) : ProfileContract.Prese
 
     }
 
-//    override fun loadDefaultVolume() {
-//        view.showProgress(true)
-//
-//        var criteria: MutableMap<String, String> = HashMap()
-//        criteria.apply {
-//            put("limit", "1")
-//            put("order", "id DESC")
-//            put("skip", Index.toString())
-//        }
-//        loadData(criteria)
-//    }
-//
-//    override fun loadNextVolume() {
-//        view.showProgress(true)
-//        Index--
-//        if (Index < 0) {
-//            Index = 0
-//            view.noMoreData()
-//        }
-//        var criteria: MutableMap<String, String> = HashMap()
-//        criteria.apply {
-//            put("limit", "1")
-//            put("order", "id DESC")
-//            put("skip", Index.toString())
-//        }
-//        loadData(criteria)
-//    }
-//
-//    override fun loadPreviousVolume() {
-//        view.showProgress(true)
-//
-//        Index++
-//        Index = Math.max(Index, 0)
-//
-//        var criteria: MutableMap<String, String> = HashMap()
-//        criteria.apply {
-//            put("limit", "1")
-//            put("order", "id DESC")
-//            put("skip", Index.toString())
-//        }
-//        loadData(criteria)
-//    }
-//
-//    override fun loadVolumeById(id: String) {
-////        ApiService().getVolumes(ServerInfo.VolumeUrl,)
-//    }
+    override fun updateProfile(profileModel: ProfileModel) {
+        view.showUpdateProfileProgress(true)
+        ApiService().updateUserProfile(ServerInfo.updateProfile, profileModel, object : StringRequestListener {
+            override fun onResponse(response: String?) {
+                if (response != null) {
+                    view.onUpdateProfileSuccessfully()
+                } else {
+                    view.showUpdateProfileLoadErrorMessage(true)
+                }
+            }
+
+            override fun onError(anError: ANError?) {
+                view.showUpdateProfileLoadErrorMessage(true)
+            }
+        })
+    }
 
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.data.entities.Attachment
+import com.brainsocket.globalpages.utilities.BindingUtils
 import com.brainsocket.globalpages.viewHolders.AttachmentViewHolder
 
 /**
@@ -30,7 +31,7 @@ class AttachmentRecyclerViewAdapter constructor(var context: Context, var attach
             attachmentList.removeAt(holder.adapterPosition)
             notifyItemRemoved(holder.adapterPosition)
         }
-
+        BindingUtils.loadAttachmentImage(holder.attachmentImage, pojo)
 //        holder.itemView.setOnClickListener {
         //            intentHelper.startSearchMapActivity(context)
 //        }

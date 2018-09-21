@@ -26,7 +26,7 @@ class BusinessGuideSliderViewHolder : RecyclerView.ViewHolder {
     }
 
     fun bind(businessGuide: BusinessGuide) {
-        businessTitle.setText(businessGuide.getName())
+        businessTitle.text = businessGuide.getName()
         BindingUtils.loadBusinessGuideImage(businessIcon, businessGuide)
     }
 

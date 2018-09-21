@@ -16,7 +16,7 @@ import com.brainsocket.globalpages.dialogs.ProgressDialog
 import com.brainsocket.globalpages.repositories.UserRepository
 import com.brainsocket.globalpages.utilities.IntentHelper
 import com.brainsocket.globalpages.utilities.MainHelper
-import com.brainsocket.globalpages.viewHolders.SigninViewHolder
+import com.brainsocket.globalpages.viewModel.SigninViewHolder
 import javax.inject.Inject
 
 

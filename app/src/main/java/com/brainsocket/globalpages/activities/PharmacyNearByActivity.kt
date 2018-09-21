@@ -19,10 +19,7 @@ import butterknife.OnCheckedChanged
 import butterknife.OnClick
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.BusinessGuideRecyclerViewAdapter
-import com.brainsocket.globalpages.data.entities.BusinessGuide
-import com.brainsocket.globalpages.data.entities.BusinessGuideCategory
-import com.brainsocket.globalpages.data.entities.Category
-import com.brainsocket.globalpages.data.entities.SubCategory
+import com.brainsocket.globalpages.data.entities.*
 import com.brainsocket.globalpages.di.component.DaggerPharmacyNearByComponent
 import com.brainsocket.globalpages.di.module.BusinessGuidesModule
 import com.brainsocket.globalpages.di.module.TagsCollectionModule
@@ -43,6 +40,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
@@ -78,6 +76,8 @@ class PharmacyNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
 
     lateinit var mMap: GoogleMap
 
+    var firstLocation = true
+
     private fun initToolBar() {
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener { onBackPressed() }
@@ -95,18 +95,20 @@ class PharmacyNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
             override fun onLocationResult(p0: LocationResult?) {
                 super.onLocationResult(p0)
                 lastLocation = p0?.lastLocation!!
-                placeMarkerOnMap(LatLng(lastLocation.latitude, lastLocation.longitude))
+                if (firstLocation)
+                    placeMarkerOnMap(LatLng(lastLocation.latitude, lastLocation.longitude))
             }
         }
 
     }
 
     private fun placeMarkerOnMap(location: LatLng) {
+        firstLocation = false
         val markerOptions = MarkerOptions().position(location)
 //        val titleStr = getAddress(location)  // add these two lines
         markerOptions.title(resources.getString(R.string.Your))
 //        currentcity = CityModel(titleStr, location, CitiesManager.getCitiesSize() == 0)
-        mMap.clear()
+//        mMap.clear()
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12.0f))
         mMap.addMarker(markerOptions)
     }
@@ -256,7 +258,7 @@ class PharmacyNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
     }
 
     @OnCheckedChanged(R.id.viewTypeToggle)
-    fun onGenderSelected(button: CompoundButton, checked: Boolean) {
+    fun onViewTypeSelected(button: CompoundButton, checked: Boolean) {
         if (checked) {
             businessGuideRecyclerView.visibility = View.VISIBLE
         } else {
@@ -317,9 +319,13 @@ class PharmacyNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
     }
 
     override fun onMarkerClick(p0: Marker?): Boolean {
-        val businessGuideSnippetBottomFragment = BusinessGuideSnippetBottomFragment.getNewInstance()
-        businessGuideSnippetBottomFragment.show(supportFragmentManager,
-                BusinessGuideSnippetBottomFragment.BusinessGuideSnippetBottomFragment_Tag)
+        if (p0 != null) {
+            if (p0.tag is BusinessGuide) {
+                val businessGuideSnippetBottomFragment = BusinessGuideSnippetBottomFragment.getNewInstance(p0.tag as BusinessGuide)
+                businessGuideSnippetBottomFragment.show(supportFragmentManager,
+                        BusinessGuideSnippetBottomFragment.BusinessGuideSnippetBottomFragment_Tag)
+            }
+        }
         return false
     }
 
@@ -335,8 +341,27 @@ class PharmacyNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
     /*Business Guides Presenter started*/
     override fun onLoadBusinessGuideListSuccessfully(businessGuideList: MutableList<BusinessGuide>) {
         businessGuideRecyclerView.adapter = BusinessGuideRecyclerViewAdapter(this, businessGuideList)
+
+        businessGuideList.forEach {
+            addMarker(it, it.getName(), it.locationPoint)
+        }
         Log.v("", "")
     }
+
+    private fun addMarker(businessGuide: BusinessGuide, title: String, pointEntity: PointEntity) {
+        try {
+            val marker = mMap.addMarker(MarkerOptions()
+                    .position(LatLng(pointEntity.lat, pointEntity.lng))
+                    .title(title)
+                    .icon(BitmapDescriptorFactory
+                            .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
+            marker.tag = businessGuide
+        } catch (ex: Exception) {
+            Log.v("", "'")
+        }
+
+    }
+
 
     override fun onAddBusinessGuideSuccessfully() {
 

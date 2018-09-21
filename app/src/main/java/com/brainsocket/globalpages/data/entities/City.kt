@@ -1,7 +1,7 @@
 package com.brainsocket.globalpages.data.entities
 
 import com.brainsocket.globalpages.App
-import com.fasterxml.jackson.annotation.JsonIgnore
+//import com.fasterxml.jackson.annotation.JsonIgnore
 
 /**
  * Created by Adhamkh on 2018-07-03.
@@ -13,7 +13,7 @@ class City {
 
     var locations: MutableList<LocationEntity> = mutableListOf()
 
-    @JsonIgnore
+//    @JsonIgnore
     var isSelected: Boolean = false
 
     constructor()

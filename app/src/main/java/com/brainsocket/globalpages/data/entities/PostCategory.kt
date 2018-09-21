@@ -1,11 +1,8 @@
 package com.brainsocket.globalpages.data.entities
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+//import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
-/**
- * Created by Adhamkh on 2018-08-09.
- */
-@JsonIgnoreProperties("parentCategoryId")
+//@JsonIgnoreProperties("parentCategoryId")
 class PostCategory : Category {
 
     constructor()

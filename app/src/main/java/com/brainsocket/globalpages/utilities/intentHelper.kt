@@ -9,10 +9,8 @@ import com.brainsocket.globalpages.data.entities.Post
 import com.brainsocket.globalpages.data.entities.TagEntity
 import com.google.gson.Gson
 
-/**
- * Created by Adhamkh on 2018-06-08.
- */
-class intentHelper {
+
+class IntentHelper {
 
     companion object {
         fun startMainActivity(context: Context) {
@@ -62,7 +60,7 @@ class intentHelper {
 
         fun startPostDetailsActivity(context: Context, post: Post) {
             val intent = Intent(context, PostDetailsActivity::class.java)
-            intent.putExtra(PostDetailsActivity.Post_Tag,Gson().toJson(post))
+            intent.putExtra(PostDetailsActivity.Post_Tag, Gson().toJson(post))
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
@@ -123,6 +121,13 @@ class intentHelper {
                 Log.v("", "")
             }
         }
+
+        fun startProfileEditActivity(context: Context) {
+            val intent = Intent(context, ProfileEditActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
+
 
     }
 }

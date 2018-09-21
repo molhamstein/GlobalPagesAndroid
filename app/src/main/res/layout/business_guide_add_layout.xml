@@ -61,7 +61,7 @@
                         android:layout_height="wrap_content">
 
                         <android.support.design.widget.TextInputLayout
-                            android:id="@+id/emailLayout"
+                            android:id="@+id/businessNameLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/BusinessName"
@@ -70,11 +70,11 @@
                             app:hintTextAppearance="@style/HintText">
 
                             <android.support.design.widget.TextInputEditText
-                                android:id="@+id/email"
+                                android:id="@+id/businessName"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:inputType="textEmailAddress" />
-                            <!--android:text="First Business"-->
+                                android:inputType="text" />
+
                         </android.support.design.widget.TextInputLayout>
 
                         <LinearLayout
@@ -82,7 +82,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            app:layout_constraintTop_toBottomOf="@+id/emailLayout">
+                            app:layout_constraintTop_toBottomOf="@+id/businessNameLayout">
 
                             <TextView
                                 style="@style/AppTheme.TextAppearance"
@@ -143,7 +143,7 @@
                                 android:textColor="@color/grayLightTextColor" />
 
                             <android.support.design.widget.TextInputEditText
-                                android:id="@+id/phoneNumbar"
+                                android:id="@+id/phoneNumber"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="@string/Optional"
@@ -165,6 +165,7 @@
                                 android:textColor="@color/grayLightTextColor" />
 
                             <android.support.design.widget.TextInputEditText
+                                android:id="@+id/phoneNumber2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="@string/Optional"
@@ -189,7 +190,7 @@
                                 android:id="@+id/stateLayout"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:minWidth="70dp"
+                                android:minHeight="50dp"
                                 app:NoConnectionLayout="@layout/state_layout_noconnection"
                                 app:NoDataLayout="@layout/state_layout_nodata"
                                 app:RefreshbtnRes="@+id/retryBtn"
@@ -262,6 +263,7 @@
                                 android:textColor="@color/grayLightTextColor" />
 
                             <android.support.design.widget.TextInputEditText
+                               android:id="@+id/description"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="top|left|start"
@@ -285,6 +287,7 @@
                                 android:textColor="@color/grayLightTextColor" />
 
                             <android.support.design.widget.TextInputEditText
+                                android:id="@+id/fax"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="top|left|start"
@@ -293,7 +296,6 @@
                                 android:lines="3"
                                 android:minLines="3" />
                         </LinearLayout>
-
 
                         <android.support.constraint.ConstraintLayout
                             android:id="@+id/businessAddBtnContainer"

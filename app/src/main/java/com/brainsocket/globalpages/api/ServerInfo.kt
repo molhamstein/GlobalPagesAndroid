@@ -17,6 +17,11 @@ class ServerInfo {
 
         /*Registration ended*/
 
+        /*Profile started*/
+        var updateProfile = baseUrl + "users/update"
+
+        /*Profile ended*/
+
 
         /*Tagging started*/
         var businessCategoriesUrl = baseUrl + "businessCategories"
@@ -35,6 +40,8 @@ class ServerInfo {
         var imagesBaseUrl = baseUrl + "attachments/images/upload/"
 
         var postUrl = baseUrl + "posts"
+
+        var uploadImageUrl = baseUrl + "attachments/images/upload"
 
     }
 

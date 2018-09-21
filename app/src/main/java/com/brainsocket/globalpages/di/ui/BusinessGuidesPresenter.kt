@@ -9,6 +9,7 @@ import com.brainsocket.globalpages.api.ApiService
 import com.brainsocket.globalpages.api.ServerInfo
 import com.brainsocket.globalpages.data.entities.BusinessGuide
 import com.brainsocket.globalpages.data.entities.SubCategory
+import com.brainsocket.globalpages.data.entitiesModel.BusinessGuideModel
 import io.reactivex.disposables.CompositeDisposable
 import java.util.HashMap
 import kotlin.math.log
@@ -38,11 +39,12 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
 
     override fun loadBusinessGuideList(subCategory: SubCategory) {
         view.showBusinessGuideProgress(true)
-        val criteria: MutableMap<String, String> = HashMap()
-        criteria.apply {
-            //  put("where", "subCategoryId:"+subCategory.id)
-        }
-        ApiService().getBusinessGuides(ServerInfo.businessGuideUrl, criteria, object : ParsedRequestListener<MutableList<BusinessGuide>> {
+
+        val criteria: MutableMap<String, Pair<String, String>> = HashMap()
+        criteria["where"] = Pair("subCategoryId", subCategory.id)
+
+        ApiService().getBusinessGuides(ServerInfo.businessGuideUrl + "?filter[where][subCategoryId]=" + subCategory.id
+                , criteria, object : ParsedRequestListener<MutableList<BusinessGuide>> {
             override fun onResponse(response: MutableList<BusinessGuide>?) {
                 val pojo = response
                 if ((pojo != null)) {
@@ -60,7 +62,7 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
 
     }
 
-    override fun addBusinessGuide(businessGuide: BusinessGuide) {
+    override fun addBusinessGuide(businessGuide: BusinessGuideModel) {
         view.showBusinessGuideProgress(true)
         ApiService().postBusinessGuides(ServerInfo.businessGuideUrl, businessGuide, object : StringRequestListener {
             override fun onResponse(response: String?) {

@@ -17,6 +17,9 @@ class AttachmentViewHolder : RecyclerView.ViewHolder {
     @BindView(R.id.media_remove_action)
     lateinit var mediaRemoveAction: ImageView
 
+    @BindView(R.id.attachmentImage)
+    lateinit var attachmentImage: ImageView
+
     constructor(view: View) : super(view) {
         ButterKnife.bind(this, view)
     }
@@ -24,4 +27,5 @@ class AttachmentViewHolder : RecyclerView.ViewHolder {
     fun bind(attachment: Attachment) {
 
     }
+
 }

@@ -111,6 +111,8 @@
     <string name="noMoreVolumeFound">No more volume found</string>
     <string name="In">In</string>
     <string name="Location_Permission_denied">Location Permission denied.</string>
+    <string name="Approve_Permissions_To_Pick_Images">Approve permissions to open images</string>
+    <string name="UpdateProfile">Update profile</string>
 
 
 </resources>

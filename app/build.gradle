@@ -58,7 +58,7 @@ dependencies {
 
     /*networking started*/
     implementation "com.amitshekhar.android:android-networking:$Android_Networking"
-    implementation "com.amitshekhar.android:jackson-android-networking:$Android_Networking"
+//    implementation "com.amitshekhar.android:jackson-android-networking:$Android_Networking"
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
 
     /*networking ended*/
@@ -94,6 +94,8 @@ dependencies {
     implementation project(':calligraphy')
     implementation project(':mainlibrary')
     implementation project(':ninepatchlibrary')
+    implementation project(':photopicker')
+    implementation project(':locationpicker')
 }
 //kapt {
 //    generateStubs = true

@@ -3,8 +3,10 @@ package com.brainsocket.globalpages
 import android.support.multidex.MultiDex
 import android.support.multidex.MultiDexApplication
 import com.androidnetworking.AndroidNetworking
+import com.androidnetworking.gsonparserfactory.GsonParserFactory
+import com.androidnetworking.interceptors.HttpLoggingInterceptor
 import com.brainsocket.globalpages.utilities.LocaleUtils
-import com.jacksonandroidnetworking.JacksonParserFactory
+//import com.jacksonandroidnetworking.JacksonParserFactory
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 import java.util.*
 
@@ -27,7 +29,10 @@ class App : MultiDexApplication() {
 //                .build()
 //        AndroidNetworking.initialize(applicationContext, okHttpClient)
         AndroidNetworking.initialize(applicationContext)
-        AndroidNetworking.setParserFactory(JacksonParserFactory())
+        AndroidNetworking.setParserFactory(GsonParserFactory())
+        AndroidNetworking.enableLogging()
+        AndroidNetworking.enableLogging(HttpLoggingInterceptor.Level.BODY)
+//        AndroidNetworking.setParserFactory(JacksonParserFactory())
 
         CalligraphyConfig.initDefault(CalligraphyConfig.Builder()
 //                .setDefaultFontPath("fonts/Roboto-RobotoRegular.ttf")
@@ -51,3 +56,4 @@ class App : MultiDexApplication() {
     fun isArabic(): Boolean = systemLanguage.equals("ar", false)
 
 }
+

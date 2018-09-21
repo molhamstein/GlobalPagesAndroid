@@ -9,4 +9,12 @@ class Attachment {
     var atime: String = ""
     var mtime: String = ""
     var ctime: String = ""
+
+    constructor()
+
+    constructor(name: String) {
+        this.name = name
+    }
+
+
 }

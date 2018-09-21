@@ -2,9 +2,6 @@ package com.brainsocket.globalpages.data.entities
 
 import com.brainsocket.globalpages.App
 
-/**
- * Created by Adhamkh on 2018-06-29.
- */
 class Volume {
     var titleAr: String = ""
     var titleEn: String = ""

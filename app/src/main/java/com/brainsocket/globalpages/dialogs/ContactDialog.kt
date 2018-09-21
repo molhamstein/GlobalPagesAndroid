@@ -2,6 +2,7 @@ package com.brainsocket.globalpages.dialogs
 
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,13 +10,10 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.brainsocket.globalpages.R
 
-/**
- * Created by Adhamkh on 2018-07-20.
- */
 class ContactDialog : DialogFragment() {
 
     companion object {
-        val ContactDialog_Tag = "ContactDialog"
+        const val ContactDialog_Tag = "ContactDialog"
 
         fun newInstance(): ContactDialog {
             val f = ContactDialog()
@@ -35,12 +33,13 @@ class ContactDialog : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        Log.v("", "")
     }
 
     @OnClick(R.id.okBtn)
     fun onOkClick(view: View) {
         dismiss()
+        Log.v("Clicked view", view.id.toString())
     }
 
 }

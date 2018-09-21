@@ -11,8 +11,10 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/calligraphy" />
+            <option value="$PROJECT_DIR$/locationpicker" />
             <option value="$PROJECT_DIR$/mainlibrary" />
             <option value="$PROJECT_DIR$/ninepatchlibrary" />
+            <option value="$PROJECT_DIR$/photopicker" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

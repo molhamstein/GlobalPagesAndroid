@@ -1,8 +1,5 @@
 package com.brainsocket.globalpages.data.entities
 
-/**
- * Created by Adhamkh on 2018-07-01.
- */
 class Owner {
 
     var status: String = ""
@@ -14,9 +11,11 @@ class Owner {
     var email: String = ""
     var emailVerified: Boolean = true
     var id: String = ""
-    var postCategoriesIds: MutableList<ObjectID>? = null
+    var postCategoriesIds: MutableList<String>? = null
 
     var image = ""
+
+    var imageProfile = ""
 
     class ObjectID {
         var Id: String = ""

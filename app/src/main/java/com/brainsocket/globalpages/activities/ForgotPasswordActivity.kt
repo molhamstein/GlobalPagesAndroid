@@ -14,7 +14,7 @@ import com.brainsocket.globalpages.di.module.ForgotPasswordModule
 import com.brainsocket.globalpages.di.ui.ForgotPasswordContract
 import com.brainsocket.globalpages.di.ui.ForgotPasswordPresenter
 import com.brainsocket.globalpages.dialogs.ProgressDialog
-import com.brainsocket.globalpages.viewHolders.ForgotPasswordViewHolder
+import com.brainsocket.globalpages.viewModel.ForgotPasswordViewHolder
 import javax.inject.Inject
 
 

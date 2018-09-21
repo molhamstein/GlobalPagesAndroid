@@ -22,11 +22,10 @@ class BusinessGuide {
     var locationId: String = ""
     var covers: MutableList<Any> = mutableListOf()
     var cover: String = ""
-    var lat: String = ""
-    var long: String = ""
 
     var owner: Owner = Owner()
 
+    var locationPoint: PointEntity = PointEntity()
 
 //    var imageUrl: String = ""
 
