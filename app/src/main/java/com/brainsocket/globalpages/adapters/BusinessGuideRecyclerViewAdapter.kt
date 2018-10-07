@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.data.entities.BusinessGuide
+import com.brainsocket.globalpages.utilities.IntentHelper
 import com.brainsocket.globalpages.viewHolders.BusinessGuideViewHolder
 
 /**
@@ -24,11 +25,11 @@ class BusinessGuideRecyclerViewAdapter constructor(var context: Context, var bus
     }
 
     override fun onBindViewHolder(holder: BusinessGuideViewHolder, position: Int) {
-        var pojo = businessGuideList[position]
-        holder.bind(pojo)
+        val poJo = businessGuideList[position]
+        holder.bind(poJo)
 
         holder.itemView.setOnClickListener {
-            //            intentHelper.startSearchMapActivity(context)
+            IntentHelper.startBusinessGuideDetailsActivity(context = context, businessGuide = poJo)
         }
     }
 

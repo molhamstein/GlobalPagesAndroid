@@ -113,6 +113,8 @@
     <string name="Location_Permission_denied">Location Permission denied.</string>
     <string name="Approve_Permissions_To_Pick_Images">Approve permissions to open images</string>
     <string name="UpdateProfile">Update profile</string>
+    <string name="NoInternetConnection">No internet connection</string>
+    <string name="NoInternetConnectionTryRefreshData">No internet connection try refresh data</string>
 
 
 </resources>

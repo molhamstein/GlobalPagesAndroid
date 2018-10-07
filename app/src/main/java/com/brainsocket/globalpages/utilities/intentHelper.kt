@@ -2,12 +2,14 @@ package com.brainsocket.globalpages.utilities
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.brainsocket.globalpages.activities.*
 import com.brainsocket.globalpages.data.entities.Post
 import com.brainsocket.globalpages.data.entities.TagEntity
 import com.google.gson.Gson
+import com.brainsocket.globalpages.data.entities.BusinessGuide
 
 
 class IntentHelper {
@@ -43,8 +45,10 @@ class IntentHelper {
             context.startActivity(intent)
         }
 
-        fun startBusinessGuideDetailsActivity(context: Context) {
+        fun startBusinessGuideDetailsActivity(context: Context, businessGuide: BusinessGuide) {
             val intent = Intent(context, BusinessGuideDetailsActivity::class.java)
+            val jSon = Gson().toJson(businessGuide)
+            intent.putExtra(BusinessGuideDetailsActivity.BusinessGuideDetailsActivity_Tag, jSon)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
@@ -92,7 +96,7 @@ class IntentHelper {
         }
 
         fun startNearByPharmaciesActivity(context: Context) {
-            val intent = Intent(context, PharmacyNearByActivity::class.java)
+            val intent = Intent(context, FindNearByActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
@@ -125,6 +129,13 @@ class IntentHelper {
         fun startProfileEditActivity(context: Context) {
             val intent = Intent(context, ProfileEditActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
+
+
+        fun startCallNumber(context: Context, phoneNumber: String) {
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:" + phoneNumber)
             context.startActivity(intent)
         }
 

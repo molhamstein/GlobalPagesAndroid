@@ -8,12 +8,12 @@ import com.androidnetworking.interfaces.StringRequestListener
 import com.brainsocket.globalpages.api.ApiService
 import com.brainsocket.globalpages.api.ServerInfo
 import com.brainsocket.globalpages.data.entities.BusinessGuide
+import com.brainsocket.globalpages.data.entities.PointEntity
 import com.brainsocket.globalpages.data.entities.SubCategory
 import com.brainsocket.globalpages.data.entitiesModel.BusinessGuideModel
+import com.brainsocket.globalpages.enums.DaysEnum
+import com.brainsocket.globalpages.repositories.SettingData
 import io.reactivex.disposables.CompositeDisposable
-import java.util.HashMap
-import kotlin.math.log
-
 
 class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuidesContract.Presenter {
 
@@ -37,29 +37,52 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
         subscriptions.clear()
     }
 
-    override fun loadBusinessGuideList(subCategory: SubCategory) {
+    private fun loadBusinessGuideByUrl(url: String) {
         view.showBusinessGuideProgress(true)
-
-        val criteria: MutableMap<String, Pair<String, String>> = HashMap()
-        criteria["where"] = Pair("subCategoryId", subCategory.id)
-
-        ApiService().getBusinessGuides(ServerInfo.businessGuideUrl + "?filter[where][subCategoryId]=" + subCategory.id
-                , criteria, object : ParsedRequestListener<MutableList<BusinessGuide>> {
+        ApiService().getBusinessGuides(url,/* criteria,*/ object : ParsedRequestListener<MutableList<BusinessGuide>> {
             override fun onResponse(response: MutableList<BusinessGuide>?) {
-                val pojo = response
-                if ((pojo != null)) {
+//                val poJo = response
+                if ((response != null)) {
                     view.showBusinessGuideProgress(false)
-                    view.onLoadBusinessGuideListSuccessfully(pojo)
-                    return
+                    if (response.size > 0) {
+                        view.onLoadBusinessGuideListSuccessfully(response)
+                        return
+                    }
                 }
-                view.showEmptyView(true)
+                view.showBusinessGuideEmptyView(true)
             }
 
             override fun onError(anError: ANError?) {
                 view.showBusinessGuideLoadErrorMessage(true)
             }
         })
+    }
 
+    override fun loadBusinessGuideList(subCategory: SubCategory) {
+
+
+//        val criteria: MutableMap<String, Pair<String, String>> = HashMap()
+//        criteria["where"] = Pair("subCategoryId", subCategory.id)
+
+        val url = ServerInfo.businessGuideUrl + "?filter[where][subCategoryId]=" + subCategory.id
+        loadBusinessGuideByUrl(url)
+
+    }
+
+    override fun loadBusinessGuideByLocation(pointEntity: PointEntity) {
+//        var s = "filter[where][price][between][0]=0&filter[where][price][between][1]=7"
+
+        val url = ServerInfo.businessGuideUrl + "?filter[where][locationPoint][near]=" +
+                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[limit]=1000"
+
+        loadBusinessGuideByUrl(url)
+    }
+
+    override fun loadBusinessGuideForPharmacy(pointEntity: PointEntity, daysEnum: DaysEnum) {
+        val url = ServerInfo.businessGuideUrl + "?filter[where][categoryId]=" + SettingData.pharmacyCategoryId +
+                "&filter[where][locationPoint][near]=" +
+                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[limit]=1000"
+        loadBusinessGuideByUrl(url)
     }
 
     override fun addBusinessGuide(businessGuide: BusinessGuideModel) {
@@ -81,4 +104,5 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
         })
 
     }
+
 }

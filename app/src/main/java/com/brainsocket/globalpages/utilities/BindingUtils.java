@@ -91,7 +91,7 @@ public class BindingUtils {
                 url = "http://" + url;
             Context context = imageView.getContext();
             GlideApp.with(context).load(url).error(R.drawable.businesslogo)
-                    .placeholder(R.drawable.ic_launcher_web).into(imageView);
+                    .placeholder(R.mipmap.ic_launcher).into(imageView);
         } catch (Exception ex) {
             Log.v("image load", ex.getMessage());
         }

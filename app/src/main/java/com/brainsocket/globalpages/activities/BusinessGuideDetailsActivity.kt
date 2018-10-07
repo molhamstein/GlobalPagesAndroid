@@ -14,11 +14,19 @@ import butterknife.OnClick
 import butterknife.Optional
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.MediaViewPagerAdapter
+import com.brainsocket.globalpages.data.entities.BusinessGuide
 import com.brainsocket.globalpages.dialogs.ContactDialog
 import com.brainsocket.globalpages.repositories.DummyDataRepositories
 import com.brainsocket.mainlibrary.ViewPagerIndicator.CircleIndicator.CircleIndicator
+import com.google.gson.Gson
 
 class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener {
+
+    companion object {
+        const val BusinessGuideDetailsActivity_Tag = "BusinessGuideDetailsActivity_Tag"
+    }
+
+    lateinit var businessGuide: BusinessGuide
 
     @BindView(R.id.mediaViewPager)
     lateinit var mediaViewPager: ViewPager
@@ -43,6 +51,9 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
     override fun onBaseCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.business_guide_details_layout)
         ButterKnife.bind(this)
+        val jSon = intent.getStringExtra(BusinessGuideDetailsActivity_Tag)
+        businessGuide = Gson().fromJson(jSon, BusinessGuide::class.java)
+
         mediaViewPager.adapter = MediaViewPagerAdapter(this, DummyDataRepositories.getMediaList())
         viewPagerIndicator.setViewPager(mediaViewPager)
 
@@ -71,7 +82,7 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
     @Optional
     @OnClick(R.id.contactContainer, R.id.contactBtn)
     fun onContactContainerClick(view: View) {
-        val contactDialog = ContactDialog.newInstance()
+        val contactDialog = ContactDialog.newInstance(businessGuide.owner.phoneNumber, businessGuide.owner.phoneNumber, businessGuide.owner.phoneNumber)
         contactDialog.show(supportFragmentManager, ContactDialog.ContactDialog_Tag)
         Log.v("View Clicked", view.id.toString())
     }

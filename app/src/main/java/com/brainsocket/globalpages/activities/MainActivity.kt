@@ -171,16 +171,27 @@ class MainActivity : BaseActivity(), VolumesContract.View, OnTagSelectListener {
 
     @OnClick(R.id.businessGuideBtn)
     fun onBusinessGuideClick(view: View) {
-        IntentHelper.startBusinessGuideSearchActivity(this)
+        val activityName = BusinessGuideSearchActivity::class.java.canonicalName
+        IntentHelper.startLocationCheckActivity(this, activityName)
+//        IntentHelper.startBusinessGuideSearchActivity(this)
         Log.v("View Clicked", view.id.toString())
     }
 
     @OnClick(R.id.findNearByBtn)
     fun onFindNearByClick(view: View) {
-        val activityName = PharmacyNearByActivity::class.java.canonicalName
+        val activityName = FindNearByActivity::class.java.canonicalName
         IntentHelper.startLocationCheckActivity(this, activityName)
         Log.v("View Clicked", view.id.toString())
     }
+
+    @OnClick(R.id.dutyPharmacyBtn)
+    fun onDutyPharmacyClick(view: View) {
+        val activityName = PharmacyDutySearchActivity::class.java.canonicalName
+        IntentHelper.startLocationCheckActivity(this, activityName)
+//        IntentHelper.startDutyPharmacyActivity(this)
+        Log.v("View Clicked", view.id.toString())
+    }
+
 
     @OnClick(R.id.addBusinessBtn)
     fun onAddBusinessBtnClick(view: View) {
@@ -189,12 +200,6 @@ class MainActivity : BaseActivity(), VolumesContract.View, OnTagSelectListener {
             IntentHelper.startBusinessAddActivity(this)
         else
             IntentHelper.startSignInActivity(this)
-    }
-
-    @OnClick(R.id.dutyPharmacyBtn)
-    fun onDutyPharmacyClick(view: View) {
-        IntentHelper.startDutyPharmacyActivity(this)
-        Log.v("View Clicked", view.id.toString())
     }
 
 

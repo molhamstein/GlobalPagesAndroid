@@ -30,8 +30,8 @@ class App : MultiDexApplication() {
 //        AndroidNetworking.initialize(applicationContext, okHttpClient)
         AndroidNetworking.initialize(applicationContext)
         AndroidNetworking.setParserFactory(GsonParserFactory())
-        AndroidNetworking.enableLogging()
-        AndroidNetworking.enableLogging(HttpLoggingInterceptor.Level.BODY)
+//        AndroidNetworking.enableLogging()
+//        AndroidNetworking.enableLogging(HttpLoggingInterceptor.Level.BODY)
 //        AndroidNetworking.setParserFactory(JacksonParserFactory())
 
         CalligraphyConfig.initDefault(CalligraphyConfig.Builder()

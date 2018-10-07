@@ -125,7 +125,7 @@
         <activity android:name=".activities.TestActivity">
 
         </activity>
-        <activity android:name=".activities.PharmacyNearByActivity">
+        <activity android:name=".activities.FindNearByActivity">
 
         </activity>
         <activity android:name=".activities.PharmacyDutySearchActivity">

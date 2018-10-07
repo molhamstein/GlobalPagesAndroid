@@ -1,5 +1,6 @@
 package com.brainsocket.globalpages.api
 
+import android.util.Log
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
 import com.brainsocket.globalpages.data.entities.*
@@ -130,8 +131,8 @@ class ApiService {
 
 
     /*Business Guides started*/
-    fun getBusinessGuides(url: String, filtration: MutableMap<String, Pair<String, String>>, requestListener: ParsedRequestListener<MutableList<BusinessGuide>>) {
-        val criteria = Gson().toJson(filtration)
+    fun getBusinessGuides(url: String, /*filtration: MutableMap<String, Pair<String, String>>,*/ requestListener: ParsedRequestListener<MutableList<BusinessGuide>>) {
+//        val criteria = Gson().toJson(filtration)
         AndroidNetworking.get(url)
 //                .setContentType("application/json")
                 .setPriority(Priority.HIGH)
@@ -156,6 +157,9 @@ class ApiService {
 
     fun uploadAttachment(url: String, file: File,
                          uploadProgressListener: UploadProgressListener, requestListener: ParsedRequestListener<MutableList<AttachmentResponse>>) {
+        if (file.exists()) {
+            Log.v("Uploaded File", "Existed")
+        }
         AndroidNetworking.upload(url)
                 .addMultipartFile("file", file)
                 .addMultipartParameter("key", "value")

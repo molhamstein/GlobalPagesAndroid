@@ -13,6 +13,8 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.View
 import android.widget.CompoundButton
+import android.widget.ProgressBar
+import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnCheckedChanged
@@ -20,7 +22,7 @@ import butterknife.OnClick
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.BusinessGuideRecyclerViewAdapter
 import com.brainsocket.globalpages.data.entities.*
-import com.brainsocket.globalpages.di.component.DaggerPharmacyNearByComponent
+import com.brainsocket.globalpages.di.component.DaggerFindNearByComponent
 import com.brainsocket.globalpages.di.module.BusinessGuidesModule
 import com.brainsocket.globalpages.di.module.TagsCollectionModule
 import com.brainsocket.globalpages.di.ui.BusinessGuidesContract
@@ -32,7 +34,7 @@ import com.brainsocket.globalpages.dialogs.bottomSheetFragments.CategoryFilterBo
 import com.brainsocket.globalpages.dialogs.bottomSheetFragments.SubCategoryBottomSheet
 import com.brainsocket.globalpages.listeners.OnCategorySelectListener
 import com.brainsocket.globalpages.listeners.OnSubCategorySelectListener
-import com.brainsocket.globalpages.repositories.DummyDataRepositories
+import com.brainsocket.mainlibrary.SupportViews.RecyclerViewDecoration.GridDividerDecoration
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.location.places.ui.PlacePicker
@@ -47,7 +49,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import javax.inject.Inject
 
 
-class PharmacyNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMapReadyCallback,
+class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMapReadyCallback,
         TagsCollectionContact.View, BusinessGuidesContract.View, OnSubCategorySelectListener, OnCategorySelectListener {
 
     companion object {
@@ -71,12 +73,21 @@ class PharmacyNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
     @BindView(R.id.toolbar)
     lateinit var toolbar: Toolbar
 
+    @BindView(R.id.progressBar)
+    lateinit var progressBar: ProgressBar
+
+    @BindView(R.id.refreshBtn)
+    lateinit var refreshBtn: View
+
 //    @BindView(R.id.tagSearchView)
 //    lateinit var tagSearchView: TagSearchView
 
     lateinit var mMap: GoogleMap
 
     var firstLocation = true
+
+    var subCategory: SubCategory? = null
+
 
     private fun initToolBar() {
         setSupportActionBar(toolbar)
@@ -85,7 +96,7 @@ class PharmacyNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
 
     private fun initRecyclerView() {
         businessGuideRecyclerView.layoutManager = LinearLayoutManager(this)
-//        businessGuideRecyclerView.addItemDecoration(GridDividerDecoration(this))
+        businessGuideRecyclerView.addItemDecoration(GridDividerDecoration(this))
     }
 
     private fun initLocation() {
@@ -180,7 +191,7 @@ class PharmacyNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
                 try {
                     // Show the dialog by calling startResolutionForResult(),
                     // and check the result in onActivityResult().
-                    e.startResolutionForResult(this@PharmacyNearByActivity,
+                    e.startResolutionForResult(this@FindNearByActivity,
                             REQUEST_CHECK_SETTINGS)
                 } catch (sendEx: IntentSender.SendIntentException) {
                     // Ignore the error.
@@ -200,7 +211,7 @@ class PharmacyNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
 
 
     private fun initDI() {
-        val component = DaggerPharmacyNearByComponent.builder()
+        val component = DaggerFindNearByComponent.builder()
                 .tagsCollectionModule(TagsCollectionModule(this))
                 .businessGuidesModule(BusinessGuidesModule(this))
                 .build()
@@ -217,7 +228,7 @@ class PharmacyNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
 
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
-        setContentView(R.layout.pharmcay_nearby_layout)
+        setContentView(R.layout.find_nearby_layout)
         ButterKnife.bind(this)
 
         initToolBar()
@@ -257,6 +268,14 @@ class PharmacyNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
         Log.v("View Clicked", view.id.toString())
     }
 
+    @OnClick(R.id.refreshBtn)
+    fun onRefreshButtonClick(view: View) {
+        if (subCategory != null) {
+            businessGuidesPresenter.loadBusinessGuideList(subCategory = subCategory!!)
+        }
+    }
+
+
     @OnCheckedChanged(R.id.viewTypeToggle)
     fun onViewTypeSelected(button: CompoundButton, checked: Boolean) {
         if (checked) {
@@ -266,7 +285,6 @@ class PharmacyNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
         }
         Log.v("View Clicked", button.id.toString())
     }
-
 
     override fun onMapReady(googleMap: GoogleMap?) {
         mMap = googleMap!!
@@ -339,6 +357,32 @@ class PharmacyNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
     /*Tags Presenter ended*/
 
     /*Business Guides Presenter started*/
+
+    override fun showBusinessGuideProgress(show: Boolean) {
+        if (show) {
+            progressBar.visibility = View.VISIBLE
+            refreshBtn.visibility = View.GONE
+        } else {
+            progressBar.visibility = View.GONE
+            refreshBtn.visibility = View.GONE
+        }
+    }
+
+    override fun showBusinessGuideLoadErrorMessage(visible: Boolean) {
+        if (visible) {
+            progressBar.visibility = View.GONE
+            refreshBtn.visibility = View.VISIBLE
+            Toast.makeText(baseContext, R.string.NoInternetConnectionTryRefreshData, Toast.LENGTH_LONG).show()
+        } else {
+            progressBar.visibility = View.GONE
+            refreshBtn.visibility = View.GONE
+        }
+    }
+
+    override fun showBusinessGuideEmptyView(visible: Boolean) {
+        Toast.makeText(baseContext, R.string.NoDataFound, Toast.LENGTH_LONG).show()
+    }
+
     override fun onLoadBusinessGuideListSuccessfully(businessGuideList: MutableList<BusinessGuide>) {
         businessGuideRecyclerView.adapter = BusinessGuideRecyclerViewAdapter(this, businessGuideList)
 
@@ -369,6 +413,7 @@ class PharmacyNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
     /*Business Guides Presenter ended*/
 
     override fun onSelectSubCategory(subCategory: SubCategory) {
+        this.subCategory = subCategory
         businessGuidesPresenter.loadBusinessGuideList(subCategory)
     }
 

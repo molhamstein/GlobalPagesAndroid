@@ -4,12 +4,16 @@ import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.Toolbar
+import android.view.View
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
+import butterknife.OnClick
+import butterknife.Optional
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.MediaViewPagerAdapter
 import com.brainsocket.globalpages.data.entities.Post
+import com.brainsocket.globalpages.dialogs.ContactDialog
 import com.brainsocket.globalpages.normalization.DateNormalizer
 import com.brainsocket.mainlibrary.ViewPagerIndicator.CircleIndicator.CircleIndicator
 import com.google.gson.Gson
@@ -76,6 +80,13 @@ class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener
         initToolBar()
 
         bindInfo()
+    }
+
+    @Optional
+    @OnClick(R.id.contactBtn, R.id.contactTextBtn)
+    fun onContactButtonClick(view: View) {
+        val contactDialog = ContactDialog.newInstance(post.owner.phoneNumber, post.owner.phoneNumber, post.owner.phoneNumber)
+        contactDialog.show(supportFragmentManager, ContactDialog.ContactDialog_Tag)
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {

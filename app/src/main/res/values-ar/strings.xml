@@ -106,7 +106,9 @@
     <string name="Your">أنت</string>
     <string name="selectWhatAreYou"> أختر ما تبحث عنه \n وسوف نعرض لك اقرب ثلاث خيارات </string>
     <string name="Location_Permission_denied">Location Permission denied.</string>
-    <string name="Approve_Permissions_To_Pick_Images">Approve permissions to open Pix ImagePicker</string>
-    <string name="UpdateProfile">Update profile</string>
+    <string name="Approve_Permissions_To_Pick_Images">الرجاء منح الإذونات لجلب الصور</string>
+    <string name="UpdateProfile">تعديل البروفايل</string>
+    <string name="NoInternetConnection">لايوجد إتصال بالإنترنت</string>
+    <string name="NoInternetConnectionTryRefreshData">No internet connection try refresh data</string>
 
 </resources>
