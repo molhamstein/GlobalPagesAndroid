@@ -154,6 +154,15 @@
 
         </activity>
 
+        <activity android:name=".activities.BusinessGuideEditActivity">
+
+        </activity>
+
+        <activity
+            android:name=".activities.ProductManageActivity"
+            android:theme="@style/Theme.Transparent">
+
+        </activity>
 
     </application>
 

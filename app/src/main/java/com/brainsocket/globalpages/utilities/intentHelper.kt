@@ -10,6 +10,7 @@ import com.brainsocket.globalpages.data.entities.Post
 import com.brainsocket.globalpages.data.entities.TagEntity
 import com.google.gson.Gson
 import com.brainsocket.globalpages.data.entities.BusinessGuide
+import com.brainsocket.globalpages.data.entities.ProductThumb
 
 
 class IntentHelper {
@@ -139,6 +140,13 @@ class IntentHelper {
             context.startActivity(intent)
         }
 
+        fun startProductManageActivity(context: Context, productThumb: ProductThumb) {
+            val intent = Intent(context, ProductManageActivity::class.java)
+            val jSon = Gson().toJson(productThumb)
+            intent.putExtra(ProductManageActivity.ProductManageActivity_Tag, jSon)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
 
     }
 }

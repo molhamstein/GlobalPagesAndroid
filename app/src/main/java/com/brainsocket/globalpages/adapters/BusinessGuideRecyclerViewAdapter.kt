@@ -9,9 +9,6 @@ import com.brainsocket.globalpages.data.entities.BusinessGuide
 import com.brainsocket.globalpages.utilities.IntentHelper
 import com.brainsocket.globalpages.viewHolders.BusinessGuideViewHolder
 
-/**
- * Created by Adhamkh on 2018-07-18.
- */
 class BusinessGuideRecyclerViewAdapter constructor(var context: Context, var businessGuideList: MutableList<BusinessGuide>)
     : RecyclerView.Adapter<BusinessGuideViewHolder>() {
 

@@ -81,7 +81,6 @@ class ApiService {
                 .getAsString(requestListener)
     }
 
-
     /*User Profile ended*/
 
     /*Tagging started*/
@@ -184,6 +183,19 @@ class ApiService {
     }
 
     /*Attachment ended*/
+
+
+    /*Business Product started*/
+    fun postBusinessGuideProduct(url: String, productThumbModel: ProductThumbModel, requestListener: StringRequestListener) {
+        AndroidNetworking.post(url)
+                .setContentType("application/json")
+                .setPriority(Priority.HIGH)
+                .addBodyParameter(productThumbModel)
+                .build()
+                .getAsString(requestListener)
+    }
+
+    /*Business Product ended*/
 
 
 }

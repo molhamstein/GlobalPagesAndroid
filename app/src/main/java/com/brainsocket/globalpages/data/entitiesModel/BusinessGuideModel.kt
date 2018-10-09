@@ -15,6 +15,7 @@ class BusinessGuideModel {
     var phone2: String = ""
     var fax: String = ""
     var id: String = ""
+    var userId: String = ""
     var ownerId: String = ""
     var categoryId: String = ""
     var subCategoryId: String = ""

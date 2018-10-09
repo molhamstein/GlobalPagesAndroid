@@ -20,7 +20,7 @@ class BusinessGuide {
     var subCategoryId: String = ""
     var cityId: String = ""
     var locationId: String = ""
-    var covers: MutableList<Any> = mutableListOf()
+    var covers: MutableList<MediaEntity> = mutableListOf()
     var cover: String = ""
 
     var owner: Owner = Owner()

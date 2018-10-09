@@ -180,6 +180,7 @@
                                     android:textColor="@color/lightgray" />
 
                                 <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/businessCategory"
                                     style="@style/AppTheme.TextAppearance"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -211,6 +212,7 @@
                                     android:textColor="@color/lightgray" />
 
                                 <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/businessSubCategories2"
                                     style="@style/AppTheme.TextAppearance"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -242,6 +244,7 @@
                                     android:textColor="@color/lightgray" />
 
                                 <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/businessCity"
                                     style="@style/AppTheme.TextAppearance"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -272,6 +275,7 @@
                                     android:textColor="@color/lightgray" />
 
                                 <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/businessLocation"
                                     style="@style/AppTheme.TextAppearance"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -321,7 +325,7 @@
                         app:layout_constraintTop_toBottomOf="@id/info_Layout">
 
                         <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/categoryTitle"
+                            android:id="@+id/descriptionTitle"
                             style="@style/AppTheme.TextAppearance"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -337,20 +341,21 @@
                             android:background="@color/colorPrimary"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/categoryTitle"
+                            app:layout_constraintTop_toBottomOf="@+id/descriptionTitle"
                             app:layout_constraintWidth_default="percent"
                             app:layout_constraintWidth_percent="0.3" />
 
                         <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/adsDescription"
+                            android:id="@+id/businessDescription"
                             style="@style/AppTheme.TextAppearance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start|left"
                             android:layout_marginBottom="@dimen/lg_margin"
+                            android:paddingEnd="@dimen/zero"
                             android:paddingLeft="@dimen/md_margin"
+                            android:paddingRight="@dimen/zero"
                             android:paddingStart="@dimen/md_margin"
-
                             android:text="Ad desctiption that advert about they add, description the app about the description the app about the plah plah ....."
                             android:textAlignment="gravity"
                             android:textColor="@color/grayDarkTextColor"
@@ -366,7 +371,7 @@
                             android:text="@string/ServicesAndProducts"
                             android:textColor="@color/profileHeaderColor"
                             android:textStyle="bold"
-                            app:layout_constraintTop_toBottomOf="@+id/adsDescription" />
+                            app:layout_constraintTop_toBottomOf="@+id/businessDescription" />
 
                         <View
                             android:id="@+id/servicesAndProductsSperator"
@@ -379,8 +384,8 @@
                             app:layout_constraintWidth_default="percent"
                             app:layout_constraintWidth_percent="0.3" />
 
-                        <com.brainsocket.mainlibrary.SupportViews.ViewPagers.RtlViewPager
-                            android:id="@+id/businessViewPager"
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/businessGuideProductRecyclerView"
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
                             android:layout_alignParentTop="true"
@@ -411,7 +416,7 @@
                             android:textStyle="bold"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/businessViewPager"
+                            app:layout_constraintTop_toBottomOf="@+id/businessGuideProductRecyclerView"
                             app:layout_constraintWidth_percent="0.5" />
 
                         <View

@@ -12,6 +12,7 @@ import com.brainsocket.globalpages.data.entities.Attachment;
 import com.brainsocket.globalpages.data.entities.BusinessGuide;
 import com.brainsocket.globalpages.data.entities.MediaEntity;
 import com.brainsocket.globalpages.data.entities.Post;
+import com.brainsocket.globalpages.data.entities.ProductThumb;
 
 import java.util.Random;
 
@@ -92,6 +93,19 @@ public class BindingUtils {
             Context context = imageView.getContext();
             GlideApp.with(context).load(url).error(R.drawable.businesslogo)
                     .placeholder(R.mipmap.ic_launcher).into(imageView);
+        } catch (Exception ex) {
+            Log.v("image load", ex.getMessage());
+        }
+    }
+
+    public static void loadProductImage(ImageView imageView, ProductThumb productThumb) {
+        try {
+            String url = /* ServerInfo.Companion.getImagesBaseUrl() +*/ productThumb.getImage();
+            if (!url.startsWith("http"))
+                url = "http://" + url;
+            Context context = imageView.getContext();
+            GlideApp.with(context).load(url).error(R.drawable.businesslogo)
+                    .placeholder(R.drawable.ic_launcher_web).into(imageView);
         } catch (Exception ex) {
             Log.v("image load", ex.getMessage());
         }

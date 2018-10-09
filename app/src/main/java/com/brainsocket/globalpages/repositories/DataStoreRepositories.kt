@@ -3,6 +3,7 @@ package com.brainsocket.globalpages.repositories
 import android.content.Context
 import com.brainsocket.globalpages.data.entities.BusinessGuideCategory
 import com.brainsocket.globalpages.data.entities.City
+import com.brainsocket.globalpages.data.entities.LocationEntity
 import com.brainsocket.globalpages.data.entities.PostCategory
 import com.google.gson.Gson
 
@@ -77,6 +78,25 @@ class DataStoreRepositories constructor(context: Context) : Repository(context) 
 
     fun flushCity() {
         editor.putString(Cities_TAG, Cities_Default_TAG)
+    }
+
+    fun findCityById(cityId: String): City? {
+        val cityList = getCities()
+        cityList?.forEach {
+            if (it.id.equals(cityId, true))
+                return it
+        }
+        return null
+    }
+
+    fun findLocationById(cityId: String, locateId: String): LocationEntity? {
+        val city: City? = findCityById(cityId)
+        city?.locations?.forEach {
+            if (it.id.equals(locateId, true)) {
+                return it
+            }
+        }
+        return null
     }
     /*Cities ended*/
 

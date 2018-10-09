@@ -115,6 +115,11 @@
     <string name="UpdateProfile">Update profile</string>
     <string name="NoInternetConnection">No internet connection</string>
     <string name="NoInternetConnectionTryRefreshData">No internet connection try refresh data</string>
+    <string name="UploadImageForServiceOrProduct">Upload image for service or product</string>
+    <string name="ProductName">Product name</string>
+    <string name="PickUpLocation">Pick up location</string>
+    <string name="pleaseSelectLocation">Please select location</string>
+    <string name="uploadFileSuccessfully">Upload file successfully</string>
 
 
 </resources>

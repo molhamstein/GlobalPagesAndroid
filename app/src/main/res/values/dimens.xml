@@ -25,6 +25,8 @@
     <dimen name="postItemHeight">160dp</dimen>
     <dimen name="businessItemWidth">250dp</dimen>
     <dimen name="sm_btn_height">36dp</dimen>
+    <dimen name="product_image_width">72dp</dimen>
+    <dimen name="product_image_height">72dp</dimen>
 
 
 </resources>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/zero"
+    android:padding="@dimen/zero">
+
+    <com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/transparent_radius_bg"
+        android:padding="@dimen/zero"
+        app:ms9_shadowElevation="@dimen/lg_elevation">
+
+        <android.support.constraint.ConstraintLayout
+            style="@style/commonNinePatchShadowItemViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/md_margin"
+            android:background="@drawable/white_radius_sm_bg"
+            android:padding="@dimen/zero">
+
+            <ImageView
+                android:id="@+id/productImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:background="@color/colorPrimary"
+                android:contentDescription="@string/contentDescription"
+                android:src="@mipmap/ic_launcher" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/zero"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/productImage">
+
+                <ImageView
+                    android:id="@+id/editProduct"
+                    android:src="@drawable/ic_edit_dark_24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/productTitle"
+                    style="@style/AppTheme.TextAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:shadowColor="@color/lightgray"
+                    android:shadowRadius="@integer/textShadow"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/productDetails"
+                    style="@style/AppTheme.TextAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:maxLines="6"
+                    android:shadowColor="@color/lightgray"
+                    android:shadowRadius="@integer/textShadow"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/grayDarkTextColor"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@+id/productTitle" />
+
+            </android.support.constraint.ConstraintLayout>
+
+
+        </android.support.constraint.ConstraintLayout>
+
+    </com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView>
+    <!--</LinearLayout>-->
+
+</android.support.constraint.ConstraintLayout>

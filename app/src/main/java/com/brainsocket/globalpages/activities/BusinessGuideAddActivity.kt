@@ -16,24 +16,28 @@ import com.brainsocket.globalpages.adapters.SubCategoryRecyclerViewAdapter
 import com.google.android.gms.location.places.ui.PlacePicker
 import android.widget.Toast
 import com.brainsocket.globalpages.adapters.AttachmentRecyclerViewAdapter
-import com.brainsocket.globalpages.data.entities.Attachment
-import com.brainsocket.globalpages.data.entities.BusinessGuide
-import com.brainsocket.globalpages.data.entities.BusinessGuideCategory
-import com.brainsocket.globalpages.data.entities.Category
+import com.brainsocket.globalpages.data.entities.*
 import com.brainsocket.globalpages.di.component.DaggerBusinessGuideAddComponent
 import com.brainsocket.globalpages.di.module.AttachmentModule
 import com.brainsocket.globalpages.di.module.BusinessGuidesModule
 import com.brainsocket.globalpages.di.module.TagsCollectionModule
 import com.brainsocket.globalpages.di.ui.*
+import com.brainsocket.globalpages.dialogs.ProgressDialog
+import com.brainsocket.globalpages.eventsBus.EventActions
+import com.brainsocket.globalpages.eventsBus.MessageEvent
+import com.brainsocket.globalpages.eventsBus.RxBus
 import com.brainsocket.globalpages.listeners.OnCategorySelectListener
 import com.brainsocket.globalpages.repositories.DummyDataRepositories
+import com.brainsocket.globalpages.utilities.IntentHelper
 import com.brainsocket.globalpages.viewModel.BusinessGuideAddViewHolder
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
+import com.brainsocket.mainlibrary.Listeners.OnRefreshLayoutListener
 import com.brainsocket.mainlibrary.Views.Stateslayoutview
 import javax.inject.Inject
 
 import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
+import com.github.florent37.viewanimator.ViewAnimator
 import com.schibstedspain.leku.LocationPickerActivity
 import java.io.File
 
@@ -58,6 +62,15 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
 
     @BindView(R.id.stateLayout)
     lateinit var stateLayout: Stateslayoutview
+
+    @BindView(R.id.resultContainer)
+    lateinit var resultContainer: View
+
+    @BindView(R.id.baseContainer)
+    lateinit var baseContainer: View
+
+    @BindView(R.id.mainStateLayout)
+    lateinit var mainStateLayout: Stateslayoutview
 
     @Inject
     lateinit var presenter: TagsCollectionPresenter
@@ -107,31 +120,67 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
 
     }
 
+    private fun animateResult() {
+        resultContainer.visibility = View.INVISIBLE
+        ViewAnimator.animate(baseContainer).translationY(0f, -1000f)
+                .alpha(1f, 0f).andAnimate(resultContainer).translationY(-1000f, 0f)
+                .alpha(0f, 1f).start()
+    }
+
     override fun onBaseCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.business_guide_add_layout)
         ButterKnife.bind(this)
         initRecyclerView()
         initDI()
         businessGuideAddViewHolder = BusinessGuideAddViewHolder(findViewById(android.R.id.content))
+
+        RxBus.listen(MessageEvent::class.java).subscribe {
+            when (it.action) {
+                EventActions.LocationPickupActivity_Tag -> {
+                    if (it.message is PointEntity) {
+                        val str = it.message.lat.toString() + ";" + it.message.lng.toString()
+                        businessGuideAddViewHolder.locationEditText.setText(str)
+                    }
+                }
+            }
+
+        }
+
+
+        mainStateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
+            override fun onRefresh() {
+                if (businessGuideAddViewHolder.isValid()) {
+                    businessGuidesPresenter.addBusinessGuide(businessGuideAddViewHolder.getBusinessGuideModel())
+                }
+            }
+
+            override fun onRequestPermission() {
+
+            }
+        })
+
     }
 
     @OnClick(R.id.locationEditText)
     fun onLocationEditTextClick(view: View) {
-        val locationPickerIntent = LocationPickerActivity.Builder()
-                .withLocation(41.4036299, 2.1743558)
-                .withGeolocApiKey(resources.getString(R.string.google_maps_key))
-                .withSearchZone("es_ES")
-                .shouldReturnOkOnBackPressed()
-                .withStreetHidden()
-                .withCityHidden()
-                .withZipCodeHidden()
-                .withSatelliteViewHidden()
-                .withGooglePlacesEnabled()
-                .withGoogleTimeZoneEnabled()
-                .withVoiceSearchHidden()
-                .build(applicationContext)
+        val canonicalName = LocationPickupActivity::class.java.canonicalName
+        IntentHelper.startLocationCheckActivity(context = baseContext, activityName = canonicalName)
 
-        startActivityForResult(locationPickerIntent, MAP_BUTTON_REQUEST_CODE)
+//        val locationPickerIntent = LocationPickerActivity.Builder()
+//                .withLocation(41.4036299, 2.1743558)
+//                .withGeolocApiKey(resources.getString(R.string.google_maps_key))
+//                .withSearchZone("es_ES")
+//                .shouldReturnOkOnBackPressed()
+//                .withStreetHidden()
+//                .withCityHidden()
+//                .withZipCodeHidden()
+//                .withSatelliteViewHidden()
+//                .withGooglePlacesEnabled()
+//                .withGoogleTimeZoneEnabled()
+//                .withVoiceSearchHidden()
+//                .build(applicationContext)
+//
+//        startActivityForResult(locationPickerIntent, MAP_BUTTON_REQUEST_CODE)
 
 //        val builder = PlacePicker.IntentBuilder()
 //        startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST)
@@ -153,11 +202,18 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
 
     @OnClick(R.id.businessAddBtn)
     fun onBusinessAddBtn(view: View) {
-        if (businessGuideAddViewHolder.isValid()) {
-            businessGuidesPresenter.addBusinessGuide(businessGuideAddViewHolder.getBusinessGuideModel())
-        }
+//        if (businessGuideAddViewHolder.isValid()) {
+//            businessGuidesPresenter.addBusinessGuide(businessGuideAddViewHolder.getBusinessGuideModel())
+//        }
+        animateResult()
         Log.v("View Clicked", view.id.toString())
     }
+
+    @OnClick(R.id.adBackHomeBtn)
+    fun onAdBackHomeButtonClick(view: View) {
+        finish()
+    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -199,14 +255,12 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
 
     /*Tag Collection presenter started*/
     override fun onBusinessCategoriesLoaded(categoriesList: MutableList<BusinessGuideCategory>) {
-        super.onBusinessCategoriesLoaded(categoriesList)
         businessCategories.adapter = CategoryRecyclerViewAdapter(context = this,
                 categoriesList = categoriesList.toMutableList(), onCategorySelectListener = this)
         Log.v("", "")
     }
 
     override fun showBusinessCategoriesProgress(show: Boolean) {
-        super.showBusinessCategoriesProgress(show)
         if (show) {
             stateLayout.FlipLayout(LayoutStatesEnum.Waitinglayout)
         } else {
@@ -216,7 +270,6 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
     }
 
     override fun showBusinessCategoriesLoadErrorMessage(visible: Boolean) {
-        super.showBusinessCategoriesLoadErrorMessage(visible)
         if (visible) {
             stateLayout.FlipLayout(LayoutStatesEnum.Noconnectionlayout)
         } else {
@@ -226,7 +279,6 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
     }
 
     override fun showBusinessCategoriesEmptyView(visible: Boolean) {
-        super.showBusinessCategoriesEmptyView(visible)
         if (visible) {
             stateLayout.FlipLayout(LayoutStatesEnum.Nodatalayout)
         } else {
@@ -239,7 +291,17 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
 
     /*Attachment presenter started*/
     override fun showAttachmentProgress(show: Boolean) {
-
+        if (show) {
+            val progressDialog: ProgressDialog? =
+                    supportFragmentManager.findFragmentByTag(ProgressDialog.ProgressDialog_Tag) as ProgressDialog?
+            progressDialog?.dialog?.dismiss()
+            val dialog = ProgressDialog.newInstance()
+            dialog.show(supportFragmentManager, ProgressDialog.ProgressDialog_Tag)
+        } else {
+            val progressDialog: ProgressDialog? =
+                    supportFragmentManager.findFragmentByTag(ProgressDialog.ProgressDialog_Tag) as ProgressDialog?
+            progressDialog?.dialog?.dismiss()
+        }
         Log.v("", "")
     }
 
@@ -248,6 +310,11 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
     }
 
     override fun showAttachmentLoadErrorMessage(visible: Boolean) {
+        if (visible) {
+            Toast.makeText(baseContext, R.string.checkInternetConnection, Toast.LENGTH_LONG).show()
+        } else {
+
+        }
         Log.v("", "")
     }
 
@@ -257,19 +324,45 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
 
     override fun onLoadAttachmentListSuccessfully(filePath: String) {
         (businessImages.adapter as AttachmentRecyclerViewAdapter).addItem(Attachment(filePath))
+        Toast.makeText(baseContext, R.string.uploadFileSuccessfully, Toast.LENGTH_LONG).show()
         Log.v("", "")
     }
     /*Attachment presenter ended*/
 
+
     /*Business guide presenter started*/
+    override fun showBusinessGuideProgress(show: Boolean) {
+        if (show) {
+            mainStateLayout.FlipLayout(LayoutStatesEnum.Waitinglayout)
+        } else {
+            mainStateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+        }
+    }
+
+    override fun showBusinessGuideLoadErrorMessage(visible: Boolean) {
+        if (visible) {
+            mainStateLayout.FlipLayout(LayoutStatesEnum.Noconnectionlayout)
+        } else {
+            mainStateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+        }
+    }
+
+    override fun showBusinessGuideEmptyView(visible: Boolean) {
+        if (visible) {
+            mainStateLayout.FlipLayout(LayoutStatesEnum.Nodatalayout)
+        } else {
+            mainStateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+        }
+    }
+
     override fun onLoadBusinessGuideListSuccessfully(businessGuideList: MutableList<BusinessGuide>) {
         Log.v("", "")
     }
 
     override fun onAddBusinessGuideSuccessfully() {
+        animateResult()
         Log.v("", "")
     }
-
     /*Business guide presenter ended*/
 
     override fun onSelectCategory(category: Category) {

@@ -129,7 +129,7 @@ class MainActivity : BaseActivity(), VolumesContract.View, OnTagSelectListener {
                 selectedTagsView.setAdapter(TagsRecyclerViewAdapter(baseContext, filterEntity.getTags()))
                 (selectedTagsView.getAdapter() as TagsRecyclerViewAdapter).onTagSelectListener = this
                 if (volumesRecyclerView.adapter != null) {
-                    (volumesRecyclerView.adapter as PostRecyclerViewAdapter).filterByCreteria(filterEntity)
+                    (volumesRecyclerView.adapter as PostRecyclerViewAdapter).filterByCriteria(filterEntity)
                 }
                 Log.v("", "")
             }

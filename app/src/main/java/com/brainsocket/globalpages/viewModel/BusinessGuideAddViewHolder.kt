@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.EditText
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.brainsocket.globalpages.App
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.AttachmentRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.CategoryRecyclerViewAdapter
@@ -13,8 +14,10 @@ import com.brainsocket.globalpages.adapters.SubCategoryRecyclerViewAdapter
 import com.brainsocket.globalpages.data.entities.LocationEntity
 import com.brainsocket.globalpages.data.entities.MediaEntity
 import com.brainsocket.globalpages.data.entities.PointEntity
+import com.brainsocket.globalpages.data.entities.SubCategory
 import com.brainsocket.globalpages.data.entitiesModel.BusinessGuideModel
 import com.brainsocket.globalpages.data.validations.ValidationHelper
+import com.brainsocket.globalpages.repositories.UserRepository
 
 /**
  * Created by Adhamkh on 2018-09-15.
@@ -87,15 +90,24 @@ class BusinessGuideAddViewHolder constructor(view: View) : RecyclerView.ViewHold
         if (cat != null)
             businessGuideModel.categoryId = cat.id
 
-        val subCat = (businessSubCategories.adapter as SubCategoryRecyclerViewAdapter).getCurrentSubCategory()
-        if (subCat != null)
-            businessGuideModel.subCategoryId = subCat.id
+        if (businessSubCategories.adapter != null) {
+            val subCat: SubCategory? = (businessSubCategories.adapter as SubCategoryRecyclerViewAdapter).getCurrentSubCategory()
+            if (subCat != null)
+                businessGuideModel.subCategoryId = subCat.id
+        }
 
-        businessGuideModel.locationPoint = PointEntity()
+        if (locationEditText.text.isNotEmpty()) {
+            val point = locationEditText.text.toString().split(";")
+            businessGuideModel.locationPoint = PointEntity(point[0].toDouble(), point[1].toDouble())
+        } else {
+            businessGuideModel.locationPoint = PointEntity()
+        }
 
         businessGuideModel.description = description.text.toString()
         businessGuideModel.fax = fax.text.toString()
 
+        businessGuideModel.userId = UserRepository(App.app).getUser()!!.id!!
+        businessGuideModel.ownerId = UserRepository(App.app).getUser()!!.id!!
         return businessGuideModel
     }
 

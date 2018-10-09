@@ -17,6 +17,7 @@ import com.brainsocket.globalpages.adapters.MediaViewPagerAdapter
 import com.brainsocket.globalpages.data.entities.BusinessGuide
 import com.brainsocket.globalpages.dialogs.ContactDialog
 import com.brainsocket.globalpages.repositories.DummyDataRepositories
+import com.brainsocket.globalpages.viewModel.BusinessGuideViewHolder
 import com.brainsocket.mainlibrary.ViewPagerIndicator.CircleIndicator.CircleIndicator
 import com.google.gson.Gson
 
@@ -28,11 +29,13 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
 
     lateinit var businessGuide: BusinessGuide
 
-    @BindView(R.id.mediaViewPager)
-    lateinit var mediaViewPager: ViewPager
+    lateinit var businessGuideViewHolder: BusinessGuideViewHolder
 
-    @BindView(R.id.viewPagerIndicator)
-    lateinit var viewPagerIndicator: CircleIndicator
+//    @BindView(R.id.mediaViewPager)
+//    lateinit var mediaViewPager: ViewPager
+//
+//    @BindView(R.id.viewPagerIndicator)
+//    lateinit var viewPagerIndicator: CircleIndicator
 
     @BindView(R.id.flexible_example_appbar)
     lateinit var appbar: AppBarLayout
@@ -53,15 +56,22 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
         ButterKnife.bind(this)
         val jSon = intent.getStringExtra(BusinessGuideDetailsActivity_Tag)
         businessGuide = Gson().fromJson(jSon, BusinessGuide::class.java)
+        businessGuideViewHolder = BusinessGuideViewHolder(findViewById(android.R.id.content))
 
-        mediaViewPager.adapter = MediaViewPagerAdapter(this, DummyDataRepositories.getMediaList())
-        viewPagerIndicator.setViewPager(mediaViewPager)
 
         appbar.addOnOffsetChangedListener(this)
 
         initToolBar()
+        businessGuideViewHolder.bind(businessGuide)
 
     }
+
+
+    @OnClick(R.id.locationBtn)
+    fun onLocationButtonClick(view: View) {
+
+    }
+
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)

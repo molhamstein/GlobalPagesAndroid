@@ -13,11 +13,10 @@ import com.brainsocket.globalpages.enums.TagType
 import com.brainsocket.globalpages.utilities.IntentHelper
 import com.brainsocket.globalpages.viewHolders.PostViewHolder
 
-/**
- * Created by Adhamkh on 2018-06-29.
- */
-class PostRecyclerViewAdapter constructor(var context: Context, var postsList: MutableList<Post>, private var isFixed: Boolean = false,
-                                          var postFilterList: MutableList<Post>? = null) :
+
+class PostRecyclerViewAdapter constructor(var context: Context, private var postsList: MutableList<Post>,
+                                          private var isFixed: Boolean = false,
+                                          private var postFilterList: MutableList<Post>? = null) :
         RecyclerView.Adapter<PostViewHolder>() {
 
     var filterEntity: FilterEntity? = null
@@ -53,15 +52,15 @@ class PostRecyclerViewAdapter constructor(var context: Context, var postsList: M
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        var pojo = postsList[position]
-        holder.bind(pojo)
+        val poJo = postsList[position]
+        holder.bind(poJo)
 
         holder.itemView.setOnClickListener {
-            IntentHelper.startPostDetailsActivity(context, pojo)
+            IntentHelper.startPostDetailsActivity(context, poJo)
         }
     }
 
-    fun filterByCreteria(filterEntity: FilterEntity) {
+    fun filterByCriteria(filterEntity: FilterEntity) {
         this.filterEntity = filterEntity
 
         if (postFilterList == null)
@@ -102,7 +101,7 @@ class PostRecyclerViewAdapter constructor(var context: Context, var postsList: M
                 filterEntity!!.area = null
             }
         }
-        filterByCreteria(filterEntity!!)
+        filterByCriteria(filterEntity!!)
     }
 
 }
