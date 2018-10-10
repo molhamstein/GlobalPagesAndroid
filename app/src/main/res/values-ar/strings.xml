@@ -115,5 +115,6 @@
     <string name="PickUpLocation">Pick up location</string>
     <string name="pleaseSelectLocation">Please select location</string>
     <string name="uploadFileSuccessfully">Upload file successfully</string>
+    <string name="Add">Add</string>
 
 </resources>

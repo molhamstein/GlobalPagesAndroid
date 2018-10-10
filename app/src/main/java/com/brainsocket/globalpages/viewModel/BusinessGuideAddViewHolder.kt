@@ -106,7 +106,7 @@ class BusinessGuideAddViewHolder constructor(view: View) : RecyclerView.ViewHold
         businessGuideModel.description = description.text.toString()
         businessGuideModel.fax = fax.text.toString()
 
-        businessGuideModel.userId = UserRepository(App.app).getUser()!!.id!!
+//        businessGuideModel.userId = UserRepository(App.app).getUser()!!.id!!
         businessGuideModel.ownerId = UserRepository(App.app).getUser()!!.id!!
         return businessGuideModel
     }

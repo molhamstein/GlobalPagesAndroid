@@ -54,6 +54,14 @@ class IntentHelper {
             context.startActivity(intent)
         }
 
+        fun startBusinessGuideEditActivity(context: Context,businessGuide: BusinessGuide){
+            val intent = Intent(context, BusinessGuideEditActivity::class.java)
+            val jSon = Gson().toJson(businessGuide)
+            intent.putExtra(BusinessGuideEditActivity.BusinessGuideEditActivity_Tag, jSon)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
+
 
         fun startPostAddActivity(context: Context, userId: String = "-1") {
             val intent = Intent(context, PostAddActivity::class.java)
@@ -137,6 +145,14 @@ class IntentHelper {
         fun startCallNumber(context: Context, phoneNumber: String) {
             val intent = Intent(Intent.ACTION_DIAL)
             intent.data = Uri.parse("tel:" + phoneNumber)
+            context.startActivity(intent)
+        }
+
+        fun startProductAddActivity(context: Context, businessGuide: BusinessGuide) {
+            val intent = Intent(context, ProductAddActivity::class.java)
+            val jSon = Gson().toJson(businessGuide)
+            intent.putExtra(ProductAddActivity.ProductAddActivity_Tag, jSon)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
 

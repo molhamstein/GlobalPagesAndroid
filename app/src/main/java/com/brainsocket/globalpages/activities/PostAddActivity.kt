@@ -2,6 +2,8 @@ package com.brainsocket.globalpages.activities
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -9,19 +11,47 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.View
 import android.view.animation.LinearInterpolator
+import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.*
 import com.brainsocket.globalpages.data.entities.Attachment
+import com.brainsocket.globalpages.data.entities.Category
+import com.brainsocket.globalpages.data.entities.City
+import com.brainsocket.globalpages.data.entities.PostCategory
+import com.brainsocket.globalpages.di.component.DaggerPostAddComponent
+import com.brainsocket.globalpages.di.module.AttachmentModule
+import com.brainsocket.globalpages.di.module.PostModule
+import com.brainsocket.globalpages.di.module.TagsCollectionModule
+import com.brainsocket.globalpages.di.ui.*
+import com.brainsocket.globalpages.dialogs.ProgressDialog
+import com.brainsocket.globalpages.listeners.OnCategorySelectListener
+import com.brainsocket.globalpages.listeners.OnCitySelectListener
 import com.brainsocket.globalpages.repositories.DummyDataRepositories
+import com.brainsocket.globalpages.repositories.UserRepository
+import com.brainsocket.globalpages.viewModel.PostAddViewHolder
+import com.brainsocket.mainlibrary.Views.Stateslayoutview
+import com.google.android.gms.location.places.ui.PlacePicker
+import java.io.File
+import javax.inject.Inject
+
+import com.fxn.pix.Pix
+import com.fxn.utility.PermUtil
+import com.github.florent37.viewanimator.ViewAnimator
 
 
-class PostAddActivity : BaseActivity() {
+class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact.View, AttachmentContract.View
+        , OnCategorySelectListener, OnCitySelectListener {
+
     companion object {
-        var USER_ID_TAG: String = "USER_ID"
+        var PLACE_PICKER_REQUEST = 1
+        var PICTURE_REQUEST = 100
 
+        var MAP_BUTTON_REQUEST_CODE = 101
+
+        var USER_ID_TAG: String = "USER_ID"
     }
 
     @BindView(R.id.toolbar)
@@ -48,6 +78,20 @@ class PostAddActivity : BaseActivity() {
     @BindView(R.id.resultContainer)
     lateinit var resultContainer: View
 
+    @BindView(R.id.stateLayout)
+    lateinit var stateLayout: Stateslayoutview
+
+    lateinit var postAddViewHolder: PostAddViewHolder
+
+    @Inject
+    lateinit var tagsCollectionPresenter: TagsCollectionPresenter
+
+    @Inject
+    lateinit var attachmentPresenter: AttachmentPresenter
+
+    @Inject
+    lateinit var postPresenter: PostPresenter
+
     private fun initToolBar() {
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener { onBackPressed() }
@@ -58,16 +102,37 @@ class PostAddActivity : BaseActivity() {
         adImages.adapter = AttachmentRecyclerViewAdapter(this, DummyDataRepositories.getAttachmentList())
 
         adCategories.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        adCategories.adapter = CategoryRecyclerViewAdapter(this, DummyDataRepositories.getCategoriesList())
+//        adCategories.adapter = CategoryRecyclerViewAdapter(this, DummyDataRepositories.getCategoriesList())
 
         adSubCategories.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        adSubCategories.adapter = SubCategoryRecyclerViewAdapter(this, DummyDataRepositories.getSubCategoriesList())
+//        adSubCategories.adapter = SubCategoryRecyclerViewAdapter(this, DummyDataRepositories.getSubCategoriesList())
 
         adCities.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        adCities.adapter = CityRecyclerViewAdapter(this, DummyDataRepositories.getCityList())
+//        adCities.adapter = CityRecyclerViewAdapter(this, DummyDataRepositories.getCityList())
 
         adLocations.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        adLocations.adapter = LocationEntityRecyclerViewAdapter(this, DummyDataRepositories.getLocationList())
+//        adLocations.adapter = LocationEntityRecyclerViewAdapter(this, DummyDataRepositories.getLocationList())
+
+    }
+
+    private fun initDI() {
+        val component = DaggerPostAddComponent.builder()
+                .tagsCollectionModule(TagsCollectionModule(this))
+                .postModule(PostModule(this))
+                .attachmentModule(AttachmentModule(this))
+                .build()
+        component.inject(this)
+
+        tagsCollectionPresenter.attachView(this)
+        tagsCollectionPresenter.subscribe()
+        tagsCollectionPresenter.loadPostCategories(withCache = true)
+        tagsCollectionPresenter.loadCities(withCache = true)
+
+        attachmentPresenter.attachView(this)
+        attachmentPresenter.subscribe()
+
+        postPresenter.attachView(this)
+        postPresenter.subscribe()
 
     }
 
@@ -77,18 +142,26 @@ class PostAddActivity : BaseActivity() {
 
         initToolBar()
         initRecyclerViews()
+        initDI()
+
+        postAddViewHolder = PostAddViewHolder(findViewById(android.R.id.content))
+
 
     }
 
     @OnClick(R.id.addAttachmentBtn)
     fun onAddAttachmentClick(view: View) {
-        (adImages.adapter as AttachmentRecyclerViewAdapter).addItem(Attachment())
+        Pix.start(this@PostAddActivity, BusinessGuideAddActivity.PICTURE_REQUEST, 1)
+//        (adImages.adapter as AttachmentRecyclerViewAdapter).addItem(Attachment())
         Log.v("View Clicked", view.id.toString())
     }
 
     @OnClick(R.id.adAddBtn)
     fun onAdAddBtn(view: View) {
-        animate()
+        if (postAddViewHolder.isValid()) {
+            val token = UserRepository(baseContext).getUser()!!.token
+            postPresenter.addPost(postModel = postAddViewHolder.getPostModel(), token = token)
+        }
         Log.v("View Clicked", view.id.toString())
     }
 
@@ -115,6 +188,142 @@ class PostAddActivity : BaseActivity() {
         animatorSet.playTogether(baseAnimator, resultAnimator, baseTranslationYAnimator, baseTranslationZAnimator,
                 resultTranslationYAnimator, resultTranslationZAnimator)
         animatorSet.start()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
+            when (requestCode) {
+                PostAddActivity.PLACE_PICKER_REQUEST -> {
+                    val place = PlacePicker.getPlace(this, data)
+                    val toastMsg = String.format("Place: %s", place.name)
+                    Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show()
+                }
+                PostAddActivity.PICTURE_REQUEST -> {
+                    val returnValue = data!!.getStringArrayListExtra(Pix.IMAGE_RESULTS)
+                    attachmentPresenter.loadAttachmentFile(File(returnValue[0]))
+                    Log.v("", "")
+                }
+                PostAddActivity.MAP_BUTTON_REQUEST_CODE -> {
+                    Log.v("", "")
+                }
+            }
+        }
+
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS -> {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Pix.start(this@PostAddActivity, PostAddActivity.PICTURE_REQUEST, 1)
+                } else {
+                    Toast.makeText(this@PostAddActivity, resources.getString(R.string.Approve_Permissions_To_Pick_Images), Toast.LENGTH_LONG).show()
+                }
+                return
+            }
+        }
+    }
+
+
+    /*Post Presenter started*/
+    override fun onAddPostSuccessfully() {
+        animate()
+        Log.v("", "")
+    }
+
+    override fun onAddPostFail() {
+        Log.v("", "")
+    }
+    /*Post Presenter ended*/
+
+    /*Tags Presenter started*/
+
+    override fun onCitiesLoaded(citiesList: MutableList<City>) {
+        adCities.adapter = CityRecyclerViewAdapter(context = baseContext, citiesListList = citiesList, onCitySelectListener = this)
+    }
+
+    override fun showCitiesProgress(show: Boolean) {
+        super.showCitiesProgress(show)
+    }
+
+    override fun showCitiesLoadErrorMessage(visible: Boolean) {
+        super.showCitiesLoadErrorMessage(visible)
+    }
+
+    override fun showCitiesEmptyView(visible: Boolean) {
+        super.showCitiesEmptyView(visible)
+    }
+
+    override fun onPostCategoriesLoaded(categoriesList: MutableList<PostCategory>) {
+        adCategories.adapter = CategoryRecyclerViewAdapter(context = baseContext,
+                categoriesList = categoriesList.toMutableList(), onCategorySelectListener = this)
+    }
+
+    override fun showPostCategoriesProgress(show: Boolean) {
+        super.showPostCategoriesProgress(show)
+    }
+
+    override fun showPostCategoriesLoadErrorMessage(visible: Boolean) {
+        super.showPostCategoriesLoadErrorMessage(visible)
+    }
+
+    override fun showPostCategoriesEmptyView(visible: Boolean) {
+        super.showPostCategoriesEmptyView(visible)
+    }
+
+    /*Tags presenter ended*/
+
+
+    /*Attachment presenter started */
+    override fun showAttachmentProgress(show: Boolean) {
+        if (show) {
+            val progressDialog: ProgressDialog? =
+                    supportFragmentManager.findFragmentByTag(ProgressDialog.ProgressDialog_Tag) as ProgressDialog?
+            progressDialog?.dialog?.dismiss()
+            val dialog = ProgressDialog.newInstance()
+            dialog.show(supportFragmentManager, ProgressDialog.ProgressDialog_Tag)
+        } else {
+            val progressDialog: ProgressDialog? =
+                    supportFragmentManager.findFragmentByTag(ProgressDialog.ProgressDialog_Tag) as ProgressDialog?
+            progressDialog?.dialog?.dismiss()
+        }
+        Log.v("", "")
+    }
+
+    override fun showAttachmentProcessingPercentage(percentage: String) {
+        Log.v("", "")
+    }
+
+    override fun showAttachmentLoadErrorMessage(visible: Boolean) {
+        if (visible) {
+            Toast.makeText(baseContext, R.string.checkInternetConnection, Toast.LENGTH_LONG).show()
+        } else {
+
+        }
+        Log.v("", "")
+    }
+
+    override fun showAttachmentEmptyView(visible: Boolean) {
+        Log.v("", "")
+    }
+
+    override fun onLoadAttachmentListSuccessfully(filePath: String) {
+        (adImages.adapter as AttachmentRecyclerViewAdapter).addItem(Attachment(filePath))
+        Toast.makeText(baseContext, R.string.uploadFileSuccessfully, Toast.LENGTH_LONG).show()
+        Log.v("", "")
+    }
+    /*Attachment presenter ended*/
+
+    override fun onSelectCategory(category: Category) {
+        adSubCategories.adapter = SubCategoryRecyclerViewAdapter(context = baseContext,
+                subCategoriesList = category.subCategoriesList)
+    }
+
+    override fun onSelectCity(city: City) {
+        adLocations.adapter = LocationEntityRecyclerViewAdapter(baseContext, city.locations)
     }
 
 }

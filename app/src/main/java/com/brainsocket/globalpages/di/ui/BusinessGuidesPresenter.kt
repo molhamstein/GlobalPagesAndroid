@@ -13,6 +13,7 @@ import com.brainsocket.globalpages.data.entities.SubCategory
 import com.brainsocket.globalpages.data.entitiesModel.BusinessGuideModel
 import com.brainsocket.globalpages.enums.DaysEnum
 import com.brainsocket.globalpages.repositories.SettingData
+import com.google.gson.Gson
 import io.reactivex.disposables.CompositeDisposable
 
 class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuidesContract.Presenter {
@@ -85,9 +86,10 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
         loadBusinessGuideByUrl(url)
     }
 
-    override fun addBusinessGuide(businessGuide: BusinessGuideModel) {
+    override fun addBusinessGuide(businessGuide: BusinessGuideModel, token: String) {
         view.showBusinessGuideProgress(true)
-        ApiService().postBusinessGuides(ServerInfo.businessGuideUrl, businessGuide, object : StringRequestListener {
+        val json= Gson().toJson(businessGuide)
+        ApiService().postBusinessGuides(ServerInfo.businessGuideUrl, businessGuide, token, object : StringRequestListener {
             override fun onResponse(response: String?) {
                 if (response != null) {
                     view.showBusinessGuideProgress(false)

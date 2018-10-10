@@ -19,7 +19,7 @@ class BusinessGuidesContract {
         fun loadBusinessGuideList(subCategory: SubCategory)
 
 
-        fun addBusinessGuide(businessGuide: BusinessGuideModel)
+        fun addBusinessGuide(businessGuide: BusinessGuideModel, token: String)
     }
 
     interface View : BaseContract.View {

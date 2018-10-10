@@ -7,6 +7,10 @@ import android.os.Bundle
  */
 class BusinessGuideEditActivity : BaseActivity() {
 
+    companion object {
+        val BusinessGuideEditActivity_Tag = "BusinessGuideEditActivity_Tag"
+    }
+
     override fun onBaseCreate(savedInstanceState: Bundle?) {
 
     }

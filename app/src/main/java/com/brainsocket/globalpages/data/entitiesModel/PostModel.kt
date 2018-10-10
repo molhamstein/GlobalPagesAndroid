@@ -1,29 +1,22 @@
 package com.brainsocket.globalpages.data.entitiesModel
 
 import com.brainsocket.globalpages.data.entities.MediaEntity
-import com.brainsocket.globalpages.data.entities.PointEntity
 
+/**
+ * Created by Adhamkh on 2018-10-09.
+ */
+class PostModel {
 
-class BusinessGuideModel {
-    var nameEn: String = ""
-    var nameAr: String = ""
-
+    var title: String = ""
+//    var name: String = ""
     var description: String = ""
-
-    var locationPoint: PointEntity = PointEntity()
-    var phone1: String = ""
-    var phone2: String = ""
-    var fax: String = ""
-//    var id: String = ""
-//    var userId: String = ""
+    var status: String = "pending"
+    var viewsCount: String = ""
+    var isFeatured: Boolean = false
     var ownerId: String = ""
     var categoryId: String = ""
     var subCategoryId: String = ""
     var cityId: String = ""
     var locationId: String = ""
-
     var media: MutableList<MediaEntity> = mutableListOf()
-
-//    var trim: String = ""
-
 }

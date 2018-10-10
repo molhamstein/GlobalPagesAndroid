@@ -17,6 +17,7 @@ import com.brainsocket.globalpages.adapters.MediaViewPagerAdapter
 import com.brainsocket.globalpages.data.entities.BusinessGuide
 import com.brainsocket.globalpages.dialogs.ContactDialog
 import com.brainsocket.globalpages.repositories.DummyDataRepositories
+import com.brainsocket.globalpages.utilities.IntentHelper
 import com.brainsocket.globalpages.viewModel.BusinessGuideViewHolder
 import com.brainsocket.mainlibrary.ViewPagerIndicator.CircleIndicator.CircleIndicator
 import com.google.gson.Gson
@@ -66,10 +67,14 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
 
     }
 
-
     @OnClick(R.id.locationBtn)
     fun onLocationButtonClick(view: View) {
 
+    }
+
+    @OnClick(R.id.ProductAddLink)
+    fun onProductAddLinkClick(view: View) {
+        IntentHelper.startProductAddActivity(baseContext, businessGuide)
     }
 
 
@@ -84,7 +89,9 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-
+            R.id.business_edit -> {
+                IntentHelper.startBusinessGuideEditActivity(baseContext, businessGuide)
+            }
         }
         return true
     }

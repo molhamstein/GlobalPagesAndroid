@@ -9,8 +9,8 @@ import com.brainsocket.globalpages.data.entitiesModel.ProfileModel
 class ProfileContract {
 
     interface Presenter : BaseContract.Presenter<View> {
-        fun loadUserPosts(criteria: MutableMap<String, Pair<String, String>>)
-        fun loadUserBusinesses(criteria: MutableMap<String, Pair<String, String>>)
+        fun loadUserPosts(userId: String /*criteria: MutableMap<String, Pair<String, String>>*/)
+        fun loadUserBusinesses(userId: String /*criteria: MutableMap<String, Pair<String, String>>*/)
         fun loadUserCategories(user: User)
 
         fun updateProfile(profileModel: ProfileModel)
@@ -38,7 +38,7 @@ class ProfileContract {
         fun showUpdateProfileProgress(show: Boolean) {}
         fun showUpdateProfileLoadErrorMessage(visible: Boolean) {}
         fun showUpdateProfileEmptyView(visible: Boolean) {}
-        fun onUpdateProfileSuccessfully(){}
+        fun onUpdateProfileSuccessfully() {}
 
     }
 

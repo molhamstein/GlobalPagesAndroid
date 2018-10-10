@@ -28,6 +28,7 @@ import com.brainsocket.globalpages.eventsBus.MessageEvent
 import com.brainsocket.globalpages.eventsBus.RxBus
 import com.brainsocket.globalpages.listeners.OnCategorySelectListener
 import com.brainsocket.globalpages.repositories.DummyDataRepositories
+import com.brainsocket.globalpages.repositories.UserRepository
 import com.brainsocket.globalpages.utilities.IntentHelper
 import com.brainsocket.globalpages.viewModel.BusinessGuideAddViewHolder
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
@@ -121,9 +122,9 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
     }
 
     private fun animateResult() {
-        resultContainer.visibility = View.INVISIBLE
+        resultContainer.visibility = View.VISIBLE
         ViewAnimator.animate(baseContainer).translationY(0f, -1000f)
-                .alpha(1f, 0f).andAnimate(resultContainer).translationY(-1000f, 0f)
+                .alpha(1f, 0f).andAnimate(resultContainer).translationY(1000f, 0f)
                 .alpha(0f, 1f).start()
     }
 
@@ -150,7 +151,8 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
         mainStateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
             override fun onRefresh() {
                 if (businessGuideAddViewHolder.isValid()) {
-                    businessGuidesPresenter.addBusinessGuide(businessGuideAddViewHolder.getBusinessGuideModel())
+                    val token = UserRepository(baseContext).getUser()!!.token
+                    businessGuidesPresenter.addBusinessGuide(businessGuideAddViewHolder.getBusinessGuideModel(), token)
                 }
             }
 
@@ -202,10 +204,10 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
 
     @OnClick(R.id.businessAddBtn)
     fun onBusinessAddBtn(view: View) {
-//        if (businessGuideAddViewHolder.isValid()) {
-//            businessGuidesPresenter.addBusinessGuide(businessGuideAddViewHolder.getBusinessGuideModel())
-//        }
-        animateResult()
+        if (businessGuideAddViewHolder.isValid()) {
+            val token = UserRepository(baseContext).getUser()!!.token
+            businessGuidesPresenter.addBusinessGuide(businessGuideAddViewHolder.getBusinessGuideModel(), token)
+        }
         Log.v("View Clicked", view.id.toString())
     }
 
@@ -213,7 +215,6 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
     fun onAdBackHomeButtonClick(view: View) {
         finish()
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

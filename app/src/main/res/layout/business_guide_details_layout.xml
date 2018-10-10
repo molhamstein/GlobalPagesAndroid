@@ -373,6 +373,20 @@
                             android:textStyle="bold"
                             app:layout_constraintTop_toBottomOf="@+id/businessDescription" />
 
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/ProductAddLink"
+                            style="@style/AppTheme.TextAppearance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            android:padding="@dimen/md_margin"
+                            android:text="@string/Add"
+                            android:textColor="@color/profileHeaderColor"
+                            android:textStyle="bold"
+                            app:layout_constraintTop_toBottomOf="@+id/businessDescription" />
+
+
                         <View
                             android:id="@+id/servicesAndProductsSperator"
                             android:layout_width="0dp"

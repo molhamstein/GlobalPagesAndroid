@@ -32,9 +32,10 @@ class ProfilePresenter constructor(val context: Context) : ProfileContract.Prese
         subscriptions.clear()
     }
 
-    override fun loadUserPosts(criteria: MutableMap<String, Pair<String, String>>) {
+    override fun loadUserPosts(userId: String /*criteria: MutableMap<String, Pair<String, String>>*/) {
         view.showUserPostsProgress(true)
-        ApiService().getUserPosts(ServerInfo.postUrl, criteria, object : ParsedRequestListener<MutableList<Post>> {
+        val url = ServerInfo.postUrl + "?filter[where][ownerId]=" + userId
+        ApiService().getUserPosts(url/*, criteria*/, object : ParsedRequestListener<MutableList<Post>> {
             override fun onResponse(response: MutableList<Post>?) {
                 if ((response != null)) {
                     view.showUserPostsProgress(false)
@@ -54,9 +55,10 @@ class ProfilePresenter constructor(val context: Context) : ProfileContract.Prese
 
     }
 
-    override fun loadUserBusinesses(criteria: MutableMap<String, Pair<String, String>>) {
+    override fun loadUserBusinesses(userId: String /*criteria: MutableMap<String, Pair<String, String>>*/) {
         view.showUserBusinessesProgress(true)
-        ApiService().getUserBusinesses(ServerInfo.businessGuideUrl, criteria, object : ParsedRequestListener<MutableList<BusinessGuide>> {
+        val url = ServerInfo.businessGuideUrl + "?filter[where][ownerId]=" + userId
+        ApiService().getUserBusinesses(url/*, criteria*/, object : ParsedRequestListener<MutableList<BusinessGuide>> {
             override fun onResponse(response: MutableList<BusinessGuide>?) {
                 if ((response != null)) {
                     view.showUserBusinessesProgress(false)

@@ -8,6 +8,7 @@ import android.support.v4.view.ViewCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -16,6 +17,7 @@ import android.widget.EditText
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
+import butterknife.OnClick
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.BusinessGuideRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.CategoryRecyclerViewAdapter
@@ -92,6 +94,10 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     @BindView(R.id.birthDate)
     lateinit var birthDate: EditText
 
+
+    @BindView(R.id.AdsAddLink)
+    lateinit var AdsAddLink: TextView
+
     /*User information ended*/
 
     private fun initToolBar() {
@@ -152,8 +158,8 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
         val user = UserRepository(context = baseContext).getUser()!!
         criteria["where"] = Pair("ownerId", user.id!!)
 
-        presenter.loadUserPosts(criteria)
-        presenter.loadUserBusinesses(criteria)
+        presenter.loadUserPosts(user.id!!)
+        presenter.loadUserBusinesses(user.id!!)
         presenter.loadUserCategories(user)
 
         bindInfo(user)
@@ -180,7 +186,14 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
         initDI()
         appbar.addOnOffsetChangedListener(this)
 
+        AdsAddLink.movementMethod = LinkMovementMethod.getInstance()
     }
+
+    @OnClick(R.id.AdsAddLink)
+    fun onAdsAddLinkClick(view: View) {
+        IntentHelper.startPostAddActivity(context = baseContext)
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.profile_menu, menu)

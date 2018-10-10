@@ -6,6 +6,10 @@ import com.brainsocket.globalpages.normalization.DateNormalizer
 import java.util.*
 
 class User {
+
+    /**id from Login response**/
+    var token: String = ""
+
     var email: String = ""
     var username: String? = null
 
