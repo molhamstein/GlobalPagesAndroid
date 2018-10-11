@@ -111,5 +111,16 @@ public class BindingUtils {
         }
     }
 
+    public static void loadImage(ImageView imageView, String url) {
+        try {
+            if (!url.startsWith("http"))
+                url = "http://" + url;
+            Context context = imageView.getContext();
+            GlideApp.with(context).load(url).error(R.drawable.businesslogo)
+                    .placeholder(R.drawable.ic_launcher_web).into(imageView);
+        } catch (Exception ex) {
+            Log.v("image load", ex.getMessage());
+        }
+    }
 
 }

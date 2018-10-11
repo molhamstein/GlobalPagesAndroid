@@ -71,6 +71,7 @@ class ProductManageActivity : BaseActivity(), BusinessGuideProductContract.View,
         productThumb = Gson().fromJson(jSon, ProductThumb::class.java)
         businessGuideProductViewHolder = BusinessGuideProductViewHolder(findViewById(android.R.id.content))
         initDI()
+        businessGuideProductViewHolder.bind(productThumb)
 
     }
 
