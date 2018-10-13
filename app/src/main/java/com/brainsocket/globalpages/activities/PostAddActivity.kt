@@ -32,6 +32,8 @@ import com.brainsocket.globalpages.listeners.OnCitySelectListener
 import com.brainsocket.globalpages.repositories.DummyDataRepositories
 import com.brainsocket.globalpages.repositories.UserRepository
 import com.brainsocket.globalpages.viewModel.PostAddViewHolder
+import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
+import com.brainsocket.mainlibrary.Listeners.OnRefreshLayoutListener
 import com.brainsocket.mainlibrary.Views.Stateslayoutview
 import com.google.android.gms.location.places.ui.PlacePicker
 import java.io.File
@@ -39,7 +41,6 @@ import javax.inject.Inject
 
 import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
-import com.github.florent37.viewanimator.ViewAnimator
 
 
 class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact.View, AttachmentContract.View
@@ -80,6 +81,12 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
 
     @BindView(R.id.stateLayout)
     lateinit var stateLayout: Stateslayoutview
+
+    @BindView(R.id.categoryStateLayout)
+    lateinit var categoryStateLayout: Stateslayoutview
+
+    @BindView(R.id.cityStateLayout)
+    lateinit var cityStateLayout: Stateslayoutview
 
     lateinit var postAddViewHolder: PostAddViewHolder
 
@@ -145,6 +152,27 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
         initDI()
 
         postAddViewHolder = PostAddViewHolder(findViewById(android.R.id.content))
+
+
+        categoryStateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
+            override fun onRefresh() {
+                tagsCollectionPresenter.loadPostCategories(false)
+            }
+
+            override fun onRequestPermission() {
+
+            }
+        })
+
+        cityStateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
+            override fun onRefresh() {
+                tagsCollectionPresenter.loadCities(false)
+            }
+
+            override fun onRequestPermission() {
+
+            }
+        })
 
 
     }
@@ -235,45 +263,70 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
     }
 
     override fun onAddPostFail() {
+        Toast.makeText(this@PostAddActivity, R.string.unexpectedErrorHappend, Toast.LENGTH_LONG).show()
         Log.v("", "")
     }
     /*Post Presenter ended*/
 
     /*Tags Presenter started*/
 
+    override fun showCitiesProgress(show: Boolean) {
+        if (show) {
+            cityStateLayout.FlipLayout(LayoutStatesEnum.Waitinglayout)
+        } else {
+            cityStateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+        }
+    }
+
+    override fun showCitiesLoadErrorMessage(visible: Boolean) {
+        if (visible) {
+            cityStateLayout.FlipLayout(LayoutStatesEnum.Noconnectionlayout)
+        } else {
+            cityStateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+        }
+    }
+
+    override fun showCitiesEmptyView(visible: Boolean) {
+        if (visible) {
+            cityStateLayout.FlipLayout(LayoutStatesEnum.Nodatalayout)
+        } else {
+            cityStateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+        }
+    }
+
     override fun onCitiesLoaded(citiesList: MutableList<City>) {
         adCities.adapter = CityRecyclerViewAdapter(context = baseContext, citiesListList = citiesList, onCitySelectListener = this)
     }
 
-    override fun showCitiesProgress(show: Boolean) {
-        super.showCitiesProgress(show)
+
+    override fun showPostCategoriesProgress(show: Boolean) {
+        if (show) {
+            categoryStateLayout.FlipLayout(LayoutStatesEnum.Waitinglayout)
+        } else {
+            categoryStateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+        }
     }
 
-    override fun showCitiesLoadErrorMessage(visible: Boolean) {
-        super.showCitiesLoadErrorMessage(visible)
+    override fun showPostCategoriesLoadErrorMessage(visible: Boolean) {
+        if (visible) {
+            categoryStateLayout.FlipLayout(LayoutStatesEnum.Noconnectionlayout)
+        } else {
+            categoryStateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+        }
     }
 
-    override fun showCitiesEmptyView(visible: Boolean) {
-        super.showCitiesEmptyView(visible)
+    override fun showPostCategoriesEmptyView(visible: Boolean) {
+        if (visible) {
+            categoryStateLayout.FlipLayout(LayoutStatesEnum.Nodatalayout)
+        } else {
+            categoryStateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+        }
     }
 
     override fun onPostCategoriesLoaded(categoriesList: MutableList<PostCategory>) {
         adCategories.adapter = CategoryRecyclerViewAdapter(context = baseContext,
                 categoriesList = categoriesList.toMutableList(), onCategorySelectListener = this)
     }
-
-    override fun showPostCategoriesProgress(show: Boolean) {
-        super.showPostCategoriesProgress(show)
-    }
-
-    override fun showPostCategoriesLoadErrorMessage(visible: Boolean) {
-        super.showPostCategoriesLoadErrorMessage(visible)
-    }
-
-    override fun showPostCategoriesEmptyView(visible: Boolean) {
-        super.showPostCategoriesEmptyView(visible)
-    }
-
     /*Tags presenter ended*/
 
 
@@ -316,6 +369,7 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
         Log.v("", "")
     }
     /*Attachment presenter ended*/
+
 
     override fun onSelectCategory(category: Category) {
         adSubCategories.adapter = SubCategoryRecyclerViewAdapter(context = baseContext,

@@ -116,5 +116,14 @@
     <string name="pleaseSelectLocation">Please select location</string>
     <string name="uploadFileSuccessfully">Upload file successfully</string>
     <string name="Add">Add</string>
+    <string name="Sunday">Sunday</string>
+    <string name="Monday">Monday</string>
+    <string name="Satday">Satday</string>
+    <string name="Friday">Friday</string>
+    <string name="Tueday">Tueday</string>
+    <string name="Wenday">Wenday</string>
+    <string name="Thuday">Thuday</string>
+    <string name="openDays">Open days</string>
+    <string name="unexpectedErrorHappend">Unexpected error happend</string>
 
 </resources>

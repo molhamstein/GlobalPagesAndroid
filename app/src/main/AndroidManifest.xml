@@ -170,6 +170,10 @@
 
         </activity>
 
+        <activity android:name=".activities.PostEditActivity">
+
+        </activity>
+
     </application>
 
 </manifest>

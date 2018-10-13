@@ -22,11 +22,13 @@ import com.brainsocket.globalpages.di.module.AttachmentModule
 import com.brainsocket.globalpages.di.module.BusinessGuidesModule
 import com.brainsocket.globalpages.di.module.TagsCollectionModule
 import com.brainsocket.globalpages.di.ui.*
+import com.brainsocket.globalpages.dialogs.OpenDaysDialog
 import com.brainsocket.globalpages.dialogs.ProgressDialog
 import com.brainsocket.globalpages.eventsBus.EventActions
 import com.brainsocket.globalpages.eventsBus.MessageEvent
 import com.brainsocket.globalpages.eventsBus.RxBus
 import com.brainsocket.globalpages.listeners.OnCategorySelectListener
+import com.brainsocket.globalpages.listeners.OnOpenDayListListener
 import com.brainsocket.globalpages.repositories.DummyDataRepositories
 import com.brainsocket.globalpages.repositories.UserRepository
 import com.brainsocket.globalpages.utilities.IntentHelper
@@ -39,11 +41,10 @@ import javax.inject.Inject
 import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
 import com.github.florent37.viewanimator.ViewAnimator
-import com.schibstedspain.leku.LocationPickerActivity
 import java.io.File
 
 class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, AttachmentContract.View
-        , BusinessGuidesContract.View, OnCategorySelectListener {
+        , BusinessGuidesContract.View, OnCategorySelectListener, OnOpenDayListListener {
 
     companion object {
         var PLACE_PICKER_REQUEST = 1
@@ -61,8 +62,6 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
     @BindView(R.id.businessSubCategories)
     lateinit var businessSubCategories: RecyclerView
 
-    @BindView(R.id.stateLayout)
-    lateinit var stateLayout: Stateslayoutview
 
     @BindView(R.id.resultContainer)
     lateinit var resultContainer: View
@@ -72,6 +71,10 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
 
     @BindView(R.id.mainStateLayout)
     lateinit var mainStateLayout: Stateslayoutview
+
+    @BindView(R.id.stateLayout)
+    lateinit var stateLayout: Stateslayoutview
+
 
     @Inject
     lateinit var presenter: TagsCollectionPresenter
@@ -161,6 +164,23 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
             }
         })
 
+        stateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
+            override fun onRefresh() {
+                presenter.loadBusinessCategories(false)
+            }
+
+            override fun onRequestPermission() {
+
+            }
+        })
+
+    }
+
+
+    @OnClick(R.id.editOpenDaysTextView)
+    fun onEditOpenDaysTextViewClick(view: View) {
+        val openDaysDialog = OpenDaysDialog.newInstance(businessGuideAddViewHolder.openDayList, this)
+        openDaysDialog.show(supportFragmentManager, OpenDaysDialog.OpenDaysDialog_Tag)
     }
 
     @OnClick(R.id.locationEditText)
@@ -255,11 +275,6 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
 
 
     /*Tag Collection presenter started*/
-    override fun onBusinessCategoriesLoaded(categoriesList: MutableList<BusinessGuideCategory>) {
-        businessCategories.adapter = CategoryRecyclerViewAdapter(context = this,
-                categoriesList = categoriesList.toMutableList(), onCategorySelectListener = this)
-        Log.v("", "")
-    }
 
     override fun showBusinessCategoriesProgress(show: Boolean) {
         if (show) {
@@ -287,6 +302,13 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
         }
         Log.v("", "")
     }
+
+    override fun onBusinessCategoriesLoaded(categoriesList: MutableList<BusinessGuideCategory>) {
+        businessCategories.adapter = CategoryRecyclerViewAdapter(context = this,
+                categoriesList = categoriesList.toMutableList(), onCategorySelectListener = this)
+        Log.v("", "")
+    }
+
     /*Tag collection presenter ended*/
 
 
@@ -369,6 +391,10 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
     override fun onSelectCategory(category: Category) {
         businessSubCategories.adapter = SubCategoryRecyclerViewAdapter(context = this, subCategoriesList = category.subCategoriesList)
         Log.v("", "")
+    }
+
+    override fun onOpenDayListSelect(openDayList: MutableList<String>) {
+        businessGuideAddViewHolder.openDayList = openDayList
     }
 
 

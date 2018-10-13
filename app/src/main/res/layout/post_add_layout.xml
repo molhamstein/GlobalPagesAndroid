@@ -137,11 +137,24 @@
                             android:text="@string/Category"
                             android:textColor="@color/lightgray" />
 
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/adCategories"
+
+                        <com.brainsocket.mainlibrary.Views.Stateslayoutview
+                            android:id="@+id/categoryStateLayout"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/recyclerviewTagHeight"
-                            app:tagBackgroundColor="@color/colorPrimary" />
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/tag_container_height"
+                            app:NoConnectionLayout="@layout/state_layout_noconnection"
+                            app:NoDataLayout="@layout/state_layout_nodata"
+                            app:RefreshbtnRes="@+id/retryBtn"
+                            app:WaitingLayout="@layout/state_layout_waiting">
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/adCategories"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:tagBackgroundColor="@color/colorPrimary" />
+                        </com.brainsocket.mainlibrary.Views.Stateslayoutview>
+
 
                         <TextView
                             style="@style/AppTheme.TextAppearance"
@@ -154,9 +167,8 @@
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/adSubCategories"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/recyclerviewTagHeight"
+                            android:layout_height="wrap_content"
                             app:tagBackgroundColor="@color/colorPrimary" />
-
 
                         <TextView
                             style="@style/AppTheme.TextAppearance"
@@ -166,12 +178,21 @@
                             android:text="@string/City"
                             android:textColor="@color/lightgray" />
 
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/adCities"
+                        <com.brainsocket.mainlibrary.Views.Stateslayoutview
+                            android:id="@+id/cityStateLayout"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/recyclerviewTagHeight"
-                            app:tagBackgroundColor="@color/colorPrimary" />
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/tag_container_height"
+                            app:NoConnectionLayout="@layout/state_layout_noconnection"
+                            app:NoDataLayout="@layout/state_layout_nodata"
+                            app:RefreshbtnRes="@+id/retryBtn"
+                            app:WaitingLayout="@layout/state_layout_waiting">
 
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/adCities"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </com.brainsocket.mainlibrary.Views.Stateslayoutview>
 
                         <TextView
                             style="@style/AppTheme.TextAppearance"
@@ -184,7 +205,7 @@
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/adLocations"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/recyclerviewTagHeight"
+                            android:layout_height="wrap_content"
                             app:tagBackgroundColor="@color/colorPrimary" />
 
                         <android.support.v7.widget.AppCompatButton

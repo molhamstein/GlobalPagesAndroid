@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.Toolbar
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import butterknife.BindView
@@ -15,6 +17,8 @@ import com.brainsocket.globalpages.adapters.MediaViewPagerAdapter
 import com.brainsocket.globalpages.data.entities.Post
 import com.brainsocket.globalpages.dialogs.ContactDialog
 import com.brainsocket.globalpages.normalization.DateNormalizer
+import com.brainsocket.globalpages.repositories.UserRepository
+import com.brainsocket.globalpages.utilities.IntentHelper
 import com.brainsocket.mainlibrary.ViewPagerIndicator.CircleIndicator.CircleIndicator
 import com.google.gson.Gson
 
@@ -64,6 +68,7 @@ class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener
     lateinit var toolbar: Toolbar
 
     private fun initToolBar() {
+        toolbar.title = ""
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener {
             onBackPressed()
@@ -80,6 +85,22 @@ class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener
         initToolBar()
 
         bindInfo()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val id = UserRepository(this).getUser()!!.id
+        if (post.ownerId == id)
+            menuInflater.inflate(R.menu.post_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.menu_edit -> {
+                IntentHelper.startPostEditActivity(this@PostDetailsActivity, post)
+            }
+        }
+        return false
     }
 
     @Optional

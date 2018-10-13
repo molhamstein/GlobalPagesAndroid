@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/md_margin"
-            android:background="@drawable/white_radius_bg"
+            android:background="@drawable/transparent_radius_bg"
             android:padding="@dimen/zero">
             <!--android:layout_marginBottom="@dimen/md_margin"-->
             <!--android:layout_marginEnd="@dimen/md_margin"-->

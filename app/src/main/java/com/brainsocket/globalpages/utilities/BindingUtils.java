@@ -32,8 +32,13 @@ public class BindingUtils {
             }
             Context context = view.getContext();
             String url = businessGuide.getLogo();
-            GlideApp.with(context).load(url).error(R.drawable.ic_launcher_web)
-                    .placeholder(R.drawable.ic_launcher_web).transform(new RoundedCornersTransformation(24, 0)).into(view);
+            if (!url.startsWith("http"))
+                url = "http://" + url;
+            GlideApp.with(context).load(url)
+                    .transform(new RoundedCornersTransformation(24, 0))
+                    .error(R.drawable.ic_launcher_web)
+                    .placeholder(R.drawable.ic_launcher_web)
+                    .into(view);
         } catch (Exception ex) {
             Log.v("image load", ex.getMessage());
         }
@@ -47,6 +52,8 @@ public class BindingUtils {
             }
             Context context = view.getContext();
             String url = ServerInfo.Companion.getImagesBaseUrl() + businessGuide.getLogo();
+            if (!url.startsWith("http"))
+                url = "http://" + url;
             GlideApp.with(context).load(url).error(R.drawable.ic_launcher_web)
                     .placeholder(R.drawable.ic_launcher_web).transform(new RoundedCornersTransformation(24, 0)).into(view);
         } catch (Exception ex) {
@@ -64,7 +71,9 @@ public class BindingUtils {
             }*/
 
             Context context = view.getContext();
-            String url = /*ServerInfo.Companion.getImagesBaseUrl() +*/ post.getMedia().get(0).toString();
+            String url = /*ServerInfo.Companion.getImagesBaseUrl() +*/ post.getMedia().get(0).getUrl();
+            if (!url.startsWith("http"))
+                url = "http://" + url;
             GlideApp.with(context).load(url).error(R.drawable.ic_launcher_web)
                     .placeholder(R.drawable.ic_launcher_web).into(view);
         } catch (Exception ex) {

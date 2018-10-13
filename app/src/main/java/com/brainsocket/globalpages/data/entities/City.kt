@@ -1,6 +1,7 @@
 package com.brainsocket.globalpages.data.entities
 
 import com.brainsocket.globalpages.App
+
 //import com.fasterxml.jackson.annotation.JsonIgnore
 
 /**
@@ -13,7 +14,7 @@ class City {
 
     var locations: MutableList<LocationEntity> = mutableListOf()
 
-//    @JsonIgnore
+    //    @JsonIgnore
     var isSelected: Boolean = false
 
     constructor()
@@ -26,6 +27,19 @@ class City {
 
     fun getTitle(): String {
         return if (App.app.isArabic()) nameAr else nameEn
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is City) return false
+
+        if (id != other.id) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return id.hashCode()
     }
 
 }

@@ -178,12 +178,38 @@
 
                             </LinearLayout>
 
+                            <RelativeLayout
+                                android:id="@+id/openDayLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                app:layout_constraintTop_toBottomOf="@+id/phoneNumber2Layout">
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toLeftOf="@+id/editOpenDaysTextView"
+                                    android:layout_toStartOf="@+id/editOpenDaysTextView"
+                                    android:text="@string/openDays"
+                                    android:textColor="@color/grayLightTextColor" />
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/editOpenDaysTextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/Edit"
+                                    android:textColor="@color/grayLightTextColor" />
+
+                            </RelativeLayout>
+
                             <LinearLayout
                                 android:id="@+id/businessTypeLayout"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
-                                app:layout_constraintTop_toBottomOf="@+id/phoneNumber2Layout">
+                                app:layout_constraintTop_toBottomOf="@+id/openDayLayout">
 
                                 <android.support.v7.widget.AppCompatTextView
                                     android:layout_width="match_parent"
@@ -204,8 +230,7 @@
                                     <android.support.v7.widget.RecyclerView
                                         android:id="@+id/businessTypes"
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        app:tagBackgroundColor="@color/colorPrimary" />
+                                        android:layout_height="wrap_content"/>
 
                                 </com.brainsocket.mainlibrary.Views.Stateslayoutview>
 

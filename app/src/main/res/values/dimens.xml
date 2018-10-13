@@ -27,6 +27,7 @@
     <dimen name="sm_btn_height">36dp</dimen>
     <dimen name="product_image_width">72dp</dimen>
     <dimen name="product_image_height">72dp</dimen>
+    <dimen name="tag_container_height">35dp</dimen>
 
 
 </resources>

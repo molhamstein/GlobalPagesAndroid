@@ -19,7 +19,7 @@ class PostRecyclerViewAdapter constructor(var context: Context, private var post
                                           private var postFilterList: MutableList<Post>? = null) :
         RecyclerView.Adapter<PostViewHolder>() {
 
-    var filterEntity: FilterEntity? = null
+    private var filterEntity: FilterEntity? = null
 
     init {
         postFilterList = postsList

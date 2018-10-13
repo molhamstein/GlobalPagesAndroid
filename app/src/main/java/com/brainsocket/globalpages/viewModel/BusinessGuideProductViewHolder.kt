@@ -19,6 +19,9 @@ import com.brainsocket.globalpages.utilities.BindingUtils
  */
 class BusinessGuideProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
+    @BindView(R.id.productImageTag)
+    lateinit var productImageTag: TextView
+
     @BindView(R.id.productImage)
     lateinit var productImage: ImageView
 
@@ -49,14 +52,14 @@ class BusinessGuideProductViewHolder(view: View) : RecyclerView.ViewHolder(view)
         val productThumbModel = ProductThumbModel()
         productThumbModel.name = productTitle.text.toString()
         productThumbModel.description = productDescription.text.toString()
-        productThumbModel.image = if (productImage.tag != null) productImage.tag.toString() else ""
+        productThumbModel.image = productImageTag.text.toString() // if (productImage.tag != null) productImage.tag.toString() else ""
 
         return productThumbModel
     }
 
     fun bind(productThumb: ProductThumb) {
         BindingUtils.loadProductImage(productImage, productThumb)
-        productImage.tag = productThumb.image
+        productImageTag.text = productThumb.image
         productTitle.setText(productThumb.name)
         productDescription.setText(productThumb.description)
     }

@@ -23,4 +23,18 @@ class LocationEntity {
     fun getTitle(): String {
         return if (App.app.isArabic()) nameAr else nameEn
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is LocationEntity) return false
+
+        if (id != other.id) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return id.hashCode()
+    }
+
 }

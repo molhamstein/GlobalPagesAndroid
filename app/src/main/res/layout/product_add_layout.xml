@@ -15,7 +15,7 @@
             android:id="@+id/productCloseBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/black"
+            android:background="@color/transparent"
             android:padding="@dimen/md_margin"
             android:src="@drawable/ic_close_white_24dp" />
 
@@ -46,6 +46,12 @@
                 android:layout_marginBottom="@dimen/max_margin"
                 android:layout_marginTop="@dimen/lg_padding"
                 android:padding="@dimen/md_padding">
+
+                <TextView
+                    android:id="@+id/productImageTag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/productImage"

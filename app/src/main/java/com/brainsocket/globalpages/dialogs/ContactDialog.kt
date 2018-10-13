@@ -33,7 +33,9 @@ class ContactDialog : DialogFragment() {
     }
 
     lateinit var phoneNumber1: String
+
     lateinit var phoneNumber2: String
+
     lateinit var faxNumber: String
 
     @BindView(R.id.phone1)

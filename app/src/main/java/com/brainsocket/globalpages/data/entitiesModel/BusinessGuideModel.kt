@@ -24,6 +24,9 @@ class BusinessGuideModel {
 
     var media: MutableList<MediaEntity> = mutableListOf()
 
+    var openingDays: MutableList<String> = mutableListOf()
+    var openingDaysEnabled: Boolean = false
+
 //    var trim: String = ""
 
 }

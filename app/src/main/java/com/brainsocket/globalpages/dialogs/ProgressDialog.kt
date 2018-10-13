@@ -8,16 +8,14 @@ import android.view.ViewGroup
 import butterknife.ButterKnife
 import com.brainsocket.globalpages.R
 
-/**
- * Created by Adhamkh on 2018-06-16.
- */
 class ProgressDialog : DialogFragment() {
 
     companion object {
-        val ProgressDialog_Tag = "ProgressDialog"
+        const val ProgressDialog_Tag = "ProgressDialog"
 
         fun newInstance(): ProgressDialog {
             val f = ProgressDialog()
+            f.isCancelable = false
             // Supply num input as an argument.
             val args = Bundle()
             f.arguments = args
@@ -30,11 +28,6 @@ class ProgressDialog : DialogFragment() {
         val mView = inflater.inflate(R.layout.progress_dialog_layout, container)
         ButterKnife.bind(this, mView)
         return mView
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
     }
 
 }

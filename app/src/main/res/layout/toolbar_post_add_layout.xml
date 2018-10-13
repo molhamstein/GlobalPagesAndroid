@@ -20,9 +20,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/AddNewAd"
-            android:shadowRadius="4"
             android:shadowColor="@color/lightgray"
+            android:shadowRadius="4"
+            android:text="@string/AddNewAd"
             android:textColor="@color/black"
             android:textStyle="bold" />
 

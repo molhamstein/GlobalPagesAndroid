@@ -12,7 +12,8 @@ import com.brainsocket.globalpages.viewHolders.ProductViewHolder
 /**
  * Created by Adhamkh on 2018-10-07.
  */
-class BusinessGuideProductRecyclerViewAdapter constructor(var context: Context, private var productThumbList: MutableList<ProductThumb>)
+class BusinessGuideProductRecyclerViewAdapter constructor(var context: Context, private var productThumbList: MutableList<ProductThumb>
+                                                          , private var isOwner: Boolean)
     : RecyclerView.Adapter<ProductViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -24,7 +25,7 @@ class BusinessGuideProductRecyclerViewAdapter constructor(var context: Context, 
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val poJo = productThumbList[position]
-        holder.bind(poJo)
+        holder.bind(poJo,isOwner)
 
         holder.itemView.setOnClickListener {
             IntentHelper.startProductManageActivity(context = context, productThumb = poJo)

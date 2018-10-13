@@ -89,6 +89,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/profileHeaderColor"
+                        android:paddingBottom="@dimen/lg_padding"
                         android:paddingEnd="@dimen/md_padding"
                         android:paddingLeft="@dimen/zero"
                         android:paddingRight="@dimen/md_padding"
@@ -184,7 +185,7 @@
                                     android:textStyle="bold" />
 
                                 <android.support.v7.widget.AppCompatTextView
-                                   android:id="@+id/postInLocation"
+                                    android:id="@+id/postInLocation"
                                     style="@style/AppTheme.TextAppearance"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"

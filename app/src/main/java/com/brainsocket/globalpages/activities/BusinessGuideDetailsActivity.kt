@@ -17,6 +17,7 @@ import com.brainsocket.globalpages.adapters.MediaViewPagerAdapter
 import com.brainsocket.globalpages.data.entities.BusinessGuide
 import com.brainsocket.globalpages.dialogs.ContactDialog
 import com.brainsocket.globalpages.repositories.DummyDataRepositories
+import com.brainsocket.globalpages.repositories.UserRepository
 import com.brainsocket.globalpages.utilities.IntentHelper
 import com.brainsocket.globalpages.viewModel.BusinessGuideViewHolder
 import com.brainsocket.mainlibrary.ViewPagerIndicator.CircleIndicator.CircleIndicator
@@ -32,12 +33,6 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
 
     lateinit var businessGuideViewHolder: BusinessGuideViewHolder
 
-//    @BindView(R.id.mediaViewPager)
-//    lateinit var mediaViewPager: ViewPager
-//
-//    @BindView(R.id.viewPagerIndicator)
-//    lateinit var viewPagerIndicator: CircleIndicator
-
     @BindView(R.id.flexible_example_appbar)
     lateinit var appbar: AppBarLayout
 
@@ -45,6 +40,7 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
     lateinit var toolbar: Toolbar
 
     private fun initToolBar() {
+        toolbar.title = ""
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener {
             onBackPressed()
@@ -83,7 +79,9 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_business_details, menu)
+        val id = UserRepository(this).getUser()!!.id
+        if (businessGuide.ownerId == id)
+            menuInflater.inflate(R.menu.menu_business_details, menu)
         return true
     }
 
@@ -103,6 +101,5 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
         contactDialog.show(supportFragmentManager, ContactDialog.ContactDialog_Tag)
         Log.v("View Clicked", view.id.toString())
     }
-
 
 }

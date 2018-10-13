@@ -74,7 +74,7 @@ class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuid
         val jSon = intent.getStringExtra(ProductAddActivity_Tag)
         businessGuide = Gson().fromJson(jSon, BusinessGuide::class.java)
 
-        var x = businessGuide.id
+        val x = businessGuide.id
         Log.v("x", x)
         initDI()
 

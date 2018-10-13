@@ -13,6 +13,7 @@ import com.brainsocket.globalpages.adapters.BusinessGuideProductRecyclerViewAdap
 import com.brainsocket.globalpages.adapters.MediaViewPagerAdapter
 import com.brainsocket.globalpages.data.entities.BusinessGuide
 import com.brainsocket.globalpages.repositories.DataStoreRepositories
+import com.brainsocket.globalpages.repositories.UserRepository
 import com.brainsocket.mainlibrary.ViewPagerIndicator.CircleIndicator.CircleIndicator
 
 /**
@@ -75,7 +76,10 @@ class BusinessGuideViewHolder constructor(view: View) : RecyclerView.ViewHolder(
         businessDescription.text = businessGuide.description
 
         businessGuideProductRecyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-        businessGuideProductRecyclerView.adapter = BusinessGuideProductRecyclerViewAdapter(context, businessGuide.products)
+
+        val user = UserRepository(context).getUser()!!
+        businessGuideProductRecyclerView.adapter = BusinessGuideProductRecyclerViewAdapter(context, businessGuide.products,
+                user.id == businessGuide.ownerId)
 
     }
 

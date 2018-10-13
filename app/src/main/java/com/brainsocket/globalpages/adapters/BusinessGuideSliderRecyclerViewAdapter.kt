@@ -8,9 +8,6 @@ import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.data.entities.BusinessGuide
 import com.brainsocket.globalpages.viewHolders.BusinessGuideSliderViewHolder
 
-/**
- * Created by Adhamkh on 2018-06-28.
- */
 class BusinessGuideSliderRecyclerViewAdapter constructor(var context: Context, var businessGuideList: MutableList<BusinessGuide>)
     : RecyclerView.Adapter<BusinessGuideSliderViewHolder>() {
 
@@ -26,7 +23,7 @@ class BusinessGuideSliderRecyclerViewAdapter constructor(var context: Context, v
 //    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusinessGuideSliderViewHolder {
-        var view = LayoutInflater.from(context).inflate(R.layout.business_guide_entity_item_layout, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.business_guide_entity_item_layout, parent, false)
         return BusinessGuideSliderViewHolder(view)
     }
 
@@ -35,8 +32,8 @@ class BusinessGuideSliderRecyclerViewAdapter constructor(var context: Context, v
     }
 
     override fun onBindViewHolder(holder: BusinessGuideSliderViewHolder, position: Int) {
-        var pojo = businessGuideList[position]
-        holder.bind(pojo)
+        val poJo = businessGuideList[position]
+        holder.bind(poJo)
 
         holder.itemView.setOnClickListener {
             //            intentHelper.startSearchMapActivity(context)

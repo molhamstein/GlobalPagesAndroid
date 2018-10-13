@@ -11,7 +11,6 @@ import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.AttachmentRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.CategoryRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.SubCategoryRecyclerViewAdapter
-import com.brainsocket.globalpages.data.entities.LocationEntity
 import com.brainsocket.globalpages.data.entities.MediaEntity
 import com.brainsocket.globalpages.data.entities.PointEntity
 import com.brainsocket.globalpages.data.entities.SubCategory
@@ -19,9 +18,7 @@ import com.brainsocket.globalpages.data.entitiesModel.BusinessGuideModel
 import com.brainsocket.globalpages.data.validations.ValidationHelper
 import com.brainsocket.globalpages.repositories.UserRepository
 
-/**
- * Created by Adhamkh on 2018-09-15.
- */
+
 class BusinessGuideAddViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) {
 
     @BindView(R.id.businessName)
@@ -51,7 +48,9 @@ class BusinessGuideAddViewHolder constructor(view: View) : RecyclerView.ViewHold
     @BindView(R.id.fax)
     lateinit var fax: EditText
 
-    lateinit var context: Context
+    var context: Context
+
+    var openDayList: MutableList<String> = mutableListOf()
 
     init {
         ButterKnife.bind(this, view)
@@ -105,8 +104,9 @@ class BusinessGuideAddViewHolder constructor(view: View) : RecyclerView.ViewHold
 
         businessGuideModel.description = description.text.toString()
         businessGuideModel.fax = fax.text.toString()
-
-//        businessGuideModel.userId = UserRepository(App.app).getUser()!!.id!!
+        businessGuideModel.openingDays = openDayList
+        if (businessGuideModel.openingDays.size > 0)
+            businessGuideModel.openingDaysEnabled = true
         businessGuideModel.ownerId = UserRepository(App.app).getUser()!!.id!!
         return businessGuideModel
     }
