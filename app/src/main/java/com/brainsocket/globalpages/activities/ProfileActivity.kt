@@ -35,6 +35,7 @@ import com.brainsocket.globalpages.repositories.UserRepository
 import com.brainsocket.globalpages.utilities.IntentHelper
 import com.brainsocket.globalpages.views.CustomTabView
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
+import com.brainsocket.mainlibrary.Listeners.OnRefreshLayoutListener
 import com.brainsocket.mainlibrary.Views.Stateslayoutview
 import java.util.HashMap
 import javax.inject.Inject
@@ -125,7 +126,7 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
         genderTabLayout.addTab(maleTab)
         genderTabLayout.addTab(femaleTab)
 
-        genderTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        val onTabSelectedListener: TabLayout.OnTabSelectedListener = object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 Log.v("", "")
             }
@@ -139,10 +140,14 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
                 tab?.customView?.findViewById<TextView>(android.R.id.text1)
                         ?.setTextColor(ContextCompat.getColor(baseContext, R.color.white))
             }
-        })
+        }
+
+        genderTabLayout.addOnTabSelectedListener(onTabSelectedListener)
 
         femaleTab.select()
         maleTab.select()
+
+        genderTabLayout.removeOnTabSelectedListener(onTabSelectedListener)
 
     }
 
@@ -187,11 +192,35 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
         appbar.addOnOffsetChangedListener(this)
 
         AdsAddLink.movementMethod = LinkMovementMethod.getInstance()
+
+        myPostsStateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
+            override fun onRefresh() {
+                val user = UserRepository(this@ProfileActivity).getUser()!!
+                presenter.loadUserPosts(userId = user.id!!)
+            }
+
+            override fun onRequestPermission() {
+
+            }
+        })
+
+        myBusinessStateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
+            override fun onRefresh() {
+                val user = UserRepository(this@ProfileActivity).getUser()!!
+                presenter.loadUserBusinesses(userId = user.id!!)
+            }
+
+            override fun onRequestPermission() {
+
+            }
+        })
+
     }
 
     @OnClick(R.id.AdsAddLink)
     fun onAdsAddLinkClick(view: View) {
         IntentHelper.startPostAddActivity(context = baseContext)
+        Log.v("Clicked", view.id.toString())
     }
 
 

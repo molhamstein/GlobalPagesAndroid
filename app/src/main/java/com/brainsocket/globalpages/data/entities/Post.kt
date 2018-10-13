@@ -41,7 +41,7 @@ class Post {
     var userId: String = ""
 
 
-//    @JsonProperty("isFeatured")
+    //    @JsonProperty("isFeatured")
     @SerializedName("isFeatured")
     var featured: String = ""
 
@@ -57,7 +57,7 @@ class Post {
     var location: LocationEntity = LocationEntity()
 
     fun getPostType(): Int {
-        if (!image.isNullOrEmpty()) {
+        if (media.size > 0) {
             return PostType.WITH_IMAGE.type
         }
         return PostType.WITH_TEXT.type

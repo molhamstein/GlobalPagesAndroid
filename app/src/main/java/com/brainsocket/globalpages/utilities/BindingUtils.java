@@ -46,12 +46,14 @@ public class BindingUtils {
 
     public static void loadBusinessGuideImage2(ImageView view, BusinessGuide businessGuide) {
         try {
-            if (businessGuide.getLogo().isEmpty()) {
+            if (businessGuide.getCovers().size() <= 0) {
                 view.setVisibility(View.GONE);
                 return;
+            } else {
+                view.setVisibility(View.VISIBLE);
             }
             Context context = view.getContext();
-            String url = ServerInfo.Companion.getImagesBaseUrl() + businessGuide.getLogo();
+            String url = /*ServerInfo.Companion.getImagesBaseUrl() +*/ businessGuide.getCovers().get(0).getUrl();
             if (!url.startsWith("http"))
                 url = "http://" + url;
             GlideApp.with(context).load(url).error(R.drawable.ic_launcher_web)

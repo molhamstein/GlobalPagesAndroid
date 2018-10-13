@@ -22,7 +22,7 @@ class BusinessGuideModel {
     var cityId: String = ""
     var locationId: String = ""
 
-    var media: MutableList<MediaEntity> = mutableListOf()
+    var covers: MutableList<MediaEntity> = mutableListOf()
 
     var openingDays: MutableList<String> = mutableListOf()
     var openingDaysEnabled: Boolean = false

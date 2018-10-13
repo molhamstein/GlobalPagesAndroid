@@ -13,7 +13,7 @@ class BusinessGuideRecyclerViewAdapter constructor(var context: Context, var bus
     : RecyclerView.Adapter<BusinessGuideViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusinessGuideViewHolder {
-        var view = LayoutInflater.from(context).inflate(R.layout.business_guide_item_layout, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.business_guide_item_layout, parent, false)
         return BusinessGuideViewHolder(view)
     }
 
@@ -28,6 +28,7 @@ class BusinessGuideRecyclerViewAdapter constructor(var context: Context, var bus
         holder.itemView.setOnClickListener {
             IntentHelper.startBusinessGuideDetailsActivity(context = context, businessGuide = poJo)
         }
+
     }
 
 }

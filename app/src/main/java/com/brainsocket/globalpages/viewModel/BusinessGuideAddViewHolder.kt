@@ -79,7 +79,7 @@ class BusinessGuideAddViewHolder constructor(view: View) : RecyclerView.ViewHold
         businessGuideModel.nameEn = businessName.text.toString()
 
         for (item in (businessImages.adapter as AttachmentRecyclerViewAdapter).attachmentList) {
-            businessGuideModel.media.add(MediaEntity(item.name))
+            businessGuideModel.covers.add(MediaEntity(item.name))
         }
 
         businessGuideModel.phone1 = phoneNumber.text.toString()
