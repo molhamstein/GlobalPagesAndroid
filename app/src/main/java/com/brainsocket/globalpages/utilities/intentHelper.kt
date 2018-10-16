@@ -55,9 +55,9 @@ class IntentHelper {
         }
 
         fun startBusinessGuideEditActivity(context: Context, businessGuide: BusinessGuide) {
-            val intent = Intent(context, BusinessGuideEditActivity::class.java)
+            val intent = Intent(context, BusinessGuideAddActivity::class.java)
             val jSon = Gson().toJson(businessGuide)
-            intent.putExtra(BusinessGuideEditActivity.BusinessGuideEditActivity_Tag, jSon)
+            intent.putExtra(BusinessGuideAddActivity.BusinessGuideAddActivity_Tag, jSon)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
@@ -156,18 +156,30 @@ class IntentHelper {
             context.startActivity(intent)
         }
 
-        fun startProductManageActivity(context: Context, productThumb: ProductThumb) {
-            val intent = Intent(context, ProductManageActivity::class.java)
+        fun startProductAddActivity(context: Context, businessGuide: BusinessGuide, productThumb: ProductThumb) {
+            val intent = Intent(context, ProductAddActivity::class.java)
+            val jSon = Gson().toJson(businessGuide)
+            intent.putExtra(ProductAddActivity.ProductAddActivity_Tag, jSon)
+
+            val jSonProduct=Gson().toJson(productThumb)
+            intent.putExtra(ProductAddActivity.ProductAddActivity_Product_Tag, jSonProduct)
+
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
+
+        fun startProductDetailsActivity(context: Context, productThumb: ProductThumb) {
+            val intent = Intent(context, ProductDetailsActivity::class.java)
             val jSon = Gson().toJson(productThumb)
-            intent.putExtra(ProductManageActivity.ProductManageActivity_Tag, jSon)
+            intent.putExtra(ProductDetailsActivity.ProductManageActivity_Tag, jSon)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
 
         fun startPostEditActivity(context: Context, post: Post) {
-            val intent = Intent(context, PostEditActivity::class.java)
+            val intent = Intent(context, PostAddActivity::class.java)
             val jSon = Gson().toJson(post)
-            intent.putExtra(PostEditActivity.PostEditActivity_Tag, jSon)
+            intent.putExtra(PostAddActivity.PostAddActivity_Tag, jSon)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }

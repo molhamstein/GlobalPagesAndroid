@@ -154,12 +154,8 @@
 
         </activity>
 
-        <activity android:name=".activities.BusinessGuideEditActivity">
-
-        </activity>
-
         <activity
-            android:name=".activities.ProductManageActivity"
+            android:name=".activities.ProductDetailsActivity"
             android:theme="@style/Theme.Transparent">
 
         </activity>
@@ -170,9 +166,6 @@
 
         </activity>
 
-        <activity android:name=".activities.PostEditActivity">
-
-        </activity>
 
     </application>
 

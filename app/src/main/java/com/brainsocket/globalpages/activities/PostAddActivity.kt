@@ -17,10 +17,8 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.*
-import com.brainsocket.globalpages.data.entities.Attachment
-import com.brainsocket.globalpages.data.entities.Category
-import com.brainsocket.globalpages.data.entities.City
-import com.brainsocket.globalpages.data.entities.PostCategory
+import com.brainsocket.globalpages.data.entities.*
+import com.brainsocket.globalpages.data.entitiesModel.PostEditModel
 import com.brainsocket.globalpages.di.component.DaggerPostAddComponent
 import com.brainsocket.globalpages.di.module.AttachmentModule
 import com.brainsocket.globalpages.di.module.PostModule
@@ -41,6 +39,7 @@ import javax.inject.Inject
 
 import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
+import com.google.gson.Gson
 
 
 class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact.View, AttachmentContract.View
@@ -53,6 +52,8 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
         var MAP_BUTTON_REQUEST_CODE = 101
 
         var USER_ID_TAG: String = "USER_ID"
+
+        const val PostAddActivity_Tag = "PostAddActivity_Tag"
     }
 
     @BindView(R.id.toolbar)
@@ -153,6 +154,12 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
 
         postAddViewHolder = PostAddViewHolder(findViewById(android.R.id.content))
 
+        val postString: String? = intent.extras?.getString(PostAddActivity_Tag, null)
+        if (!postString.isNullOrEmpty()) {
+            val post: Post = Gson().fromJson(postString, Post::class.java)
+            postAddViewHolder.bindPost(post)
+        }
+
 
         categoryStateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
             override fun onRefresh() {
@@ -174,8 +181,31 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
             }
         })
 
+        stateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
+            override fun onRefresh() {
+                requestAction()
+            }
+
+            override fun onRequestPermission() {
+
+            }
+        })
+
 
     }
+
+    fun requestAction() {
+        if (postAddViewHolder.isValid()) {
+
+            val token = UserRepository(baseContext).getUser()!!.token
+            if (postAddViewHolder.isAdd())
+                postPresenter.addPost(postAddViewHolder.getPostModel(), token)
+            else
+                postPresenter.updatePost(postAddViewHolder.getPostModel()
+                        as PostEditModel, token)
+        }
+    }
+
 
     @OnClick(R.id.addAttachmentBtn)
     fun onAddAttachmentClick(view: View) {
@@ -186,10 +216,11 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
 
     @OnClick(R.id.adAddBtn)
     fun onAdAddBtn(view: View) {
-        if (postAddViewHolder.isValid()) {
-            val token = UserRepository(baseContext).getUser()!!.token
-            postPresenter.addPost(postModel = postAddViewHolder.getPostModel(), token = token)
-        }
+        requestAction()
+//        if (postAddViewHolder.isValid()) {
+//            val token = UserRepository(baseContext).getUser()!!.token
+//            postPresenter.addPost(postModel = postAddViewHolder.getPostModel(), token = token)
+//        }
         Log.v("View Clicked", view.id.toString())
     }
 
@@ -256,8 +287,24 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
     }
 
 
-    /*Post Presenter started*/
-    override fun onAddPostSuccessfully() {
+    override fun showProgress(show: Boolean) {
+        if (show) {
+            stateLayout.FlipLayout(LayoutStatesEnum.Waitinglayout)
+        } else {
+            stateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+        }
+    }
+
+    override fun showLoadErrorMessage(visible: Boolean) {
+        if (visible) {
+            stateLayout.FlipLayout(LayoutStatesEnum.Noconnectionlayout)
+        } else {
+            stateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+        }
+    }
+
+    override fun onAddPostSuccessfully(post: Post) {
+        postAddViewHolder.bindPost(post)
         animate()
         Log.v("", "")
     }
@@ -266,7 +313,20 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
         Toast.makeText(this@PostAddActivity, R.string.unexpectedErrorHappend, Toast.LENGTH_LONG).show()
         Log.v("", "")
     }
+
+    override fun onUpdatePostSuccessfully(post: Post) {
+        postAddViewHolder.bindPost(post)
+        animate()
+        Log.v("", "")
+    }
+
+    override fun onUpdatePostFail() {
+        Toast.makeText(this@PostAddActivity, R.string.unexpectedErrorHappend, Toast.LENGTH_LONG).show()
+        Log.v("", "")
+    }
+
     /*Post Presenter ended*/
+
 
     /*Tags Presenter started*/
 

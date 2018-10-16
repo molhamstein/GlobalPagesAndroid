@@ -3,6 +3,7 @@ package com.brainsocket.globalpages.di.ui
 import com.brainsocket.globalpages.data.entities.BusinessGuide
 import com.brainsocket.globalpages.data.entities.PointEntity
 import com.brainsocket.globalpages.data.entities.SubCategory
+import com.brainsocket.globalpages.data.entitiesModel.BusinessGuideEditModel
 import com.brainsocket.globalpages.data.entitiesModel.BusinessGuideModel
 import com.brainsocket.globalpages.enums.DaysEnum
 
@@ -20,6 +21,9 @@ class BusinessGuidesContract {
 
 
         fun addBusinessGuide(businessGuide: BusinessGuideModel, token: String)
+
+        fun updateBusinessGuide(businessGuide: BusinessGuideEditModel, token: String)
+
     }
 
     interface View : BaseContract.View {
@@ -28,7 +32,10 @@ class BusinessGuidesContract {
         fun showBusinessGuideLoadErrorMessage(visible: Boolean) {}
         fun showBusinessGuideEmptyView(visible: Boolean) {}
         fun onLoadBusinessGuideListSuccessfully(businessGuideList: MutableList<BusinessGuide>)
-        fun onAddBusinessGuideSuccessfully() {}
+
+        fun onAddBusinessGuideSuccessfully(businessGuide: BusinessGuide) {}
+
+        fun onUpdateBusinessGuideSuccessfully(businessGuide: BusinessGuide) {}
 
     }
 

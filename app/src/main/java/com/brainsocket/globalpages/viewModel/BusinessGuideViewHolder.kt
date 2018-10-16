@@ -79,7 +79,8 @@ class BusinessGuideViewHolder constructor(view: View) : RecyclerView.ViewHolder(
 
         val user = UserRepository(context).getUser()!!
         businessGuideProductRecyclerView.adapter = BusinessGuideProductRecyclerViewAdapter(context, businessGuide.products,
-                user.id == businessGuide.ownerId)
+                user.id == businessGuide.ownerId, businessGuide)
+
 
     }
 

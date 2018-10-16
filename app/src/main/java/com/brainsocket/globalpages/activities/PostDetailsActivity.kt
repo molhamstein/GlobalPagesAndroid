@@ -15,7 +15,7 @@ import butterknife.Optional
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.MediaViewPagerAdapter
 import com.brainsocket.globalpages.data.entities.Post
-import com.brainsocket.globalpages.dialogs.ContactDialog
+import com.brainsocket.globalpages.dialogs.ContactPostDialog
 import com.brainsocket.globalpages.normalization.DateNormalizer
 import com.brainsocket.globalpages.repositories.UserRepository
 import com.brainsocket.globalpages.utilities.IntentHelper
@@ -106,8 +106,8 @@ class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener
     @Optional
     @OnClick(R.id.contactBtn, R.id.contactTextBtn)
     fun onContactButtonClick(view: View) {
-        val contactDialog = ContactDialog.newInstance(post.owner.phoneNumber, post.owner.phoneNumber, post.owner.phoneNumber)
-        contactDialog.show(supportFragmentManager, ContactDialog.ContactDialog_Tag)
+        val contactDialog = ContactPostDialog.newInstance(post.owner.phoneNumber)
+        contactDialog.show(supportFragmentManager, ContactPostDialog.ContactPostDialog_Tag)
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {

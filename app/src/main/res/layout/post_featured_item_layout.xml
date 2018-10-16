@@ -41,7 +41,7 @@
             <!--android:background="@color/transparent"-->
             <!--android:background="@color/transparent"-->
             <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/businessIcon"
+                android:id="@+id/postIcon"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/zero"
@@ -51,7 +51,7 @@
                 android:scaleType="center" />
 
             <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/businessTitle"
+                android:id="@+id/postTitle"
                 style="@style/AppTheme.TitleTextAppearance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

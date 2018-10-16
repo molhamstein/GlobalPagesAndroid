@@ -5,10 +5,10 @@ import com.brainsocket.globalpages.data.entities.MediaEntity
 /**
  * Created by Adhamkh on 2018-10-09.
  */
-class PostModel {
+open class PostModel {
 
     var title: String = ""
-//    var name: String = ""
+    //    var name: String = ""
     var description: String = ""
     var status: String = "pending"
     var viewsCount: String = ""

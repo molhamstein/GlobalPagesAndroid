@@ -13,7 +13,7 @@ class ProfileContract {
         fun loadUserBusinesses(userId: String /*criteria: MutableMap<String, Pair<String, String>>*/)
         fun loadUserCategories(user: User)
 
-        fun updateProfile(profileModel: ProfileModel)
+        fun updateProfile(profileModel: ProfileModel, token: String)
     }
 
     interface View : BaseContract.View {
@@ -38,7 +38,7 @@ class ProfileContract {
         fun showUpdateProfileProgress(show: Boolean) {}
         fun showUpdateProfileLoadErrorMessage(visible: Boolean) {}
         fun showUpdateProfileEmptyView(visible: Boolean) {}
-        fun onUpdateProfileSuccessfully() {}
+        fun onUpdateProfileSuccessfully(user: User) {}
 
     }
 

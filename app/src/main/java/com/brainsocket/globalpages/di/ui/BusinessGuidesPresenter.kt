@@ -10,6 +10,7 @@ import com.brainsocket.globalpages.api.ServerInfo
 import com.brainsocket.globalpages.data.entities.BusinessGuide
 import com.brainsocket.globalpages.data.entities.PointEntity
 import com.brainsocket.globalpages.data.entities.SubCategory
+import com.brainsocket.globalpages.data.entitiesModel.BusinessGuideEditModel
 import com.brainsocket.globalpages.data.entitiesModel.BusinessGuideModel
 import com.brainsocket.globalpages.enums.DaysEnum
 import com.brainsocket.globalpages.repositories.SettingData
@@ -80,20 +81,22 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
     }
 
     override fun loadBusinessGuideForPharmacy(pointEntity: PointEntity, daysEnum: DaysEnum) {
-        val url = ServerInfo.businessGuideUrl + "?filter[where][categoryId]=" + SettingData.pharmacyCategoryId +
-                "&filter[where][locationPoint][near]=" +
-                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[limit]=1000"
+
+//        val url = ServerInfo.businessGuideUrl + "?filter[where][categoryId]=" + SettingData.pharmacyCategoryId +
+//                "&filter[where][locationPoint][near]=" +
+//                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[limit]=1000"
+        val url = ServerInfo.businessGuideUrl + "/searchByLocation?lat=" + pointEntity.lat +
+                "&lng=" + pointEntity.lng + "&openingDay=" + daysEnum.number.toString()
         loadBusinessGuideByUrl(url)
     }
 
     override fun addBusinessGuide(businessGuide: BusinessGuideModel, token: String) {
         view.showBusinessGuideProgress(true)
-        val json= Gson().toJson(businessGuide)
-        ApiService().postBusinessGuides(ServerInfo.businessGuideUrl, businessGuide, token, object : StringRequestListener {
-            override fun onResponse(response: String?) {
+        ApiService().postBusinessGuides(ServerInfo.businessGuideUrl, businessGuide, token, object : ParsedRequestListener<BusinessGuide> {
+            override fun onResponse(response: BusinessGuide?) {
                 if (response != null) {
                     view.showBusinessGuideProgress(false)
-                    view.onAddBusinessGuideSuccessfully()
+                    view.onAddBusinessGuideSuccessfully(response)
                     return
                 }
                 Log.v("", "")
@@ -106,5 +109,25 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
         })
 
     }
+
+    override fun updateBusinessGuide(businessGuide: BusinessGuideEditModel, token: String) {
+        ApiService().putBusinessGuides(ServerInfo.businessGuideUrl, businessGuide, token, object : ParsedRequestListener<BusinessGuide> {
+            override fun onResponse(response: BusinessGuide?) {
+                if (response != null) {
+                    view.showBusinessGuideProgress(false)
+                    view.onUpdateBusinessGuideSuccessfully(response)
+                    return
+                }
+                Log.v("", "")
+            }
+
+            override fun onError(anError: ANError?) {
+                view.showBusinessGuideLoadErrorMessage(true)
+                Log.v("", "")
+            }
+        })
+
+    }
+
 
 }

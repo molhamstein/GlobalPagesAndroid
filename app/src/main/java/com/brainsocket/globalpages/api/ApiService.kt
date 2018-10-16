@@ -68,18 +68,19 @@ class ApiService {
                 .getAsObjectList(BusinessGuide::class.java, requestListener)
     }
 
-    fun updateUserProfile(url: String, profile: ProfileModel, requestListener: StringRequestListener) {
+    fun updateUserProfile(url: String, profile: ProfileModel, token: String, requestListener: ParsedRequestListener<User>) {
         val filtration: MutableMap<String, Pair<String, String>> = HashMap()//[ownerId]
-        filtration["where"] = Pair("id", profile.id!!)
+//        filtration["where"] = Pair("id", profile.id!!)
 
-        val criteria = Gson().toJson(filtration)
-        AndroidNetworking.post(url)
+//        val criteria = Gson().toJson(filtration)
+        AndroidNetworking.put(url + profile.id)
                 .setContentType("application/json")
-                .addQueryParameter("filter", criteria)
+                .addHeaders("Authorization", token)
+//                .addQueryParameter("filter", criteria)
                 .setPriority(Priority.HIGH)
                 .addBodyParameter(profile)
                 .build()
-                .getAsString(requestListener)
+                .getAsObject(User::class.java, requestListener)
     }
 
     /*User Profile ended*/
@@ -141,7 +142,7 @@ class ApiService {
                 .getAsObjectList(BusinessGuide::class.java, requestListener)
     }
 
-    fun postBusinessGuides(url: String, businessGuide: BusinessGuideModel, token: String, requestListener: StringRequestListener) {
+    fun postBusinessGuides(url: String, businessGuide: BusinessGuideModel, token: String, requestListener: ParsedRequestListener<BusinessGuide>) {
         val json = Gson().toJson(businessGuide)
         AndroidNetworking.post(url)
                 .setContentType("application/json")
@@ -152,13 +153,27 @@ class ApiService {
 //                .addQueryParameter("userId", businessGuide.ownerId)
                 .addBodyParameter(businessGuide)
                 .build()
-                .getAsString(requestListener)
+                .getAsObject(BusinessGuide::class.java, requestListener)
+    }
+
+    fun putBusinessGuides(url: String, businessGuide: BusinessGuideEditModel, token: String, requestListener: ParsedRequestListener<BusinessGuide>) {
+        val json = Gson().toJson(businessGuide)
+        AndroidNetworking.put(url + "/" + businessGuide.id)
+                .setContentType("application/json")
+                .addHeaders("Authorization", token)
+                .addStringBody(json)
+//                .setPriority(Priority.HIGH)
+//                .addPathParameter("userId", businessGuide.ownerId)
+//                .addQueryParameter("userId", businessGuide.ownerId)
+                .addBodyParameter(businessGuide)
+                .build()
+                .getAsObject(BusinessGuide::class.java, requestListener)
     }
 
     /*Business Guides ended*/
 
     /*Post started*/
-    fun postPost(url: String, postModel: PostModel, token: String, requestListener: StringRequestListener) {
+    fun postPost(url: String, postModel: PostModel, token: String, requestListener: ParsedRequestListener<Post>) {
         val json = Gson().toJson(postModel)
         AndroidNetworking.post(url)
                 .setContentType("application/json")
@@ -169,9 +184,33 @@ class ApiService {
 //                .addQueryParameter("userId", businessGuide.ownerId)
                 .addBodyParameter(postModel)
                 .build()
-                .getAsString(requestListener)
+                .getAsObject(Post::class.java, requestListener)
     }
 
+    fun putPost(url: String, postModel: PostEditModel, token: String, requestListener: ParsedRequestListener<Post>) {
+        val json = Gson().toJson(postModel)
+        AndroidNetworking.put(url + "/" + postModel.id)
+                .setContentType("application/json")
+                .addHeaders("Authorization", token)
+                .addStringBody(json)
+//                .setPriority(Priority.HIGH)
+//                .addPathParameter("userId", businessGuide.ownerId)
+//                .addQueryParameter("userId", businessGuide.ownerId)
+                .addBodyParameter(postModel)
+                .build()
+                .getAsObject(Post::class.java, requestListener)
+    }
+
+
+    fun getFeaturedPosts(url: String, requestListener: ParsedRequestListener<MutableList<Post>>) {
+
+        AndroidNetworking.get(url)
+//                .setContentType("application/json")
+                .setPriority(Priority.HIGH)
+//                .addQueryParameter("filter", criteria)
+                .build()
+                .getAsObjectList(Post::class.java, requestListener)
+    }
 
     /*Post ended*/
 
@@ -209,13 +248,24 @@ class ApiService {
 
 
     /*Business Product started*/
-    fun postBusinessGuideProduct(url: String, productThumbModel: ProductThumbModel, requestListener: StringRequestListener) {
+    fun postBusinessGuideProduct(url: String, productThumbModel: ProductThumbModel, token: String, requestListener: ParsedRequestListener<ProductThumb>) {
         AndroidNetworking.post(url)
                 .setContentType("application/json")
+                .addHeaders("Authorization", token)
                 .setPriority(Priority.HIGH)
                 .addBodyParameter(productThumbModel)
                 .build()
-                .getAsString(requestListener)
+                .getAsObject(ProductThumb::class.java, requestListener)
+    }
+
+    fun putBusinessGuideProduct(url: String, productThumbModel: ProductThumbEditModel, token: String, requestListener: ParsedRequestListener<ProductThumb>) {
+        AndroidNetworking.put(url + "/" + productThumbModel.id)
+                .setContentType("application/json")
+                .addHeaders("Authorization", token)
+                .setPriority(Priority.HIGH)
+                .addBodyParameter(productThumbModel)
+                .build()
+                .getAsObject(ProductThumb::class.java, requestListener)
     }
 
     /*Business Product ended*/

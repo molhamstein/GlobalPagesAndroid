@@ -4,7 +4,9 @@ import com.brainsocket.globalpages.data.entities.MediaEntity
 import com.brainsocket.globalpages.data.entities.PointEntity
 
 
-class BusinessGuideModel {
+open class BusinessGuideModel {
+
+
     var nameEn: String = ""
     var nameAr: String = ""
 
@@ -14,7 +16,7 @@ class BusinessGuideModel {
     var phone1: String = ""
     var phone2: String = ""
     var fax: String = ""
-//    var id: String = ""
+    //    var id: String = ""
 //    var userId: String = ""
     var ownerId: String = ""
     var categoryId: String = ""

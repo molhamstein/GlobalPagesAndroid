@@ -17,6 +17,7 @@ import com.google.android.gms.location.places.ui.PlacePicker
 import android.widget.Toast
 import com.brainsocket.globalpages.adapters.AttachmentRecyclerViewAdapter
 import com.brainsocket.globalpages.data.entities.*
+import com.brainsocket.globalpages.data.entitiesModel.BusinessGuideEditModel
 import com.brainsocket.globalpages.di.component.DaggerBusinessGuideAddComponent
 import com.brainsocket.globalpages.di.module.AttachmentModule
 import com.brainsocket.globalpages.di.module.BusinessGuidesModule
@@ -41,12 +42,16 @@ import javax.inject.Inject
 import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
 import com.github.florent37.viewanimator.ViewAnimator
+import com.google.gson.Gson
 import java.io.File
 
 class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, AttachmentContract.View
         , BusinessGuidesContract.View, OnCategorySelectListener, OnOpenDayListListener {
 
     companion object {
+
+        const val BusinessGuideAddActivity_Tag = "BusinessGuideAddActivity_Tag"
+
         var PLACE_PICKER_REQUEST = 1
         var PICTURE_REQUEST = 100
 
@@ -62,7 +67,6 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
     @BindView(R.id.businessSubCategories)
     lateinit var businessSubCategories: RecyclerView
 
-
     @BindView(R.id.resultContainer)
     lateinit var resultContainer: View
 
@@ -74,7 +78,6 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
 
     @BindView(R.id.stateLayout)
     lateinit var stateLayout: Stateslayoutview
-
 
     @Inject
     lateinit var presenter: TagsCollectionPresenter
@@ -99,9 +102,6 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
         presenter.attachView(this)
         presenter.subscribe()
         presenter.loadBusinessCategories(true)
-
-//        businessGuidesPresenter.attachView(this)
-//        businessGuidesPresenter.subscribe()
 
 
         attachmentPresenter.attachView(this)
@@ -136,7 +136,14 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
         ButterKnife.bind(this)
         initRecyclerView()
         initDI()
+
         businessGuideAddViewHolder = BusinessGuideAddViewHolder(findViewById(android.R.id.content))
+
+        val businessGuideString: String? = intent.extras?.getString(BusinessGuideAddActivity_Tag, null)
+        if (!businessGuideString.isNullOrEmpty()) {
+            val businessGuide: BusinessGuide = Gson().fromJson(businessGuideString, BusinessGuide::class.java)
+            businessGuideAddViewHolder.bindBusinessGuide(businessGuide)
+        }
 
         RxBus.listen(MessageEvent::class.java).subscribe {
             when (it.action) {
@@ -150,13 +157,9 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
 
         }
 
-
         mainStateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
             override fun onRefresh() {
-                if (businessGuideAddViewHolder.isValid()) {
-                    val token = UserRepository(baseContext).getUser()!!.token
-                    businessGuidesPresenter.addBusinessGuide(businessGuideAddViewHolder.getBusinessGuideModel(), token)
-                }
+                requestAction()
             }
 
             override fun onRequestPermission() {
@@ -174,6 +177,18 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
             }
         })
 
+    }
+
+    fun requestAction() {
+        if (businessGuideAddViewHolder.isValid()) {
+
+            val token = UserRepository(baseContext).getUser()!!.token
+            if (businessGuideAddViewHolder.isAdd())
+                businessGuidesPresenter.addBusinessGuide(businessGuideAddViewHolder.getBusinessGuideModel(), token)
+            else
+                businessGuidesPresenter.updateBusinessGuide(businessGuideAddViewHolder.getBusinessGuideModel()
+                        as BusinessGuideEditModel, token)
+        }
     }
 
 
@@ -224,10 +239,7 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
 
     @OnClick(R.id.businessAddBtn)
     fun onBusinessAddBtn(view: View) {
-        if (businessGuideAddViewHolder.isValid()) {
-            val token = UserRepository(baseContext).getUser()!!.token
-            businessGuidesPresenter.addBusinessGuide(businessGuideAddViewHolder.getBusinessGuideModel(), token)
-        }
+        requestAction()
         Log.v("View Clicked", view.id.toString())
     }
 
@@ -382,10 +394,17 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
         Log.v("", "")
     }
 
-    override fun onAddBusinessGuideSuccessfully() {
+    override fun onAddBusinessGuideSuccessfully(businessGuide: BusinessGuide) {
+        businessGuideAddViewHolder.bindBusinessGuide(businessGuide)
         animateResult()
         Log.v("", "")
     }
+
+    override fun onUpdateBusinessGuideSuccessfully(businessGuide: BusinessGuide) {
+        businessGuideAddViewHolder.bindBusinessGuide(businessGuide)
+        animateResult()
+    }
+
     /*Business guide presenter ended*/
 
     override fun onSelectCategory(category: Category) {

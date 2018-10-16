@@ -52,11 +52,18 @@
                     app:cardElevation="@dimen/lg_elevation"
                     app:cardUseCompatPadding="true">
 
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:padding="@dimen/md_padding">
+
+                        <TextView
+                            android:id="@+id/postId"
+                            android:visibility="gone"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp" />
 
                         <TextView
                             style="@style/AppTheme.TextAppearance"

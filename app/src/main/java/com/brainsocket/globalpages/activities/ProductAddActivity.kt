@@ -13,6 +13,9 @@ import butterknife.OnClick
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.api.ServerInfo
 import com.brainsocket.globalpages.data.entities.BusinessGuide
+import com.brainsocket.globalpages.data.entities.ProductThumb
+import com.brainsocket.globalpages.data.entitiesModel.ProductThumbEditModel
+import com.brainsocket.globalpages.data.entitiesModel.ProductThumbModel
 import com.brainsocket.globalpages.di.component.DaggerProductAddCommponent
 import com.brainsocket.globalpages.di.module.AttachmentModule
 import com.brainsocket.globalpages.di.module.BusinessGuideProductModule
@@ -22,6 +25,7 @@ import com.brainsocket.globalpages.di.ui.AttachmentPresenter
 import com.brainsocket.globalpages.di.ui.BusinessGuideProductContract
 import com.brainsocket.globalpages.di.ui.BusinessGuideProductPresenter
 import com.brainsocket.globalpages.dialogs.ProgressDialog
+import com.brainsocket.globalpages.repositories.UserRepository
 import com.brainsocket.globalpages.utilities.BindingUtils
 import com.brainsocket.globalpages.viewModel.BusinessGuideProductViewHolder
 import javax.inject.Inject
@@ -34,6 +38,9 @@ import java.io.File
 class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuideProductContract.View {
     companion object {
         const val ProductAddActivity_Tag = "ProductAddActivity_Tag"
+
+        const val ProductAddActivity_Product_Tag = "ProductAddActivity_Product_Tag"
+
         var PLACE_PICKER_REQUEST = 1
         var PICTURE_REQUEST = 100
 
@@ -74,12 +81,30 @@ class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuid
         val jSon = intent.getStringExtra(ProductAddActivity_Tag)
         businessGuide = Gson().fromJson(jSon, BusinessGuide::class.java)
 
-        val x = businessGuide.id
-        Log.v("x", x)
         initDI()
 
         businessGuideProductProductViewHolder = BusinessGuideProductViewHolder(findViewById(android.R.id.content))
 
+        val businessGuideString: String? = intent.extras?.getString(ProductAddActivity_Product_Tag, null)
+        if (!businessGuideString.isNullOrEmpty()) {
+            val productThumb: ProductThumb = Gson().fromJson(businessGuideString, ProductThumb::class.java)
+            businessGuideProductProductViewHolder.bind(productThumb)
+        }
+
+    }
+
+    private fun requestAction() {
+        if (businessGuideProductProductViewHolder.isValid()) {
+
+            val token = UserRepository(baseContext).getUser()!!.token
+            val url = ServerInfo.businessGuideUrl + "/" + businessGuide.id + "/myProducts"
+            if (businessGuideProductProductViewHolder.isAdd())
+                presenter.addProduct(url,
+                        businessGuideProductProductViewHolder.getProductThumbModel(), token)
+            else
+                presenter.updateProduct(url, businessGuideProductProductViewHolder.getProductThumbModel()
+                        as ProductThumbEditModel, token)
+        }
     }
 
     @OnClick(R.id.productCloseBtn)
@@ -95,9 +120,7 @@ class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuid
 
     @OnClick(R.id.productApplyBtn)
     fun onProductApplyButtonClick(view: View) {
-        if (businessGuideProductProductViewHolder.isValid())
-            presenter.addProduct(ServerInfo.businessGuideUrl + "/" + businessGuide.id + "/myProducts",
-                    businessGuideProductProductViewHolder.getProductThumbModel())
+        requestAction()
     }
 
 
@@ -134,14 +157,51 @@ class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuid
     }
 
 
-    /*Business Guide Product Presenter started*/
-    override fun onAddProductSuccessfully() {
+    /*Base presenter started*/
+    override fun showProgress(show: Boolean) {
+        if (show) {
+            val progressDialog: ProgressDialog? =
+                    supportFragmentManager.findFragmentByTag(ProgressDialog.ProgressDialog_Tag) as ProgressDialog?
+            progressDialog?.dialog?.dismiss()
+            val dialog = ProgressDialog.newInstance()
+            dialog.show(supportFragmentManager, ProgressDialog.ProgressDialog_Tag)
+        } else {
+            val progressDialog: ProgressDialog? =
+                    supportFragmentManager.findFragmentByTag(ProgressDialog.ProgressDialog_Tag) as ProgressDialog?
+            progressDialog?.dialog?.dismiss()
+        }
+        Log.v("", "")
+    }
 
+    override fun showLoadErrorMessage(visible: Boolean) {
+        if (visible) {
+            Toast.makeText(baseContext, R.string.checkInternetConnection, Toast.LENGTH_LONG).show()
+        } else {
+
+        }
+    }
+    /*Base presenter ended*/
+
+    /*Business Guide Product Presenter started*/
+    override fun onAddProductSuccessfully(productThumb: ProductThumb) {
+        businessGuideProductProductViewHolder.bind(productThumb)
+        Toast.makeText(baseContext, R.string.productAddedSuccessfully, Toast.LENGTH_LONG).show()
     }
 
     override fun onAddProductFail() {
-
+        Toast.makeText(baseContext, R.string.unexpectedErrorHappend, Toast.LENGTH_LONG).show()
     }
+
+    override fun onProductUpdateSuccessfully(productThumb: ProductThumb) {
+        businessGuideProductProductViewHolder.bind(productThumb)
+        finish()
+        Toast.makeText(baseContext, R.string.productUpdatedSuccessfully, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onProductUpdateFail() {
+        Toast.makeText(baseContext, R.string.unexpectedErrorHappend, Toast.LENGTH_LONG).show()
+    }
+
     /*Business Guide Product Presenter ended*/
 
 

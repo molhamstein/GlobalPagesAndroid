@@ -406,10 +406,6 @@ class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMa
 
     }
 
-
-    override fun onAddBusinessGuideSuccessfully() {
-
-    }
     /*Business Guides Presenter ended*/
 
     override fun onSelectSubCategory(subCategory: SubCategory) {

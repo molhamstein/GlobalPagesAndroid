@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:background="@color/transparent">
 
+
         <ImageView
             android:id="@+id/productCloseBtn"
             android:layout_width="wrap_content"
@@ -46,6 +47,12 @@
                 android:layout_marginBottom="@dimen/max_margin"
                 android:layout_marginTop="@dimen/lg_padding"
                 android:padding="@dimen/md_padding">
+
+                <TextView
+                    android:id="@+id/productId"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/productImageTag"

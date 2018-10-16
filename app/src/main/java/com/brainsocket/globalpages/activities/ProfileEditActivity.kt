@@ -18,6 +18,8 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import butterknife.Optional
 import com.brainsocket.globalpages.R
+import com.brainsocket.globalpages.data.entities.User
+import com.brainsocket.globalpages.data.mapping.UserProfileMapper
 import com.brainsocket.globalpages.di.component.DaggerProfileEditComponent
 import com.brainsocket.globalpages.di.module.AttachmentModule
 import com.brainsocket.globalpages.di.module.ProfileModule
@@ -27,19 +29,24 @@ import com.brainsocket.globalpages.di.ui.ProfileContract
 import com.brainsocket.globalpages.di.ui.ProfilePresenter
 import com.brainsocket.globalpages.dialogs.ProgressDialog
 import com.brainsocket.globalpages.normalization.DateNormalizer
+import com.brainsocket.globalpages.repositories.UserRepository
 import com.brainsocket.globalpages.viewModel.ProfileEditViewHolder
 import com.brainsocket.globalpages.views.CustomTabView
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
+import com.brainsocket.mainlibrary.Listeners.OnRefreshLayoutListener
 import com.brainsocket.mainlibrary.Views.Stateslayoutview
 import javax.inject.Inject
 
 import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
-import com.google.android.gms.location.places.ui.PlacePicker
 import java.io.File
 import java.util.*
 
 class ProfileEditActivity : BaseActivity(), ProfileContract.View, AttachmentContract.View {
+
+    companion object {
+        var PICTURE_REQUEST = 100
+    }
 
     lateinit var profileEditViewHolder: ProfileEditViewHolder
 
@@ -129,25 +136,36 @@ class ProfileEditActivity : BaseActivity(), ProfileContract.View, AttachmentCont
 
         profileEditViewHolder.bindView(profileEditViewHolder.getDefaultProfileModel())
 
+        stateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
+            override fun onRefresh() {
+                requestAction()
+            }
+
+            override fun onRequestPermission() {
+
+            }
+        })
+    }
+
+    private fun requestAction() {
+        if (profileEditViewHolder.isValid()) {
+            val user = UserRepository(this).getUser()!!
+            profilePresenter.updateProfile(profileEditViewHolder.getProfileModel(), user.token)
+        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
             when (requestCode) {
-                BusinessGuideAddActivity.PLACE_PICKER_REQUEST -> {
-                    val place = PlacePicker.getPlace(this, data)
-                    val toastMsg = String.format("Place: %s", place.name)
-                    Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show()
-                }
-                BusinessGuideAddActivity.PICTURE_REQUEST -> {
+
+                ProfileEditActivity.PICTURE_REQUEST -> {
                     val returnValue = data!!.getStringArrayListExtra(Pix.IMAGE_RESULTS)
                     attachmentPresenter.loadAttachmentFile(File(returnValue[0]))
                     Log.v("", "")
                 }
-                BusinessGuideAddActivity.MAP_BUTTON_REQUEST_CODE -> {
-                    Log.v("", "")
-                }
+
             }
         }
 
@@ -159,7 +177,7 @@ class ProfileEditActivity : BaseActivity(), ProfileContract.View, AttachmentCont
             PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS -> {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Pix.start(this@ProfileEditActivity, BusinessGuideAddActivity.PICTURE_REQUEST, 1)
+                    Pix.start(this@ProfileEditActivity, ProfileEditActivity.PICTURE_REQUEST, 1)
                 } else {
                     Toast.makeText(this@ProfileEditActivity, resources.getString(R.string.Approve_Permissions_To_Pick_Images), Toast.LENGTH_LONG).show()
                 }
@@ -176,16 +194,13 @@ class ProfileEditActivity : BaseActivity(), ProfileContract.View, AttachmentCont
 
     @OnClick(R.id.profileImage)
     fun onProfileImageClick(view: View) {
-        Pix.start(this@ProfileEditActivity, BusinessGuideAddActivity.PICTURE_REQUEST, 1)
+        Pix.start(this@ProfileEditActivity, ProfileEditActivity.PICTURE_REQUEST, 1)
         Log.v("View Clicked", view.id.toString())
     }
 
     @OnClick(R.id.updateProfileBtn)
     fun onUpdateProfileButtonClick(view: View) {
-        if (profileEditViewHolder.isValid()) {
-            profilePresenter.updateProfile(profileEditViewHolder.getProfileModel())
-        }
-
+        requestAction()
         Log.v("View Clicked", view.id.toString())
     }
 
@@ -219,6 +234,7 @@ class ProfileEditActivity : BaseActivity(), ProfileContract.View, AttachmentCont
 
     override fun onLoadAttachmentListSuccessfully(filePath: String) {
         profileEditViewHolder.setImageUrl(filePath)
+
     }
     /*Attachment presenter ended*/
 
@@ -245,7 +261,11 @@ class ProfileEditActivity : BaseActivity(), ProfileContract.View, AttachmentCont
             stateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
     }
 
-    override fun onUpdateProfileSuccessfully() {
+    override fun onUpdateProfileSuccessfully(user: User) {
+        val currentUser = UserRepository(this).getUser()!!
+        user.token = currentUser.token
+        UserRepository(this).addUser(user)
+        profileEditViewHolder.bindView(UserProfileMapper.userProfileTransform(user))
         Log.v("", "")
     }
     /*Profile presenter ended*/

@@ -20,7 +20,7 @@ class CategoryRecyclerViewAdapter constructor(var context: Context, var categori
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
-        var view = LayoutInflater.from(context).inflate(R.layout.category_item_layout, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.category_item_layout, parent, false)
         return CategoryViewHolder(view)
     }
 
@@ -29,18 +29,18 @@ class CategoryRecyclerViewAdapter constructor(var context: Context, var categori
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        var pojo = categoriesList[position]
-        holder.bind(pojo)
+        val poJo = categoriesList[position]
+        holder.bind(poJo)
         holder.itemView.findViewById<ToggleButton>(R.id.category_toggle)
                 .setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
                     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
                         if (isChecked) {
-                            setCheck(pojo)
-                            onCategorySelectListener?.onSelectCategory(pojo)
+                            setCheck(poJo)
+                            onCategorySelectListener?.onSelectCategory(poJo)
                         } else {
                             buttonView?.setOnCheckedChangeListener(null)
-                            pojo.isSelected = false
-                            buttonView?.isChecked = pojo.isSelected
+                            poJo.isSelected = false
+                            buttonView?.isChecked = poJo.isSelected
                             buttonView?.setOnCheckedChangeListener(this)
                         }
                     }

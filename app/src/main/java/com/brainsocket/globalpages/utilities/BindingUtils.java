@@ -24,14 +24,14 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class BindingUtils {
 
-    public static void loadBusinessGuideImage(ImageView view, BusinessGuide businessGuide) {
+    public static void loadPostSliderGuideImage(ImageView view, Post post) {
         try {
-            if (businessGuide.getLogo().isEmpty()) {
-                view.setVisibility(View.GONE);
+            if (post.getMedia().size() <= 0) {
+                view.setImageResource(R.drawable.ic_launcher_web);
                 return;
             }
             Context context = view.getContext();
-            String url = businessGuide.getLogo();
+            String url = post.getMedia().get(0).getUrl();
             if (!url.startsWith("http"))
                 url = "http://" + url;
             GlideApp.with(context).load(url)
@@ -129,6 +129,18 @@ public class BindingUtils {
             Context context = imageView.getContext();
             GlideApp.with(context).load(url).error(R.drawable.businesslogo)
                     .placeholder(R.drawable.ic_launcher_web).into(imageView);
+        } catch (Exception ex) {
+            Log.v("image load", ex.getMessage());
+        }
+    }
+
+    public static void loadProfileImage(ImageView imageView, String url) {
+        try {
+            if (!url.startsWith("http"))
+                url = "http://" + url;
+            Context context = imageView.getContext();
+            GlideApp.with(context).load(url).error(R.drawable.userprofile)
+                    .placeholder(R.drawable.userprofile).into(imageView);
         } catch (Exception ex) {
             Log.v("image load", ex.getMessage());
         }

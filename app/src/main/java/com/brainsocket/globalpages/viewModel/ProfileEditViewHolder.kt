@@ -6,6 +6,7 @@ import android.support.design.widget.TextInputLayout
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -15,6 +16,7 @@ import com.brainsocket.globalpages.data.mapping.UserProfileMapper
 import com.brainsocket.globalpages.enums.UserGender
 import com.brainsocket.globalpages.normalization.DateNormalizer
 import com.brainsocket.globalpages.repositories.UserRepository
+import com.brainsocket.globalpages.utilities.BindingUtils
 
 class ProfileEditViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -34,6 +36,9 @@ class ProfileEditViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     @BindView(R.id.imageProfileUrl)
     lateinit var imageProfileUrl: TextView
+
+    @BindView(R.id.profileImage)
+    lateinit var profileImage: ImageView
 
     @BindView(R.id.birthDateLayout)
     lateinit var birthDateLayout: TextInputLayout
@@ -78,17 +83,22 @@ class ProfileEditViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         birthDate.setText(profileModel.birthDate)
         phoneNumber.setText(profileModel.phoneNumber)
 
-        if ((genderTabLayout.selectedTabPosition == 0))
-            profileModel.gender = UserGender.male.gender
-        else
-            profileModel.gender = UserGender.female.gender
-
+        if(profileModel.gender!=null){
+            if(profileModel.gender!!.equals(UserGender.male.gender)){
+                genderTabLayout.getTabAt(0)!!.select()
+            }else{
+                genderTabLayout.getTabAt(1)!!.select()
+            }
+        }else{
+            genderTabLayout.getTabAt(0)!!.select()
+        }
         imageProfileUrl.text = profileModel.imageProfile
-
+        BindingUtils.loadProfileImage(profileImage,profileModel.imageProfile)
     }
 
     fun setImageUrl(url: String) {
         imageProfileUrl.text = url
+        BindingUtils.loadProfileImage(profileImage,url)
     }
 
 }

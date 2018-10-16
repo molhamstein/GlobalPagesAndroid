@@ -3,7 +3,6 @@ package com.brainsocket.globalpages.di.ui
 import android.content.Context
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.ParsedRequestListener
-import com.androidnetworking.interfaces.StringRequestListener
 import com.brainsocket.globalpages.api.ApiService
 import com.brainsocket.globalpages.api.ServerInfo
 import com.brainsocket.globalpages.data.entities.*
@@ -104,12 +103,13 @@ class ProfilePresenter constructor(val context: Context) : ProfileContract.Prese
 
     }
 
-    override fun updateProfile(profileModel: ProfileModel) {
+    override fun updateProfile(profileModel: ProfileModel, token: String) {
         view.showUpdateProfileProgress(true)
-        ApiService().updateUserProfile(ServerInfo.updateProfile, profileModel, object : StringRequestListener {
-            override fun onResponse(response: String?) {
+        ApiService().updateUserProfile(ServerInfo.updateProfile, profileModel, token, object : ParsedRequestListener<User> {
+            override fun onResponse(response: User?) {
+                view.showUpdateProfileProgress(false)
                 if (response != null) {
-                    view.onUpdateProfileSuccessfully()
+                    view.onUpdateProfileSuccessfully(response)
                 } else {
                     view.showUpdateProfileLoadErrorMessage(true)
                 }

@@ -1,6 +1,7 @@
 package com.brainsocket.globalpages.di.component
 
 import com.brainsocket.globalpages.activities.MainActivity
+import com.brainsocket.globalpages.di.module.PostModule
 import com.brainsocket.globalpages.di.module.VolumesModule
 import com.brainsocket.globalpages.di.scope.PerActivity
 import dagger.Component
@@ -10,7 +11,7 @@ import dagger.Component
  */
 
 @PerActivity
-@Component(modules = [VolumesModule::class])
-interface VolumesComponent {
+@Component(modules = [VolumesModule::class, PostModule::class])
+interface MainComponent {
     fun inject(mainActivity: MainActivity)
 }

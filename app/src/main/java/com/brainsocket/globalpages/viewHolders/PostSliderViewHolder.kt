@@ -8,26 +8,27 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.data.entities.BusinessGuide
+import com.brainsocket.globalpages.data.entities.Post
 import com.brainsocket.globalpages.utilities.BindingUtils
 
 /**
  * Created by Adhamkh on 2018-06-28.
  */
-class BusinessGuideSliderViewHolder : RecyclerView.ViewHolder {
+class PostSliderViewHolder : RecyclerView.ViewHolder {
 
-    @BindView(R.id.businessTitle)
-    lateinit var businessTitle: TextView
+    @BindView(R.id.postTitle)
+    lateinit var postTitle: TextView
 
-    @BindView(R.id.businessIcon)
-    lateinit var businessIcon: ImageView
+    @BindView(R.id.postIcon)
+    lateinit var postIcon: ImageView
 
     constructor(view: View) : super(view) {
         ButterKnife.bind(this, view)
     }
 
-    fun bind(businessGuide: BusinessGuide) {
-        businessTitle.text = businessGuide.getName()
-        BindingUtils.loadBusinessGuideImage(businessIcon, businessGuide)
+    fun bind(post: Post) {
+        postTitle.text = post.title
+        BindingUtils.loadPostSliderGuideImage(postIcon, post)
     }
 
 }

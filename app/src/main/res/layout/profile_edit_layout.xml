@@ -12,7 +12,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/milkyColor">
 
         <include
             android:id="@+id/toolbar"
@@ -38,7 +39,7 @@
                     android:id="@+id/profileImage"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:background="@drawable/userprofile"
+                    android:src="@drawable/userprofile"
                     app:elevation="8dp"
                     app:layout_anchorGravity="top|center|center_horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -98,17 +99,17 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <LinearLayout
-                    android:baselineAligned="false"
-                    app:layout_constraintTop_toBottomOf="@+id/phoneLayout"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/phoneLayout">
 
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/birthDateLayout"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         app:errorEnabled="false"
                         app:hintEnabled="false"
                         app:layout_constraintTop_toBottomOf="@+id/userNameLayout">
@@ -134,8 +135,8 @@
                     <android.support.design.widget.TabLayout
                         android:id="@+id/genderTabLayout"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         app:layout_constraintTop_toBottomOf="@+id/phone1Layout"
                         app:tabGravity="center"
                         app:tabIndicatorColor="@color/transparent"

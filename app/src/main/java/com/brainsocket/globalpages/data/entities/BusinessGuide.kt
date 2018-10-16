@@ -27,6 +27,11 @@ class BusinessGuide {
 
     var locationPoint: PointEntity = PointEntity()
 
+    var phone1: String = ""
+
+    var phone2: String = ""
+    var fax: String = ""
+
 //    var imageUrl: String = ""
 
 

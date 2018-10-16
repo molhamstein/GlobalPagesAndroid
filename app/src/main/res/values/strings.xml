@@ -130,6 +130,8 @@
     <string name="Thuday">Thuday</string>
     <string name="openDays">Open days</string>
     <string name="unexpectedErrorHappend">Unexpected error happend</string>
+    <string name="productAddedSuccessfully">Product added successfully</string>
+    <string name="productUpdatedSuccessfully">Product updated successfully</string>
 
 
 </resources>

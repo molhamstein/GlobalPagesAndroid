@@ -252,6 +252,7 @@
                             android:id="@+id/myCategoriesStateLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            app:RefreshbtnRes="@+id/retryBtn"
                             app:NoConnectionLayout="@layout/state_layout_noconnection"
                             app:NoDataLayout="@layout/state_layout_nodata"
                             app:WaitingLayout="@layout/state_layout_waiting"

@@ -11,14 +11,18 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.brainsocket.globalpages.R
-import com.brainsocket.globalpages.adapters.BusinessGuideSliderRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.PostRecyclerViewAdapter
+import com.brainsocket.globalpages.adapters.PostSliderRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.TagsRecyclerViewAdapter
+import com.brainsocket.globalpages.data.entities.Post
 import com.brainsocket.globalpages.data.entities.TagEntity
 import com.brainsocket.globalpages.data.entities.Volume
 import com.brainsocket.globalpages.data.filtration.FilterEntity
-import com.brainsocket.globalpages.di.component.DaggerVolumesComponent
+import com.brainsocket.globalpages.di.component.DaggerMainComponent
+import com.brainsocket.globalpages.di.module.PostModule
 import com.brainsocket.globalpages.di.module.VolumesModule
+import com.brainsocket.globalpages.di.ui.PostContract
+import com.brainsocket.globalpages.di.ui.PostPresenter
 import com.brainsocket.globalpages.di.ui.VolumesContract
 import com.brainsocket.globalpages.di.ui.VolumesPresenter
 import com.brainsocket.globalpages.listeners.OnTagSelectListener
@@ -34,22 +38,29 @@ import com.google.gson.Gson
 import javax.inject.Inject
 
 
-class MainActivity : BaseActivity(), VolumesContract.View, OnTagSelectListener {
+class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, OnTagSelectListener {
 
     @Inject
     lateinit var presenter: VolumesPresenter
 
+    @Inject
+    lateinit var postPresenter: PostPresenter
+
+
     @BindView(R.id.toolbar)
     lateinit var toolBar: Toolbar
 
-    @BindView(R.id.businessGuideRecyclerView)
-    lateinit var businessGuideRecyclerView: RecyclerView
+    @BindView(R.id.featuredPostsRecyclerView)
+    lateinit var featuredPostsRecyclerView: RecyclerView
 
     @BindView(R.id.volumesRecyclerView)
     lateinit var volumesRecyclerView: RecyclerView
 
     @BindView(R.id.stateLayout)
     lateinit var stateLayout: Stateslayoutview
+
+    @BindView(R.id.featuredPostStatesLayout)
+    lateinit var featuredPostStatesLayout: Stateslayoutview
 
     @BindView(R.id.selectedTagsView)
     lateinit var selectedTagsView: SelectedTagsView
@@ -67,20 +78,26 @@ class MainActivity : BaseActivity(), VolumesContract.View, OnTagSelectListener {
     }
 
     private fun initDI() {
-        val component = DaggerVolumesComponent.builder()
+        val component = DaggerMainComponent.builder()
                 .volumesModule(VolumesModule(this))
+                .postModule(PostModule(this))
                 .build()
         component.inject(this)
         presenter.attachView(this)
         presenter.subscribe()
         presenter.loadDefaultVolume()
+
+
+        postPresenter.attachView(this)
+        postPresenter.subscribe()
+        postPresenter.loadFeaturedPost()
     }
 
     private fun initBusinessGuideRecyclerView() {
         val snapHelper = LinearSnapHelper()
-        businessGuideRecyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        snapHelper.attachToRecyclerView(businessGuideRecyclerView)
-        businessGuideRecyclerView.adapter = BusinessGuideSliderRecyclerViewAdapter(this, DummyDataRepositories.getBusinessGuideList())
+        featuredPostsRecyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        snapHelper.attachToRecyclerView(featuredPostsRecyclerView)
+//        businessGuideRecyclerView.adapter = BusinessGuideSliderRecyclerViewAdapter(this, DummyDataRepositories.getBusinessGuideList())
     }
 
     private fun initVolumesRecyclerView() {
@@ -110,6 +127,16 @@ class MainActivity : BaseActivity(), VolumesContract.View, OnTagSelectListener {
         stateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
             override fun onRefresh() {
                 presenter.loadDefaultVolume()
+            }
+
+            override fun onRequestPermission() {
+
+            }
+        })
+
+        featuredPostStatesLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
+            override fun onRefresh() {
+                postPresenter.loadFeaturedPost()
             }
 
             override fun onRequestPermission() {
@@ -237,5 +264,37 @@ class MainActivity : BaseActivity(), VolumesContract.View, OnTagSelectListener {
         Toast.makeText(this, R.string.noMoreVolumeFound, Toast.LENGTH_LONG).show()
     }
     /*Presenter ended*/
+
+
+    /*Post Presenter started*/
+    override fun showFeaturedPostProgress(show: Boolean) {
+        if (show) {
+            featuredPostStatesLayout.FlipLayout(LayoutStatesEnum.Waitinglayout)
+        } else {
+            featuredPostStatesLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+        }
+    }
+
+    override fun showFeaturedPostLoadErrorMessage(visible: Boolean) {
+        if (visible) {
+            featuredPostStatesLayout.FlipLayout(LayoutStatesEnum.Noconnectionlayout)
+        } else {
+            featuredPostStatesLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+        }
+    }
+
+    override fun showFeaturedPostEmptyView(visible: Boolean) {
+        if (visible) {
+            featuredPostStatesLayout.FlipLayout(LayoutStatesEnum.Nodatalayout)
+        } else {
+            featuredPostStatesLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+        }
+    }
+
+    override fun onFeaturedPostLoadedSuccessfully(postList: MutableList<Post>) {
+        featuredPostsRecyclerView.adapter = PostSliderRecyclerViewAdapter(context = baseContext, postList = postList)
+    }
+    /*Post Presenter ended*/
+
 
 }

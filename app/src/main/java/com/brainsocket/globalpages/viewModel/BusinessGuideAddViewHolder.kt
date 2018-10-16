@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.brainsocket.globalpages.App
@@ -11,15 +12,17 @@ import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.AttachmentRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.CategoryRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.SubCategoryRecyclerViewAdapter
-import com.brainsocket.globalpages.data.entities.MediaEntity
-import com.brainsocket.globalpages.data.entities.PointEntity
-import com.brainsocket.globalpages.data.entities.SubCategory
+import com.brainsocket.globalpages.data.entities.*
+import com.brainsocket.globalpages.data.entitiesModel.BusinessGuideEditModel
 import com.brainsocket.globalpages.data.entitiesModel.BusinessGuideModel
 import com.brainsocket.globalpages.data.validations.ValidationHelper
 import com.brainsocket.globalpages.repositories.UserRepository
 
 
 class BusinessGuideAddViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) {
+
+    @BindView(R.id.businessId)
+    lateinit var businessId: TextView
 
     @BindView(R.id.businessName)
     lateinit var businessName: EditText
@@ -73,8 +76,14 @@ class BusinessGuideAddViewHolder constructor(view: View) : RecyclerView.ViewHold
         return true
     }
 
+    fun isAdd(): Boolean = businessId.text.isNullOrEmpty()
+
     fun getBusinessGuideModel(): BusinessGuideModel {
-        val businessGuideModel = BusinessGuideModel()
+        val businessGuideModel = if (businessId.text.isNullOrEmpty()) BusinessGuideModel() else BusinessGuideEditModel()
+
+        if (businessGuideModel is BusinessGuideEditModel)
+            businessGuideModel.id = businessId.text.toString()
+
         businessGuideModel.nameAr = businessName.text.toString()
         businessGuideModel.nameEn = businessName.text.toString()
 
@@ -109,6 +118,39 @@ class BusinessGuideAddViewHolder constructor(view: View) : RecyclerView.ViewHold
             businessGuideModel.openingDaysEnabled = true
         businessGuideModel.ownerId = UserRepository(App.app).getUser()!!.id!!
         return businessGuideModel
+    }
+
+    fun bindBusinessGuide(businessGuide: BusinessGuide) {
+        businessId.text = businessGuide.id
+
+        businessName.setText(businessGuide.nameEn)
+
+        businessImages.adapter = AttachmentRecyclerViewAdapter(context, businessGuide.covers.map { Attachment(it.url) }.toMutableList())
+
+        phoneNumber.setText(businessGuide.phone1)
+        phoneNumber2.setText(businessGuide.phone2)
+
+        if (businessTypes.adapter != null) {
+            (businessTypes.adapter as CategoryRecyclerViewAdapter).setCheck(businessGuide.category)
+            val cat = (businessTypes.adapter as CategoryRecyclerViewAdapter).getCurrentCategory()
+            if (cat != null)
+                businessSubCategories.adapter = SubCategoryRecyclerViewAdapter(context, cat.subCategoriesList)
+        }
+
+        if (businessSubCategories.adapter != null) {
+            (businessSubCategories.adapter as SubCategoryRecyclerViewAdapter).setCheck(businessGuide.subCategory)
+        }
+
+        val resultPoint = businessGuide.locationPoint.lat.toString() + ";" + businessGuide.locationPoint.lng.toString()
+        locationEditText.setText(resultPoint)
+
+
+        description.setText(businessGuide.description)
+        fax.setText(businessGuide.fax)
+        openDayList = businessGuide.openingDays
+        if (businessGuide.openingDays.size > 0)
+            businessGuide.openingDaysEnabled = true
+//        businessGuideModel.ownerId = UserRepository(App.app).getUser()!!.id!!
     }
 
 

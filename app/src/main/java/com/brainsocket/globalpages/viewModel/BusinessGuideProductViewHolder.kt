@@ -10,14 +10,19 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.data.entities.ProductThumb
+import com.brainsocket.globalpages.data.entitiesModel.ProductThumbEditModel
 import com.brainsocket.globalpages.data.entitiesModel.ProductThumbModel
 import com.brainsocket.globalpages.data.validations.ValidationHelper
 import com.brainsocket.globalpages.utilities.BindingUtils
+import org.w3c.dom.Text
 
 /**
  * Created by Adhamkh on 2018-10-07.
  */
 class BusinessGuideProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+    @BindView(R.id.productId)
+    lateinit var productId: TextView
 
     @BindView(R.id.productImageTag)
     lateinit var productImageTag: TextView
@@ -48,8 +53,15 @@ class BusinessGuideProductViewHolder(view: View) : RecyclerView.ViewHolder(view)
         return true
     }
 
+    fun isAdd(): Boolean = productId.text.isNullOrEmpty()
+
     fun getProductThumbModel(): ProductThumbModel {
-        val productThumbModel = ProductThumbModel()
+
+        val productThumbModel = if (productId.text.isNullOrEmpty()) ProductThumbModel() else ProductThumbEditModel()
+
+        if (productThumbModel is ProductThumbEditModel)
+            productThumbModel.id = productId.text.toString()
+
         productThumbModel.name = productTitle.text.toString()
         productThumbModel.description = productDescription.text.toString()
         productThumbModel.image = productImageTag.text.toString() // if (productImage.tag != null) productImage.tag.toString() else ""
@@ -58,6 +70,8 @@ class BusinessGuideProductViewHolder(view: View) : RecyclerView.ViewHolder(view)
     }
 
     fun bind(productThumb: ProductThumb) {
+        productId.text = productThumb.id
+
         BindingUtils.loadProductImage(productImage, productThumb)
         productImageTag.text = productThumb.image
         productTitle.setText(productThumb.name)

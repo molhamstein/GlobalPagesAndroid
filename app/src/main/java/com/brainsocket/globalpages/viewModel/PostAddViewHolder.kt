@@ -3,16 +3,15 @@ package com.brainsocket.globalpages.viewModel
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.EditText
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.brainsocket.globalpages.App
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.*
-import com.brainsocket.globalpages.data.entities.City
-import com.brainsocket.globalpages.data.entities.LocationEntity
-import com.brainsocket.globalpages.data.entities.MediaEntity
-import com.brainsocket.globalpages.data.entities.SubCategory
+import com.brainsocket.globalpages.data.entities.*
+import com.brainsocket.globalpages.data.entitiesModel.PostEditModel
 import com.brainsocket.globalpages.data.entitiesModel.PostModel
 import com.brainsocket.globalpages.data.validations.ValidationHelper
 import com.brainsocket.globalpages.repositories.UserRepository
@@ -24,11 +23,14 @@ class PostAddViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) 
 
     var context: Context
 
+    @BindView(R.id.postId)
+    lateinit var postId: TextView
+
     @BindView(R.id.adTitle)
-    lateinit var adTitle: TextView
+    lateinit var adTitle: EditText
 
     @BindView(R.id.adDescription)
-    lateinit var adDescription: TextView
+    lateinit var adDescription: EditText
 
     @BindView(R.id.adImages)
     lateinit var adImages: RecyclerView
@@ -67,8 +69,13 @@ class PostAddViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) 
         return true
     }
 
+    fun isAdd(): Boolean = postId.text.isNullOrEmpty()
+
     fun getPostModel(): PostModel {
-        val postModel = PostModel()
+        val postModel = if (postId.text.isNullOrEmpty()) PostModel() else PostEditModel()
+        if (postModel is PostEditModel)
+            postModel.id = postId.text.toString()
+
         postModel.title = adTitle.text.toString()
 //        postModel.name = postModel.title
         postModel.description = adDescription.text.toString()
@@ -103,6 +110,42 @@ class PostAddViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) 
 
         postModel.ownerId = UserRepository(App.app).getUser()!!.id!!
         return postModel
+    }
+
+    fun bindPost(post: Post) {
+        postId.text = post.id
+
+
+        adTitle.setText(post.title)
+        adDescription.setText(post.description)
+
+        adImages.adapter = AttachmentRecyclerViewAdapter(context, post.media.map { Attachment(it.url) }.toMutableList())
+
+
+        if (adCategories.adapter != null) {
+            (adCategories.adapter as CategoryRecyclerViewAdapter).setCheck(post.category)
+            val cat = (adCategories.adapter as CategoryRecyclerViewAdapter).getCurrentCategory()
+            if (cat != null)
+                adSubCategories.adapter = SubCategoryRecyclerViewAdapter(context, cat.subCategoriesList)
+        }
+
+        if (adSubCategories.adapter != null) {
+            (adSubCategories.adapter as SubCategoryRecyclerViewAdapter).setCheck(post.subCategory)
+        }
+
+
+        if (adCities.adapter != null) {
+            (adCities.adapter as CityRecyclerViewAdapter).setCheck(post.city)
+            val city = (adCities.adapter as CityRecyclerViewAdapter).getCurrentCity()
+            if (city != null)
+                adLocations.adapter = LocationEntityRecyclerViewAdapter(context, city.locations)
+        }
+
+        if (adLocations.adapter != null) {
+            (adLocations.adapter as LocationEntityRecyclerViewAdapter).setCheck(post.location)
+        }
+
+//        businessGuideModel.ownerId = UserRepository(App.app).getUser()!!.id!!
     }
 
 
