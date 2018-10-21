@@ -72,13 +72,13 @@ class ApiService {
         val filtration: MutableMap<String, Pair<String, String>> = HashMap()//[ownerId]
 //        filtration["where"] = Pair("id", profile.id!!)
 
-//        val criteria = Gson().toJson(filtration)
-        AndroidNetworking.put(url + profile.id)
+        val jSon = Gson().toJson(profile)
+        AndroidNetworking.put(url)
                 .setContentType("application/json")
                 .addHeaders("Authorization", token)
 //                .addQueryParameter("filter", criteria)
                 .setPriority(Priority.HIGH)
-                .addBodyParameter(profile)
+                .addStringBody(jSon)
                 .build()
                 .getAsObject(User::class.java, requestListener)
     }

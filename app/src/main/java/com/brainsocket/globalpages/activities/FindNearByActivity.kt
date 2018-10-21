@@ -46,6 +46,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import java.util.*
 import javax.inject.Inject
 
 
@@ -380,12 +381,14 @@ class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMa
     }
 
     override fun showBusinessGuideEmptyView(visible: Boolean) {
+        mMap.clear()
+        businessGuideRecyclerView.adapter = BusinessGuideRecyclerViewAdapter(this, Vector())
         Toast.makeText(baseContext, R.string.NoDataFound, Toast.LENGTH_LONG).show()
     }
 
     override fun onLoadBusinessGuideListSuccessfully(businessGuideList: MutableList<BusinessGuide>) {
         businessGuideRecyclerView.adapter = BusinessGuideRecyclerViewAdapter(this, businessGuideList)
-
+        mMap.clear()
         businessGuideList.forEach {
             addMarker(it, it.getName(), it.locationPoint)
         }

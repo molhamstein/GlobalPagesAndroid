@@ -6,11 +6,8 @@ import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.brainsocket.globalpages.activities.*
-import com.brainsocket.globalpages.data.entities.Post
-import com.brainsocket.globalpages.data.entities.TagEntity
+import com.brainsocket.globalpages.data.entities.*
 import com.google.gson.Gson
-import com.brainsocket.globalpages.data.entities.BusinessGuide
-import com.brainsocket.globalpages.data.entities.ProductThumb
 
 
 class IntentHelper {
@@ -180,6 +177,14 @@ class IntentHelper {
             val intent = Intent(context, PostAddActivity::class.java)
             val jSon = Gson().toJson(post)
             intent.putExtra(PostAddActivity.PostAddActivity_Tag, jSon)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
+
+        fun startLocationViewerActivity(context: Context,pointEntity: PointEntity){
+            val intent = Intent(context, LocationViewerActivity::class.java)
+            val jSon = Gson().toJson(pointEntity)
+            intent.putExtra(LocationViewerActivity.LocationViewerActivity_Point_Tag, jSon)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }

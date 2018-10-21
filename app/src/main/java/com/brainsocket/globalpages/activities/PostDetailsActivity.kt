@@ -88,9 +88,13 @@ class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val id = UserRepository(this).getUser()!!.id
-        if (post.ownerId == id)
-            menuInflater.inflate(R.menu.post_menu, menu)
+        val user = UserRepository(this).getUser()
+        if (user != null) {
+            val id = user.id
+            if (post.ownerId == id)
+                menuInflater.inflate(R.menu.post_menu, menu)
+        }
+
         return true
     }
 

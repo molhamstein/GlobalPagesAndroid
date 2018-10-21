@@ -18,7 +18,7 @@ class ServerInfo {
         /*Registration ended*/
 
         /*Profile started*/
-        var updateProfile = baseUrl + "users/"//"users/update"
+        var updateProfile = baseUrl + "users"//"users/update"
 
         /*Profile ended*/
 

@@ -65,7 +65,7 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
 
     @OnClick(R.id.locationBtn)
     fun onLocationButtonClick(view: View) {
-
+        IntentHelper.startLocationViewerActivity(this@BusinessGuideDetailsActivity, businessGuide.locationPoint)
     }
 
     @OnClick(R.id.ProductAddLink)
@@ -79,9 +79,12 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val id = UserRepository(this).getUser()!!.id
-        if (businessGuide.ownerId == id)
-            menuInflater.inflate(R.menu.menu_business_details, menu)
+        val user = UserRepository(this).getUser()
+        if (user != null) {
+            val id = user.id
+            if (businessGuide.ownerId == id)
+                menuInflater.inflate(R.menu.menu_business_details, menu)
+        }
         return true
     }
 

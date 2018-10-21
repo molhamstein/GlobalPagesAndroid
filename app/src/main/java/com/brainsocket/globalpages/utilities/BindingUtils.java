@@ -1,6 +1,8 @@
 package com.brainsocket.globalpages.utilities;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,6 +15,10 @@ import com.brainsocket.globalpages.data.entities.BusinessGuide;
 import com.brainsocket.globalpages.data.entities.MediaEntity;
 import com.brainsocket.globalpages.data.entities.Post;
 import com.brainsocket.globalpages.data.entities.ProductThumb;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import java.util.Random;
 
@@ -24,7 +30,7 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class BindingUtils {
 
-    public static void loadPostSliderGuideImage(ImageView view, Post post) {
+    public static void loadPostSliderGuideImage(final ImageView view, Post post) {
         try {
             if (post.getMedia().size() <= 0) {
                 view.setImageResource(R.drawable.ic_launcher_web);
@@ -35,10 +41,21 @@ public class BindingUtils {
             if (!url.startsWith("http"))
                 url = "http://" + url;
             GlideApp.with(context).load(url)
-                    .transform(new RoundedCornersTransformation(24, 0))
-                    .error(R.drawable.ic_launcher_web)
-                    .placeholder(R.drawable.ic_launcher_web)
-                    .into(view);
+                    .transform(new RoundedCornersTransformation(24, 4))
+//                    .error(R.drawable.ic_launcher_web)
+//                    .placeholder(R.drawable.ic_launcher_web)
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            view.setImageDrawable(resource);
+                            return false;
+                        }
+                    }).into(view);
         } catch (Exception ex) {
             Log.v("image load", ex.getMessage());
         }

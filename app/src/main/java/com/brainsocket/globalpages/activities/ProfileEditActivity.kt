@@ -150,6 +150,7 @@ class ProfileEditActivity : BaseActivity(), ProfileContract.View, AttachmentCont
     private fun requestAction() {
         if (profileEditViewHolder.isValid()) {
             val user = UserRepository(this).getUser()!!
+            user.status = "activated"
             profilePresenter.updateProfile(profileEditViewHolder.getProfileModel(), user.token)
         }
 

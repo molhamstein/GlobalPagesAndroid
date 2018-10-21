@@ -48,7 +48,8 @@
                 android:adjustViewBounds="true"
                 android:background="@drawable/transparent_radius_bg"
                 android:padding="@dimen/zero"
-                android:scaleType="center" />
+                android:scaleType="center"
+                android:src="@drawable/ic_launcher_web" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/postTitle"

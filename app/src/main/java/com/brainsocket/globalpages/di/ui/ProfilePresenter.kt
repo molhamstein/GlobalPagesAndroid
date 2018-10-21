@@ -105,7 +105,7 @@ class ProfilePresenter constructor(val context: Context) : ProfileContract.Prese
 
     override fun updateProfile(profileModel: ProfileModel, token: String) {
         view.showUpdateProfileProgress(true)
-        ApiService().updateUserProfile(ServerInfo.updateProfile, profileModel, token, object : ParsedRequestListener<User> {
+        ApiService().updateUserProfile(ServerInfo.updateProfile + "/" + profileModel.id, profileModel, token, object : ParsedRequestListener<User> {
             override fun onResponse(response: User?) {
                 view.showUpdateProfileProgress(false)
                 if (response != null) {

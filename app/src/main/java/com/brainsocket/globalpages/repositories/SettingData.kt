@@ -8,7 +8,7 @@ import com.brainsocket.globalpages.enums.DaysEnum
  */
 class SettingData {
     companion object {
-        const val pharmacyCategoryId = "5b825cda4892087d4b0bac95"
+        const val pharmacyCategoryId = "5bc1ccd2f927cf701f3b5554"
         const val EpsDistance = 0.5
 
         val dayList = mutableListOf<OpenDayModel>().apply {
