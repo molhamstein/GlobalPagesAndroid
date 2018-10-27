@@ -17,6 +17,8 @@ class VolumesContract {
     interface View : BaseContract.View {
         fun loadedData(volume: Volume)
         fun noMoreData()
+        fun disableNext()
+        fun enableNext()
     }
 
 }

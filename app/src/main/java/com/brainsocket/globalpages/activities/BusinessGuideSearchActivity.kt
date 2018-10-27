@@ -69,6 +69,9 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
     @BindView(R.id.businessGuideRecyclerView)
     lateinit var businessGuideRecyclerView: RecyclerView
 
+    @BindView(R.id.businessGuideRecyclerViewContainer)
+    lateinit var businessGuideRecyclerViewContainer: View
+
     @BindView(R.id.toolbar)
     lateinit var toolbar: Toolbar
 
@@ -277,8 +280,13 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
     fun onViewTypeSelected(button: CompoundButton, checked: Boolean) {
         if (checked) {
             businessGuideRecyclerView.visibility = View.VISIBLE
+
+            businessGuideRecyclerViewContainer.visibility = View.VISIBLE
+//            businessGuideRecyclerViewContainer.alpha=0.3f
         } else {
             businessGuideRecyclerView.visibility = View.GONE
+
+            businessGuideRecyclerViewContainer.visibility = View.GONE
         }
         Log.v("View Clicked", button.id.toString())
     }

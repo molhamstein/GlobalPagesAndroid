@@ -100,6 +100,7 @@
                         android:id="@+id/filter_searchKeyword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/lg_margin"
                         android:drawableEnd="@drawable/ic_search_24dp"
                         android:drawableRight="@drawable/ic_search_24dp"
                         android:hint="@string/Keyword"
@@ -132,8 +133,8 @@
                         android:id="@+id/subCategoryContainer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <TextView
                             style="@style/AppTheme.TextAppearance"
@@ -181,11 +182,11 @@
                         android:background="@color/black" />
 
                     <LinearLayout
-                        android:visibility="gone"
                         android:id="@+id/areaContainer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <TextView
                             style="@style/AppTheme.TextAppearance"

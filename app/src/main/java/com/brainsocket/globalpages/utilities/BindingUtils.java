@@ -64,7 +64,7 @@ public class BindingUtils {
     public static void loadBusinessGuideImage2(ImageView view, BusinessGuide businessGuide) {
         try {
             if (businessGuide.getCovers().size() <= 0) {
-                view.setVisibility(View.GONE);
+                view.setVisibility(View.INVISIBLE);
                 return;
             } else {
                 view.setVisibility(View.VISIBLE);

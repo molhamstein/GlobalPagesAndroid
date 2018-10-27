@@ -36,7 +36,7 @@ class VolumesPresenter constructor(val context: Context) : VolumesContract.Prese
         subscriptions.clear()
     }
 
-    fun loadData(criteria: MutableMap<String, String>) {
+    private fun loadData(criteria: MutableMap<String, String>) {
         ApiService().getVolumes(ServerInfo.volumeUrl, criteria, object : ParsedRequestListener<MutableList<Volume>> {
             override fun onResponse(response: MutableList<Volume>?) {
                 if ((response != null)) {
@@ -59,8 +59,9 @@ class VolumesPresenter constructor(val context: Context) : VolumesContract.Prese
 
     override fun loadDefaultVolume() {
         view.showProgress(true)
+        view.disableNext()
 
-        var criteria: MutableMap<String, String> = HashMap()
+        val criteria: MutableMap<String, String> = HashMap()
         criteria.apply {
             put("limit", "1")
             put("order", "id DESC")
@@ -72,11 +73,17 @@ class VolumesPresenter constructor(val context: Context) : VolumesContract.Prese
     override fun loadNextVolume() {
         view.showProgress(true)
         Index--
+
+        if (Index <= 0)
+            view.disableNext()
+        else
+            view.enableNext()
+
         if (Index < 0) {
             Index = 0
             view.noMoreData()
         }
-        var criteria: MutableMap<String, String> = HashMap()
+        val criteria: MutableMap<String, String> = HashMap()
         criteria.apply {
             put("limit", "1")
             put("order", "id DESC")
@@ -87,11 +94,12 @@ class VolumesPresenter constructor(val context: Context) : VolumesContract.Prese
 
     override fun loadPreviousVolume() {
         view.showProgress(true)
+        view.enableNext()
 
         Index++
         Index = Math.max(Index, 0)
 
-        var criteria: MutableMap<String, String> = HashMap()
+        val criteria: MutableMap<String, String> = HashMap()
         criteria.apply {
             put("limit", "1")
             put("order", "id DESC")

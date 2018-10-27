@@ -115,14 +115,14 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
     }
 
     @OnClick(R.id.filterBtn)
-    fun OnFilterButtonClick(view: View) {
+    fun onFilterButtonClick(view: View) {
 
-        var intent = Intent()
-        var filterEntity = FilterEntity()
+        val intent = Intent()
+        val filterEntity = FilterEntity()
         filterEntity.query = filter_searchKeyword.text.toString()
 
         if (filterCategories.adapter != null) {
-            var category = (filterCategories.adapter as CategoryRecyclerViewAdapter).getCurrentCategory()
+            val category = (filterCategories.adapter as CategoryRecyclerViewAdapter).getCurrentCategory()
             if (category != null)
                 filterEntity.postCategory = category as PostCategory
         }
@@ -142,18 +142,18 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
 
     override fun onSelectCategory(category: Category) {
         subCategoryContainer.visibility = View.GONE
-        Handler().postDelayed({
-            subCategoryContainer.visibility = View.VISIBLE
-            filterSubCategories.adapter = SubCategoryRecyclerViewAdapter(this, category.subCategoriesList)
-        }, 500)
+        //   Handler().postDelayed({
+        subCategoryContainer.visibility = View.VISIBLE
+        filterSubCategories.adapter = SubCategoryRecyclerViewAdapter(this, category.subCategoriesList)
+        // }, 500)
     }
 
     override fun onSelectCity(city: City) {
         areaContainer.visibility = View.GONE
-        Handler().postDelayed({
-            areaContainer.visibility = View.VISIBLE
-            filterLocations.adapter = LocationEntityRecyclerViewAdapter(this, city.locations)
-        }, 500)
+        //  Handler().postDelayed({
+        areaContainer.visibility = View.VISIBLE
+        filterLocations.adapter = LocationEntityRecyclerViewAdapter(this, city.locations)
+        //}, 500)
     }
 
     /*Post Categories started*/

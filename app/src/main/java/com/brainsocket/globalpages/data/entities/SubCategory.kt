@@ -12,7 +12,7 @@ class SubCategory : Category {
         this.id = id
     }
 
-    var parentCategoryId: String = ""
+
 
     override var subCategoriesList: MutableList<SubCategory>
         get() = mutableListOf()

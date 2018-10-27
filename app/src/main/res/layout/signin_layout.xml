@@ -45,6 +45,7 @@
                 style="@style/headerTextView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_margin="@dimen/sm_margin"
                 android:maxLines="3"
                 android:padding="@dimen/lg_padding"
                 android:text="@string/signInHeader"
@@ -111,6 +112,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="7"
+                android:layout_marginTop="@dimen/lg_margin"
                 app:layout_constraintTop_toBottomOf="@+id/forgotTextViewLink">
 
                 <View
@@ -153,6 +155,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/registerContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"

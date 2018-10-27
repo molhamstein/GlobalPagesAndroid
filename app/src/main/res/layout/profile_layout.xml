@@ -7,7 +7,7 @@
     android:background="@color/colorPrimary"
     android:orientation="vertical">
 
-    <include
+     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar_profile_layout"
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
                 android:id="@+id/flexible.example.collapsing"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:elevation="0dp"
+                app:elevation="0dp"
                 app:contentScrim="@color/colorPrimary"
                 app:expandedTitleTextAppearance="@style/CollapsingTextAppearance.Inverse"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
@@ -333,6 +333,21 @@
                             android:textStyle="bold"
                             app:layout_constraintTop_toBottomOf="@+id/myPostsStateLayout" />
 
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/BusinessAddLink"
+                            style="@style/AppTheme.TextAppearance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            android:padding="@dimen/md_margin"
+                            android:text="@string/Add"
+                            android:textColor="@color/profileHeaderColor"
+                            android:textStyle="bold"
+                            app:layout_constraintTop_toBottomOf="@+id/myPostsStateLayout" />
+
+
                         <View
                             android:id="@+id/BusinessSperator"
                             android:layout_width="0dp"
@@ -373,8 +388,8 @@
             android:id="@+id/flexible.example.fab"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:background="@drawable/userprofile"
-            android:elevation="8dp"
+            android:src="@drawable/userprofile"
+            app:elevation="8dp"
             app:layout_anchor="@id/flexible.example.cardview"
             app:layout_anchorGravity="top|center|center_horizontal" />
 

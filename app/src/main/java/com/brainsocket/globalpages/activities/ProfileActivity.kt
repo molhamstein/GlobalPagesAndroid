@@ -14,6 +14,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -32,6 +33,7 @@ import com.brainsocket.globalpages.di.ui.ProfileContract
 import com.brainsocket.globalpages.di.ui.ProfilePresenter
 import com.brainsocket.globalpages.enums.UserGender
 import com.brainsocket.globalpages.repositories.UserRepository
+import com.brainsocket.globalpages.utilities.BindingUtils
 import com.brainsocket.globalpages.utilities.IntentHelper
 import com.brainsocket.globalpages.views.CustomTabView
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
@@ -56,7 +58,7 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     lateinit var myCategoriesStateLayout: Stateslayoutview
 
     @BindView(R.id.flexible_example_fab)
-    lateinit var mFab: View
+    lateinit var mFab: ImageView
 
     @BindView(R.id.flexible_example_appbar)
     lateinit var appbar: AppBarLayout
@@ -98,6 +100,7 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
 
     @BindView(R.id.AdsAddLink)
     lateinit var AdsAddLink: TextView
+
 
     /*User information ended*/
 
@@ -179,6 +182,7 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
         } else {
             genderTabLayout.getTabAt(1)!!.select()
         }
+        BindingUtils.loadProfileImage(mFab, user.imageProfile)
 
     }
 
@@ -220,6 +224,18 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     @OnClick(R.id.AdsAddLink)
     fun onAdsAddLinkClick(view: View) {
         IntentHelper.startPostAddActivity(context = baseContext)
+        Log.v("Clicked", view.id.toString())
+    }
+
+    @OnClick(R.id.BusinessAddLink)
+    fun onBusinessAddLink(view: View) {
+        IntentHelper.startBusinessAddActivity(context = baseContext)
+        Log.v("Clicked", view.id.toString())
+    }
+
+    @OnClick(R.id.settingBtn)
+    fun onBusinessSettingsBtnClick(view: View) {
+        IntentHelper.startSettingsActivity(context = baseContext)
         Log.v("Clicked", view.id.toString())
     }
 

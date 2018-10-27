@@ -259,6 +259,7 @@
                     android:layout_alignParentRight="true"
                     android:contentDescription="@string/contentDescription"
                     android:padding="@dimen/xsm_padding"
+                    android:clickable="false"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_next_volume_24dp" />
 
@@ -302,16 +303,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/addBusinessBtn"
-                        android:layout_toStartOf="@+id/addBusinessBtn"
+                        android:layout_toLeftOf="@+id/addPostBtn"
+                        android:layout_toStartOf="@+id/addPostBtn"
                         android:contentDescription="@string/contentDescription"
                         android:src="@drawable/places_ic_search" />
 
                     <ImageView
-                        android:id="@+id/addBusinessBtn"
+                        android:id="@+id/addPostBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
+                        android:paddingLeft="@dimen/sm_padding"
+                        android:paddingStart="@dimen/sm_padding"
+                        android:paddingEnd="@dimen/sm_padding"
+                        android:paddingRight="@dimen/sm_padding"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:contentDescription="@string/contentDescription"
@@ -320,7 +325,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/sperator"
-                        android:layout_below="@id/addBusinessBtn"
+                        android:layout_below="@id/addPostBtn"
                         android:background="@color/colorPrimary"
                         android:visibility="invisible" />
 

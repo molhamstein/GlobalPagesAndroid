@@ -267,6 +267,7 @@ class ProfileEditActivity : BaseActivity(), ProfileContract.View, AttachmentCont
         user.token = currentUser.token
         UserRepository(this).addUser(user)
         profileEditViewHolder.bindView(UserProfileMapper.userProfileTransform(user))
+        Toast.makeText(baseContext,R.string.profileUpdatedSuccessfully,Toast.LENGTH_LONG)
         Log.v("", "")
     }
     /*Profile presenter ended*/

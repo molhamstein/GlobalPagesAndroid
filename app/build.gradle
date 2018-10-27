@@ -99,6 +99,8 @@ dependencies {
     implementation project(':ninepatchlibrary')
     implementation project(':photopicker')
     implementation project(':locationpicker')
+
+//    implementation 'com.jsibbold:zoomage:1.2.0'
 }
 //kapt {
 //    generateStubs = true

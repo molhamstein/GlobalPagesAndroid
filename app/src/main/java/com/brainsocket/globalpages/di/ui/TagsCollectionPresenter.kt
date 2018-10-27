@@ -41,10 +41,10 @@ class TagsCollectionPresenter constructor(val context: Context) : TagsCollection
     override fun loadBusinessCategories(withCache: Boolean) {
         view.showBusinessCategoriesProgress(true)
         if (withCache) {
-            var categoriesList = DataStoreRepositories(context).getBusinessCategories()
+            val categoriesList = DataStoreRepositories(context).getBusinessCategories()
             if (categoriesList != null) {
                 view.showBusinessCategoriesProgress(false)
-                view.onBusinessCategoriesLoaded(categoriesList)
+                view.onBusinessCategoriesLoaded(categoriesList.filter { it.parentCategoryId.isNullOrEmpty() }.toMutableList())
                 return
             }
         }

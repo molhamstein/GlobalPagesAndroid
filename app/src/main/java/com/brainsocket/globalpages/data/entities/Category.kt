@@ -1,6 +1,7 @@
 package com.brainsocket.globalpages.data.entities
 
 import com.brainsocket.globalpages.App
+
 //import com.fasterxml.jackson.annotation.JsonIgnore
 //import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
@@ -12,9 +13,11 @@ abstract class Category {
     var creationDate: String = ""
     var id: String = ""
 
+    var parentCategoryId: String? = null
+
     abstract var subCategoriesList: MutableList<SubCategory>
 
-//    @JsonIgnore
+    //    @JsonIgnore
     var isSelected: Boolean = false
 
     constructor()

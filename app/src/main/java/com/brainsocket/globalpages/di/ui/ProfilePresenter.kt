@@ -38,10 +38,18 @@ class ProfilePresenter constructor(val context: Context) : ProfileContract.Prese
             override fun onResponse(response: MutableList<Post>?) {
                 if ((response != null)) {
                     view.showUserPostsProgress(false)
-                    if (response.size > 0)
+                    if (response.size > 0) {
                         view.onUserPostsListSuccessfully(response)
-                    else
+                        view.showUserCategoriesProgress(false)
+
+                        val categories: MutableList<Category> = mutableListOf()
+                        response.forEach { if (!categories.contains(it.category)) categories.add(it.category) }
+                        view.showUserCategoriesProgress(false)
+                        view.onUserCategoriesListSuccessfully(categories)
+                    } else {
                         view.showUserPostsEmptyView(true)
+                        view.showUserCategoriesEmptyView(true)
+                    }
                     return
                 }
                 view.showEmptyView(true)
@@ -78,28 +86,28 @@ class ProfilePresenter constructor(val context: Context) : ProfileContract.Prese
 
     override fun loadUserCategories(user: User) {
         view.showUserCategoriesProgress(true)
-
-        if ((user.postCategoriesIds == null) or (user.postCategoriesIds!!.size <= 0)) {
-            view.showUserCategoriesEmptyView(true)
-            return
-        }
-
-        val categories = mutableListOf<Category>()
-
-        val businessCategoryList = DataStoreRepositories(context).getBusinessCategories()
-
-        businessCategoryList?.forEach {
-            if (user.postCategoriesIds!!.contains(it.id)) categories.add(it)
-        }
-
-        val postCategoryList = DataStoreRepositories(context).getPostCategories()
-
-        postCategoryList?.forEach {
-            if (user.postCategoriesIds!!.contains(it.id)) categories.add(it)
-        }
-
-        view.showUserCategoriesProgress(false)
-        view.onUserCategoriesListSuccessfully(categories)
+//
+//        if ((user.postCategoriesIds == null) or (user.postCategoriesIds!!.size <= 0)) {
+//            view.showUserCategoriesEmptyView(true)
+//            return
+//        }
+//
+//        val categories = mutableListOf<Category>()
+//
+//        val businessCategoryList = DataStoreRepositories(context).getBusinessCategories()
+//
+//        businessCategoryList?.forEach {
+//            if (user.postCategoriesIds!!.contains(it.id)) categories.add(it)
+//        }
+//
+//        val postCategoryList = DataStoreRepositories(context).getPostCategories()
+//
+//        postCategoryList?.forEach {
+//            if (user.postCategoriesIds!!.contains(it.id)) categories.add(it)
+//        }
+//
+//        view.showUserCategoriesProgress(false)
+//        view.onUserCategoriesListSuccessfully(categories)
 
     }
 

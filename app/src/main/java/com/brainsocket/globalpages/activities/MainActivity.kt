@@ -2,14 +2,14 @@ package com.brainsocket.globalpages.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.*
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
+import butterknife.*
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.PostRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.PostSliderRecyclerViewAdapter
@@ -70,6 +70,12 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, On
 
     @BindView(R.id.volumeTitle)
     lateinit var volumeTitle: TextView
+
+    @BindView(R.id.nextBtn)
+    lateinit var nextBtn: View
+
+    @BindView(R.id.main_appbar)
+    lateinit var main_appbar: AppBarLayout
 
 
     private fun initToolBar() {
@@ -144,7 +150,6 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, On
             }
         })
 
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -169,6 +174,23 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, On
         Log.v("", "")
     }
 
+    override fun onTagClick(tagEntity: TagEntity) {
+        main_appbar.setExpanded(false)
+    }
+
+    @Optional
+    @OnClick(R.id.searchContainer)
+    fun onSearchContainerClick(view: View) {
+        main_appbar.setExpanded(false)
+    }
+
+    @OnTouch(R.id.searchContainer)
+    fun onSearchContainerTouch(view: View, moveEvent: MotionEvent): Boolean {
+        main_appbar.setExpanded(false)
+        return false
+    }
+
+
     @OnClick(R.id.previousBtn)
     fun onPreviousButtonClick(view: View) {
         presenter.loadPreviousVolume()
@@ -181,7 +203,7 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, On
 
     @OnClick(R.id.searchFilterBtn)
     fun onSearchFilterBtnClick(view: View) {
-        var list = (selectedTagsView.selectedTags.adapter as TagsRecyclerViewAdapter).tagsListList
+        val list = (selectedTagsView.selectedTags.adapter as TagsRecyclerViewAdapter).tagsListList
         IntentHelper.startPostSearchFilterActivityForResult(MainActivity@ this, list)
         Log.v("View Clicked", view.id.toString())
     }
@@ -220,11 +242,11 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, On
     }
 
 
-    @OnClick(R.id.addBusinessBtn)
-    fun onAddBusinessBtnClick(view: View) {
+    @OnClick(R.id.addPostBtn)
+    fun onAddPostClick(view: View) {
         val user = UserRepository(this).getUser()
         if (user != null)
-            IntentHelper.startBusinessAddActivity(this)
+            IntentHelper.startPostAddActivity(this)
         else
             IntentHelper.startSignInActivity(this)
     }
@@ -263,6 +285,20 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, On
     override fun noMoreData() {
         Toast.makeText(this, R.string.noMoreVolumeFound, Toast.LENGTH_LONG).show()
     }
+
+    override fun disableNext() {
+        nextBtn.isEnabled = false
+        nextBtn.isClickable = false
+        nextBtn.alpha = 0.5f
+    }
+
+    override fun enableNext() {
+        nextBtn.isEnabled = true
+        nextBtn.isClickable = true
+        nextBtn.alpha = 1.0f
+
+    }
+
     /*Presenter ended*/
 
 

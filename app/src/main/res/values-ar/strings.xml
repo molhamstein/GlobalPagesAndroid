@@ -129,5 +129,7 @@
     <string name="productUpdatedSuccessfully">تم تحديث المنتج بنجاح</string>
     <string name="Call">إتصال</string>
     <string name="Address">العنوان</string>
+    <string name="Update">حفظ</string>
+    <string name="profileUpdatedSuccessfully">تم تعديل معلوماتك بنجاج</string>
 
 </resources>

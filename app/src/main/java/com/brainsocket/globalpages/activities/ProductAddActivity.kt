@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import butterknife.BindView
@@ -56,6 +57,9 @@ class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuid
     @BindView(R.id.productImage)
     lateinit var productImage: ImageView
 
+    @BindView(R.id.productApplyBtn)
+    lateinit var productApplyBtn: Button
+
     lateinit var businessGuide: BusinessGuide
 
     lateinit var businessGuideProductProductViewHolder: BusinessGuideProductViewHolder
@@ -89,6 +93,7 @@ class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuid
         if (!businessGuideString.isNullOrEmpty()) {
             val productThumb: ProductThumb = Gson().fromJson(businessGuideString, ProductThumb::class.java)
             businessGuideProductProductViewHolder.bind(productThumb)
+            productApplyBtn.setText(R.string.Update)
         }
 
     }

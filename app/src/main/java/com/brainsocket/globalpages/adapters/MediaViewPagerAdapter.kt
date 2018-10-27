@@ -9,22 +9,19 @@ import android.widget.ImageView
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.data.entities.MediaEntity
 import com.brainsocket.globalpages.utilities.BindingUtils
+import com.brainsocket.globalpages.utilities.IntentHelper
 
-/**
- * Created by Adhamkh on 2018-07-05.
- */
-class MediaViewPagerAdapter constructor(var context: Context, var mediaList: MutableList<MediaEntity>) : PagerAdapter() {
-    var inflater: LayoutInflater
-
-    init {
-        inflater = LayoutInflater.from(context)
-    }
+class MediaViewPagerAdapter constructor(var context: Context, private var mediaList: MutableList<MediaEntity>) : PagerAdapter() {
+    private val inflater: LayoutInflater = LayoutInflater.from(context)
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        var pojo = mediaList[position]
-        var view = inflater.inflate(R.layout.media_item_layout, container, false)
-        var mediaView: ImageView = view.findViewById(R.id.imageView)
-        BindingUtils.loadMediaImage(mediaView, pojo)
+        val poJo = mediaList[position]
+        val view = inflater.inflate(R.layout.media_item_layout, container, false)
+        val mediaView: ImageView = view.findViewById(R.id.imageView)
+        BindingUtils.loadMediaImage(mediaView, poJo)
+        view.setOnClickListener {
+            IntentHelper.startPictureActivity(context, poJo.url)
+        }
 
         container.addView(view)
         return view

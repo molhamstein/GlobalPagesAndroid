@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.View
 import android.view.animation.LinearInterpolator
+import android.widget.Button
 import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -39,6 +40,7 @@ import javax.inject.Inject
 
 import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
+import com.github.florent37.viewanimator.ViewAnimator
 import com.google.gson.Gson
 
 
@@ -82,6 +84,9 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
 
     @BindView(R.id.stateLayout)
     lateinit var stateLayout: Stateslayoutview
+
+    @BindView(R.id.adAddBtn)
+    lateinit var adAddBtn: Button
 
     @BindView(R.id.categoryStateLayout)
     lateinit var categoryStateLayout: Stateslayoutview
@@ -158,8 +163,8 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
         if (!postString.isNullOrEmpty()) {
             val post: Post = Gson().fromJson(postString, Post::class.java)
             postAddViewHolder.bindPost(post)
+            adAddBtn.setText(R.string.Update)
         }
-
 
         categoryStateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
             override fun onRefresh() {
@@ -217,10 +222,7 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
     @OnClick(R.id.adAddBtn)
     fun onAdAddBtn(view: View) {
         requestAction()
-//        if (postAddViewHolder.isValid()) {
-//            val token = UserRepository(baseContext).getUser()!!.token
-//            postPresenter.addPost(postModel = postAddViewHolder.getPostModel(), token = token)
-//        }
+//        animate()
         Log.v("View Clicked", view.id.toString())
     }
 
@@ -232,21 +234,26 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
 
     private fun animate() {
         resultContainer.visibility = View.VISIBLE
-        val baseAnimator: ObjectAnimator = ObjectAnimator.ofFloat(baseContainer, "alpha", 1.0f, 0.0f)
-        val baseTranslationYAnimator: ObjectAnimator = ObjectAnimator.ofFloat(baseContainer, "translationY", 0.0f, -baseContainer.height.toFloat())
-        val baseTranslationZAnimator: ObjectAnimator = ObjectAnimator.ofFloat(baseContainer, "translationZ", 0.0f, 10.0f)
+        ViewAnimator.animate(baseContainer).translationY(0f, -1000f)
+                .alpha(1f, 0f).andAnimate(resultContainer).translationY(1000f, 0f)
+                .alpha(0f, 1f).start()
 
-        //Hard code toolbar margin top
-        val resultAnimator: ObjectAnimator = ObjectAnimator.ofFloat(resultContainer, "alpha", 0.0f, 1.0f)
-        val resultTranslationYAnimator: ObjectAnimator = ObjectAnimator.ofFloat(resultContainer, "translationY", baseContainer.height.toFloat() - 56, .0f)
-        val resultTranslationZAnimator: ObjectAnimator = ObjectAnimator.ofFloat(resultContainer, "translationZ", 10.0f, 0.0f)
-
-        val animatorSet = AnimatorSet()
-        animatorSet.interpolator = LinearInterpolator()
-        animatorSet.duration = 2000
-        animatorSet.playTogether(baseAnimator, resultAnimator, baseTranslationYAnimator, baseTranslationZAnimator,
-                resultTranslationYAnimator, resultTranslationZAnimator)
-        animatorSet.start()
+//        resultContainer.visibility = View.VISIBLE
+//        val baseAnimator: ObjectAnimator = ObjectAnimator.ofFloat(baseContainer, "alpha", 1.0f, 0.0f)
+//        val baseTranslationYAnimator: ObjectAnimator = ObjectAnimator.ofFloat(baseContainer, "translationY", 0.0f, -baseContainer.height.toFloat())
+//        val baseTranslationZAnimator: ObjectAnimator = ObjectAnimator.ofFloat(baseContainer, "translationZ", 0.0f, 10.0f)
+//
+//        //Hard code toolbar margin top
+//        val resultAnimator: ObjectAnimator = ObjectAnimator.ofFloat(resultContainer, "alpha", 0.0f, 1.0f)
+//        val resultTranslationYAnimator: ObjectAnimator = ObjectAnimator.ofFloat(resultContainer, "translationY", baseContainer.height.toFloat() - 56, .0f)
+//        val resultTranslationZAnimator: ObjectAnimator = ObjectAnimator.ofFloat(resultContainer, "translationZ", 10.0f, 0.0f)
+//
+//        val animatorSet = AnimatorSet()
+//        animatorSet.interpolator = LinearInterpolator()
+//        animatorSet.duration = 2000
+//        animatorSet.playTogether(baseAnimator, resultAnimator, baseTranslationYAnimator, baseTranslationZAnimator,
+//                resultTranslationYAnimator, resultTranslationZAnimator)
+//        animatorSet.start()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

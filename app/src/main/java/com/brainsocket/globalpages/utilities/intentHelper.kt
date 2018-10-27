@@ -2,6 +2,7 @@ package com.brainsocket.globalpages.utilities
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Picture
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -158,7 +159,7 @@ class IntentHelper {
             val jSon = Gson().toJson(businessGuide)
             intent.putExtra(ProductAddActivity.ProductAddActivity_Tag, jSon)
 
-            val jSonProduct=Gson().toJson(productThumb)
+            val jSonProduct = Gson().toJson(productThumb)
             intent.putExtra(ProductAddActivity.ProductAddActivity_Product_Tag, jSonProduct)
 
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -181,10 +182,24 @@ class IntentHelper {
             context.startActivity(intent)
         }
 
-        fun startLocationViewerActivity(context: Context,pointEntity: PointEntity){
+        fun startLocationViewerActivity(context: Context, pointEntity: PointEntity) {
             val intent = Intent(context, LocationViewerActivity::class.java)
             val jSon = Gson().toJson(pointEntity)
             intent.putExtra(LocationViewerActivity.LocationViewerActivity_Point_Tag, jSon)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
+
+
+        fun startSettingsActivity(context: Context) {
+            val intent = Intent(context, SettingsActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
+
+        fun startPictureActivity(context: Context, url: String) {
+            val intent = Intent(context, PictureActivity::class.java)
+            intent.putExtra(PictureActivity.PictureActivity_Tag, url)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }

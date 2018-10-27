@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -79,6 +80,9 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
     @BindView(R.id.stateLayout)
     lateinit var stateLayout: Stateslayoutview
 
+    @BindView(R.id.businessAddBtn)
+    lateinit var businessAddBtn: Button
+
     @Inject
     lateinit var presenter: TagsCollectionPresenter
 
@@ -143,6 +147,8 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
         if (!businessGuideString.isNullOrEmpty()) {
             val businessGuide: BusinessGuide = Gson().fromJson(businessGuideString, BusinessGuide::class.java)
             businessGuideAddViewHolder.bindBusinessGuide(businessGuide)
+            businessAddBtn.setText(R.string.Update)
+
         }
 
         RxBus.listen(MessageEvent::class.java).subscribe {

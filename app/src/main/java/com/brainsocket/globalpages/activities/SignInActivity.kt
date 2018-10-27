@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import butterknife.ButterKnife
 import butterknife.OnClick
+import butterknife.Optional
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.data.entitiesResponses.LoginResponse
 import com.brainsocket.globalpages.di.component.DaggerSigninComponent
@@ -55,7 +56,8 @@ class SignInActivity : BaseActivity(), SigninContract.View {
         Log.v("View Clicked", view.id.toString())
     }
 
-    @OnClick(R.id.registerTextViewLink)
+    @Optional
+    @OnClick(R.id.registerTextViewLink, R.id.registerContainer)
     fun onRegisterClick(view: View) {
         IntentHelper.startSignUpActivity(SignInActivity@ this)
         Log.v("View Clicked", view.id.toString())

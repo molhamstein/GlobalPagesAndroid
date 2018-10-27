@@ -1,29 +1,23 @@
 package com.brainsocket.globalpages.adapters
 
 import android.content.Context
-import android.os.Build
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.data.entities.TagEntity
 import com.brainsocket.globalpages.listeners.OnTagSelectListener
-import com.brainsocket.globalpages.listeners.RightDrawableOnTouchListener
 import com.brainsocket.globalpages.viewHolders.TagEntityViewHolder
 
-/**
- * Created by Adhamkh on 2018-07-04.
- */
-class TagsRecyclerViewAdapter constructor(var context: Context, var tagsListList: MutableList<TagEntity>, var withClose: Boolean = true) :
+class TagsRecyclerViewAdapter constructor(var context: Context, var tagsListList: MutableList<TagEntity>,
+                                          private var withClose: Boolean = true, var onTagSelectListener: OnTagSelectListener? = null) :
         RecyclerView.Adapter<TagEntityViewHolder>() {
 
-    var onTagSelectListener: OnTagSelectListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TagEntityViewHolder {
-        var view = LayoutInflater.from(context).inflate(R.layout.tag_item_layout, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.tag_item_layout, parent, false)
         return TagEntityViewHolder(view)
     }
 
@@ -32,8 +26,8 @@ class TagsRecyclerViewAdapter constructor(var context: Context, var tagsListList
     }
 
     override fun onBindViewHolder(holder: TagEntityViewHolder, position: Int) {
-        var pojo = tagsListList[holder.adapterPosition]
-        holder.bind(pojo)
+        val poJo = tagsListList[holder.adapterPosition]
+        holder.bind(poJo)
 
 
         if (!withClose) {
@@ -47,14 +41,16 @@ class TagsRecyclerViewAdapter constructor(var context: Context, var tagsListList
             holder.tag_close.bringToFront()
         }
 
-        holder.tag_close.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                tagsListList.removeAt(holder.adapterPosition)
-                notifyItemRemoved(holder.adapterPosition)
-                onTagSelectListener?.onSelectTag(pojo)
-                Log.v("", "")
-            }
-        })
+
+        holder.tag_close.setOnClickListener {
+            tagsListList.removeAt(holder.adapterPosition)
+            notifyItemRemoved(holder.adapterPosition)
+            onTagSelectListener?.onSelectTag(poJo)
+            Log.v("", "")
+        }
+        holder.tag_toggle.setOnClickListener {
+            onTagSelectListener?.onTagClick(poJo)
+        }
 
 //        var listener = object : RightDrawableOnTouchListener(holder.tag_toggle) {
 //            override fun onDrawableTouch(event: MotionEvent?): Boolean {

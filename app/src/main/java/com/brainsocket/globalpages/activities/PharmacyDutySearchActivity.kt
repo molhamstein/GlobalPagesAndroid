@@ -68,6 +68,10 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
     @BindView(R.id.businessGuideRecyclerView)
     lateinit var businessGuideRecyclerView: RecyclerView
 
+
+    @BindView(R.id.businessGuideRecyclerViewContainer)
+    lateinit var businessGuideRecyclerViewContainer: View
+
     @BindView(R.id.toolbar)
     lateinit var toolbar: Toolbar
 
@@ -278,8 +282,10 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
     fun onViewTypeSelected(button: CompoundButton, checked: Boolean) {
         if (checked) {
             businessGuideRecyclerView.visibility = View.VISIBLE
+            businessGuideRecyclerViewContainer.visibility = View.VISIBLE
         } else {
             businessGuideRecyclerView.visibility = View.GONE
+            businessGuideRecyclerViewContainer.visibility = View.GONE
         }
         Log.v("View Clicked", button.id.toString())
     }

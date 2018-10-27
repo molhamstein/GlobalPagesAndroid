@@ -65,7 +65,7 @@ class DummyDataRepositories {
         }
 
         fun getTagsDefaultRepositories() = mutableListOf<TagEntity>().apply {
-            add(TagEntity("دمشق", "Damascus"))
+//            add(TagEntity("دمشق", "Damascus"))
             add(TagEntity("الكل", "All"))
         }
 

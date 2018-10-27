@@ -135,6 +135,8 @@
     <string name="productUpdatedSuccessfully">Product updated successfully</string>
     <string name="Call">Call</string>
     <string name="Address">Address</string>
+    <string name="Update">Update</string>
+    <string name="profileUpdatedSuccessfully">Profile updated successfully</string>
 
 
 </resources>
