@@ -57,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:shadowColor="@color/lightgray"
+                android:shadowColor="@color/lightGray"
                 android:shadowRadius="@integer/textShadow"
                 android:textAlignment="center"
                 android:textColor="@color/white"

@@ -96,7 +96,7 @@
                                     android:layout_gravity="start|left"
                                     android:text="@string/UserName"
                                     android:textAlignment="gravity"
-                                    android:textColor="@color/lightgray" />
+                                    android:textColor="@color/lightGray" />
 
                                 <android.support.v7.widget.AppCompatTextView
                                     android:id="@+id/userName"
@@ -123,7 +123,7 @@
                                     android:layout_gravity="center"
                                     android:text="@string/AdsAdded"
                                     android:textAlignment="gravity"
-                                    android:textColor="@color/lightgray" />
+                                    android:textColor="@color/lightGray" />
 
                                 <android.support.v7.widget.AppCompatTextView
                                     android:id="@+id/adsCount"
@@ -152,7 +152,7 @@
                                     android:layout_gravity="start|left"
                                     android:text="@string/Email"
                                     android:textAlignment="gravity"
-                                    android:textColor="@color/lightgray" />
+                                    android:textColor="@color/lightGray" />
 
                                 <android.support.v7.widget.AppCompatTextView
                                     android:id="@+id/userEmail"

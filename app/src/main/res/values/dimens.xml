@@ -29,5 +29,8 @@
     <dimen name="product_image_height">72dp</dimen>
     <dimen name="tag_container_height">35dp</dimen>
 
+    <dimen name="iconWidth">36dp</dimen>
+    <dimen name="iconHeight">36dp</dimen>
+
 
 </resources>

@@ -101,7 +101,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="@dimen/sm_margin"
                                     android:text="@string/Images"
-                                    android:textColor="@color/lightgray" />
+                                    android:textColor="@color/lightGray" />
 
                                 <HorizontalScrollView
                                     android:layout_width="match_parent"
@@ -135,7 +135,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="@dimen/sperator"
                                     android:layout_marginTop="@dimen/sm_margin"
-                                    android:background="@color/lightgray" />
+                                    android:background="@color/lightGray" />
 
                             </LinearLayout>
 

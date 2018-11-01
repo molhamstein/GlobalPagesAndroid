@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_settings_layout" />
+
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/title"
+        style="@style/AppTheme.TitleTextAppearanceCenter"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:maxLines="1"
+        android:text="@string/settingsTitle"
+        android:textColor="@color/lightGray"
+        app:layout_constraintBottom_toTopOf="@+id/ContactUsLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.10"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.7" />
+
+    <RelativeLayout
+        android:id="@+id/ContactUsLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/termsOfUseLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.9">
+
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/AppTheme.TitleTextAppearance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="start|left"
+            android:text="@string/ContactUs"
+            android:textAlignment="gravity"
+            android:textColor="@color/black" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="@dimen/iconWidth"
+            android:layout_height="@dimen/iconHeight"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ic_keyboard_arrow_right_black_24dp" />
+
+        <View
+            android:id="@+id/contactUsSeparator"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sperator"
+            android:layout_alignParentBottom="true"
+            android:background="@color/lightGray" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/termsOfUseLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/logoutBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.9">
+
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/AppTheme.TitleTextAppearance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="start|left"
+            android:text="@string/TermsOfUse"
+            android:textAlignment="gravity"
+            android:textColor="@color/black" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="@dimen/iconWidth"
+            android:layout_height="@dimen/iconHeight"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ic_keyboard_arrow_right_black_24dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sperator"
+            android:layout_alignParentBottom="true"
+            android:background="@color/lightGray" />
+
+    </RelativeLayout>
+
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/logoutBtn"
+        style="@style/AppTheme.TitleTextAppearanceCenter"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="@string/Logout"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/copyRightText"
+        app:layout_constraintHeight_percent="0.1" />
+
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/copyRightText"
+        style="@style/AppTheme.TextAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/xlg_margin"
+        android:gravity="center"
+        android:lines="3"
+        android:text="@string/copyRight"
+        android:textAlignment="gravity"
+        android:textColor="@color/lightGray"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.15"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

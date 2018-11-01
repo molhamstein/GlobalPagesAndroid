@@ -14,7 +14,7 @@
     <color name="blackTransparent">#44000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">@android:color/transparent</color>
-    <color name="lightgray">@android:color/darker_gray</color>
+    <color name="lightGray">@android:color/darker_gray</color>
 
     <color name="si_default_text_color">#FF0000</color>
     <color name="si_default_text_color_selected">#FF00FF</color>

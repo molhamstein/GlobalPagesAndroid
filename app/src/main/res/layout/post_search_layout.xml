@@ -56,7 +56,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/Searchkeyword"
-                        android:textColor="@color/lightgray" />
+                        android:textColor="@color/lightGray" />
 
                     <!--<RelativeLayout-->
                     <!--android:layout_width="match_parent"-->
@@ -105,7 +105,7 @@
                         android:drawableRight="@drawable/ic_search_24dp"
                         android:hint="@string/Keyword"
                         android:visibility="visible"
-                        app:backgroundTint="@color/lightgray" />
+                        app:backgroundTint="@color/lightGray" />
 
                     <TextView
                         style="@style/AppTheme.TextAppearance"
@@ -114,7 +114,7 @@
                         android:layout_marginBottom="@dimen/sm_margin"
                         android:layout_marginTop="@dimen/sm_margin"
                         android:text="@string/Category"
-                        android:textColor="@color/lightgray" />
+                        android:textColor="@color/lightGray" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/filter_categories"
@@ -142,7 +142,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/sm_margin"
                             android:text="@string/SubCategory"
-                            android:textColor="@color/lightgray" />
+                            android:textColor="@color/lightGray" />
 
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/filter_subCategories"
@@ -166,7 +166,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/sm_margin"
                         android:text="@string/City"
-                        android:textColor="@color/lightgray" />
+                        android:textColor="@color/lightGray" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/filter_cities"
@@ -194,7 +194,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/md_margin"
                             android:text="@string/Area"
-                            android:textColor="@color/lightgray" />
+                            android:textColor="@color/lightGray" />
 
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/filter_locations"

@@ -6,6 +6,7 @@ import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.gsonparserfactory.GsonParserFactory
 import com.androidnetworking.interceptors.HttpLoggingInterceptor
 import com.brainsocket.globalpages.utilities.LocaleUtils
+import com.onesignal.OneSignal
 //import com.jacksonandroidnetworking.JacksonParserFactory
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 import java.util.*
@@ -50,6 +51,12 @@ class App : MultiDexApplication() {
             LocaleUtils.setLocale(Locale(localeCode))
             LocaleUtils.updateConfig(this, resources.configuration)
         }
+
+//        OneSignal Initialization
+//        OneSignal.startInit(this)
+//                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+//                .unsubscribeWhenNotificationsAreDisabled(true)
+//                .init()
 
     }
 

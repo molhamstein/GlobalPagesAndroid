@@ -9,6 +9,8 @@ import android.util.Log
 import com.brainsocket.globalpages.activities.*
 import com.brainsocket.globalpages.data.entities.*
 import com.google.gson.Gson
+import android.support.v4.content.ContextCompat.startActivity
+import com.brainsocket.globalpages.R
 
 
 class IntentHelper {
@@ -201,6 +203,26 @@ class IntentHelper {
             val intent = Intent(context, PictureActivity::class.java)
             intent.putExtra(PictureActivity.PictureActivity_Tag, url)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
+
+        fun startEmailAddress(context: Context, email: String) {
+            val intent = Intent(Intent.ACTION_SENDTO)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            intent.type = "text/plain"
+            intent.data = Uri.parse("mailto:" + email)
+            intent.putExtra(Intent.EXTRA_EMAIL, email)
+            intent.putExtra(Intent.EXTRA_SUBJECT, "")
+            intent.putExtra(Intent.EXTRA_TEXT, "")
+
+            context.startActivity(Intent.createChooser(intent,
+                    context.resources.getString(R.string.SendMail)))
+        }
+
+        fun startWebSite(context: Context, site: String) {
+            val intent = Intent(context, WebViewActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            intent.putExtra(WebViewActivity.WebViewActivity_Tag, site)
             context.startActivity(intent)
         }
 

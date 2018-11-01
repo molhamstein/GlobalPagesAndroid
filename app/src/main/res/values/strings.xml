@@ -137,6 +137,15 @@
     <string name="Address">Address</string>
     <string name="Update">Update</string>
     <string name="profileUpdatedSuccessfully">Profile updated successfully</string>
+    <string name="copyRight">&#169; ALl rights reserved. No part of this publication \n
+        may be reproduced. distributed, or transmitted \n
+        on any form or by any means</string>
+    <string name="Logout">Logout</string>
+    <string name="AboutUs">About us</string>
+    <string name="settingsTitle">Florists at your finger tips</string>
+    <string name="ContactUs">Contact us</string>
+    <string name="TermsOfUse">Terms of use</string>
+    <string name="SendMail">Send mail</string>
 
 
 </resources>

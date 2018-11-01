@@ -177,7 +177,7 @@
                                     android:layout_gravity="start|left"
                                     android:text="@string/Category"
                                     android:textAlignment="gravity"
-                                    android:textColor="@color/lightgray" />
+                                    android:textColor="@color/lightGray" />
 
                                 <android.support.v7.widget.AppCompatTextView
                                     android:id="@+id/businessCategory"
@@ -209,7 +209,7 @@
                                     android:layout_gravity="start|left"
                                     android:text="@string/SubCategory"
                                     android:textAlignment="gravity"
-                                    android:textColor="@color/lightgray" />
+                                    android:textColor="@color/lightGray" />
 
                                 <android.support.v7.widget.AppCompatTextView
                                     android:id="@+id/businessSubCategories2"
@@ -241,7 +241,7 @@
                                     android:layout_gravity="start|left"
                                     android:text="@string/City"
                                     android:textAlignment="gravity"
-                                    android:textColor="@color/lightgray" />
+                                    android:textColor="@color/lightGray" />
 
                                 <android.support.v7.widget.AppCompatTextView
                                     android:id="@+id/businessCity"
@@ -272,7 +272,7 @@
                                     android:layout_gravity="start|left"
                                     android:text="@string/Area"
                                     android:textAlignment="gravity"
-                                    android:textColor="@color/lightgray" />
+                                    android:textColor="@color/lightGray" />
 
                                 <android.support.v7.widget.AppCompatTextView
                                     android:id="@+id/businessLocation"

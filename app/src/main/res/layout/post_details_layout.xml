@@ -148,7 +148,7 @@
                                     android:layout_gravity="end|right"
                                     android:text="@string/Addedin"
                                     android:textAlignment="gravity"
-                                    android:textColor="@color/lightgray" />
+                                    android:textColor="@color/lightGray" />
 
                                 <android.support.v7.widget.AppCompatTextView
                                     android:id="@+id/postCreatedDate"
@@ -212,7 +212,7 @@
                                     android:layout_gravity="start|left"
                                     android:text="@string/City"
                                     android:textAlignment="gravity"
-                                    android:textColor="@color/lightgray" />
+                                    android:textColor="@color/lightGray" />
 
                                 <android.support.v7.widget.AppCompatTextView
                                     android:id="@+id/postCity"
@@ -243,7 +243,7 @@
                                     android:layout_gravity="start|left"
                                     android:text="@string/Area"
                                     android:textAlignment="gravity"
-                                    android:textColor="@color/lightgray" />
+                                    android:textColor="@color/lightGray" />
 
                                 <android.support.v7.widget.AppCompatTextView
                                     android:id="@+id/postLocation"

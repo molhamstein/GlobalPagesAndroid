@@ -22,7 +22,7 @@
             android:layout_centerInParent="true"
             android:text="@string/Filter"
             android:shadowRadius="4"
-            android:shadowColor="@color/lightgray"
+            android:shadowColor="@color/lightGray"
             android:textColor="@color/black"
             android:textStyle="bold" />
 

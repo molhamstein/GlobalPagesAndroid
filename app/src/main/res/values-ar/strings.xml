@@ -131,5 +131,12 @@
     <string name="Address">العنوان</string>
     <string name="Update">حفظ</string>
     <string name="profileUpdatedSuccessfully">تم تعديل معلوماتك بنجاج</string>
+    <string name="copyRight">copyRight</string>
+    <string name="Logout">Logout</string>
+    <string name="AboutUs">About us</string>
+    <string name="settingsTitle">Florists at your finger tips</string>
+    <string name="ContactUs">Contact us</string>
+    <string name="TermsOfUse">Terms of use</string>
+    <string name="SendMail">Send mail</string>
 
 </resources>
