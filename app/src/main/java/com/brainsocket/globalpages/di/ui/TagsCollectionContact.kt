@@ -4,9 +4,6 @@ import com.brainsocket.globalpages.data.entities.BusinessGuideCategory
 import com.brainsocket.globalpages.data.entities.City
 import com.brainsocket.globalpages.data.entities.PostCategory
 
-/**
- * Created by Adhamkh on 2018-08-09.
- */
 class TagsCollectionContact {
     interface Presenter : BaseContract.Presenter<View> {
 

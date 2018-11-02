@@ -39,7 +39,7 @@ class ForgotPasswordPresenter constructor(val context: Context) : ForgotPassword
             override fun onResponse(response: JSONObject?) {
                 view.showProgress(false)
                 if (response != null) {
-                    view.sendSuccesfully()
+                    view.sendSuccessfully()
                 } else {
                     view.requestFail()
                 }

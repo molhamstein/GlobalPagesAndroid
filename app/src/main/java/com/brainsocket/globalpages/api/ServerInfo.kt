@@ -43,6 +43,9 @@ class ServerInfo {
 
         var uploadImageUrl = baseUrl + "attachments/images/upload"
 
+
+        var notificationUrl = baseUrl + "notifications"
+
     }
 
 }

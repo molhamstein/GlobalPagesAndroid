@@ -1,24 +1,17 @@
 package com.brainsocket.globalpages.di.ui
 
 import android.content.Context
-import android.util.Log
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.ParsedRequestListener
-import com.androidnetworking.interfaces.StringRequestListener
 import com.brainsocket.globalpages.api.ApiService
 import com.brainsocket.globalpages.api.ServerInfo
 import com.brainsocket.globalpages.data.entities.Post
 import com.brainsocket.globalpages.data.entitiesModel.PostEditModel
 import com.brainsocket.globalpages.data.entitiesModel.PostModel
-import com.brainsocket.globalpages.repositories.UserRepository
-import io.reactivex.disposables.CompositeDisposable
 
-/**
- * Created by Adhamkh on 2018-10-09.
- */
+
 class PostPresenter constructor(val context: Context) : PostContract.Presenter {
 
-    private val subscriptions = CompositeDisposable()
     private lateinit var view: PostContract.View
 
     init {

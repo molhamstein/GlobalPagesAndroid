@@ -9,16 +9,13 @@ import com.brainsocket.globalpages.data.entities.Volume
 import io.reactivex.disposables.CompositeDisposable
 import java.util.HashMap
 
-/**
- * Created by Adhamkh on 2018-06-29.
- */
 class VolumesPresenter constructor(val context: Context) : VolumesContract.Presenter {
 
 
     private val subscriptions = CompositeDisposable()
     private lateinit var view: VolumesContract.View
 
-    private var Index: Int = 0;
+    private var index: Int = 0
 
     init {
 
@@ -65,29 +62,29 @@ class VolumesPresenter constructor(val context: Context) : VolumesContract.Prese
         criteria.apply {
             put("limit", "1")
             put("order", "id DESC")
-            put("skip", Index.toString())
+            put("skip", index.toString())
         }
         loadData(criteria)
     }
 
     override fun loadNextVolume() {
         view.showProgress(true)
-        Index--
+        index--
 
-        if (Index <= 0)
+        if (index <= 0)
             view.disableNext()
         else
             view.enableNext()
 
-        if (Index < 0) {
-            Index = 0
+        if (index < 0) {
+            index = 0
             view.noMoreData()
         }
         val criteria: MutableMap<String, String> = HashMap()
         criteria.apply {
             put("limit", "1")
             put("order", "id DESC")
-            put("skip", Index.toString())
+            put("skip", index.toString())
         }
         loadData(criteria)
     }
@@ -96,14 +93,14 @@ class VolumesPresenter constructor(val context: Context) : VolumesContract.Prese
         view.showProgress(true)
         view.enableNext()
 
-        Index++
-        Index = Math.max(Index, 0)
+        index++
+        index = Math.max(index, 0)
 
         val criteria: MutableMap<String, String> = HashMap()
         criteria.apply {
             put("limit", "1")
             put("order", "id DESC")
-            put("skip", Index.toString())
+            put("skip", index.toString())
         }
         loadData(criteria)
     }

@@ -77,7 +77,7 @@ class SignInActivity : BaseActivity(), SigninContract.View {
             progressDialog.dismiss()
     }
 
-    override fun loginSuccesfully(loginResponse: LoginResponse) {
+    override fun loginSuccessfully(loginResponse: LoginResponse) {
         loginResponse.user.token = loginResponse.id
         UserRepository(context = this).addUser(loginResponse.user)
         IntentHelper.startMainActivity(this)

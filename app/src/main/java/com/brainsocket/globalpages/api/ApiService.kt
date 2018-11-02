@@ -271,4 +271,17 @@ class ApiService {
     /*Business Product ended*/
 
 
+    /*Notification started*/
+    fun getNotifications(url: String, requestListener: ParsedRequestListener<MutableList<NotificationEntity>>) {
+//        val criteria = Gson().toJson(filtration)
+        AndroidNetworking.get(url)
+//                .setContentType("application/json")
+                .setPriority(Priority.HIGH)
+//                .addQueryParameter("filter", criteria)
+                .build()
+                .getAsObjectList(NotificationEntity::class.java, requestListener)
+    }
+
+    /*Notification ended*/
+
 }

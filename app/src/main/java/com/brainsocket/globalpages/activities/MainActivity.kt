@@ -14,17 +14,13 @@ import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.PostRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.PostSliderRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.TagsRecyclerViewAdapter
-import com.brainsocket.globalpages.data.entities.Post
-import com.brainsocket.globalpages.data.entities.TagEntity
-import com.brainsocket.globalpages.data.entities.Volume
+import com.brainsocket.globalpages.data.entities.*
 import com.brainsocket.globalpages.data.filtration.FilterEntity
 import com.brainsocket.globalpages.di.component.DaggerMainComponent
+import com.brainsocket.globalpages.di.module.NotificationModule
 import com.brainsocket.globalpages.di.module.PostModule
 import com.brainsocket.globalpages.di.module.VolumesModule
-import com.brainsocket.globalpages.di.ui.PostContract
-import com.brainsocket.globalpages.di.ui.PostPresenter
-import com.brainsocket.globalpages.di.ui.VolumesContract
-import com.brainsocket.globalpages.di.ui.VolumesPresenter
+import com.brainsocket.globalpages.di.ui.*
 import com.brainsocket.globalpages.listeners.OnTagSelectListener
 import com.brainsocket.globalpages.repositories.DummyDataRepositories
 import com.brainsocket.globalpages.repositories.UserRepository
@@ -38,7 +34,7 @@ import com.google.gson.Gson
 import javax.inject.Inject
 
 
-class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, OnTagSelectListener {
+class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, NotificationContract.View, OnTagSelectListener {
 
     @Inject
     lateinit var presenter: VolumesPresenter
@@ -46,6 +42,8 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, On
     @Inject
     lateinit var postPresenter: PostPresenter
 
+    @Inject
+    lateinit var notificationPresenter: NotificationPresenter
 
     @BindView(R.id.toolbar)
     lateinit var toolBar: Toolbar
@@ -85,18 +83,27 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, On
 
     private fun initDI() {
         val component = DaggerMainComponent.builder()
+                .notificationModule(NotificationModule(this))
                 .volumesModule(VolumesModule(this))
                 .postModule(PostModule(this))
                 .build()
         component.inject(this)
+
         presenter.attachView(this)
         presenter.subscribe()
         presenter.loadDefaultVolume()
 
-
         postPresenter.attachView(this)
         postPresenter.subscribe()
         postPresenter.loadFeaturedPost()
+
+        notificationPresenter.attachView(this)
+        notificationPresenter.subscribe()
+        val user: User? = UserRepository(baseContext).getUser()
+        if (user != null) {
+            notificationPresenter.loadUnSeenNotifications(user.id!!)
+        }
+
     }
 
     private fun initBusinessGuideRecyclerView() {
@@ -118,7 +125,7 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, On
         initVolumesRecyclerView()
         initDI()
 
-        badge.setNumber(6, true)
+        badge.setNumber(0, true)
 
         selectedTagsView.setAdapter(TagsRecyclerViewAdapter(this, DummyDataRepositories.getTagsDefaultRepositories()))
         (selectedTagsView.getAdapter() as TagsRecyclerViewAdapter).onTagSelectListener = this
@@ -190,7 +197,6 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, On
         return false
     }
 
-
     @OnClick(R.id.previousBtn)
     fun onPreviousButtonClick(view: View) {
         presenter.loadPreviousVolume()
@@ -247,6 +253,15 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, On
         val user = UserRepository(this).getUser()
         if (user != null)
             IntentHelper.startPostAddActivity(this)
+        else
+            IntentHelper.startSignInActivity(this)
+    }
+
+    @OnClick(R.id.notificationBtn)
+    fun onNotificationBadgeClick(view: View) {
+        val user = UserRepository(this).getUser()
+        if (user != null)
+            IntentHelper.startNotificationActivity(this)
         else
             IntentHelper.startSignInActivity(this)
     }
@@ -332,5 +347,27 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, On
     }
     /*Post Presenter ended*/
 
+    /*Notification presenter started*/
+
+    override fun showNotificationProgress(show: Boolean) {
+        super.showNotificationProgress(show)
+    }
+
+    override fun showNotificationLoadErrorMessage(visible: Boolean) {
+        super.showNotificationLoadErrorMessage(visible)
+    }
+
+    override fun showNotificationEmptyView(visible: Boolean) {
+        if (visible) {
+            badge.setNumber(0, true)
+        }
+    }
+
+    override fun onSeenNotificationsLoaded(notificationList: MutableList<NotificationEntity>) {
+        badge.setNumber(notificationList.size, true)
+        Log.v("", "")
+    }
+
+    /*Notification presenter ended*/
 
 }

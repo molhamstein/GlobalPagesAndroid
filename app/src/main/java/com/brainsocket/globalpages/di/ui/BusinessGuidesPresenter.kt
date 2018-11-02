@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.Log
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.ParsedRequestListener
-import com.androidnetworking.interfaces.StringRequestListener
 import com.brainsocket.globalpages.api.ApiService
 import com.brainsocket.globalpages.api.ServerInfo
 import com.brainsocket.globalpages.data.entities.BusinessGuide
@@ -13,8 +12,6 @@ import com.brainsocket.globalpages.data.entities.SubCategory
 import com.brainsocket.globalpages.data.entitiesModel.BusinessGuideEditModel
 import com.brainsocket.globalpages.data.entitiesModel.BusinessGuideModel
 import com.brainsocket.globalpages.enums.DaysEnum
-import com.brainsocket.globalpages.repositories.SettingData
-import com.google.gson.Gson
 import io.reactivex.disposables.CompositeDisposable
 
 class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuidesContract.Presenter {

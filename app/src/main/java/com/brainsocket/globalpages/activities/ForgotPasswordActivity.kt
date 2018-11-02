@@ -71,7 +71,7 @@ class ForgotPasswordActivity : BaseActivity(), ForgotPasswordContract.View {
             progressDialog.dismiss()
     }
 
-    override fun sendSuccesfully() {
+    override fun sendSuccessfully() {
         Toast.makeText(baseContext, R.string.resetPasswordSuccesfully, Toast.LENGTH_LONG).show()
         Log.v("", "")
     }

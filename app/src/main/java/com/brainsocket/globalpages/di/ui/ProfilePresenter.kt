@@ -7,7 +7,6 @@ import com.brainsocket.globalpages.api.ApiService
 import com.brainsocket.globalpages.api.ServerInfo
 import com.brainsocket.globalpages.data.entities.*
 import com.brainsocket.globalpages.data.entitiesModel.ProfileModel
-import com.brainsocket.globalpages.repositories.DataStoreRepositories
 import io.reactivex.disposables.CompositeDisposable
 
 class ProfilePresenter constructor(val context: Context) : ProfileContract.Presenter {

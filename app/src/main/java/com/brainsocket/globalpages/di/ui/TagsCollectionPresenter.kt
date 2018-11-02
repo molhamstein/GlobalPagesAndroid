@@ -9,13 +9,9 @@ import com.brainsocket.globalpages.data.entities.BusinessGuideCategory
 import com.brainsocket.globalpages.data.entities.City
 import com.brainsocket.globalpages.data.entities.PostCategory
 import com.brainsocket.globalpages.repositories.DataStoreRepositories
-import com.brainsocket.globalpages.repositories.UserRepository
 import io.reactivex.disposables.CompositeDisposable
 import java.util.HashMap
 
-/**
- * Created by Adhamkh on 2018-08-09.
- */
 class TagsCollectionPresenter constructor(val context: Context) : TagsCollectionContact.Presenter {
 
 
@@ -75,7 +71,7 @@ class TagsCollectionPresenter constructor(val context: Context) : TagsCollection
     override fun loadPostCategories(withCache: Boolean) {
         view.showPostCategoriesProgress(true)
         if (withCache) {
-            var categoriesList = DataStoreRepositories(context).getPostCategories()
+            val categoriesList = DataStoreRepositories(context).getPostCategories()
             if (categoriesList != null) {
                 view.showPostCategoriesProgress(false)
                 view.onPostCategoriesLoaded(categoriesList)
@@ -107,7 +103,7 @@ class TagsCollectionPresenter constructor(val context: Context) : TagsCollection
     override fun loadCities(withCache: Boolean) {
         view.showCitiesProgress(true)
         if (withCache) {
-            var cityList = DataStoreRepositories(context).getCities()
+            val cityList = DataStoreRepositories(context).getCities()
             if (cityList != null) {
                 view.showCitiesProgress(false)
                 view.onCitiesLoaded(cityList)

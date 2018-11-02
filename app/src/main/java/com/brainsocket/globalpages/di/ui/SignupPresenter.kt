@@ -11,9 +11,6 @@ import com.brainsocket.globalpages.data.entitiesModel.DuplicateModel
 import com.brainsocket.globalpages.data.entitiesModel.SignUpModel
 import io.reactivex.disposables.CompositeDisposable
 
-/**
- * Created by Adhamkh on 2018-06-15.
- */
 class SignUpPresenter constructor(val context: Context) : SignUpContract.Presenter {
 
     private val subscriptions = CompositeDisposable()
@@ -62,8 +59,8 @@ class SignUpPresenter constructor(val context: Context) : SignUpContract.Present
                 if (anError != null) {
                     when (anError.errorCode) {
                         422 -> {
-                            var isDuplicateEmail: Boolean = anError.errorBody.contains("email", true)
-                            var isDuplicateUserName: Boolean = anError.errorBody.contains("username", true)
+                            val isDuplicateEmail: Boolean = anError.errorBody.contains("email", true)
+                            val isDuplicateUserName: Boolean = anError.errorBody.contains("username", true)
                             view.signUpDuplicate(DuplicateModel(isDuplicateEmail, isDuplicateUserName))
                             return
                         }

@@ -146,6 +146,7 @@
     <string name="ContactUs">Contact us</string>
     <string name="TermsOfUse">Terms of use</string>
     <string name="SendMail">Send mail</string>
+    <string name="Notifications">Notifications</string>
 
 
 </resources>

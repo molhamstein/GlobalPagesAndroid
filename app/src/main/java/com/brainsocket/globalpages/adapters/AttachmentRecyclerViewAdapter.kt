@@ -9,14 +9,11 @@ import com.brainsocket.globalpages.data.entities.Attachment
 import com.brainsocket.globalpages.utilities.BindingUtils
 import com.brainsocket.globalpages.viewHolders.AttachmentViewHolder
 
-/**
- * Created by Adhamkh on 2018-07-19.
- */
 class AttachmentRecyclerViewAdapter constructor(var context: Context, var attachmentList: MutableList<Attachment>)
     : RecyclerView.Adapter<AttachmentViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AttachmentViewHolder {
-        var view = LayoutInflater.from(context).inflate(R.layout.attachment_item_layout, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.attachment_item_layout, parent, false)
         return AttachmentViewHolder(view)
     }
 
@@ -25,13 +22,13 @@ class AttachmentRecyclerViewAdapter constructor(var context: Context, var attach
     }
 
     override fun onBindViewHolder(holder: AttachmentViewHolder, position: Int) {
-        var pojo = attachmentList[position]
-        holder.bind(pojo)
+        val poJo = attachmentList[position]
+        holder.bind(poJo)
         holder.mediaRemoveAction.setOnClickListener {
             attachmentList.removeAt(holder.adapterPosition)
             notifyItemRemoved(holder.adapterPosition)
         }
-        BindingUtils.loadAttachmentImage(holder.attachmentImage, pojo)
+        BindingUtils.loadAttachmentImage(holder.attachmentImage, poJo)
 //        holder.itemView.setOnClickListener {
         //            intentHelper.startSearchMapActivity(context)
 //        }

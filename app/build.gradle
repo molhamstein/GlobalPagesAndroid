@@ -11,7 +11,7 @@ android {
     compileSdkVersion COMPILE_VERSION
     buildToolsVersion BUILD_VERSION
     defaultConfig {
-        applicationId "com.brainsocket.globalpages"
+        applicationId /*"com.brainsocket.globalpages"*/ "com.almersal.android"
         minSdkVersion MIN_VERSION
         targetSdkVersion COMPILE_VERSION
         versionCode 1
@@ -21,7 +21,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         manifestPlaceholders = [
-                onesignal_app_id: 'PUT YOUR ONESIGNAL APP ID HERE',
+                onesignal_app_id               : 'PUT YOUR ONESIGNAL APP ID HERE',
                 // Project number pulled from dashboard, local value is ignored.
                 onesignal_google_project_number: 'REMOTE'
         ]

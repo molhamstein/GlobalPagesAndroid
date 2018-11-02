@@ -206,6 +206,12 @@ class IntentHelper {
             context.startActivity(intent)
         }
 
+        fun startNotificationActivity(context: Context) {
+            val intent = Intent(context, NotificationActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
+
         fun startEmailAddress(context: Context, email: String) {
             val intent = Intent(Intent.ACTION_SENDTO)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK

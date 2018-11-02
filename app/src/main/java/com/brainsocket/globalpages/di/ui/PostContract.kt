@@ -4,9 +4,6 @@ import com.brainsocket.globalpages.data.entities.Post
 import com.brainsocket.globalpages.data.entitiesModel.PostEditModel
 import com.brainsocket.globalpages.data.entitiesModel.PostModel
 
-/**
- * Created by Adhamkh on 2018-10-09.
- */
 class PostContract {
 
     interface Presenter : BaseContract.Presenter<View> {

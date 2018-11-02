@@ -4,20 +4,15 @@ import android.content.Context
 import android.util.Log
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.ParsedRequestListener
-import com.androidnetworking.interfaces.StringRequestListener
 import com.brainsocket.globalpages.api.ApiService
 import com.brainsocket.globalpages.data.entities.ProductThumb
 import com.brainsocket.globalpages.data.entitiesModel.ProductThumbEditModel
 import com.brainsocket.globalpages.data.entitiesModel.ProductThumbModel
-import io.reactivex.disposables.CompositeDisposable
 
-/**
- * Created by Adhamkh on 2018-10-07.
- */
+
 class BusinessGuideProductPresenter constructor(val context: Context) : BusinessGuideProductContract.Presenter {
 
 
-    private val subscriptions = CompositeDisposable()
     private lateinit var view: BusinessGuideProductContract.View
 
     init {

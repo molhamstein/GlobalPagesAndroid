@@ -9,9 +9,6 @@ import com.brainsocket.globalpages.data.entitiesResponses.LoginResponse
 import com.brainsocket.globalpages.data.entitiesModel.LoginModel
 import io.reactivex.disposables.CompositeDisposable
 
-/**
- * Created by Adhamkh on 2018-06-14.
- */
 class SigninPresenter constructor(val context: Context) : SigninContract.Presenter {
 
 
@@ -40,7 +37,7 @@ class SigninPresenter constructor(val context: Context) : SigninContract.Present
             override fun onResponse(response: LoginResponse?) {
                 view.showProgress(false)
                 if (response != null) {
-                    view.loginSuccesfully(response)
+                    view.loginSuccessfully(response)
                 } else {
                     view.loginFail()
                 }
