@@ -53,10 +53,10 @@ class App : MultiDexApplication() {
         }
 
 //        OneSignal Initialization
-//        OneSignal.startInit(this)
-//                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-//                .unsubscribeWhenNotificationsAreDisabled(true)
-//                .init()
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init()
 
     }
 
