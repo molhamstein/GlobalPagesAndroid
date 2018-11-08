@@ -11,8 +11,9 @@ import com.brainsocket.globalpages.data.entities.Category
 import com.brainsocket.globalpages.listeners.OnCategorySelectListener
 import com.brainsocket.globalpages.viewHolders.CategoryViewHolder
 
-class CategoryRecyclerViewAdapter constructor(var context: Context, var categoriesList: MutableList<Category>
-                                              , var onCategorySelectListener: OnCategorySelectListener? = null) :
+class CategoryProfileRecyclerViewAdapter constructor(var context: Context, var categoriesList: MutableList<Category>
+                                                     , var onCategorySelectListener: OnCategorySelectListener? = null,
+                                                     var isClickable: Boolean = true) :
         RecyclerView.Adapter<CategoryViewHolder>() {
 
 
@@ -31,8 +32,12 @@ class CategoryRecyclerViewAdapter constructor(var context: Context, var categori
         holder.itemView.findViewById<ToggleButton>(R.id.category_toggle)
                 .setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
                     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+                        if (!isClickable) {
+                            holder.itemView.findViewById<ToggleButton>(R.id.category_toggle).isChecked = !isChecked
+                            return
+                        }
                         if (isChecked) {
-                            setCheck(poJo)
+                            poJo.isSelected = true
                             onCategorySelectListener?.onSelectCategory(poJo)
                         } else {
                             buttonView?.setOnCheckedChangeListener(null)
@@ -45,19 +50,13 @@ class CategoryRecyclerViewAdapter constructor(var context: Context, var categori
 
     }
 
-    fun setCheck(category: Category) {
-        categoriesList.forEach {
-            it.isSelected = (it == category)
-        }
-        notifyDataSetChanged()
-    }
-
-    fun getCurrentCategory(): Category? {
+    fun getSelectedCategories(): MutableList<Category> {
+        val selectedList: MutableList<Category> = mutableListOf()
         categoriesList.forEach {
             if (it.isSelected)
-                return it
+                selectedList.add(it)
         }
-        return null
+        return selectedList
     }
 
 }

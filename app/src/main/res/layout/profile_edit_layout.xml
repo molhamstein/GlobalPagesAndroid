@@ -28,6 +28,7 @@
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/updateProfileBtnMainContainer"
             android:layout_below="@+id/toolbar"
             app:cardBackgroundColor="@color/grayDarkTextColor"
             app:cardCornerRadius="@dimen/cardview_default_radius"
@@ -104,6 +105,7 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <LinearLayout
+                    android:id="@+id/birthDateContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:baselineAligned="false"
@@ -153,6 +155,48 @@
 
                 </LinearLayout>
 
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/categoryTitle"
+                    style="@style/AppTheme.TextAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/md_margin"
+                    android:text="@string/SubscribetoCategory"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@+id/birthDateContainer" />
+
+                <View
+                    android:id="@+id/categorySperator"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/sperator"
+                    android:background="@color/white"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/categoryTitle"
+                    app:layout_constraintWidth_default="percent"
+                    app:layout_constraintWidth_percent="0.3" />
+
+                <com.brainsocket.mainlibrary.Views.Stateslayoutview
+                    android:id="@+id/myCategoriesStateLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:NoConnectionLayout="@layout/state_layout_noconnection"
+                    app:NoDataLayout="@layout/state_layout_nodata"
+                    app:RefreshbtnRes="@+id/retryBtn"
+                    app:WaitingLayout="@layout/state_layout_waiting"
+                    app:layout_constraintTop_toBottomOf="@id/categorySperator">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/myCategories"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/lg_margin"
+                        app:tagBackgroundColor="@color/colorPrimary" />
+
+                </com.brainsocket.mainlibrary.Views.Stateslayoutview>
+
+
                 <TextView
                     android:id="@+id/imageProfileUrl"
                     android:layout_width="match_parent"
@@ -164,19 +208,22 @@
         </android.support.v7.widget.CardView>
 
         <android.support.constraint.ConstraintLayout
+            android:id="@+id/updateProfileBtnMainContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/container">
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
 
             <com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView
+                android:id="@+id/updateProfileBtnContainer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/md_margin"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="0.6"
                 app:ms9_shadowElevation="@dimen/md_elevation">
 

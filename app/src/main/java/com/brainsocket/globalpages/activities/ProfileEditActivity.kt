@@ -18,6 +18,7 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import butterknife.Optional
 import com.brainsocket.globalpages.R
+import com.brainsocket.globalpages.data.entities.Category
 import com.brainsocket.globalpages.data.entities.User
 import com.brainsocket.globalpages.data.mapping.UserProfileMapper
 import com.brainsocket.globalpages.di.component.DaggerProfileEditComponent
@@ -74,6 +75,7 @@ class ProfileEditActivity : BaseActivity(), ProfileContract.View, AttachmentCont
         attachmentPresenter.attachView(this)
 
         profilePresenter.attachView(this)
+        profilePresenter.loadUserCategories(UserRepository(this).getUser()!!)
     }
 
     private fun initToolbar() {
@@ -262,12 +264,16 @@ class ProfileEditActivity : BaseActivity(), ProfileContract.View, AttachmentCont
             stateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
     }
 
+    override fun onUserCategoriesListSuccessfully(categories: MutableList<Category>) {
+        profileEditViewHolder.bindSubscribedCategories(categories)
+    }
+
     override fun onUpdateProfileSuccessfully(user: User) {
         val currentUser = UserRepository(this).getUser()!!
         user.token = currentUser.token
         UserRepository(this).addUser(user)
         profileEditViewHolder.bindView(UserProfileMapper.userProfileTransform(user))
-        Toast.makeText(baseContext,R.string.profileUpdatedSuccessfully,Toast.LENGTH_LONG)
+        Toast.makeText(baseContext, R.string.profileUpdatedSuccessfully, Toast.LENGTH_LONG).show()
         Log.v("", "")
     }
     /*Profile presenter ended*/

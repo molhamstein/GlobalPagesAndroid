@@ -21,7 +21,7 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.brainsocket.globalpages.R
 import com.brainsocket.globalpages.adapters.BusinessGuideRecyclerViewAdapter
-import com.brainsocket.globalpages.adapters.CategoryRecyclerViewAdapter
+import com.brainsocket.globalpages.adapters.CategoryProfileRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.PostRecyclerViewAdapter
 import com.brainsocket.globalpages.data.entities.BusinessGuide
 import com.brainsocket.globalpages.data.entities.Category
@@ -368,7 +368,7 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     }
 
     override fun onUserCategoriesListSuccessfully(categories: MutableList<Category>) {
-        myCategories.adapter = CategoryRecyclerViewAdapter(baseContext, categories)
+        myCategories.adapter = CategoryProfileRecyclerViewAdapter(context = baseContext, categoriesList = categories, isClickable = false)
     }
     /*My Categories presenter ended */
 

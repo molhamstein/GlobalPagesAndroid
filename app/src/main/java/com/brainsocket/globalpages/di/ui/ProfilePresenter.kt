@@ -7,7 +7,9 @@ import com.brainsocket.globalpages.api.ApiService
 import com.brainsocket.globalpages.api.ServerInfo
 import com.brainsocket.globalpages.data.entities.*
 import com.brainsocket.globalpages.data.entitiesModel.ProfileModel
+import com.brainsocket.globalpages.repositories.DataStoreRepositories
 import io.reactivex.disposables.CompositeDisposable
+import java.util.*
 
 class ProfilePresenter constructor(val context: Context) : ProfileContract.Presenter {
 
@@ -39,12 +41,12 @@ class ProfilePresenter constructor(val context: Context) : ProfileContract.Prese
                     view.showUserPostsProgress(false)
                     if (response.size > 0) {
                         view.onUserPostsListSuccessfully(response)
-                        view.showUserCategoriesProgress(false)
+//                        view.showUserCategoriesProgress(false)
 
-                        val categories: MutableList<Category> = mutableListOf()
-                        response.forEach { if (!categories.contains(it.category)) categories.add(it.category) }
-                        view.showUserCategoriesProgress(false)
-                        view.onUserCategoriesListSuccessfully(categories)
+//                        val categories: MutableList<Category> = mutableListOf()
+//                        response.forEach { if (!categories.contains(it.category)) categories.add(it.category) }
+//                        view.showUserCategoriesProgress(false)
+//                        view.onUserCategoriesListSuccessfully(categories)
                     } else {
                         view.showUserPostsEmptyView(true)
                         view.showUserCategoriesEmptyView(true)
@@ -85,7 +87,40 @@ class ProfilePresenter constructor(val context: Context) : ProfileContract.Prese
 
     override fun loadUserCategories(user: User) {
         view.showUserCategoriesProgress(true)
-//
+
+        if ((user.postCategoriesIds == null) or (user.postCategoriesIds!!.size <= 0)) {
+            user.postCategoriesIds = Vector()
+//            view.showUserCategoriesEmptyView(true)
+//            return
+        }
+
+        val categories = mutableListOf<Category>()
+
+        val businessCategoryList = DataStoreRepositories(context).getBusinessCategories()
+
+        businessCategoryList?.forEach {
+            if (it.parentCategoryId.isNullOrEmpty()) {
+                if (user.postCategoriesIds!!.contains(it.id))
+                    it.isSelected = true
+
+                categories.add(it)
+            }
+        }
+
+        val postCategoryList = DataStoreRepositories(context).getPostCategories()
+
+        postCategoryList?.forEach {
+            if (it.parentCategoryId.isNullOrEmpty()) {
+                if (user.postCategoriesIds!!.contains(it.id))
+                    it.isSelected = true
+
+                categories.add(it)
+            }
+        }
+
+        view.showUserCategoriesProgress(false)
+        view.onUserCategoriesListSuccessfully(categories)
+
 //        if ((user.postCategoriesIds == null) or (user.postCategoriesIds!!.size <= 0)) {
 //            view.showUserCategoriesEmptyView(true)
 //            return

@@ -30,9 +30,9 @@ class DataStoreRepositories constructor(context: Context) : Repository(context) 
 
     fun getBusinessCategories(): MutableList<BusinessGuideCategory>? {
         var businessList: MutableList<BusinessGuideCategory>? = null
-        var pojo = pref.getString(BusinessCategories_TAG, BusinessCategories_Default_TAG)
-        if (pojo.isNotEmpty())
-            businessList = Gson().fromJson(pojo, Array<BusinessGuideCategory>::class.java).toMutableList()
+        val poJo = pref.getString(BusinessCategories_TAG, BusinessCategories_Default_TAG)
+        if (poJo.isNotEmpty())
+            businessList = Gson().fromJson(poJo, Array<BusinessGuideCategory>::class.java).toMutableList()
         return businessList
     }
 

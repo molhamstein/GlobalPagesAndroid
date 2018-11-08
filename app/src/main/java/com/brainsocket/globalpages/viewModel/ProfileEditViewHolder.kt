@@ -3,6 +3,7 @@ package com.brainsocket.globalpages.viewModel
 import android.content.Context
 import android.support.design.widget.TabLayout
 import android.support.design.widget.TextInputLayout
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.EditText
@@ -11,6 +12,8 @@ import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.brainsocket.globalpages.R
+import com.brainsocket.globalpages.adapters.CategoryProfileRecyclerViewAdapter
+import com.brainsocket.globalpages.data.entities.Category
 import com.brainsocket.globalpages.data.entitiesModel.ProfileModel
 import com.brainsocket.globalpages.data.mapping.UserProfileMapper
 import com.brainsocket.globalpages.enums.UserGender
@@ -43,6 +46,9 @@ class ProfileEditViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     @BindView(R.id.birthDateLayout)
     lateinit var birthDateLayout: TextInputLayout
 
+    @BindView(R.id.myCategories)
+    lateinit var myCategories: RecyclerView
+
     init {
         ButterKnife.bind(this, view)
         context = view.context
@@ -64,6 +70,11 @@ class ProfileEditViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         profileModel.imageProfile = imageProfileUrl.text.toString()
 
+        if (myCategories.adapter != null) {
+            profileModel.postCategoriesIds =
+                    (myCategories.adapter as CategoryProfileRecyclerViewAdapter).getSelectedCategories().map { it.id }.toMutableList()
+        }
+
         return profileModel
     }
 
@@ -83,22 +94,30 @@ class ProfileEditViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         birthDate.setText(profileModel.birthDate)
         phoneNumber.setText(profileModel.phoneNumber)
 
-        if(profileModel.gender!=null){
-            if(profileModel.gender!!.equals(UserGender.male.gender)){
+        if (profileModel.gender != null) {
+            if (profileModel.gender!!.equals(UserGender.male.gender)) {
                 genderTabLayout.getTabAt(0)!!.select()
-            }else{
+            } else {
                 genderTabLayout.getTabAt(1)!!.select()
             }
-        }else{
+        } else {
             genderTabLayout.getTabAt(0)!!.select()
         }
         imageProfileUrl.text = profileModel.imageProfile
-        BindingUtils.loadProfileImage(profileImage,profileModel.imageProfile)
+
+
+
+        BindingUtils.loadProfileImage(profileImage, profileModel.imageProfile)
+    }
+
+    fun bindSubscribedCategories(categoryList: MutableList<Category>) {
+        myCategories.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        myCategories.adapter = CategoryProfileRecyclerViewAdapter(context, categoryList)
     }
 
     fun setImageUrl(url: String) {
         imageProfileUrl.text = url
-        BindingUtils.loadProfileImage(profileImage,url)
+        BindingUtils.loadProfileImage(profileImage, url)
     }
 
 }

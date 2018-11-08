@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/GlobalPagesAndroid.iml" filepath="$PROJECT_DIR$/.idea/GlobalPagesAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/calligraphy/calligraphy.iml" filepath="$PROJECT_DIR$/calligraphy/calligraphy.iml" />
-      <module fileurl="file://$PROJECT_DIR$/locationpicker/locationpicker.iml" filepath="$PROJECT_DIR$/locationpicker/locationpicker.iml" />
       <module fileurl="file://$PROJECT_DIR$/mainlibrary/mainlibrary.iml" filepath="$PROJECT_DIR$/mainlibrary/mainlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/ninepatchlibrary/ninepatchlibrary.iml" filepath="$PROJECT_DIR$/ninepatchlibrary/ninepatchlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/photopicker/photopicker.iml" filepath="$PROJECT_DIR$/photopicker/photopicker.iml" />
