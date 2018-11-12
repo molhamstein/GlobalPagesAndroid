@@ -40,6 +40,7 @@ class CategoryProfileRecyclerViewAdapter constructor(var context: Context, var c
                             poJo.isSelected = true
                             onCategorySelectListener?.onSelectCategory(poJo)
                         } else {
+                            onCategorySelectListener?.onDeselectCategory(poJo)
                             buttonView?.setOnCheckedChangeListener(null)
                             poJo.isSelected = false
                             buttonView?.isChecked = poJo.isSelected
@@ -57,6 +58,15 @@ class CategoryProfileRecyclerViewAdapter constructor(var context: Context, var c
                 selectedList.add(it)
         }
         return selectedList
+    }
+
+    fun setCategoryItemStatus(category: Category, isChecked: Boolean) {
+        categoriesList.forEach {
+            if (category.id == it.id) {
+                it.isSelected = isChecked
+                notifyDataSetChanged()
+            }
+        }
     }
 
 }

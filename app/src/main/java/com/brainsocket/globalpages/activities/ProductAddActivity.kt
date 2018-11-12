@@ -245,6 +245,7 @@ class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuid
 
     override fun onLoadAttachmentListSuccessfully(filePath: String) {
         BindingUtils.loadImage(productImage, filePath)
+        businessGuideProductProductViewHolder.productImageTag.setText(filePath)
     }
     /*Attachment Presenter ended*/
 

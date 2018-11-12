@@ -1,10 +1,12 @@
 package com.brainsocket.globalpages.activities
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.TabLayout
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewCompat
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
@@ -16,6 +18,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -27,11 +30,14 @@ import com.brainsocket.globalpages.data.entities.BusinessGuide
 import com.brainsocket.globalpages.data.entities.Category
 import com.brainsocket.globalpages.data.entities.Post
 import com.brainsocket.globalpages.data.entities.User
+import com.brainsocket.globalpages.data.mapping.UserProfileMapper
 import com.brainsocket.globalpages.di.component.DaggerProfileComponent
 import com.brainsocket.globalpages.di.module.ProfileModule
 import com.brainsocket.globalpages.di.ui.ProfileContract
 import com.brainsocket.globalpages.di.ui.ProfilePresenter
+import com.brainsocket.globalpages.dialogs.ProgressDialog
 import com.brainsocket.globalpages.enums.UserGender
+import com.brainsocket.globalpages.listeners.OnCategorySelectListener
 import com.brainsocket.globalpages.repositories.UserRepository
 import com.brainsocket.globalpages.utilities.BindingUtils
 import com.brainsocket.globalpages.utilities.IntentHelper
@@ -43,10 +49,12 @@ import java.util.HashMap
 import javax.inject.Inject
 
 
-class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, ProfileContract.View {
+class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, ProfileContract.View, OnCategorySelectListener {
 
     @Inject
     lateinit var presenter: ProfilePresenter
+
+    private var progressDialog: ProgressDialog = ProgressDialog()
 
     @BindView(R.id.myPostsStateLayout)
     lateinit var myPostsStateLayout: Stateslayoutview
@@ -368,9 +376,78 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     }
 
     override fun onUserCategoriesListSuccessfully(categories: MutableList<Category>) {
-        myCategories.adapter = CategoryProfileRecyclerViewAdapter(context = baseContext, categoriesList = categories, isClickable = false)
+        myCategories.adapter = CategoryProfileRecyclerViewAdapter(context = baseContext,
+                categoriesList = categories, isClickable = true, onCategorySelectListener = this@ProfileActivity)
     }
     /*My Categories presenter ended */
+
+
+    /*Profile presenter started*/
+    override fun showUpdateProfileProgress(show: Boolean) {
+        if (show)
+            progressDialog.show(supportFragmentManager, ProgressDialog.ProgressDialog_Tag)
+        else
+            progressDialog.dismiss()
+    }
+
+    override fun showUpdateProfileLoadErrorMessage(visible: Boolean) {
+        if (visible) {
+            bindInfo(UserRepository(this).getUser()!!)
+            Toast.makeText(this, resources.getString(R.string.checkInternetConnection), Toast.LENGTH_LONG).show()
+        }
+    }
+
+    override fun onUpdateProfileSuccessfully(user: User) {
+        UserRepository(this).addUser(user)
+        bindInfo(user)
+        Toast.makeText(this, resources.getString(R.string.SubscribedCategoriesUpdateSuccessfully), Toast.LENGTH_LONG).show()
+    }
+    /*Profile presenter ended*/
+
+
+    override fun onSelectCategory(category: Category) {
+
+        val builder = AlertDialog.Builder(this)
+        val dialogClickListener = DialogInterface.OnClickListener { _, which ->
+            when (which) {
+                DialogInterface.BUTTON_POSITIVE -> {
+                    val user = UserRepository(context = baseContext).getUser()!!
+                    if (user.postCategoriesIds == null)
+                        user.postCategoriesIds = mutableListOf()
+                    user.postCategoriesIds?.add(category.id)
+                    presenter.updateProfile(UserProfileMapper.userProfileTransform(user), user.token)
+                }
+                DialogInterface.BUTTON_NEGATIVE -> {
+                    (myCategories.adapter as CategoryProfileRecyclerViewAdapter).setCategoryItemStatus(category, false)
+                }
+            }
+        }
+        builder.setMessage(resources.getString(R.string.doYouWantFollowNotificationsUnderThisCategory))
+                .setPositiveButton(resources.getString(R.string.Yes), dialogClickListener)
+                .setNegativeButton(resources.getString(R.string.No), dialogClickListener).show()
+    }
+
+    override fun onDeselectCategory(category: Category) {
+
+        val builder = AlertDialog.Builder(this)
+        val dialogClickListener = DialogInterface.OnClickListener { _, which ->
+            when (which) {
+                DialogInterface.BUTTON_POSITIVE -> {
+                    val user = UserRepository(context = baseContext).getUser()!!
+                    if (user.postCategoriesIds == null)
+                        user.postCategoriesIds = mutableListOf()
+                    user.postCategoriesIds?.remove(category.id)
+                    presenter.updateProfile(UserProfileMapper.userProfileTransform(user), user.token)
+                }
+                DialogInterface.BUTTON_NEGATIVE -> {
+                    (myCategories.adapter as CategoryProfileRecyclerViewAdapter).setCategoryItemStatus(category, true)
+                }
+            }
+        }
+        builder.setMessage(resources.getString(R.string.doYouWantUnFollowNotificationsUnderThisCategory))
+                .setPositiveButton(resources.getString(R.string.Yes), dialogClickListener)
+                .setNegativeButton(resources.getString(R.string.No), dialogClickListener).show()
+    }
 
 
 }

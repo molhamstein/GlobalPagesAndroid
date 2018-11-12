@@ -7,4 +7,5 @@ import com.brainsocket.globalpages.data.entities.Category
  */
 interface OnCategorySelectListener {
     fun onSelectCategory(category: Category)
+    fun onDeselectCategory(category: Category) {}
 }

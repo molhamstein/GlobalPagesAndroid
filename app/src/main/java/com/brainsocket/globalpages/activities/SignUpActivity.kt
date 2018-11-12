@@ -155,7 +155,6 @@ class SignUpActivity : BaseActivity(), SignUpContract.View {
                 }
             }
         }
-
         builder.setMessage(resources.getString(R.string.doYouWantAddFirstBusiness))
                 .setPositiveButton(resources.getString(R.string.Yes), dialogClickListener)
                 .setNegativeButton(resources.getString(R.string.No), dialogClickListener).show()

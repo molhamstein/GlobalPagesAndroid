@@ -139,5 +139,8 @@
     <string name="TermsOfUse">Terms of use</string>
     <string name="SendMail">Send mail</string>
     <string name="Notifications">Notifications</string>
+    <string name="doYouWantFollowNotificationsUnderThisCategory">Do you want follow notifications under this category</string>
+    <string name="doYouWantUnFollowNotificationsUnderThisCategory">Do you want unfollow notifications under this category</string>
+    <string name="SubscribedCategoriesUpdateSuccessfully">Subscribed categories update successfully</string>
 
 </resources>

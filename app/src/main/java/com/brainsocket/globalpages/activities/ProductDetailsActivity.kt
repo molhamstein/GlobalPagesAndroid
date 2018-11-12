@@ -27,16 +27,12 @@ class ProductDetailsActivity : BaseActivity() {
 
     companion object {
         const val ProductManageActivity_Tag = "ProductManageActivity_Tag"
-
-        var PLACE_PICKER_REQUEST = 1
-        var PICTURE_REQUEST = 100
-
     }
 
 
     lateinit var productThumb: ProductThumb
 
-    lateinit var businessGuideProductViewHolder: BusinessGuideProductViewHolder
+    private lateinit var businessGuideProductViewHolder: BusinessGuideProductViewHolder
 
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
