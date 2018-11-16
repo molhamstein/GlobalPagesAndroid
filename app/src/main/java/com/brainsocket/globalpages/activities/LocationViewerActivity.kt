@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -47,6 +48,8 @@ class LocationViewerActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
     @BindView(R.id.toolbar)
     lateinit var toolbar: Toolbar
 
+    @BindView(R.id.toolbarTitle)
+    lateinit var toolbarTitle: TextView
 
     lateinit var mMap: GoogleMap
 
@@ -54,6 +57,7 @@ class LocationViewerActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
 
     private fun initToolBar() {
         toolbar.setTitle(R.string.Address)
+        toolbarTitle.setText(R.string.Address)
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener { onBackPressed() }
     }

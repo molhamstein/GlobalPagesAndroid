@@ -18,7 +18,7 @@
     <string name="privacypolicy">Privacy Policy</string>
     <string name="and">and</string>
     <string name="termsandconditions">Terms and conditions</string>
-    <string name="SignUp">SignUp</string>
+    <string name="SignUp">Signup</string>
     <string name="haveanaccount">Have an account?</string>
     <string name="Login">Login</string>
     <string name="pleaseWait">Please wait &#8230;</string>
@@ -47,7 +47,7 @@
     <string name="Submit">Submit</string>
     <string name="resetPassword">Reset password</string>
     <string name="emailnotExisted">Email not existed</string>
-    <string name="resetPasswordSuccesfully">Reset password successfully</string>
+    <string name="resetPasswordSuccesfully">Please check your mail </string>
 
     <!--filter started-->
     <string name="Filter">Filter</string>

@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.brainsocket.globalpages.R;
-import com.brainsocket.globalpages.api.ServerInfo;
 import com.brainsocket.globalpages.configrations.GlideApp;
 import com.brainsocket.globalpages.data.entities.Attachment;
 import com.brainsocket.globalpages.data.entities.BusinessGuide;
@@ -20,13 +19,8 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
-import java.util.Random;
-
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
-/**
- * Created by Adhamkh on 2018-06-29.
- */
 
 public class BindingUtils {
 

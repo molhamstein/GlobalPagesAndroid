@@ -25,10 +25,12 @@ class ApiService {
     }
 
     fun postUserForgotPassword(url: String, forgotPasswordModel: ForgotPasswordModel, requestListener: JSONObjectRequestListener) {
+        val jSon = Gson().toJson(forgotPasswordModel)
         AndroidNetworking.post(url)
                 .setContentType("application/json")
                 .setPriority(Priority.HIGH)
-                .addApplicationJsonBody(forgotPasswordModel.email)
+                .addStringBody(jSon)
+//                .addApplicationJsonBody(forgotPasswordModel.email)
                 .build()
                 .getAsJSONObject(requestListener)
     }

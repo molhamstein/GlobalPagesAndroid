@@ -403,6 +403,7 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
     override fun onAddBusinessGuideSuccessfully(businessGuide: BusinessGuide) {
         businessGuideAddViewHolder.bindBusinessGuide(businessGuide)
         animateResult()
+
         Log.v("", "")
     }
 

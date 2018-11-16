@@ -176,7 +176,7 @@
                     android:text="@string/Accept"
                     android:textAppearance="@style/AppTheme.TextAppearanceSmall"
                     android:textColor="@color/grayLightTextColor"
-                    app:buttonTint="@color/checkBoxColor" />
+                    app:buttonTint="@color/colorPrimary" />
 
                 <android.support.v7.widget.AppCompatTextView
                     style="@style/AppTheme.TextAppearanceSmall"

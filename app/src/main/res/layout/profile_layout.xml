@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical">
 
-     <include
+    <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar_profile_layout"
         android:layout_width="match_parent"
@@ -29,8 +28,8 @@
                 android:id="@+id/flexible.example.collapsing"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                app:elevation="0dp"
                 app:contentScrim="@color/colorPrimary"
+                app:elevation="0dp"
                 app:expandedTitleTextAppearance="@style/CollapsingTextAppearance.Inverse"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:title="">
@@ -74,6 +73,7 @@
                             android:id="@+id/settingBtn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:contentDescription="@string/contentDescription"
                             android:padding="@dimen/md_margin"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:srcCompat="@drawable/ic_settings_white_24dp" />
@@ -103,7 +103,6 @@
                                     style="@style/AppTheme.TextAppearance"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Adhamkhwaldeh"
                                     android:textColor="@color/white"
                                     android:textStyle="bold" />
 
@@ -159,7 +158,6 @@
                                     style="@style/AppTheme.TextAppearance"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Adhamkhwaldeh@gmail.com"
                                     android:textColor="@color/white"
                                     android:textStyle="bold" />
 
@@ -223,6 +221,7 @@
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
+                        android:id="@+id/collectionsContainer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@id/info_Layout">
@@ -252,9 +251,9 @@
                             android:id="@+id/myCategoriesStateLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:RefreshbtnRes="@+id/retryBtn"
                             app:NoConnectionLayout="@layout/state_layout_noconnection"
                             app:NoDataLayout="@layout/state_layout_nodata"
+                            app:RefreshbtnRes="@+id/retryBtn"
                             app:WaitingLayout="@layout/state_layout_waiting"
                             app:layout_constraintTop_toBottomOf="@id/categorySperator">
 
@@ -285,12 +284,12 @@
                             style="@style/AppTheme.TextAppearance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
                             android:padding="@dimen/md_margin"
                             android:text="@string/Add"
                             android:textColor="@color/profileHeaderColor"
                             android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/myCategoriesStateLayout" />
 
 
@@ -339,12 +338,12 @@
                             style="@style/AppTheme.TextAppearance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
                             android:padding="@dimen/md_margin"
                             android:text="@string/Add"
                             android:textColor="@color/profileHeaderColor"
                             android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/myPostsStateLayout" />
 
 
@@ -377,6 +376,55 @@
                         </com.brainsocket.mainlibrary.Views.Stateslayoutview>
 
                     </android.support.constraint.ConstraintLayout>
+
+                    <LinearLayout
+                        android:id="@+id/logoutBtnContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/lg_margin"
+                        android:orientation="horizontal"
+                        android:visibility="invisible"
+                        android:weightSum="7"
+                        app:layout_constraintTop_toBottomOf="@+id/collectionsContainer">
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+
+                        <com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            app:ms9_shadowElevation="@dimen/md_elevation">
+
+                            <LinearLayout
+                                style="@style/commonNinePatchShadowItemViewStyle"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="@dimen/md_margin"
+                                android:background="@drawable/white_radius_bg"
+                                android:padding="@dimen/zero">
+
+                                <android.support.v7.widget.AppCompatButton
+                                    android:id="@+id/logoutBtn"
+                                    style="@style/AppTheme.NormalButtonStyle"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/sm_btn_height"
+                                    android:background="@drawable/button_bg"
+                                    android:padding="@dimen/sm_padding"
+                                    android:shadowColor="@color/black"
+                                    android:text="@string/Logout"
+                                    android:textColor="@color/white"
+                                    app:elevation="@dimen/elevation"
+                                    app:layout_constraintTop_toBottomOf="@+id/forgotTextViewLink" />
+
+                            </LinearLayout>
+
+                        </com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView>
+
+                    </LinearLayout>
 
                 </android.support.constraint.ConstraintLayout>
 

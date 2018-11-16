@@ -1,8 +1,14 @@
 package com.brainsocket.globalpages.data.entitiesModel
 
-/**
- * Created by Adhamkh on 2018-10-16.
- */
-class ProductThumbEditModel : ProductThumbModel() {
+class ProductThumbEditModel : ProductThumbModel {
     var id: String? = ""
+
+    constructor() : super()
+
+    constructor(name: String, price: String, image: String, description: String, id: String?) :
+            super(name, price, image, description) {
+        this.id = id
+    }
+
+
 }

@@ -104,6 +104,7 @@
                         android:id="@+id/productTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:focusable="false"
                         android:inputType="text"
                         android:textStyle="bold" />
                 </android.support.design.widget.TextInputLayout>
@@ -125,6 +126,7 @@
                         android:id="@+id/productDescription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:focusable="false"
                         android:gravity="top|left|start"
                         android:hint="@string/Optional"
                         android:inputType="textMultiLine"

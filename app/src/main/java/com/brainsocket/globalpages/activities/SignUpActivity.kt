@@ -149,6 +149,7 @@ class SignUpActivity : BaseActivity(), SignUpContract.View {
             when (which) {
                 DialogInterface.BUTTON_POSITIVE -> {
                     signUp2Business(user)
+
                 }
                 DialogInterface.BUTTON_NEGATIVE -> {
                     signUpSuccessfully(user)
@@ -167,16 +168,18 @@ class SignUpActivity : BaseActivity(), SignUpContract.View {
 
     override fun signUpSuccessfully(user: User) {
         IntentHelper.startMainActivity(this)
+        finish()
         Log.v("", "")
     }
 
     override fun signUp2Business(user: User) {
         IntentHelper.startBusinessAddActivity(this)
+        finish()
         Log.v("", "")
     }
 
     override fun signUpFail() {
-
+        Toast.makeText(baseContext, R.string.unexpectedErrorHappend, Toast.LENGTH_LONG).show()
         Log.v("", "")
     }
 

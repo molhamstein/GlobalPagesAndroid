@@ -26,6 +26,9 @@ import com.brainsocket.globalpages.di.ui.AttachmentPresenter
 import com.brainsocket.globalpages.di.ui.BusinessGuideProductContract
 import com.brainsocket.globalpages.di.ui.BusinessGuideProductPresenter
 import com.brainsocket.globalpages.dialogs.ProgressDialog
+import com.brainsocket.globalpages.eventsBus.EventActions
+import com.brainsocket.globalpages.eventsBus.MessageEvent
+import com.brainsocket.globalpages.eventsBus.RxBus
 import com.brainsocket.globalpages.repositories.UserRepository
 import com.brainsocket.globalpages.utilities.BindingUtils
 import com.brainsocket.globalpages.viewModel.BusinessGuideProductViewHolder
@@ -191,6 +194,7 @@ class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuid
     override fun onAddProductSuccessfully(productThumb: ProductThumb) {
         businessGuideProductProductViewHolder.bind(productThumb)
         Toast.makeText(baseContext, R.string.productAddedSuccessfully, Toast.LENGTH_LONG).show()
+        RxBus.publish(MessageEvent(EventActions.ProductAddActivity_Tag, businessGuideProductProductViewHolder.getProductThumbModel()))
     }
 
     override fun onAddProductFail() {
@@ -200,6 +204,7 @@ class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuid
     override fun onProductUpdateSuccessfully(productThumb: ProductThumb) {
         businessGuideProductProductViewHolder.bind(productThumb)
         finish()
+        RxBus.publish(MessageEvent(EventActions.ProductAddActivity_Tag, businessGuideProductProductViewHolder.getProductThumbModel()))
         Toast.makeText(baseContext, R.string.productUpdatedSuccessfully, Toast.LENGTH_LONG).show()
     }
 
@@ -245,7 +250,10 @@ class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuid
 
     override fun onLoadAttachmentListSuccessfully(filePath: String) {
         BindingUtils.loadImage(productImage, filePath)
-        businessGuideProductProductViewHolder.productImageTag.setText(filePath)
+        businessGuideProductProductViewHolder.productImageTag.text = (filePath)
+
+
+
     }
     /*Attachment Presenter ended*/
 

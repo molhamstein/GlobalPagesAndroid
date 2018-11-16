@@ -44,7 +44,7 @@
     <string name="Submit">طلب</string>
     <string name="resetPassword">إعادة تعيين كلمة المرور</string>
     <string name="emailnotExisted">البريد الإلكتروني غير موجود</string>
-    <string name="resetPasswordSuccesfully">إعادة تعيين كلمة المرور بنجاح</string>
+    <string name="resetPasswordSuccesfully">الرجاء تفقد بريدك الإلكتروني</string>
 
     <!--filter started-->
     <string name="Filter">الفلترة</string>

@@ -5,6 +5,12 @@
     android:layout_height="match_parent"
     android:background="@color/transparent">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.2"
+        android:background="@color/black" />
+
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
@@ -17,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
+            android:contentDescription="@string/contentDescription"
             android:padding="@dimen/md_margin"
             android:src="@drawable/ic_close_white_24dp" />
 
@@ -92,7 +99,6 @@
                     app:errorEnabled="true"
                     app:errorTextAppearance="@style/ErrorText"
                     app:hintTextAppearance="@style/HintText"
-                    app:layout_constraintBottom_toTopOf="@+id/guideLineEmail"
                     app:layout_constraintTop_toBottomOf="@+id/productImageDescription">
 
                     <android.support.design.widget.TextInputEditText
@@ -120,7 +126,7 @@
                         android:id="@+id/productDescription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="top|left|start"
+                        android:gravity="start"
                         android:hint="@string/Optional"
                         android:inputType="textMultiLine"
                         android:lines="3"

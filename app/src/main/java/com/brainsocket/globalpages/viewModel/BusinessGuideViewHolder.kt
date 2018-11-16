@@ -51,6 +51,9 @@ class BusinessGuideViewHolder constructor(view: View) : RecyclerView.ViewHolder(
     @BindView(R.id.businessGuideProductRecyclerView)
     lateinit var businessGuideProductRecyclerView: RecyclerView
 
+    @BindView(R.id.ProductAddLink)
+    lateinit var ProductAddLink: View
+
     var context: Context
 
     init {
@@ -77,10 +80,14 @@ class BusinessGuideViewHolder constructor(view: View) : RecyclerView.ViewHolder(
 
         businessGuideProductRecyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
 
-        val user = UserRepository(context).getUser()!!
+        val user = UserRepository(context).getUser()
+        var isOwner = false
+        if (user != null)
+            isOwner = user.id == businessGuide.ownerId
+        if (!isOwner)
+            ProductAddLink.visibility = View.INVISIBLE
         businessGuideProductRecyclerView.adapter = BusinessGuideProductRecyclerViewAdapter(context, businessGuide.products,
-                user.id == businessGuide.ownerId, businessGuide)
-
+                isOwner, businessGuide)
 
     }
 

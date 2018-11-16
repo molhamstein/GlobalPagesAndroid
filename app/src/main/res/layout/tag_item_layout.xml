@@ -3,13 +3,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <!--<ImageView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:contentDescription="@string/contentDescription"-->
-    <!--android:src="@drawable/ic_close_white_24dp"-->
-    <!--app:layout_constraintEnd_toEndOf="@+id/tag_toggle" />-->
-
     <com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,46 +17,61 @@
             android:background="@drawable/white_radius_bg"
             android:padding="@dimen/zero">
 
-            <ToggleButton
-                android:id="@+id/tag_toggle"
-                style="@style/AppTheme.MainToggle"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/recyclerviewTagHeight"
-                android:layout_margin="@dimen/zero"
-                android:background="@drawable/ic_view_tag_bg"
-                android:button="@null"
-                android:drawablePadding="@dimen/sm_padding"
-                android:gravity="center_vertical|center_horizontal"
-                android:maxLines="1"
-                android:padding="@dimen/sm_padding"
-                android:paddingEnd="@dimen/lg_padding"
-                android:paddingRight="@dimen/lg_padding"
-                android:stateListAnimator="@null"
-                android:text="tag"
-                android:textAlignment="gravity"
-                android:textAppearance="@style/AppTheme.AutoFillText"
-                android:textColor="@color/white" />
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_view_tag_bg">
 
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="@+id/tag_toggle"
-                app:layout_constraintEnd_toEndOf="@id/tag_toggle"
-                app:layout_constraintRight_toRightOf="@+id/tag_toggle"
-                app:layout_constraintTop_toTopOf="@+id/tag_toggle">
+                <ToggleButton
+                    android:id="@+id/tag_toggle"
+                    style="@style/AppTheme.MainToggle"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/recyclerviewTagHeight"
+                    android:layout_margin="@dimen/zero"
+                    android:background="@color/transparent"
+                    android:button="@null"
+                    android:drawablePadding="@dimen/zero"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:maxLines="1"
+                    android:padding="@dimen/zero"
+                    android:stateListAnimator="@null"
+                    android:textAlignment="gravity"
+                    android:textAppearance="@style/AppTheme.AutoFillText"
+                    android:textColor="@color/white"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tagName"
+                    style="@style/AppTheme.TextAppearance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/zero"
+                    android:paddingLeft="@dimen/lg_padding"
+                    android:paddingRight="@dimen/zero"
+                    android:paddingStart="@dimen/lg_padding"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/tag_close"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/contentDescription"
                     android:src="@drawable/ic_close_white_24dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tag_toggle"
-                    app:layout_constraintEnd_toEndOf="@id/tag_toggle"
-                    app:layout_constraintRight_toRightOf="@+id/tag_toggle"
-                    app:layout_constraintTop_toTopOf="@+id/tag_toggle" />
+                    app:layout_constraintBottom_toBottomOf="@+id/tagName"
+                    app:layout_constraintLeft_toRightOf="@+id/tagName"
+                    app:layout_constraintStart_toEndOf="@id/tagName"
+                    app:layout_constraintTop_toTopOf="@+id/tagName" />
 
-            </FrameLayout>
 
+            </android.support.constraint.ConstraintLayout>
 
         </android.support.constraint.ConstraintLayout>
 

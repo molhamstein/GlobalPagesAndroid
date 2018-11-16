@@ -13,9 +13,17 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import butterknife.Optional
 import com.brainsocket.globalpages.R
+import com.brainsocket.globalpages.adapters.BusinessGuideProductRecyclerViewAdapter
 import com.brainsocket.globalpages.adapters.MediaViewPagerAdapter
 import com.brainsocket.globalpages.data.entities.BusinessGuide
+import com.brainsocket.globalpages.data.entities.ProductThumb
+import com.brainsocket.globalpages.data.entitiesModel.ProductThumbEditModel
+import com.brainsocket.globalpages.data.entitiesModel.ProductThumbModel
+import com.brainsocket.globalpages.data.mapping.ProductProductModelTransformation
 import com.brainsocket.globalpages.dialogs.ContactDialog
+import com.brainsocket.globalpages.eventsBus.EventActions
+import com.brainsocket.globalpages.eventsBus.MessageEvent
+import com.brainsocket.globalpages.eventsBus.RxBus
 import com.brainsocket.globalpages.repositories.DummyDataRepositories
 import com.brainsocket.globalpages.repositories.UserRepository
 import com.brainsocket.globalpages.utilities.IntentHelper
@@ -60,6 +68,22 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
 
         initToolBar()
         businessGuideViewHolder.bind(businessGuide)
+
+        RxBus.listen(MessageEvent::class.java).subscribe {
+            when (it.action) {
+                EventActions.ProductAddActivity_Tag -> {
+                    try {
+                        val productThumbModel: ProductThumbEditModel = it.message as ProductThumbEditModel
+                        (businessGuideViewHolder.businessGuideProductRecyclerView.adapter
+                                as BusinessGuideProductRecyclerViewAdapter)
+                                .addOrUpdateItem(ProductProductModelTransformation.productTransform(productThumbModel))
+                    } catch (ex: Exception) {
+                        Log.v("", "")
+                    }
+                }
+            }
+        }
+
 
     }
 

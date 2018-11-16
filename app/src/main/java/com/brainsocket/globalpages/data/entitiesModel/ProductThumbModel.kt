@@ -10,4 +10,14 @@ open class ProductThumbModel {
     var image: String = ""
     var description: String = ""
 
+    constructor()
+
+    constructor(name: String, price: String, image: String, description: String) {
+        this.name = name
+        this.price = price
+        this.image = image
+        this.description = description
+    }
+
+
 }

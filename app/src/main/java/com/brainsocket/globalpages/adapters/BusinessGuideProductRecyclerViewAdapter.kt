@@ -38,4 +38,17 @@ class BusinessGuideProductRecyclerViewAdapter constructor(var context: Context, 
 
     }
 
+    fun addOrUpdateItem(productThumb: ProductThumb) {
+        val sz = productThumbList.size - 1
+        for (i: Int in (0..sz)) {
+            if (productThumbList[i].id == (productThumb.id)) {
+                productThumbList[i] = productThumb
+                notifyDataSetChanged()
+                return
+            }
+        }
+        productThumbList.add(productThumb)
+        notifyDataSetChanged()
+    }
+
 }

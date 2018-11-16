@@ -247,6 +247,11 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
         Log.v("Clicked", view.id.toString())
     }
 
+    @OnClick(R.id.logoutBtn)
+    fun onLogoutButtonClick(view: View) {
+        UserRepository(baseContext).flushUser()
+        finish()
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.profile_menu, menu)

@@ -13,31 +13,36 @@
         app:layout_constraintGuide_percent="0.5" />
 
     <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/splashTitle"
         style="@style/AppTheme.TitleTextAppearance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:elevation="4dp"
         android:fadeScrollbars="true"
         android:fadingEdge="horizontal"
-        android:shadowColor="@color/colorPrimary"
-        android:shadowRadius="4"
+        android:shadowColor="@color/white"
+        android:shadowRadius="@integer/textShadow"
         android:text="@string/app_name"
         android:textColor="@color/white"
+        android:textStyle="bold"
         app:autoSizeTextType="uniform"
-        app:fontFamily="cursive"
+        app:elevation="4dp"
+        app:fontFamily="@font/cairo_bold"
         app:layout_constraintBottom_toTopOf="@+id/logo"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:contentDescription="@string/contentDescription"
         android:src="@mipmap/ic_launcher"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/splashTitle"
+        app:layout_constraintHeight_percent="0.2"
+        app:layout_constraintLeft_toLeftOf="@+id/splashTitle"
+        app:layout_constraintRight_toRightOf="@+id/splashTitle"
+        app:layout_constraintStart_toStartOf="@+id/splashTitle"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
 
 

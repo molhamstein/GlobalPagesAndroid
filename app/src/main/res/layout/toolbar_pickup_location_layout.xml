@@ -15,6 +15,7 @@
         android:layout_height="wrap_content">
 
         <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/toolbarTitle"
             style="@style/AppTheme.TitleTextAppearance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

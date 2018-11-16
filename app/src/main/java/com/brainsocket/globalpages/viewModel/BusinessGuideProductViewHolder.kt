@@ -14,11 +14,7 @@ import com.brainsocket.globalpages.data.entitiesModel.ProductThumbEditModel
 import com.brainsocket.globalpages.data.entitiesModel.ProductThumbModel
 import com.brainsocket.globalpages.data.validations.ValidationHelper
 import com.brainsocket.globalpages.utilities.BindingUtils
-import org.w3c.dom.Text
 
-/**
- * Created by Adhamkh on 2018-10-07.
- */
 class BusinessGuideProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     @BindView(R.id.productId)

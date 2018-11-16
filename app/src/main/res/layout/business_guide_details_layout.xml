@@ -419,6 +419,8 @@
                             android:background="@drawable/button_bg"
                             android:drawableLeft="@drawable/ic_phone_white_24dp"
                             android:drawableStart="@drawable/ic_phone_white_24dp"
+                            android:drawableEnd="@drawable/ic_phone_transprent_24dp"
+                            android:drawableRight="@drawable/ic_phone_transprent_24dp"
                             android:elevation="@dimen/elevation"
                             android:paddingEnd="@dimen/lg_padding"
                             android:paddingLeft="@dimen/lg_padding"
