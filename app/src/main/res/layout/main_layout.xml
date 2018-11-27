@@ -280,7 +280,7 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/sm_padding">
 
-                    <com.brainsocket.globalpages.views.SelectedTagsView
+                    <com.almersal.android.views.SelectedTagsView
                         android:id="@+id/selectedTagsView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -289,7 +289,7 @@
                         android:layout_toStartOf="@id/searchFilterBtn"
                         android:textAlignment="gravity" />
 
-                    <!--<com.brainsocket.globalpages.views.SearchTagViewView&ndash;&gt;-->
+                    <!--<com.almersal.android.views.SearchTagViewView&ndash;&gt;-->
                     <!--android:id="@+id/tagSearch"-->
                     <!--android:layout_width="match_parent"-->
                     <!--android:layout_height="wrap_content"-->

@@ -1,4 +1,4 @@
-package com.brainsocket.globalpages
+package com.almersal.android
 
 import org.junit.Test
 

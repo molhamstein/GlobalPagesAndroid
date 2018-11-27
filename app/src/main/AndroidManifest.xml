@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.brainsocket.globalpages">
+    package="com.almersal.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission-sdk-23 android:name="android.permission.INTERNET" />
@@ -37,7 +37,7 @@
             android:value="@string/google_maps_key" />
 
         <!--<meta-data-->
-        <!--android:name="com.brainsocket.globalpages.configrations.GlideConfiguration"-->
+        <!--android:name="com.almersal.android.configrations.GlideConfiguration"-->
         <!--android:value="GlideModule" />-->
 
         <activity android:name=".activities.SplashActivity">

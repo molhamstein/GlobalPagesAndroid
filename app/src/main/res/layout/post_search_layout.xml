@@ -62,7 +62,7 @@
                     <!--android:layout_width="match_parent"-->
                     <!--android:layout_height="wrap_content">-->
 
-                    <!--<com.brainsocket.globalpages.views.SearchTagView-->
+                    <!--<com.almersal.android.views.SearchTagView-->
                     <!--android:id="@+id/searchTagView"-->
                     <!--android:layout_width="match_parent"-->
                     <!--android:layout_height="wrap_content"-->
@@ -86,7 +86,7 @@
                     <!--android:layout_below="@+id/searchTagView"-->
                     <!--android:background="@color/lightgray" />-->
 
-                    <!--<com.brainsocket.globalpages.views.SuggestionTagView-->
+                    <!--<com.almersal.android.views.SuggestionTagView-->
                     <!--android:id="@+id/suggestionTagsView"-->
                     <!--android:layout_width="match_parent"-->
                     <!--android:layout_height="wrap_content"-->

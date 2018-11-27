@@ -77,7 +77,7 @@
 
         </android.support.constraint.ConstraintLayout>
 
-        <com.brainsocket.globalpages.views.SuggestionTagView
+        <com.almersal.android.views.SuggestionTagView
             android:id="@+id/suggestionTags"
             android:layout_width="0dp"
             android:layout_height="0dp"

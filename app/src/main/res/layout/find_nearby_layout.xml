@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.brainsocket.globalpages.views.SearchTagView
+            <com.almersal.android.views.SearchTagView
                 android:id="@+id/tagSearchView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
