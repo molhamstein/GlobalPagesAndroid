@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "177463462440",
+    "firebase_url": "https://almersal-217217.firebaseio.com",
+    "project_id": "almersal-217217",
+    "storage_bucket": "almersal-217217.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:177463462440:android:451d780ccaebb58b",
+        "android_client_info": {
+          "package_name": "com.almersal.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "177463462440-gncm3knnpddfdfooqrlfqvcejb1ti70e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5XZCeUfvFAKXSzsR737lhwKARfKdx144"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

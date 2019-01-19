@@ -7,9 +7,6 @@ import com.almersal.android.data.entities.LocationEntity
 import com.almersal.android.data.entities.PostCategory
 import com.google.gson.Gson
 
-/**
- * Created by Adhamkh on 2018-08-08.
- */
 class DataStoreRepositories constructor(context: Context) : Repository(context) {
 
     companion object {

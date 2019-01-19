@@ -203,7 +203,6 @@ class ApiService {
                 .getAsObject(Post::class.java, requestListener)
     }
 
-
     fun getFeaturedPosts(url: String, requestListener: ParsedRequestListener<MutableList<Post>>) {
 
         AndroidNetworking.get(url)
@@ -282,6 +281,16 @@ class ApiService {
 //                .addQueryParameter("filter", criteria)
                 .build()
                 .getAsObjectList(NotificationEntity::class.java, requestListener)
+    }
+
+    fun putFireBaseToken(url: String, token: String, fireBaseToken: String, requestListener: StringRequestListener) {
+        AndroidNetworking.put(url)
+                .setContentType("application/json")
+                .addHeaders("Authorization", token)
+                .addQueryParameter("token", fireBaseToken)
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsString(requestListener)
     }
 
     /*Notification ended*/

@@ -11,9 +11,7 @@ import com.almersal.android.data.entities.City
 import com.almersal.android.listeners.OnCitySelectListener
 import com.almersal.android.viewHolders.CityViewHolder
 
-/**
- * Created by Adhamkh on 2018-07-03.
- */
+
 class CityRecyclerViewAdapter constructor(var context: Context, var citiesListList: MutableList<City>
                                           , var onCitySelectListener: OnCitySelectListener? = null) :
         RecyclerView.Adapter<CityViewHolder>() {

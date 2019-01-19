@@ -60,6 +60,13 @@ class CategoryProfileRecyclerViewAdapter constructor(var context: Context, var c
         return selectedList
     }
 
+    fun clearAll() {
+        categoriesList.forEach {
+            it.isSelected = false
+        }
+        notifyDataSetChanged()
+    }
+
     fun setCategoryItemStatus(category: Category, isChecked: Boolean) {
         categoriesList.forEach {
             if (category.id == it.id) {

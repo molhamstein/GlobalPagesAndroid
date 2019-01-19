@@ -1,12 +1,10 @@
 package com.almersal.android.api
 
-/**
- * Created by Adhamkh on 2018-03-25.
- */
+
 class ServerInfo {
 
     companion object {
-        var baseUrl = "http://104.217.253.15:3000/api/"
+        var baseUrl = "http://almersal.co/api/"
 
         /*Registration started*/
         var SigninUrl = baseUrl + "users/login/?include=user"
@@ -44,7 +42,12 @@ class ServerInfo {
         var uploadImageUrl = baseUrl + "attachments/images/upload"
 
 
+        /*Notification started*/
         var notificationUrl = baseUrl + "notifications"
+
+        var fireBaseNotificationUrl = baseUrl + "users/setFirebaseToken"
+
+        /*Notification ended*/
 
     }
 

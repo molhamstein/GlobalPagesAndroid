@@ -27,7 +27,9 @@
                 android:layout_margin="@dimen/sm_margin"
                 android:background="@drawable/ic_cat_tag_bg"
                 android:maxLines="1"
-                android:padding="@dimen/xsm_padding"
+                android:minHeight="@dimen/zero"
+                android:minWidth="@dimen/zero"
+                android:padding="@dimen/sm_padding"
                 android:textColor="@drawable/ic_tag_color" />
 
         </android.support.constraint.ConstraintLayout>

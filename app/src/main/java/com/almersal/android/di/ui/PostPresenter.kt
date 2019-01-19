@@ -67,7 +67,7 @@ class PostPresenter constructor(val context: Context) : PostContract.Presenter {
     }
 
     override fun loadFeaturedPost() {
-        val url = ServerInfo.postUrl + "?filter[where][isFeatured]=true"
+        val url = ServerInfo.postUrl + "?filter[where][isFeatured]=true" + "&filter[where][status]=activated"
         ApiService().getFeaturedPosts(url, object : ParsedRequestListener<MutableList<Post>> {
             override fun onResponse(response: MutableList<Post>?) {
                 if (response != null) {

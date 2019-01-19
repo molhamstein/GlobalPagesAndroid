@@ -60,6 +60,8 @@ class PostRecyclerViewAdapter constructor(var context: Context, private var post
         }
     }
 
+
+
     fun filterByCriteria(filterEntity: FilterEntity) {
         this.filterEntity = filterEntity
 

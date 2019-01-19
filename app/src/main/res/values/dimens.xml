@@ -32,5 +32,8 @@
     <dimen name="iconWidth">36dp</dimen>
     <dimen name="iconHeight">36dp</dimen>
 
+    <dimen name="iconWidth_mid">48dp</dimen>
+    <dimen name="iconHeight_mid">48dp</dimen>
+
 
 </resources>

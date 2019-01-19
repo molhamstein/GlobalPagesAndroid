@@ -20,7 +20,7 @@ class SubCategoryRecyclerViewAdapter constructor(var context: Context, var subCa
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubCategoryViewHolder {
-        var view = LayoutInflater.from(context).inflate(R.layout.subcategory_item_layout, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.subcategory_item_layout, parent, false)
         return SubCategoryViewHolder(view)
     }
 
@@ -29,19 +29,20 @@ class SubCategoryRecyclerViewAdapter constructor(var context: Context, var subCa
     }
 
     override fun onBindViewHolder(holder: SubCategoryViewHolder, position: Int) {
-        var pojo = subCategoriesList[position]
-        holder.bind(pojo)
+        val poJo = subCategoriesList[position]
+        holder.bind(poJo)
         holder.itemView.findViewById<ToggleButton>(R.id.subCategory_toggle)
                 .setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
                     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
                         if (isChecked) {
-                            setCheck(pojo)
-                            onSubCategorySelectListener?.onSelectSubCategory(pojo)
+                            setCheck(poJo)
+                            onSubCategorySelectListener?.onSelectSubCategory(poJo)
                         } else {
                             buttonView?.setOnCheckedChangeListener(null)
-                            pojo.isSelected = false
-                            buttonView?.isChecked = pojo.isSelected
+                            poJo.isSelected = false
+                            buttonView?.isChecked = poJo.isSelected
                             buttonView?.setOnCheckedChangeListener(this)
+                            onSubCategorySelectListener?.onUnSelectSubCategory(poJo)
                         }
                     }
                 })
@@ -55,12 +56,29 @@ class SubCategoryRecyclerViewAdapter constructor(var context: Context, var subCa
         notifyDataSetChanged()
     }
 
+    fun setCheck(subCategoryId: String) {
+        subCategoriesList.forEach {
+            if (it.id == subCategoryId)
+                it.isSelected = true
+        }
+        notifyDataSetChanged()
+    }
+
     fun getCurrentSubCategory(): SubCategory? {
         subCategoriesList.forEach {
             if (it.isSelected)
                 return it
         }
         return null
+    }
+
+    fun setSubCategoryItemStatus(subCategory: SubCategory, isChecked: Boolean) {
+        subCategoriesList.forEach {
+            if (subCategory.id == it.id) {
+                it.isSelected = isChecked
+                notifyDataSetChanged()
+            }
+        }
     }
 
 }

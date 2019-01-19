@@ -8,7 +8,7 @@ class SettingData {
         const val pharmacyCategoryId = "5bc1ccd2f927cf701f3b5554"
         const val EpsDistance = 0.5
 
-        const val emailAddress = "test@gmail.com"
+        const val emailAddress = "almersalgroupe@gmail.com"
         const val siteAddress = "http://www.google.com"
 
         val dayList = mutableListOf<OpenDayModel>().apply {

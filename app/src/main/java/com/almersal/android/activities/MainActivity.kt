@@ -7,6 +7,7 @@ import android.support.v7.widget.*
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import butterknife.*
@@ -14,6 +15,7 @@ import com.almersal.android.R
 import com.almersal.android.adapters.PostRecyclerViewAdapter
 import com.almersal.android.adapters.PostSliderRecyclerViewAdapter
 import com.almersal.android.adapters.TagsRecyclerViewAdapter
+import com.almersal.android.configrations.GlideApp
 import com.almersal.android.data.entities.*
 import com.almersal.android.data.filtration.FilterEntity
 import com.almersal.android.di.component.DaggerMainComponent
@@ -24,6 +26,7 @@ import com.almersal.android.di.ui.*
 import com.almersal.android.listeners.OnTagSelectListener
 import com.almersal.android.repositories.DummyDataRepositories
 import com.almersal.android.repositories.UserRepository
+import com.almersal.android.utilities.BindingUtils
 import com.almersal.android.utilities.IntentHelper
 import com.almersal.android.views.SelectedTagsView
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
@@ -75,6 +78,9 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, No
     @BindView(R.id.main_appbar)
     lateinit var main_appbar: AppBarLayout
 
+    @BindView(R.id.loginBtn)
+    lateinit var loginBtn: ImageView
+
 
     private fun initToolBar() {
         toolBar.setTitle(R.string.app_name)
@@ -102,6 +108,7 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, No
         val user: User? = UserRepository(baseContext).getUser()
         if (user != null) {
             notificationPresenter.loadUnSeenNotifications(user.id!!)
+            loadProfileImage(user)
         }
 
     }
@@ -117,6 +124,10 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, No
         volumesRecyclerView.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
     }
 
+    private fun loadProfileImage(user: User) {
+        BindingUtils.loadProfileThumbnailImage(loginBtn, user.imageProfile)
+    }
+
     override fun onBaseCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.main_layout)
         ButterKnife.bind(this)
@@ -130,12 +141,6 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, No
         selectedTagsView.setAdapter(TagsRecyclerViewAdapter(this, DummyDataRepositories.getTagsDefaultRepositories()))
         (selectedTagsView.getAdapter() as TagsRecyclerViewAdapter).onTagSelectListener = this
 
-//        tagSearch.addSuggestionList(DummydataRepositories.getTagsRepositories())
-//        volumesRecyclerView.adapter = PostRecyclerViewAdapter(MainActivity@ this, DummyDataRepositories.getPostList())
-//        intentHelper.startPostAddActivity(this)
-//        intentHelper.startBusinessAddActivity(this)
-//        intentHelper.startBusinessGuideDetailsActivity(this)
-//        intentHelper.startBusinessGuideSearchActivity(this)
 
         stateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
             override fun onRefresh() {
@@ -173,11 +178,11 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, No
                 Log.v("", "")
             }
         }
-
     }
 
     override fun onSelectTag(tagEntity: TagEntity) {
-        (volumesRecyclerView.adapter as PostRecyclerViewAdapter).excludeFilter(tagEntity)
+        if (volumesRecyclerView.adapter != null)
+            (volumesRecyclerView.adapter as PostRecyclerViewAdapter).excludeFilter(tagEntity)
         Log.v("", "")
     }
 
@@ -191,9 +196,10 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, No
         main_appbar.setExpanded(false)
     }
 
+    @Optional
     @OnTouch(R.id.searchContainer)
     fun onSearchContainerTouch(view: View, moveEvent: MotionEvent): Boolean {
-        main_appbar.setExpanded(false)
+//        main_appbar.setExpanded(false)
         return false
     }
 
@@ -247,7 +253,6 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, No
         Log.v("View Clicked", view.id.toString())
     }
 
-
     @OnClick(R.id.addPostBtn)
     fun onAddPostClick(view: View) {
         val user = UserRepository(this).getUser()
@@ -287,6 +292,7 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, No
     override fun showEmptyView(visible: Boolean) {
         if (visible) {
             stateLayout.FlipLayout(LayoutStatesEnum.Nodatalayout)
+//            main_appbar.setExpanded(true)
         } else {
             stateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
         }

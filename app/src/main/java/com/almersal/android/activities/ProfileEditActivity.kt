@@ -29,6 +29,7 @@ import com.almersal.android.di.ui.AttachmentPresenter
 import com.almersal.android.di.ui.ProfileContract
 import com.almersal.android.di.ui.ProfilePresenter
 import com.almersal.android.dialogs.ProgressDialog
+import com.almersal.android.enums.UserStatus
 import com.almersal.android.normalization.DateNormalizer
 import com.almersal.android.repositories.UserRepository
 import com.almersal.android.viewModel.ProfileEditViewHolder
@@ -49,7 +50,6 @@ class ProfileEditActivity : BaseActivity(), ProfileContract.View, AttachmentCont
         var PICTURE_REQUEST = 100
     }
 
-    lateinit var profileEditViewHolder: ProfileEditViewHolder
 
     @BindView(R.id.stateLayout)
     lateinit var stateLayout: Stateslayoutview
@@ -59,6 +59,8 @@ class ProfileEditActivity : BaseActivity(), ProfileContract.View, AttachmentCont
 
     @BindView(R.id.toolbar)
     lateinit var toolBar: Toolbar
+
+    lateinit var profileEditViewHolder: ProfileEditViewHolder
 
     @Inject
     lateinit var attachmentPresenter: AttachmentPresenter
@@ -133,8 +135,8 @@ class ProfileEditActivity : BaseActivity(), ProfileContract.View, AttachmentCont
         ButterKnife.bind(this)
         profileEditViewHolder = ProfileEditViewHolder(findViewById(android.R.id.content))
         initDI()
-        initTabLayout()
         initToolbar()
+        initTabLayout()
 
         profileEditViewHolder.bindView(profileEditViewHolder.getDefaultProfileModel())
 
@@ -152,7 +154,7 @@ class ProfileEditActivity : BaseActivity(), ProfileContract.View, AttachmentCont
     private fun requestAction() {
         if (profileEditViewHolder.isValid()) {
             val user = UserRepository(this).getUser()!!
-            user.status = "activated"
+            user.status = UserStatus.active.status
             profilePresenter.updateProfile(profileEditViewHolder.getProfileModel(), user.token)
         }
 
@@ -264,10 +266,6 @@ class ProfileEditActivity : BaseActivity(), ProfileContract.View, AttachmentCont
             stateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
     }
 
-    override fun onUserCategoriesListSuccessfully(categories: MutableList<Category>) {
-        profileEditViewHolder.bindSubscribedCategories(categories)
-    }
-
     override fun onUpdateProfileSuccessfully(user: User) {
         val currentUser = UserRepository(this).getUser()!!
         user.token = currentUser.token
@@ -278,5 +276,11 @@ class ProfileEditActivity : BaseActivity(), ProfileContract.View, AttachmentCont
     }
     /*Profile presenter ended*/
 
+
+    /*Subscribed categories started*/
+    override fun onUserCategoriesListSuccessfully(categories: MutableList<Category>) {
+        profileEditViewHolder.bindSubscribedCategories(categories)
+    }
+    /*Subscribed categories ended*/
 
 }

@@ -9,14 +9,11 @@ import butterknife.OnClick
 import com.almersal.android.R
 import com.almersal.android.utilities.BindingUtils
 
-/**
- * Created by Adhamkh on 2018-10-27.
- */
+
 class PictureActivity : BaseActivity() {
 
     companion object {
         const val PictureActivity_Tag = "PictureActivity_Tag"
-
     }
 
     @BindView(R.id.pictureImage)

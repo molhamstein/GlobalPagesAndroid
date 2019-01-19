@@ -6,7 +6,11 @@ import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.gsonparserfactory.GsonParserFactory
 import com.androidnetworking.interceptors.HttpLoggingInterceptor
 import com.almersal.android.utilities.LocaleUtils
-import com.onesignal.OneSignal
+import com.crashlytics.android.Crashlytics
+import com.google.firebase.FirebaseApp
+import com.google.firebase.messaging.FirebaseMessaging
+import io.fabric.sdk.android.Fabric
+//import com.onesignal.OneSignal
 //import com.jacksonandroidnetworking.JacksonParserFactory
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 import java.util.*
@@ -53,10 +57,16 @@ class App : MultiDexApplication() {
         }
 
 //        OneSignal Initialization
-        OneSignal.startInit(this)
-                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-                .unsubscribeWhenNotificationsAreDisabled(true)
-                .init()
+//        OneSignal.startInit(this)
+//                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+//                .unsubscribeWhenNotificationsAreDisabled(true)
+//                .init()
+
+        FirebaseApp.initializeApp(this)
+        Fabric.with(this, Crashlytics())
+        val messages = FirebaseMessaging.getInstance()
+        messages.isAutoInitEnabled = true
+
 
     }
 

@@ -1,8 +1,10 @@
 <resources>
-    <string name="app_name" translatable="false">Global Pages</string>
+    <string name="app_name">almersal</string>
 
     <!--<string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDAbTRgO8FsaOZ_410l83nQb5G1-OhEdXo</string>-->
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBjqioJFsSmfzlviqJRnQyejNE8y9tFYbg</string>
+
+    <string name="default_notification_channel_id" translatable="false">313</string>
 
     <string name="contentDescription">content Description</string>
 
@@ -60,8 +62,8 @@
 
     <!--home-->
     <string name="BusinessGuide">Business Guide</string>
-    <string name="FindNearBy">Find nearby</string>
-    <string name="OnDutyPharmacies">On Duty Pharmacies</string>
+    <string name="FindNearBy">Find Nearby</string>
+    <string name="OnDutyPharmacies">Oncall Pharmacy</string>
 
     <!--post details-->
     <string name="Addedin">Added In</string>
@@ -137,8 +139,8 @@
     <string name="Address">Address</string>
     <string name="Update">Update</string>
     <string name="profileUpdatedSuccessfully">Profile updated successfully</string>
-    <string name="copyRight">&#169; ALl rights reserved. No part of this publication \n
-        may be reproduced. distributed, or transmitted \n
+    <string name="copyRight">&#169; All rights reserved by almersal 2019. \n No part of this publication
+        may be reproduced. distributed, \n or transmitted
         on any form or by any means</string>
     <string name="Logout">Logout</string>
     <string name="AboutUs">About us</string>

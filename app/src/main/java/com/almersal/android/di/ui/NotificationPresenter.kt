@@ -6,6 +6,7 @@ import com.androidnetworking.interfaces.ParsedRequestListener
 import com.almersal.android.api.ApiService
 import com.almersal.android.api.ServerInfo
 import com.almersal.android.data.entities.NotificationEntity
+import com.androidnetworking.interfaces.StringRequestListener
 
 
 class NotificationPresenter constructor(val context: Context) : NotificationContract.Presenter {
@@ -57,4 +58,31 @@ class NotificationPresenter constructor(val context: Context) : NotificationCont
         val url = ServerInfo.notificationUrl + "?filter[where][recipientId]=" + userId //+ "&filter[where][seen]=false"
         requestData(url = url)
     }
+
+    override fun registerFireBaseToken(fireBaseToken: String, token: String) {
+
+        ApiService().putFireBaseToken(url = ServerInfo.fireBaseNotificationUrl, fireBaseToken = fireBaseToken, token = token
+                , requestListener = object : StringRequestListener {
+            override fun onResponse(response: String?) {
+                view.showNotificationProgress(false)
+                if ((response != null)) {
+                    view.onRegisterFireBaseTokenSuccessfully()
+//                    if (response.size > 0) {
+//                        view.onSeenNotificationsLoaded(response)
+//                        return
+//                    }
+                    return
+                }
+                view.onRegisterFireBaseTokenFailed()
+            }
+
+
+            override fun onError(anError: ANError?) {
+                view.onRegisterFireBaseTokenFailed()
+            }
+        })
+
+    }
+
+
 }

@@ -30,12 +30,22 @@ import android.content.DialogInterface
 import android.support.v4.content.ContextCompat
 import com.almersal.android.data.entities.User
 import com.almersal.android.data.entitiesModel.DuplicateModel
+import com.almersal.android.di.module.NotificationModule
+import com.almersal.android.di.ui.NotificationContract
+import com.almersal.android.di.ui.NotificationPresenter
+import com.almersal.android.repositories.SettingRepositories
 import com.almersal.android.repositories.UserRepository
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.iid.InstanceIdResult
 
-class SignUpActivity : BaseActivity(), SignUpContract.View {
+class SignUpActivity : BaseActivity(), SignUpContract.View, NotificationContract.View {
 
     @Inject
     lateinit var presenter: SignUpPresenter
+
+    @Inject
+    lateinit var notificationPresenter: NotificationPresenter
 
     @BindView(R.id.genderTabLayout)
     lateinit var genderTabLayout: TabLayout
@@ -50,10 +60,14 @@ class SignUpActivity : BaseActivity(), SignUpContract.View {
     private fun initDI() {
         val component = DaggerSignUpComponent.builder()
                 .signUpModule(SignUpModule(this))
+                .notificationModule(NotificationModule(this))
                 .build()
         component.inject(this)
         presenter.attachView(this)
         presenter.subscribe()
+
+        notificationPresenter.attachView(this)
+        notificationPresenter.subscribe()
 
     }
 
@@ -167,6 +181,18 @@ class SignUpActivity : BaseActivity(), SignUpContract.View {
     }
 
     override fun signUpSuccessfully(user: User) {
+
+        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener(object : OnSuccessListener<InstanceIdResult> {
+            override fun onSuccess(p0: InstanceIdResult?) {
+                if (p0 != null)
+                    SettingRepositories(this@SignUpActivity).addToken(p0.token)
+            }
+        })
+        val fireBaseToken: String? = SettingRepositories(this).getToken()
+        val token: String = UserRepository(this).getUser()!!.token
+        if (fireBaseToken != null) {
+            notificationPresenter.registerFireBaseToken(fireBaseToken = fireBaseToken, token = token)
+        }
         IntentHelper.startMainActivity(this)
         finish()
         Log.v("", "")

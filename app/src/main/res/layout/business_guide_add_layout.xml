@@ -228,8 +228,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:minHeight="50dp"
-                                    app:NoConnectionLayout="@layout/state_layout_noconnection"
-                                    app:NoDataLayout="@layout/state_layout_nodata"
+                                    app:NoConnectionLayout="@layout/state_layout_no_connection"
+                                    app:NoDataLayout="@layout/state_layout_no_data"
                                     app:RefreshbtnRes="@+id/retryBtn"
                                     app:WaitingLayout="@layout/state_layout_waiting">
 

@@ -130,6 +130,17 @@
 
     </style>
 
+    <style name="AppAlertWhiteTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorControlNormal">@color/colorAlphaPrimary</item>
+        <item name="android:textColorHighlight">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/white</item>
+
+    </style>
+
     <style name="TransparentBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/TransparentBottomSheetStyle</item>
     </style>
@@ -223,7 +234,7 @@
         <item name="android:gravity">center_vertical|center_horizontal</item>
     </style>
 
-    /*parent="@style/AppTheme"*/
+    <!--parent="@style/AppTheme"-->
     <style name="AppTheme.MainToggle">
 
 

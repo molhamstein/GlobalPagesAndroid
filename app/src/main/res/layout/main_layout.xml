@@ -30,7 +30,7 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar_main_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:layout_gravity="top"
         android:visibility="visible"
         app:layout_collapseMode="pin"
@@ -71,8 +71,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_above="@+id/SearchContainer"
-                        app:NoConnectionLayout="@layout/state_layout_noconnection"
-                        app:NoDataLayout="@layout/state_layout_nodata"
+                        app:NoConnectionLayout="@layout/state_layout_no_connection"
+                        app:NoDataLayout="@layout/state_layout_no_data"
                         app:RefreshbtnRes="@+id/retryBtn"
                         app:WaitingLayout="@layout/state_layout_waiting"
                         app:layout_collapseMode="parallax"
@@ -194,8 +194,8 @@
                 android:id="@+id/stateLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:NoConnectionLayout="@layout/state_layout_noconnection"
-                app:NoDataLayout="@layout/state_layout_nodata"
+                app:NoConnectionLayout="@layout/state_layout_no_connection"
+                app:NoDataLayout="@layout/state_layout_no_data"
                 app:RefreshbtnRes="@+id/retryBtn"
                 app:WaitingLayout="@layout/state_layout_waiting">
 
@@ -257,9 +257,9 @@
                     android:layout_height="24dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
+                    android:clickable="false"
                     android:contentDescription="@string/contentDescription"
                     android:padding="@dimen/xsm_padding"
-                    android:clickable="false"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_next_volume_24dp" />
 
@@ -313,13 +313,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:paddingLeft="@dimen/sm_padding"
-                        android:paddingStart="@dimen/sm_padding"
-                        android:paddingEnd="@dimen/sm_padding"
-                        android:paddingRight="@dimen/sm_padding"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:contentDescription="@string/contentDescription"
+                        android:paddingEnd="@dimen/sm_padding"
+                        android:paddingLeft="@dimen/sm_padding"
+                        android:paddingRight="@dimen/sm_padding"
+                        android:paddingStart="@dimen/sm_padding"
                         android:src="@drawable/ic_plus_gray_24dp" />
 
                     <View

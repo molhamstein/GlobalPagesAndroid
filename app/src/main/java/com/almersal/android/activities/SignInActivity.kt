@@ -10,21 +10,33 @@ import butterknife.Optional
 import com.almersal.android.R
 import com.almersal.android.data.entitiesResponses.LoginResponse
 import com.almersal.android.di.component.DaggerSigninComponent
+import com.almersal.android.di.module.NotificationModule
 import com.almersal.android.di.module.SigninModule
+import com.almersal.android.di.ui.NotificationContract
+import com.almersal.android.di.ui.NotificationPresenter
 import com.almersal.android.di.ui.SigninContract
 import com.almersal.android.di.ui.SigninPresenter
 import com.almersal.android.dialogs.ProgressDialog
+import com.almersal.android.repositories.SettingRepositories
 import com.almersal.android.repositories.UserRepository
 import com.almersal.android.utilities.IntentHelper
 import com.almersal.android.utilities.MainHelper
 import com.almersal.android.viewModel.SigninViewHolder
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.android.gms.tasks.Task
 import javax.inject.Inject
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.iid.InstanceIdResult
 
 
-class SignInActivity : BaseActivity(), SigninContract.View {
+class SignInActivity : BaseActivity(), SigninContract.View, NotificationContract.View {
 
     @Inject
     lateinit var presenter: SigninPresenter
+
+    @Inject
+    lateinit var notificationPresenter: NotificationPresenter
 
     private lateinit var viewHolder: SigninViewHolder
 
@@ -33,10 +45,15 @@ class SignInActivity : BaseActivity(), SigninContract.View {
     private fun initDI() {
         val component = DaggerSigninComponent.builder()
                 .signinModule(SigninModule(this))
+                .notificationModule(NotificationModule(this))
                 .build()
         component.inject(this)
         presenter.attachView(this)
         presenter.subscribe()
+
+        notificationPresenter.attachView(this)
+        notificationPresenter.subscribe()
+
     }
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
@@ -80,6 +97,26 @@ class SignInActivity : BaseActivity(), SigninContract.View {
     override fun loginSuccessfully(loginResponse: LoginResponse) {
         loginResponse.user.token = loginResponse.id
         UserRepository(context = this).addUser(loginResponse.user)
+//        FirebaseMessaging.getInstance().subscribeToTopic(Utl.client.getUser().getUid())
+
+        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener(object : OnCompleteListener<InstanceIdResult> {
+
+            override fun onComplete(p0: Task<InstanceIdResult>) {
+                if (p0.isSuccessful) {
+                    val token: String? = p0.result?.token
+                    if (token != null)
+                        SettingRepositories(this@SignInActivity).addToken(token)
+                } else {
+                    Log.v("AAA", "")
+                }
+//                this.sendRegistrationToServer(token)
+            }
+        })
+        val fireBaseToken: String? = SettingRepositories(this).getToken()
+        val token: String = UserRepository(this).getUser()!!.token
+        if (fireBaseToken != null) {
+            notificationPresenter.registerFireBaseToken(fireBaseToken = fireBaseToken, token = token)
+        }
         IntentHelper.startMainActivity(this)
         Log.v("", "")
     }

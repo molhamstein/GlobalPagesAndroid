@@ -49,11 +49,11 @@ class ProfilePresenter constructor(val context: Context) : ProfileContract.Prese
 //                        view.onUserCategoriesListSuccessfully(categories)
                     } else {
                         view.showUserPostsEmptyView(true)
-                        view.showUserCategoriesEmptyView(true)
+//                        view.showUserCategoriesEmptyView(true)
                     }
                     return
                 }
-                view.showEmptyView(true)
+                view.showUserPostsEmptyView(true)
             }
 
             override fun onError(anError: ANError?) {

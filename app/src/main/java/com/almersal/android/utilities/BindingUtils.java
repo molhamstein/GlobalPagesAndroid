@@ -1,11 +1,13 @@
 package com.almersal.android.utilities;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.almersal.android.R;
 import com.almersal.android.configrations.GlideApp;
@@ -17,8 +19,11 @@ import com.almersal.android.data.entities.ProductThumb;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 
+import jp.wasabeef.glide.transformations.BlurTransformation;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 
@@ -149,9 +154,52 @@ public class BindingUtils {
         try {
             if (!url.startsWith("http"))
                 url = "http://" + url;
+            RequestOptions options = new RequestOptions();
             Context context = imageView.getContext();
-            GlideApp.with(context).load(url).error(R.drawable.userprofile)
-                    .placeholder(R.drawable.userprofile).into(imageView);
+            GlideApp.with(context).load(url).error(R.drawable.ic_user_placeholder_24dp)
+//                    .transform(new CropCircleTransformation())
+                    .apply(options.circleCrop())
+                    .placeholder(R.drawable.ic_user_placeholder_24dp).into(imageView);
+        } catch (Exception ex) {
+            Log.v("image load", ex.getMessage());
+        }
+    }
+
+    public static void loadProfileThumbnailImage(final ImageView imageView, String url) {
+        try {
+            if (!url.startsWith("http"))
+                url = "http://" + url;
+
+            Context context = imageView.getContext();
+            Resources res = context.getResources();
+//            final int margin = (int) res.getDimension(R.dimen.md_margin);
+//            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
+//            layoutParams.setMargins(margin, margin, margin, margin);
+//            imageView.setLayoutParams(layoutParams);
+            final int padding = (int) res.getDimension(R.dimen.md_padding);
+
+            RequestListener<Drawable> listener = new RequestListener<Drawable>() {
+                @Override
+                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                    return false;
+                }
+
+                @Override
+                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+
+                    imageView.setPadding(padding, padding, padding, padding);
+                    return false;
+                }
+            };
+
+            RequestOptions options = new RequestOptions();
+            GlideApp.with(context).load(url).error(R.mipmap.ic_profile_24dp)
+//                    .transform(new CropCircleTransformation())
+//                    .apply(new RequestOptions().override(imageView.getWidth(), imageView.getHeight() ))
+                    .apply(options.circleCrop())
+                    .listener(listener)
+                    .placeholder(R.mipmap.ic_profile_24dp).into(imageView);
+
         } catch (Exception ex) {
             Log.v("image load", ex.getMessage());
         }

@@ -65,8 +65,8 @@ class DummyDataRepositories {
         }
 
         fun getTagsDefaultRepositories() = mutableListOf<TagEntity>().apply {
-//            add(TagEntity("دمشق", "Damascus"))
-            add(TagEntity("الكل", "All"))
+            //            add(TagEntity("دمشق", "Damascus"))
+            add(TagEntity("كل الإعلانات", "All ads"))
         }
 
 //        fun getTagsRepositories() = mutableListOf<TagEntity>().apply {
@@ -159,7 +159,7 @@ class DummyDataRepositories {
         }
 
         fun getAttachmentList() = mutableListOf<Attachment>().apply {
-//            add(Attachment())
+            //            add(Attachment())
 //            add(Attachment())
 //            add(Attachment())
 //            add(Attachment())

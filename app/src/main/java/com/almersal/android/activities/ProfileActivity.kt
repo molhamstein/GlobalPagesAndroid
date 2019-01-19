@@ -36,7 +36,11 @@ import com.almersal.android.di.module.ProfileModule
 import com.almersal.android.di.ui.ProfileContract
 import com.almersal.android.di.ui.ProfilePresenter
 import com.almersal.android.dialogs.ProgressDialog
+import com.almersal.android.dialogs.bottomSheetFragments.SubCategorySubscriptionBottomSheet
 import com.almersal.android.enums.UserGender
+import com.almersal.android.eventsBus.EventActions
+import com.almersal.android.eventsBus.MessageEvent
+import com.almersal.android.eventsBus.RxBus
 import com.almersal.android.listeners.OnCategorySelectListener
 import com.almersal.android.repositories.UserRepository
 import com.almersal.android.utilities.BindingUtils
@@ -104,10 +108,6 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
 
     @BindView(R.id.birthDate)
     lateinit var birthDate: EditText
-
-
-    @BindView(R.id.AdsAddLink)
-    lateinit var AdsAddLink: TextView
 
 
     /*User information ended*/
@@ -192,6 +192,9 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
         }
         BindingUtils.loadProfileImage(mFab, user.imageProfile)
 
+        if (myCategories.adapter != null) {
+            (myCategories.adapter as CategoryProfileRecyclerViewAdapter).clearAll()
+        }
     }
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
@@ -203,7 +206,6 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
         initDI()
         appbar.addOnOffsetChangedListener(this)
 
-        AdsAddLink.movementMethod = LinkMovementMethod.getInstance()
 
         myPostsStateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
             override fun onRefresh() {
@@ -227,6 +229,30 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
             }
         })
 
+        RxBus.listen(MessageEvent::class.java).subscribe {
+            when(it.action){
+                EventActions.SubCategorySubscriptionBottomSheet_Tag->{
+
+                    if (myCategories.adapter != null) {
+                        (myCategories.adapter as CategoryProfileRecyclerViewAdapter).clearAll()
+                    }
+
+                }
+            }
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val user = UserRepository(context = baseContext).getUser()!!
+        bindInfo(user)
+    }
+
+    @OnClick(R.id.flexible_example_fab)
+    fun onProfileImageClick(view: View) {
+        val user = UserRepository(context = baseContext).getUser()!!
+        IntentHelper.startPictureActivity(this, user.imageProfile)
     }
 
     @OnClick(R.id.AdsAddLink)
@@ -412,46 +438,60 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
 
     override fun onSelectCategory(category: Category) {
 
-        val builder = AlertDialog.Builder(this)
-        val dialogClickListener = DialogInterface.OnClickListener { _, which ->
-            when (which) {
-                DialogInterface.BUTTON_POSITIVE -> {
-                    val user = UserRepository(context = baseContext).getUser()!!
-                    if (user.postCategoriesIds == null)
-                        user.postCategoriesIds = mutableListOf()
-                    user.postCategoriesIds?.add(category.id)
-                    presenter.updateProfile(UserProfileMapper.userProfileTransform(user), user.token)
-                }
-                DialogInterface.BUTTON_NEGATIVE -> {
-                    (myCategories.adapter as CategoryProfileRecyclerViewAdapter).setCategoryItemStatus(category, false)
-                }
-            }
-        }
-        builder.setMessage(resources.getString(R.string.doYouWantFollowNotificationsUnderThisCategory))
-                .setPositiveButton(resources.getString(R.string.Yes), dialogClickListener)
-                .setNegativeButton(resources.getString(R.string.No), dialogClickListener).show()
+        val subCategorySubscriptionBottomSheet: SubCategorySubscriptionBottomSheet =
+                SubCategorySubscriptionBottomSheet.getNewInstance(category.subCategoriesList)
+
+        subCategorySubscriptionBottomSheet.show(supportFragmentManager,
+                SubCategorySubscriptionBottomSheet.SubCategorySubscriptionBottomSheet_Tag)
+
+//        val builder = AlertDialog.Builder(this)
+//        val dialogClickListener = DialogInterface.OnClickListener { _, which ->
+//            when (which) {
+//                DialogInterface.BUTTON_POSITIVE -> {
+//                    val user = UserRepository(context = baseContext).getUser()!!
+//                    if (user.postCategoriesIds == null)
+//                        user.postCategoriesIds = mutableListOf()
+//                    user.postCategoriesIds?.add(category.id)
+//                    presenter.updateProfile(UserProfileMapper.userProfileTransform(user), user.token)
+//                }
+//                DialogInterface.BUTTON_NEGATIVE -> {
+//                    (myCategories.adapter as CategoryProfileRecyclerViewAdapter).setCategoryItemStatus(category, false)
+//                }
+//            }
+//        }
+//        builder.setMessage(resources.getString(R.string.doYouWantFollowNotificationsUnderThisCategory))
+//                .setPositiveButton(resources.getString(R.string.Yes), dialogClickListener)
+//                .setNegativeButton(resources.getString(R.string.No), dialogClickListener).show()
     }
 
     override fun onDeselectCategory(category: Category) {
 
-        val builder = AlertDialog.Builder(this)
-        val dialogClickListener = DialogInterface.OnClickListener { _, which ->
-            when (which) {
-                DialogInterface.BUTTON_POSITIVE -> {
-                    val user = UserRepository(context = baseContext).getUser()!!
-                    if (user.postCategoriesIds == null)
-                        user.postCategoriesIds = mutableListOf()
-                    user.postCategoriesIds?.remove(category.id)
-                    presenter.updateProfile(UserProfileMapper.userProfileTransform(user), user.token)
-                }
-                DialogInterface.BUTTON_NEGATIVE -> {
-                    (myCategories.adapter as CategoryProfileRecyclerViewAdapter).setCategoryItemStatus(category, true)
-                }
-            }
-        }
-        builder.setMessage(resources.getString(R.string.doYouWantUnFollowNotificationsUnderThisCategory))
-                .setPositiveButton(resources.getString(R.string.Yes), dialogClickListener)
-                .setNegativeButton(resources.getString(R.string.No), dialogClickListener).show()
+        val subCategorySubscriptionBottomSheet: SubCategorySubscriptionBottomSheet =
+                SubCategorySubscriptionBottomSheet.getNewInstance(category.subCategoriesList)
+
+        subCategorySubscriptionBottomSheet.show(supportFragmentManager,
+                SubCategorySubscriptionBottomSheet.SubCategorySubscriptionBottomSheet_Tag)
+
+
+//        val builder = AlertDialog.Builder(this)
+//        val dialogClickListener = DialogInterface.OnClickListener { _, which ->
+//            when (which) {
+//                DialogInterface.BUTTON_POSITIVE -> {
+//                    val user = UserRepository(context = baseContext).getUser()!!
+//                    if (user.postCategoriesIds == null)
+//                        user.postCategoriesIds = mutableListOf()
+//                    user.postCategoriesIds?.remove(category.id)
+//                    presenter.updateProfile(UserProfileMapper.userProfileTransform(user), user.token)
+//                }
+//                DialogInterface.BUTTON_NEGATIVE -> {
+//                    (myCategories.adapter as CategoryProfileRecyclerViewAdapter).setCategoryItemStatus(category, true)
+//                }
+//            }
+//        }
+//        builder.setMessage(resources.getString(R.string.doYouWantUnFollowNotificationsUnderThisCategory))
+//                .setPositiveButton(resources.getString(R.string.Yes), dialogClickListener)
+//                .setNegativeButton(resources.getString(R.string.No), dialogClickListener).show()
+
     }
 
 

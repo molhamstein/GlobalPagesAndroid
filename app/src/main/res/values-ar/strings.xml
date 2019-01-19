@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="app_name">المرسال</string>
     <string name="contentDescription">محتوى الصورة</string>
 
     <!--SignUp started-->
@@ -58,7 +59,9 @@
 
     <!--home-->
     <string name="BusinessGuide">دليل الأعمال</string>
-    <string name="FindNearBy">البحث بالقرب منك</string>
+    <string name="FindNearBy">إبحث قربي</string>
+    <string name="OnDutyPharmacies">صيدلية مناوبة</string>
+
 
     <!--post details-->
     <string name="Addedin">أضيف في</string>
@@ -99,13 +102,12 @@
     <string name="Edit">تعديل</string>
     <string name="Ok">موافق</string>
     <string name="ServicesAndProducts">الخدمات والمنتجات</string>
-    <string name="OnDutyPharmacies">الصيدليات المناوبة</string>
 
     <string name="Categories">الأصناف</string>
     <string name="SubCategories">الأصناف الفرعية</string>
     <string name="Your">أنت</string>
     <string name="selectWhatAreYou"> أختر ما تبحث عنه \n وسوف نعرض لك اقرب ثلاث خيارات </string>
-    <string name="Location_Permission_denied">Location Permission denied.</string>
+    <string name="Location_Permission_denied">لم يتم منح إذن لتحديد الموقع الجغرافي.</string>
     <string name="Approve_Permissions_To_Pick_Images">الرجاء منح الإذونات لجلب الصور</string>
     <string name="UpdateProfile">تعديل البروفايل</string>
     <string name="NoInternetConnection">لايوجد إتصال بالإنترنت</string>
@@ -131,16 +133,17 @@
     <string name="Address">العنوان</string>
     <string name="Update">حفظ</string>
     <string name="profileUpdatedSuccessfully">تم تعديل معلوماتك بنجاج</string>
+
     <string name="copyRight">copyRight</string>
-    <string name="Logout">Logout</string>
-    <string name="AboutUs">About us</string>
+    <string name="Logout">تسجيل خروج</string>
+    <string name="AboutUs">حولنا</string>
     <string name="settingsTitle">Florists at your finger tips</string>
-    <string name="ContactUs">Contact us</string>
-    <string name="TermsOfUse">Terms of use</string>
-    <string name="SendMail">Send mail</string>
-    <string name="Notifications">Notifications</string>
-    <string name="doYouWantFollowNotificationsUnderThisCategory">Do you want follow notifications under this category</string>
-    <string name="doYouWantUnFollowNotificationsUnderThisCategory">Do you want unfollow notifications under this category</string>
-    <string name="SubscribedCategoriesUpdateSuccessfully">Subscribed categories update successfully</string>
+    <string name="ContactUs">تواصل معنا</string>
+    <string name="TermsOfUse">تعليمات الاستخدام</string>
+    <string name="SendMail">إرسال بريد إلكتروني</string>
+    <string name="Notifications">التنبيهات</string>
+    <string name="doYouWantFollowNotificationsUnderThisCategory">هل تريد تتبع التنبيهات ضمن هذا الصنف</string>
+    <string name="doYouWantUnFollowNotificationsUnderThisCategory">هل تريد إلعاء تتبع التنبيهات ضمن هذا الصنف</string>
+    <string name="SubscribedCategoriesUpdateSuccessfully">تمت العملية بنجاح</string>
 
 </resources>

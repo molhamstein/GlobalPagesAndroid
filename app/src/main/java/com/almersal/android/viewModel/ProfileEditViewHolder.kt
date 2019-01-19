@@ -17,7 +17,6 @@ import com.almersal.android.data.entities.Category
 import com.almersal.android.data.entitiesModel.ProfileModel
 import com.almersal.android.data.mapping.UserProfileMapper
 import com.almersal.android.enums.UserGender
-import com.almersal.android.normalization.DateNormalizer
 import com.almersal.android.repositories.UserRepository
 import com.almersal.android.utilities.BindingUtils
 
@@ -60,7 +59,7 @@ class ProfileEditViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun getProfileModel(): ProfileModel {
         val profileModel = getDefaultProfileModel()
         profileModel.username = userNameEditText.text.toString()
-        profileModel.birthDate = birthDate.text.toString()
+        profileModel.birthdate = birthDate.text.toString()
         profileModel.phoneNumber = phoneNumber.text.toString()
 
         if ((genderTabLayout.selectedTabPosition == 0))
@@ -91,7 +90,7 @@ class ProfileEditViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun bindView(profileModel: ProfileModel) {
         userNameEditText.setText(profileModel.username)
-        birthDate.setText(profileModel.birthDate)
+        birthDate.setText(profileModel.birthdate)
         phoneNumber.setText(profileModel.phoneNumber)
 
         if (profileModel.gender != null) {

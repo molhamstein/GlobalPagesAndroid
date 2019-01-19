@@ -11,7 +11,7 @@ class ProfileModel {
 
     var gender: String? = UserGender.male.gender
     var status: String = UserStatus.pending.status
-    var birthDate: String? = DateNormalizer.getCanonicalDateTimeFormat(Calendar.getInstance().time)
+    var birthdate: String? = DateNormalizer.getCanonicalDateTimeFormat(Calendar.getInstance().time)
 
     var imageProfile: String = ""
     var phoneNumber: String = ""
@@ -29,7 +29,7 @@ class ProfileModel {
         this.username = username
         this.gender = gender
         this.status = status
-        this.birthDate = birthDate
+        this.birthdate = birthDate
         this.imageProfile = imageProfile
         this.phoneNumber = phoneNumber
         this.creationDate = creationDate
