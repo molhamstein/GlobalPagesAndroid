@@ -112,6 +112,7 @@ class SignInActivity : BaseActivity(), SigninContract.View, NotificationContract
 //                this.sendRegistrationToServer(token)
             }
         })
+
         val fireBaseToken: String? = SettingRepositories(this).getToken()
         val token: String = UserRepository(this).getUser()!!.token
         if (fireBaseToken != null) {

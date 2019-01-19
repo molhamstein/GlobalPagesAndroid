@@ -11,9 +11,6 @@ import com.almersal.android.data.entities.SubCategory
 import com.almersal.android.listeners.OnSubCategorySelectListener
 import com.almersal.android.viewHolders.SubCategoryViewHolder
 
-/**
- * Created by Adhamkh on 2018-07-03.
- */
 class SubCategoryRecyclerViewAdapter constructor(var context: Context, var subCategoriesList: MutableList<SubCategory>,
                                                  var onSubCategorySelectListener: OnSubCategorySelectListener? = null) :
         RecyclerView.Adapter<SubCategoryViewHolder>() {

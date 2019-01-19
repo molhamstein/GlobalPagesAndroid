@@ -26,7 +26,7 @@
                     android:id="@+id/tag_toggle"
                     style="@style/AppTheme.MainToggle"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/recyclerviewTagHeight"
+                    android:layout_height="wrap_content"
                     android:layout_margin="@dimen/zero"
                     android:background="@color/transparent"
                     android:button="@null"

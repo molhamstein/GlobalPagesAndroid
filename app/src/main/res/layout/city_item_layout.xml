@@ -22,13 +22,19 @@
                 android:id="@+id/city_toggle"
                 style="@style/AppTheme.MainToggle"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/recyclerviewTagHeight"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/sm_margin"
                 android:background="@drawable/ic_cat_tag_bg"
                 android:maxLines="1"
                 android:minHeight="@dimen/zero"
                 android:minWidth="@dimen/zero"
                 android:padding="@dimen/sm_padding"
+                android:paddingTop="@dimen/sm_padding"
+                android:paddingBottom="@dimen/sm_padding"
+                android:paddingLeft="@dimen/md_padding"
+                android:paddingStart="@dimen/md_padding"
+                android:paddingEnd="@dimen/md_padding"
+                android:paddingRight="@dimen/md_padding"
                 android:textColor="@drawable/ic_tag_color" />
 
         </android.support.constraint.ConstraintLayout>

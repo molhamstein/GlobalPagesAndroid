@@ -38,6 +38,9 @@
 
     <style name="AppTheme.EditTextStyle" parent="Base.V7.Widget.AppCompat.EditText">
         <item name="android:layout_height">42dp</item>
+        <item name="android:spacing">1.5dp</item>
+        <!--<item name="font">@font/antipasto_extrabold</item>-->
+        <!--<item name="app:fontFamily">@font/antipasto_extrabold</item>-->
     </style>
 
 </resources>

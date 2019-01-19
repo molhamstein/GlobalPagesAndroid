@@ -160,6 +160,8 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
 
         genderTabLayout.removeOnTabSelectedListener(onTabSelectedListener)
 
+
+
     }
 
     private fun initDI() {
@@ -240,6 +242,7 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
                 }
             }
         }
+
 
     }
 

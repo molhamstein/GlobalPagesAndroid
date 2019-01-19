@@ -72,9 +72,9 @@
                         android:layout_height="match_parent"
                         android:layout_above="@+id/SearchContainer"
                         app:NoConnectionLayout="@layout/state_layout_no_connection"
-                        app:NoDataLayout="@layout/state_layout_no_data"
+                        app:NoDataLayout="@layout/state_layout_no_data_white"
                         app:RefreshbtnRes="@+id/retryBtn"
-                        app:WaitingLayout="@layout/state_layout_waiting"
+                        app:WaitingLayout="@layout/state_layout_waiting_white"
                         app:layout_collapseMode="parallax"
                         app:layout_scrollFlags="scroll|enterAlways|snap">
 

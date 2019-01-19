@@ -18,7 +18,7 @@ class CityRecyclerViewAdapter constructor(var context: Context, var citiesListLi
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityViewHolder {
-        var view = LayoutInflater.from(context).inflate(R.layout.city_item_layout, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.city_item_layout, parent, false)
         return CityViewHolder(view)
     }
 

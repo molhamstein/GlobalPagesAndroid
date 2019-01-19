@@ -9,9 +9,9 @@ class SettingData {
         const val EpsDistance = 0.5
 
         const val emailAddress = "almersalgroupe@gmail.com"
-        const val siteAddress = "http://www.google.com"
+        const val siteAddress = "http://almersal.co/privacy"
 
-        val dayList = mutableListOf<OpenDayModel>().apply {
+        private val dayList = mutableListOf<OpenDayModel>().apply {
             add(OpenDayModel(DaysEnum.SunDay))
             add(OpenDayModel(DaysEnum.MonDay))
             add(OpenDayModel(DaysEnum.TueDay))

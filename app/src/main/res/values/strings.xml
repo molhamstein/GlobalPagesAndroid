@@ -139,9 +139,9 @@
     <string name="Address">Address</string>
     <string name="Update">Update</string>
     <string name="profileUpdatedSuccessfully">Profile updated successfully</string>
-    <string name="copyRight">&#169; All rights reserved by almersal 2019. \n No part of this publication
-        may be reproduced. distributed, \n or transmitted
-        on any form or by any means</string>
+    <string name="copyRight">&#169; All rights reserved by almersal 2019. \n
+        No part of this publication may be reproduced. distributed, \n
+        or transmitted on any form or by any means</string>
     <string name="Logout">Logout</string>
     <string name="AboutUs">About us</string>
     <string name="settingsTitle">Florists at your finger tips</string>

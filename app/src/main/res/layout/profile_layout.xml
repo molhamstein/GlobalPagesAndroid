@@ -309,6 +309,7 @@
                             android:layout_height="wrap_content"
                             app:NoConnectionLayout="@layout/state_layout_no_connection_min"
                             app:NoDataLayout="@layout/state_layout_no_data"
+                            app:RefreshbtnRes="@+id/retryBtn"
                             app:WaitingLayout="@layout/state_layout_waiting"
                             app:layout_constraintTop_toBottomOf="@id/AdsSperator">
 
@@ -363,6 +364,7 @@
                             android:layout_height="wrap_content"
                             app:NoConnectionLayout="@layout/state_layout_no_connection_min"
                             app:NoDataLayout="@layout/state_layout_no_data"
+                            app:RefreshbtnRes="@+id/retryBtn"
                             app:WaitingLayout="@layout/state_layout_waiting"
                             app:layout_constraintTop_toBottomOf="@id/BusinessSperator">
 

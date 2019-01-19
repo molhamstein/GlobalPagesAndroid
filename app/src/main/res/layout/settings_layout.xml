@@ -11,7 +11,7 @@
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/title"
-        style="@style/AppTheme.TitleTextAppearanceCenter"
+        style="@style/AppTheme.TextAppearanceCenter"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:maxLines="1"
@@ -38,7 +38,7 @@
         app:layout_constraintWidth_percent="0.9">
 
         <android.support.v7.widget.AppCompatTextView
-            style="@style/AppTheme.TitleTextAppearance"
+            style="@style/AppTheme.TextAppearanceCenter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -47,7 +47,7 @@
             android:gravity="start|left"
             android:text="@string/ContactUs"
             android:textAlignment="gravity"
-            android:textColor="@color/black" />
+            android:textColor="@color/lightGray" />
 
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="@dimen/iconWidth"
@@ -60,9 +60,9 @@
         <View
             android:id="@+id/contactUsSeparator"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/sperator"
+            android:layout_height="@dimen/separator"
             android:layout_alignParentBottom="true"
-            android:background="@color/lightGray" />
+            android:background="@color/lightestGray" />
 
     </RelativeLayout>
 
@@ -80,7 +80,7 @@
         app:layout_constraintWidth_percent="0.9">
 
         <android.support.v7.widget.AppCompatTextView
-            style="@style/AppTheme.TitleTextAppearance"
+            style="@style/AppTheme.TextAppearanceCenter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -89,7 +89,7 @@
             android:gravity="start|left"
             android:text="@string/TermsOfUse"
             android:textAlignment="gravity"
-            android:textColor="@color/black" />
+            android:textColor="@color/lightGray" />
 
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="@dimen/iconWidth"
@@ -103,7 +103,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/sperator"
             android:layout_alignParentBottom="true"
-            android:background="@color/lightGray" />
+            android:background="@color/lightestGray" />
 
     </RelativeLayout>
 
@@ -114,7 +114,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:text="@string/Logout"
-        android:textColor="@color/black"
+        android:textColor="@color/lightGray"
         app:layout_constraintBottom_toTopOf="@+id/copyRightText"
         app:layout_constraintHeight_percent="0.1" />
 
@@ -124,7 +124,7 @@
         style="@style/AppTheme.TextAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/xlg_margin"
+        android:layout_margin="@dimen/lg_margin"
         android:gravity="center"
         android:lines="3"
         android:text="@string/copyRight"

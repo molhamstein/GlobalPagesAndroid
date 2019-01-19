@@ -68,6 +68,8 @@ class PostPresenter constructor(val context: Context) : PostContract.Presenter {
 
     override fun loadFeaturedPost() {
         val url = ServerInfo.postUrl + "?filter[where][isFeatured]=true" + "&filter[where][status]=activated"
+        view.showFeaturedPostProgress(false)
+        view.showFeaturedPostProgress(true)
         ApiService().getFeaturedPosts(url, object : ParsedRequestListener<MutableList<Post>> {
             override fun onResponse(response: MutableList<Post>?) {
                 if (response != null) {
@@ -81,5 +83,8 @@ class PostPresenter constructor(val context: Context) : PostContract.Presenter {
                 view.showFeaturedPostLoadErrorMessage(true)
             }
         })
+
     }
+
+
 }
