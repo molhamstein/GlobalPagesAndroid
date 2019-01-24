@@ -6,6 +6,7 @@ import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -22,7 +23,10 @@ import butterknife.OnCheckedChanged
 import butterknife.OnClick
 import com.almersal.android.R
 import com.almersal.android.adapters.BusinessGuideRecyclerViewAdapter
+import com.almersal.android.adapters.PostRecyclerViewAdapter
+import com.almersal.android.adapters.TagsRecyclerViewAdapter
 import com.almersal.android.data.entities.*
+import com.almersal.android.data.filtration.FilterEntity
 import com.almersal.android.di.component.DaggerBusinessGuideSearchComponent
 import com.almersal.android.di.component.DaggerFindNearByComponent
 import com.almersal.android.di.module.BusinessGuidesModule
@@ -32,7 +36,16 @@ import com.almersal.android.di.ui.BusinessGuidesPresenter
 import com.almersal.android.di.ui.TagsCollectionPresenter
 import com.almersal.android.dialogs.bottomSheetFragments.BusinessGuideSnippetBottomFragment
 import com.almersal.android.dialogs.bottomSheetFragments.SubCategoryBottomSheet
+import com.almersal.android.enums.FilterType
+import com.almersal.android.eventsBus.EventActions
+import com.almersal.android.eventsBus.MessageEvent
+import com.almersal.android.eventsBus.RxBus
+import com.almersal.android.listeners.OnTagSelectListener
 import com.almersal.android.listeners.RightDrawableOnTouchListener
+import com.almersal.android.repositories.DummyDataRepositories
+import com.almersal.android.utilities.IntentHelper
+import com.almersal.android.views.SearchTagView
+import com.almersal.android.views.SelectedTagsView
 import com.brainsocket.mainlibrary.SupportViews.RecyclerViewDecoration.GridDividerDecoration
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
@@ -49,7 +62,7 @@ import javax.inject.Inject
 
 
 class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMapReadyCallback,
-        BusinessGuidesContract.View {
+        BusinessGuidesContract.View, OnTagSelectListener {
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -64,7 +77,11 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
     private var lastLocation: Location? = null
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+
     private var locationUpdateState: Boolean = false
+
+    @Inject
+    lateinit var businessGuidesPresenter: BusinessGuidesPresenter
 
     @BindView(R.id.businessGuideRecyclerView)
     lateinit var businessGuideRecyclerView: RecyclerView
@@ -82,8 +99,8 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
     lateinit var refreshBtn: View
 
 
-//    @BindView(R.id.tagSearchView)
-//    lateinit var tagSearchView: TagSearchView
+    @BindView(R.id.selectedTagsView)
+    lateinit var selectedTagsView: SelectedTagsView
 
     lateinit var mMap: GoogleMap
 
@@ -97,6 +114,11 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
     private fun initRecyclerView() {
         businessGuideRecyclerView.layoutManager = LinearLayoutManager(this)
         businessGuideRecyclerView.addItemDecoration(GridDividerDecoration(this))
+        businessGuideRecyclerView.adapter = BusinessGuideRecyclerViewAdapter(this, mutableListOf())
+
+        selectedTagsView.setAdapter(TagsRecyclerViewAdapter(this, DummyDataRepositories.getTagsDefaultRepositories()))
+        (selectedTagsView.getAdapter() as TagsRecyclerViewAdapter).onTagSelectListener = this
+
     }
 
     private fun initLocation() {
@@ -118,6 +140,17 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
 
             }
         }
+
+    }
+
+    private fun initDI() {
+        val component = DaggerBusinessGuideSearchComponent.builder()
+//                .tagsCollectionModule(TagsCollectionModule(this))
+                .businessGuidesModule(BusinessGuidesModule(this))
+                .build()
+        component.inject(this)
+
+        businessGuidesPresenter.attachView(this)
 
     }
 
@@ -211,22 +244,6 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
     /*GPS Track Ended */
 
 
-    @Inject
-    lateinit var businessGuidesPresenter: BusinessGuidesPresenter
-
-
-    private fun initDI() {
-        val component = DaggerBusinessGuideSearchComponent.builder()
-//                .tagsCollectionModule(TagsCollectionModule(this))
-                .businessGuidesModule(BusinessGuidesModule(this))
-                .build()
-        component.inject(this)
-
-        businessGuidesPresenter.attachView(this)
-
-    }
-
-
     override fun onBaseCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.business_guide_search_layout)
         ButterKnife.bind(this)
@@ -241,19 +258,42 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-//        businessGuideRecyclerView.adapter = BusinessGuideRecyclerViewAdapter(this
-//                , DummyDataRepositories.getBusinessGuideList())
-
         initLocation()
         createLocationRequest()
 
+        RxBus.listen(MessageEvent::class.java).subscribe {
+            when (it.action) {
+                EventActions.Business_Filter_Activity_Tag -> {
+                    setFilterEntity(it.message as FilterEntity)
+                }
+            }
+        }
 
     }
 
-    @OnClick(R.id.tagSearchView)
+    private fun setFilterEntity(filterEntity: FilterEntity) {
+        selectedTagsView.setAdapter(TagsRecyclerViewAdapter(baseContext, filterEntity.getTags()))
+        (selectedTagsView.getAdapter() as TagsRecyclerViewAdapter).onTagSelectListener = this
+        if (businessGuideRecyclerView.adapter != null) {
+            val adapter = businessGuideRecyclerView.adapter as BusinessGuideRecyclerViewAdapter
+            adapter.filterByCriteria(filterEntity)
+            val businessGuideList = adapter.businessGuideList
+
+            mMap.clear()
+            if (lastLocation != null)
+                placeMarkerOnMap(LatLng(lastLocation!!.latitude, lastLocation!!.longitude))
+            businessGuideList.forEach {
+                addMarker(it, it.getName(), it.locationPoint)
+            }
+        }
+    }
+
+
+    /*Tag filter started*/
+    @OnClick(R.id.selectedTagsView)
     fun onTagSearchViewClick(view: View) {
         try {
-            var fragment = supportFragmentManager.findFragmentByTag(SubCategoryBottomSheet.SubCategoryBottomSheet_Tag)
+            val fragment = supportFragmentManager.findFragmentByTag(SubCategoryBottomSheet.SubCategoryBottomSheet_Tag)
             if (fragment != null) {
                 (fragment as SubCategoryBottomSheet).dismiss()
             }
@@ -262,11 +302,29 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
         Log.v("View Clicked", view.id.toString())
     }
 
-    @OnClick(R.id.SearchBtn)
+    @OnClick(R.id.searchBtn)
     fun onSearchBtnClick(view: View) {
-//        presenter.loadBusinessCategories(true)
+        val list = (selectedTagsView.selectedTags.adapter as TagsRecyclerViewAdapter).tagsListList
+        IntentHelper.startPostSearchFilterActivityForResult(activity = this, tagList = list, filter = FilterType.BusinessFilter)
         Log.v("View Clicked", view.id.toString())
     }
+
+    override fun onSelectTag(tagEntity: TagEntity) {
+        if (businessGuideRecyclerView.adapter != null) {
+            val adapter = businessGuideRecyclerView.adapter as BusinessGuideRecyclerViewAdapter
+            adapter.excludeFilter(tagEntity)
+            if (adapter.filterEntity != null)
+                setFilterEntity(adapter.filterEntity!!)
+        }
+        Log.v("", "")
+    }
+
+    override fun onTagClick(tagEntity: TagEntity) {
+        val list = (selectedTagsView.selectedTags.adapter as TagsRecyclerViewAdapter).tagsListList
+        IntentHelper.startPostSearchFilterActivityForResult(activity = this,
+                tagList = list, filter = FilterType.BusinessFilter)
+    }
+    /*Tag filter ended*/
 
     @OnClick(R.id.refreshBtn)
     fun onRefreshButtonClick(view: View) {
@@ -291,14 +349,12 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
         Log.v("View Clicked", button.id.toString())
     }
 
-
     override fun onMapReady(googleMap: GoogleMap?) {
         mMap = googleMap!!
         mMap.uiSettings.isZoomControlsEnabled = true
         mMap.setOnMarkerClickListener(this)
         setUpMap()
     }
-
 
     // 1
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -345,9 +401,11 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
     override fun onMarkerClick(p0: Marker?): Boolean {
         if (p0 != null) {
             if (p0.tag is BusinessGuide) {
-                val businessGuideSnippetBottomFragment = BusinessGuideSnippetBottomFragment.getNewInstance(p0.tag as BusinessGuide)
-                businessGuideSnippetBottomFragment.show(supportFragmentManager,
-                        BusinessGuideSnippetBottomFragment.BusinessGuideSnippetBottomFragment_Tag)
+                Handler().postDelayed({
+                    val businessGuideSnippetBottomFragment = BusinessGuideSnippetBottomFragment.getNewInstance(p0.tag as BusinessGuide)
+                    businessGuideSnippetBottomFragment.show(supportFragmentManager,
+                            BusinessGuideSnippetBottomFragment.BusinessGuideSnippetBottomFragment_Tag)
+                }, 200)
             }
         }
         return false

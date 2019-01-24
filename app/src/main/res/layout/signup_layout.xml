@@ -56,8 +56,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
-                    android:text="adhamkhwaldeh@gmail.com"
                     android:textStyle="bold" />
+                <!--android:text="adhamkhwaldeh@gmail.com"-->
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -74,8 +74,8 @@
                     android:id="@+id/userName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:text="adhamkhwaldeh" />
+                    android:inputType="textEmailAddress" />
+                <!--android:text="adhamkhwaldeh"-->
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -92,9 +92,9 @@
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:text="123456" />
+                    android:inputType="textPassword" />
 
+                <!--android:text="123456"-->
             </android.support.design.widget.TextInputLayout>
 
             <RelativeLayout

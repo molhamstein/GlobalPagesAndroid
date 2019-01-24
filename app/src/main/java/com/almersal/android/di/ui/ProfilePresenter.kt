@@ -90,37 +90,37 @@ class ProfilePresenter constructor(val context: Context) : ProfileContract.Prese
 
         if ((user.postCategoriesIds == null) or (user.postCategoriesIds!!.size <= 0)) {
             user.postCategoriesIds = Vector()
-//            view.showUserCategoriesEmptyView(true)
-//            return
         }
 
         val categories = mutableListOf<Category>()
 
-        val businessCategoryList = DataStoreRepositories(context).getBusinessCategories()
-
-        businessCategoryList?.forEach {
-            if (it.parentCategoryId.isNullOrEmpty()) {
-                if (user.postCategoriesIds!!.contains(it.id))
-                    it.isSelected = true
-
-                categories.add(it)
-            }
-        }
+//        val businessCategoryList = DataStoreRepositories(context).getBusinessCategories()
+//
+//        businessCategoryList?.forEach {
+//            if (!it.parentCategoryId.isNullOrEmpty()) {
+//                if (user.postCategoriesIds!!.contains(it.id)) {
+//                    it.isSelected = true
+//                    categories.add(it)
+//                }
+//            }
+//        }
 
         val postCategoryList = DataStoreRepositories(context).getPostCategories()
 
         postCategoryList?.forEach {
-            if (it.parentCategoryId.isNullOrEmpty()) {
-                if (user.postCategoriesIds!!.contains(it.id))
+            if (!it.parentCategoryId.isNullOrEmpty()) {
+                if (user.postCategoriesIds!!.contains(it.id)) {
                     it.isSelected = true
-
-                categories.add(it)
+                    categories.add(it)
+                }
             }
         }
 
         view.showUserCategoriesProgress(false)
-        view.onUserCategoriesListSuccessfully(categories)
-
+        if (categories.size > 0)
+            view.onUserCategoriesListSuccessfully(categories)
+        else
+            view.showUserCategoriesEmptyView(true)
 //        if ((user.postCategoriesIds == null) or (user.postCategoriesIds!!.size <= 0)) {
 //            view.showUserCategoriesEmptyView(true)
 //            return

@@ -28,7 +28,7 @@ class CategoryProfileRecyclerViewAdapter constructor(var context: Context, var c
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val poJo = categoriesList[position]
-        holder.bind(poJo)
+        holder.bind(poJo,false)
         holder.itemView.findViewById<ToggleButton>(R.id.category_toggle)
                 .setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
                     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
@@ -37,6 +37,7 @@ class CategoryProfileRecyclerViewAdapter constructor(var context: Context, var c
                             return
                         }
                         if (isChecked) {
+                            clearAll()
                             poJo.isSelected = true
                             onCategorySelectListener?.onSelectCategory(poJo)
                         } else {

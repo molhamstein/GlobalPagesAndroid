@@ -50,4 +50,5 @@ class SplashActivity : BaseActivity(), TagsCollectionContact.View, NotificationC
 
     }
 
+
 }

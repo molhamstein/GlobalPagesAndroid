@@ -1,8 +1,5 @@
 package com.almersal.android.data.entities
 
-//import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-
-//@JsonIgnoreProperties("subCategories")
 class SubCategory : Category {
     constructor()
 
@@ -12,13 +9,8 @@ class SubCategory : Category {
         this.id = id
     }
 
-
-
     override var subCategoriesList: MutableList<SubCategory>
         get() = mutableListOf()
         set(value) {}
-
-
-
 
 }

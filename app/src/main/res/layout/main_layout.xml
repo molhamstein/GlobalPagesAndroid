@@ -186,14 +186,14 @@
             android:layout_marginTop="45dp"
             android:background="@color/milkyColor"
             android:fillViewport="true"
-            android:minHeight="250dp"
-            android:paddingBottom="0dp"
+            android:minHeight="25dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <com.brainsocket.mainlibrary.Views.Stateslayoutview
                 android:id="@+id/stateLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="250dp"
                 app:NoConnectionLayout="@layout/state_layout_no_connection"
                 app:NoDataLayout="@layout/state_layout_no_data"
                 app:RefreshbtnRes="@+id/retryBtn"

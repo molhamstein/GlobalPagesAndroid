@@ -6,10 +6,6 @@ import android.support.design.widget.TabLayout
 import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.View
-import android.widget.DatePicker
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -28,6 +24,7 @@ import java.util.*
 import javax.inject.Inject
 import android.content.DialogInterface
 import android.support.v4.content.ContextCompat
+import android.widget.*
 import com.almersal.android.data.entities.User
 import com.almersal.android.data.entitiesModel.DuplicateModel
 import com.almersal.android.di.module.NotificationModule
@@ -88,11 +85,13 @@ class SignUpActivity : BaseActivity(), SignUpContract.View, NotificationContract
             override fun onTabUnselected(tab: TabLayout.Tab?) {
                 tab?.customView?.findViewById<TextView>(android.R.id.text1)
                         ?.setTextColor(ContextCompat.getColor(baseContext, R.color.grayLightTextColor))
+                tab?.customView?.findViewById<ImageView>(R.id.gender_icon)?.alpha = 0.3f
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 tab?.customView?.findViewById<TextView>(android.R.id.text1)
                         ?.setTextColor(ContextCompat.getColor(baseContext, R.color.grayDarkTextColor))
+                tab?.customView?.findViewById<ImageView>(R.id.gender_icon)?.alpha = 1.0f
             }
         })
 

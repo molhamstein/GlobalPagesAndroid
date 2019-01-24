@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.View
 import android.widget.DatePicker
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import butterknife.BindView
@@ -101,12 +102,14 @@ class ProfileEditActivity : BaseActivity(), ProfileContract.View, AttachmentCont
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
                 tab?.customView?.findViewById<TextView>(android.R.id.text1)
-                        ?.setTextColor(ContextCompat.getColor(baseContext, R.color.grayLightTextColor))
+                        ?.setTextColor(ContextCompat.getColor(baseContext, R.color.grayDarkTextColor))
+                tab?.customView?.findViewById<ImageView>(R.id.gender_icon)?.alpha = 0.3f
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 tab?.customView?.findViewById<TextView>(android.R.id.text1)
-                        ?.setTextColor(ContextCompat.getColor(baseContext, R.color.white))
+                        ?.setTextColor(ContextCompat.getColor(baseContext, R.color.black))
+                tab?.customView?.findViewById<ImageView>(R.id.gender_icon)?.alpha = 1.0f
             }
         })
 

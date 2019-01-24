@@ -19,10 +19,13 @@ class BusinessGuidesContract {
         /*for nearby action*/
         fun loadBusinessGuideList(subCategory: SubCategory)
 
+        fun loadBusinessGuideByLocationAndCategory(pointEntity: PointEntity, subCategory: SubCategory)
+
 
         fun addBusinessGuide(businessGuide: BusinessGuideModel, token: String)
 
         fun updateBusinessGuide(businessGuide: BusinessGuideEditModel, token: String)
+
 
     }
 
@@ -31,7 +34,7 @@ class BusinessGuidesContract {
         fun showBusinessGuideProgress(show: Boolean) {}
         fun showBusinessGuideLoadErrorMessage(visible: Boolean) {}
         fun showBusinessGuideEmptyView(visible: Boolean) {}
-        fun onLoadBusinessGuideListSuccessfully(businessGuideList: MutableList<BusinessGuide>)
+        fun onLoadBusinessGuideListSuccessfully(businessGuideList: MutableList<BusinessGuide>) {}
 
         fun onAddBusinessGuideSuccessfully(businessGuide: BusinessGuide) {}
 

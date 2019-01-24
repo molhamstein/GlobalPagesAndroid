@@ -6,6 +6,7 @@ import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -344,9 +345,11 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
     override fun onMarkerClick(p0: Marker?): Boolean {
         if (p0 != null) {
             if (p0.tag is BusinessGuide) {
-                val businessGuideSnippetBottomFragment = BusinessGuideSnippetBottomFragment.getNewInstance(p0.tag as BusinessGuide)
-                businessGuideSnippetBottomFragment.show(supportFragmentManager,
-                        BusinessGuideSnippetBottomFragment.BusinessGuideSnippetBottomFragment_Tag)
+                Handler().postDelayed({
+                    val businessGuideSnippetBottomFragment = BusinessGuideSnippetBottomFragment.getNewInstance(p0.tag as BusinessGuide)
+                    businessGuideSnippetBottomFragment.show(supportFragmentManager,
+                            BusinessGuideSnippetBottomFragment.BusinessGuideSnippetBottomFragment_Tag)
+                }, 200)
             }
         }
         return false

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.brainsocket.mainlibrary.Views.ProgressWheel
+        android:id="@+id/progressWheel"
+        android:layout_width="@dimen/progress_wheel_width"
+        android:layout_height="@dimen/progress_wheel_height"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/progressText"
+        app:layout_constraintRight_toLeftOf="@+id/progressText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:matProg_barColor="@color/white"
+        app:matProg_barWidth="2dp"
+        app:matProg_progressIndeterminate="true"
+        app:matProg_rimColor="@color/transparent" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/progressText"
+        style="@style/AppTheme.TextAppearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pleaseWait"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>

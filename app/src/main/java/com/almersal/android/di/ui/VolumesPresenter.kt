@@ -61,7 +61,7 @@ class VolumesPresenter constructor(val context: Context) : VolumesContract.Prese
         val criteria: MutableMap<String, String> = HashMap()
         criteria.apply {
             put("limit", "1")
-            put("order", "id DESC")
+            put("order", "creationDate DESC")
             put("skip", index.toString())
         }
         loadData(criteria)
@@ -83,7 +83,7 @@ class VolumesPresenter constructor(val context: Context) : VolumesContract.Prese
         val criteria: MutableMap<String, String> = HashMap()
         criteria.apply {
             put("limit", "1")
-            put("order", "id DESC")
+            put("order", "creationDate DESC")
             put("skip", index.toString())
         }
         loadData(criteria)
@@ -99,7 +99,7 @@ class VolumesPresenter constructor(val context: Context) : VolumesContract.Prese
         val criteria: MutableMap<String, String> = HashMap()
         criteria.apply {
             put("limit", "1")
-            put("order", "id DESC")
+            put("order", "creationDate DESC")
             put("skip", index.toString())
         }
         loadData(criteria)

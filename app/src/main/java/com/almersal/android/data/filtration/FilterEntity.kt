@@ -2,15 +2,13 @@ package com.almersal.android.data.filtration
 
 import com.almersal.android.data.entities.*
 import com.almersal.android.enums.TagType
+import com.almersal.android.repositories.DummyDataRepositories
 
-/**
- * Created by Adhamkh on 2018-08-15.
- */
 class FilterEntity {
 
     var query: String? = null
 
-    var postCategory: PostCategory? = null
+    var category: Category? = null
 
     var subCategory: SubCategory? = null
 
@@ -20,12 +18,12 @@ class FilterEntity {
 
     constructor()
 
-    constructor(query: String? = null, postCategory: PostCategory? = null,
+    constructor(query: String? = null, category: Category? = null,
                 subCategory: SubCategory? = null,
                 city: City? = null,
                 area: LocationEntity? = null) {
         this.query = query
-        this.postCategory = postCategory
+        this.category = category
         this.subCategory = subCategory
         this.city = city
         this.area = area
@@ -34,15 +32,18 @@ class FilterEntity {
     fun getTags(): MutableList<TagEntity> {
         val tagEntityList = mutableListOf<TagEntity>()
 
-        if (postCategory != null) {
-            val tag = TagEntity(titleAr = postCategory!!.titleAr, titleEn = postCategory!!.titleEn,
-                    tagId = postCategory!!.id, tagType = TagType.Category)
+        if (category != null) {
+            val tag = TagEntity(titleAr = category!!.titleAr, titleEn = category!!.titleEn,
+                    tagId = category!!.id, tagType = TagType.Category)
             tagEntityList.add(tag)
         }
         if (subCategory != null) {
             val tag = TagEntity(titleAr = subCategory!!.titleAr, titleEn = subCategory!!.titleEn,
                     tagId = subCategory!!.id, tagType = TagType.SubCategory)
             tagEntityList.add(tag)
+        }
+        if ((category == null) && (subCategory == null)) {
+            tagEntityList.add(DummyDataRepositories.getTagsDefaultRepositories()[0])
         }
         if (city != null) {
             val tag = TagEntity(titleAr = city!!.nameAr, titleEn = city!!.nameEn,
@@ -54,13 +55,51 @@ class FilterEntity {
                     tagId = area!!.id, tagType = TagType.Location)
             tagEntityList.add(tag)
         }
+        if ((city == null) && (area == null)) {
+            tagEntityList.add(DummyDataRepositories.getTagsDefaultRepositories()[1])
+        }
+
+        if (!query.isNullOrBlank()) {
+            val tag = TagEntity(titleAr = query!!, titleEn = query!!,
+                    tagId = "", tagType = TagType.Query)
+            tagEntityList.add(tag)
+        }
 
         return tagEntityList
     }
 
-    fun getCriteriaFromTags(tagEntityList: MutableList<TagEntity>) {
-
+    fun getCriteriaFromTags(tagEntityList: MutableList<TagEntity>?): FilterEntity {
+        val filterEntity = FilterEntity()
+        tagEntityList?.forEach {
+            when (it.tagType) {
+                TagType.Query -> {
+                    filterEntity.query = it.titleEn
+                }
+                TagType.Category -> {
+                    if (!it.tagId.isBlank()) {
+                        filterEntity.category = PostCategory(titleEn = it.titleEn, titleAr = it.titleAr, id = it.tagId)
+                    }
+                }
+                TagType.SubCategory->{
+                    if (!it.tagId.isBlank()) {
+                        filterEntity.subCategory = SubCategory(titleEn = it.titleEn, titleAr = it.titleAr, id = it.tagId)
+                    }
+                }
+                TagType.City->{
+                    if (!it.tagId.isBlank()) {
+                        filterEntity.city = City(titleEn = it.titleEn, titleAr = it.titleAr, id = it.tagId)
+                    }
+                }
+                TagType.Location->{
+                    if (!it.tagId.isBlank()) {
+                        filterEntity.area = LocationEntity(titleEn = it.titleEn, titleAr = it.titleAr, id = it.tagId)
+                    }
+                }
+            }
+        }
+        return filterEntity
     }
+
 
 
 }

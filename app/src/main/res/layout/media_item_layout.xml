@@ -5,10 +5,12 @@
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_gravity="top"
         android:adjustViewBounds="true"
         android:contentDescription="@string/contentDescription"
-        android:scaleType="fitXY" />
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_launcher" />
+
 </RelativeLayout>

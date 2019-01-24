@@ -1,11 +1,9 @@
 package com.almersal.android.activities
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.*
 import android.util.Log
-import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -15,7 +13,6 @@ import com.almersal.android.R
 import com.almersal.android.adapters.PostRecyclerViewAdapter
 import com.almersal.android.adapters.PostSliderRecyclerViewAdapter
 import com.almersal.android.adapters.TagsRecyclerViewAdapter
-import com.almersal.android.configrations.GlideApp
 import com.almersal.android.data.entities.*
 import com.almersal.android.data.filtration.FilterEntity
 import com.almersal.android.di.component.DaggerMainComponent
@@ -23,8 +20,14 @@ import com.almersal.android.di.module.NotificationModule
 import com.almersal.android.di.module.PostModule
 import com.almersal.android.di.module.VolumesModule
 import com.almersal.android.di.ui.*
+import com.almersal.android.dialogs.bottomSheetFragments.SubCategorySubscriptionBottomSheet
+import com.almersal.android.enums.FilterType
+import com.almersal.android.eventsBus.EventActions
+import com.almersal.android.eventsBus.MessageEvent
+import com.almersal.android.eventsBus.RxBus
 import com.almersal.android.listeners.OnTagSelectListener
 import com.almersal.android.repositories.DummyDataRepositories
+import com.almersal.android.repositories.SettingRepositories
 import com.almersal.android.repositories.UserRepository
 import com.almersal.android.utilities.BindingUtils
 import com.almersal.android.utilities.IntentHelper
@@ -33,7 +36,6 @@ import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
 import com.brainsocket.mainlibrary.Listeners.OnRefreshLayoutListener
 import com.brainsocket.mainlibrary.Views.NotificationBadge
 import com.brainsocket.mainlibrary.Views.Stateslayoutview
-import com.google.gson.Gson
 import javax.inject.Inject
 
 
@@ -81,7 +83,6 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, No
     @BindView(R.id.loginBtn)
     lateinit var loginBtn: ImageView
 
-
     private fun initToolBar() {
         toolBar.setTitle(R.string.app_name)
         setSupportActionBar(toolBar)
@@ -113,15 +114,16 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, No
 
     }
 
-    private fun initBusinessGuideRecyclerView() {
+    private fun initRecyclerView() {
         val snapHelper = LinearSnapHelper()
         featuredPostsRecyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         snapHelper.attachToRecyclerView(featuredPostsRecyclerView)
-//        businessGuideRecyclerView.adapter = BusinessGuideSliderRecyclerViewAdapter(this, DummyDataRepositories.getBusinessGuideList())
-    }
 
-    private fun initVolumesRecyclerView() {
+        selectedTagsView.setAdapter(TagsRecyclerViewAdapter(this, DummyDataRepositories.getTagsDefaultRepositories()))
+        (selectedTagsView.getAdapter() as TagsRecyclerViewAdapter).onTagSelectListener = this
+
         volumesRecyclerView.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
+        volumesRecyclerView.adapter = PostRecyclerViewAdapter(MainActivity@ this, mutableListOf())
     }
 
     private fun loadProfileImage(user: User) {
@@ -132,15 +134,10 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, No
         setContentView(R.layout.main_layout)
         ButterKnife.bind(this)
         initToolBar()
-        initBusinessGuideRecyclerView()
-        initVolumesRecyclerView()
+        initRecyclerView()
         initDI()
 
         badge.setNumber(0, true)
-
-        selectedTagsView.setAdapter(TagsRecyclerViewAdapter(this, DummyDataRepositories.getTagsDefaultRepositories()))
-        (selectedTagsView.getAdapter() as TagsRecyclerViewAdapter).onTagSelectListener = this
-
 
         stateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
             override fun onRefresh() {
@@ -162,74 +159,35 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, No
             }
         })
 
+
+        /*First time home page*/
+        if (SettingRepositories(this).getFirstSubscription() &&
+                (UserRepository(this).getUser() != null)) {
+            val dialog = SubCategorySubscriptionBottomSheet.getNewInstance(null)
+            dialog.show(supportFragmentManager, SubCategorySubscriptionBottomSheet.SubCategorySubscriptionBottomSheet_Tag)
+        }
+
+
+        RxBus.listen(MessageEvent::class.java).subscribe {
+            when (it.action) {
+                EventActions.Post_Filter_Activity_Tag -> {
+                    setFilterEntity(it.message as FilterEntity)
+                }
+            }
+        }
+
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (resultCode) {
-            PostSearchActivity.PostSearchActivity_ResultCode -> {
-                val filter = data!!.extras[PostSearchActivity.PostSearchActivity_Filter_Tag].toString()
-                val filterEntity = Gson().fromJson(filter, FilterEntity::class.java)
-                selectedTagsView.setAdapter(TagsRecyclerViewAdapter(baseContext, filterEntity.getTags()))
-                (selectedTagsView.getAdapter() as TagsRecyclerViewAdapter).onTagSelectListener = this
-                if (volumesRecyclerView.adapter != null) {
-                    (volumesRecyclerView.adapter as PostRecyclerViewAdapter).filterByCriteria(filterEntity)
-                }
-                Log.v("", "")
-            }
+    private fun setFilterEntity(filterEntity: FilterEntity) {
+        selectedTagsView.setAdapter(TagsRecyclerViewAdapter(baseContext, filterEntity.getTags()))
+        (selectedTagsView.getAdapter() as TagsRecyclerViewAdapter).onTagSelectListener = this
+        if (volumesRecyclerView.adapter != null) {
+            (volumesRecyclerView.adapter as PostRecyclerViewAdapter).filterByCriteria(filterEntity)
         }
     }
 
-    override fun onSelectTag(tagEntity: TagEntity) {
-        if (volumesRecyclerView.adapter != null)
-            (volumesRecyclerView.adapter as PostRecyclerViewAdapter).excludeFilter(tagEntity)
-        Log.v("", "")
-    }
 
-    override fun onTagClick(tagEntity: TagEntity) {
-        main_appbar.setExpanded(false)
-    }
-
-    @Optional
-    @OnClick(R.id.searchContainer)
-    fun onSearchContainerClick(view: View) {
-        main_appbar.setExpanded(false)
-    }
-
-    @Optional
-    @OnTouch(R.id.searchContainer)
-    fun onSearchContainerTouch(view: View, moveEvent: MotionEvent): Boolean {
-//        main_appbar.setExpanded(false)
-        return false
-    }
-
-    @OnClick(R.id.previousBtn)
-    fun onPreviousButtonClick(view: View) {
-        presenter.loadPreviousVolume()
-    }
-
-    @OnClick(R.id.nextBtn)
-    fun onNextButtonClick(view: View) {
-        presenter.loadNextVolume()
-    }
-
-    @OnClick(R.id.searchFilterBtn)
-    fun onSearchFilterBtnClick(view: View) {
-        val list = (selectedTagsView.selectedTags.adapter as TagsRecyclerViewAdapter).tagsListList
-        IntentHelper.startPostSearchFilterActivityForResult(MainActivity@ this, list)
-        Log.v("View Clicked", view.id.toString())
-    }
-
-    @OnClick(R.id.loginBtn)
-    fun onLoginBtnClick(view: View) {
-        val usr = UserRepository(this).getUser()
-        if (usr != null)
-            IntentHelper.startProfileActivity(this)
-        else
-            IntentHelper.startSignInActivity(MainActivity@ this)
-        Log.v("View Clicked", view.id.toString())
-    }
-
+    /*Main Activity Events started*/
     @OnClick(R.id.businessGuideBtn)
     fun onBusinessGuideClick(view: View) {
         val activityName = BusinessGuideSearchActivity::class.java.canonicalName
@@ -253,6 +211,16 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, No
         Log.v("View Clicked", view.id.toString())
     }
 
+    @OnClick(R.id.loginBtn)
+    fun onLoginBtnClick(view: View) {
+        val usr = UserRepository(this).getUser()
+        if (usr != null)
+            IntentHelper.startProfileActivity(this)
+        else
+            IntentHelper.startSignInActivity(MainActivity@ this)
+        Log.v("View Clicked", view.id.toString())
+    }
+
     @OnClick(R.id.addPostBtn)
     fun onAddPostClick(view: View) {
         val user = UserRepository(this).getUser()
@@ -270,9 +238,60 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, No
         else
             IntentHelper.startSignInActivity(this)
     }
+    /*Main Activity Events ended*/
 
 
-    /*Presenter started*/
+    /*Filter actions started*/
+    @OnClick(R.id.previousBtn)
+    fun onPreviousButtonClick(view: View) {
+        presenter.loadPreviousVolume()
+    }
+
+    @OnClick(R.id.nextBtn)
+    fun onNextButtonClick(view: View) {
+        presenter.loadNextVolume()
+    }
+
+    @OnClick(R.id.searchFilterBtn)
+    fun onSearchFilterBtnClick(view: View) {
+        val list = (selectedTagsView.selectedTags.adapter as TagsRecyclerViewAdapter).tagsListList
+        IntentHelper.startPostSearchFilterActivityForResult(MainActivity@ this, list, FilterType.PostFilter)
+        Log.v("View Clicked", view.id.toString())
+    }
+
+    override fun onSelectTag(tagEntity: TagEntity) {
+        if (volumesRecyclerView.adapter != null) {
+            val adapter = volumesRecyclerView.adapter as PostRecyclerViewAdapter
+            adapter.excludeFilter(tagEntity)
+            selectedTagsView.setAdapter((TagsRecyclerViewAdapter(baseContext, adapter.filterEntity!!.getTags(),
+                    onTagSelectListener = this)))
+        }
+        Log.v("", "")
+    }
+
+    override fun onTagClick(tagEntity: TagEntity) {
+        val list = (selectedTagsView.selectedTags.adapter as TagsRecyclerViewAdapter).tagsListList
+        IntentHelper.startPostSearchFilterActivityForResult(MainActivity@ this, list, FilterType.PostFilter)
+    }
+
+    /*Filter actions ended*/
+
+
+//    @Optional
+//    @OnClick(R.id.searchContainer)
+//    fun onSearchContainerClick(view: View) {
+////        main_appbar.setExpanded(false)
+//    }
+//
+//    @Optional
+//    @OnTouch(R.id.searchContainer)
+//    fun onSearchContainerTouch(view: View, moveEvent: MotionEvent): Boolean {
+////        main_appbar.setExpanded(false)
+//        return false
+//    }
+
+
+    /*Volume Presenter started*/
     override fun showProgress(show: Boolean) {
         if (show) {
             stateLayout.FlipLayout(LayoutStatesEnum.Waitinglayout)
@@ -300,7 +319,12 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, No
 
     override fun loadedData(volume: Volume) {
         volumeTitle.text = volume.getTitle()
-        volumesRecyclerView.adapter = PostRecyclerViewAdapter(MainActivity@ this, volume.posts)
+
+        val filter = (volumesRecyclerView.adapter as PostRecyclerViewAdapter).filterEntity
+        val adapter = PostRecyclerViewAdapter(MainActivity@ this, volume.posts)
+        volumesRecyclerView.adapter = adapter
+        if (filter != null)
+            adapter.filterByCriteria(filter)
     }
 
     override fun noMoreData() {
@@ -320,7 +344,7 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, No
 
     }
 
-    /*Presenter ended*/
+    /*Volume Presenter ended*/
 
 
     /*Post Presenter started*/
@@ -353,8 +377,8 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, No
     }
     /*Post Presenter ended*/
 
-    /*Notification presenter started*/
 
+    /*Notification presenter started*/
     override fun showNotificationProgress(show: Boolean) {
         super.showNotificationProgress(show)
     }
@@ -373,7 +397,7 @@ class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, No
         badge.setNumber(notificationList.size, true)
         Log.v("", "")
     }
-
     /*Notification presenter ended*/
+
 
 }

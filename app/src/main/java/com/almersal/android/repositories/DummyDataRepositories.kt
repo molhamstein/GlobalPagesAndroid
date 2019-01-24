@@ -7,6 +7,11 @@ class DummyDataRepositories {
 
     companion object {
 
+        fun getTagsDefaultRepositories() = mutableListOf<TagEntity>().apply {
+            add(TagEntity("كل الأصناف", "All categories"))
+            add(TagEntity("كل المدن", "All cities"))
+        }
+
         fun getCategoriesList() = mutableListOf<Category>().apply {
             add(BusinessGuideCategory("سيارات", "Cars Cars", "1"))
             add(BusinessGuideCategory("أثاث", "Furnitures Cars", "2"))
@@ -64,10 +69,6 @@ class DummyDataRepositories {
             add(LocationEntity("المهجرين", "Sywida", "5"))
         }
 
-        fun getTagsDefaultRepositories() = mutableListOf<TagEntity>().apply {
-            //            add(TagEntity("دمشق", "Damascus"))
-            add(TagEntity("كل الإعلانات", "All ads"))
-        }
 
 //        fun getTagsRepositories() = mutableListOf<TagEntity>().apply {
 //            add(TagEntity("دمشق", "Damascus"))

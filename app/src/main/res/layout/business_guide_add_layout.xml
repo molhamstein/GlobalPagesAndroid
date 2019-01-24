@@ -12,439 +12,556 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar_add_business" />
 
+
     <com.brainsocket.mainlibrary.Views.Stateslayoutview
         android:id="@+id/mainStateLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:NoConnectionLayout="@layout/state_layout_no_connection"
+        app:NoDataLayout="@layout/state_layout_no_data"
+        app:RefreshbtnRes="@+id/retryBtn"
+        app:WaitingLayout="@layout/state_layout_waiting_white_with_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/baseContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.constraint.Guideline
-                android:id="@+id/guideline"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/resultContainer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.5" />
-
-            <android.support.v4.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constrainedHeight="true"
+                android:layout_height="0dp"
+                android:background="@color/transparent"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHeight_default="percent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <android.support.v7.widget.CardView
+                <include layout="@layout/background_primary_layout" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/submittedTitle"
+                    style="@style/AppTheme.TitleTextAppearance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/lg_margin"
-                    android:layout_marginEnd="@dimen/lg_margin"
-                    android:layout_marginLeft="@dimen/lg_margin"
-                    android:layout_marginRight="@dimen/lg_margin"
-                    android:layout_marginStart="@dimen/lg_margin"
-                    android:layout_marginTop="0dp"
-                    android:background="@color/white"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="@dimen/cardRadius"
-                    app:cardElevation="@dimen/cardview_default_elevation"
-                    app:cardUseCompatPadding="true">
+                    android:gravity="center"
+                    android:text="@string/AddSubmitted"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toTopOf="@+id/submittedIcon" />
 
-                    <android.support.constraint.ConstraintLayout
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/submittedIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/ic_launcher"
+                    app:layout_constrainedHeight="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHeight_default="percent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    style="@style/AppTheme.TextAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/WeWillReviewYourAdAndContactYouBack"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toBottomOf="@+id/submittedIcon" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/adBackHomeBtn"
+                    style="@style/AppTheme.NormalButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/submittedIcon"
+                    android:layout_margin="@dimen/md_margin"
+                    android:background="@drawable/button_bg"
+                    android:padding="@dimen/md_padding"
+                    android:shadowColor="@color/black"
+                    android:text="@string/Backtohome"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/guideline2"
+                    app:layout_constraintWidth_percent="0.7" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.8" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/baseContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <android.support.v4.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constrainedHeight="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHeight_default="percent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/md_padding">
-
-                        <TextView
-                            android:id="@+id/businessId"
-                            android:visibility="gone"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp" />
+                        android:layout_marginBottom="@dimen/lg_margin"
+                        android:layout_marginEnd="@dimen/lg_margin"
+                        android:layout_marginLeft="@dimen/lg_margin"
+                        android:layout_marginRight="@dimen/lg_margin"
+                        android:layout_marginStart="@dimen/lg_margin"
+                        android:layout_marginTop="0dp"
+                        android:background="@color/white"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="@dimen/cardRadius"
+                        app:cardElevation="@dimen/cardview_default_elevation"
+                        app:cardUseCompatPadding="true">
 
                         <android.support.constraint.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/md_padding">
 
-                            <android.support.design.widget.TextInputLayout
-                                android:id="@+id/businessNameLayout"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="@string/BusinessName"
-                                app:errorEnabled="false"
-                                app:errorTextAppearance="@style/ErrorText"
-                                app:hintTextAppearance="@style/HintText">
-
-                                <android.support.design.widget.TextInputEditText
-                                    android:id="@+id/businessName"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:inputType="text" />
-
-                            </android.support.design.widget.TextInputLayout>
-
-                            <LinearLayout
-                                android:id="@+id/businessImagesLayout"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                app:layout_constraintTop_toBottomOf="@+id/businessNameLayout">
-
-                                <TextView
-                                    style="@style/AppTheme.TextAppearance"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/sm_margin"
-                                    android:text="@string/Images"
-                                    android:textColor="@color/lightGray" />
-
-                                <HorizontalScrollView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
-
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="match_parent"
-                                        android:orientation="horizontal">
-
-                                        <android.support.v7.widget.RecyclerView
-                                            android:id="@+id/businessImages"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="56dp"
-                                            app:tagBackgroundColor="@color/colorPrimary" />
-
-                                        <ImageView
-                                            android:id="@+id/addAttachmentBtn"
-                                            android:layout_width="40dp"
-                                            android:layout_height="40dp"
-                                            android:layout_gravity="top"
-                                            android:layout_margin="@dimen/sm_margin"
-                                            android:background="@drawable/rectangle_gray"
-                                            android:padding="@dimen/md_padding"
-                                            app:srcCompat="@drawable/ic_add_white_24dp" />
-                                    </LinearLayout>
-
-                                </HorizontalScrollView>
-
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/sperator"
-                                    android:layout_marginTop="@dimen/sm_margin"
-                                    android:background="@color/lightGray" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/phoneNumberLayout"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="@string/Phonenumber"
-                                android:orientation="vertical"
-                                app:layout_constraintTop_toBottomOf="@+id/businessImagesLayout">
-
-                                <android.support.v7.widget.AppCompatTextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/Phonenumber"
-                                    android:textColor="@color/grayLightTextColor" />
-
-                                <android.support.design.widget.TextInputEditText
-                                    android:id="@+id/phoneNumber"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="@string/Optional"
-                                    android:inputType="phone" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/phoneNumber2Layout"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                app:layout_constraintTop_toBottomOf="@+id/phoneNumberLayout">
-
-                                <android.support.v7.widget.AppCompatTextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/Phonenumber2"
-                                    android:textColor="@color/grayLightTextColor" />
-
-                                <android.support.design.widget.TextInputEditText
-                                    android:id="@+id/phoneNumber2"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="@string/Optional"
-                                    android:inputType="phone" />
-
-                            </LinearLayout>
-
-                            <RelativeLayout
-                                android:id="@+id/openDayLayout"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                app:layout_constraintTop_toBottomOf="@+id/phoneNumber2Layout">
-
-                                <android.support.v7.widget.AppCompatTextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_toLeftOf="@+id/editOpenDaysTextView"
-                                    android:layout_toStartOf="@+id/editOpenDaysTextView"
-                                    android:text="@string/openDays"
-                                    android:textColor="@color/grayLightTextColor" />
-
-                                <android.support.v7.widget.AppCompatTextView
-                                    android:id="@+id/editOpenDaysTextView"
-                                    android:layout_width="wrap_content"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_alignParentEnd="true"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/Edit"
-                                    android:textColor="@color/grayLightTextColor" />
-
-                            </RelativeLayout>
-
-                            <LinearLayout
-                                android:id="@+id/businessTypeLayout"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                app:layout_constraintTop_toBottomOf="@+id/openDayLayout">
-
-                                <android.support.v7.widget.AppCompatTextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/businessType"
-                                    android:textColor="@color/grayLightTextColor" />
-
-                                <com.brainsocket.mainlibrary.Views.Stateslayoutview
-                                    android:id="@+id/stateLayout"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:minHeight="50dp"
-                                    app:NoConnectionLayout="@layout/state_layout_no_connection"
-                                    app:NoDataLayout="@layout/state_layout_no_data"
-                                    app:RefreshbtnRes="@+id/retryBtn"
-                                    app:WaitingLayout="@layout/state_layout_waiting">
-
-                                    <android.support.v7.widget.RecyclerView
-                                        android:id="@+id/businessTypes"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"/>
-
-                                </com.brainsocket.mainlibrary.Views.Stateslayoutview>
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/subCategoryLayout"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                app:layout_constraintTop_toBottomOf="@+id/businessTypeLayout">
-
-                                <android.support.v7.widget.AppCompatTextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/SubCategory"
-                                    android:textColor="@color/grayLightTextColor" />
-
-                                <android.support.v7.widget.RecyclerView
-                                    android:id="@+id/businessSubCategories"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/progress_wheel_height"
-                                    app:tagBackgroundColor="@color/colorPrimary" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/locationLayout"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                app:layout_constraintTop_toBottomOf="@+id/subCategoryLayout">
-
-                                <android.support.v7.widget.AppCompatTextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/Location"
-                                    android:textColor="@color/grayLightTextColor" />
-
-                                <android.support.design.widget.TextInputEditText
-                                    android:id="@+id/locationEditText"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:drawableEnd="@drawable/ic_nearby_24dp"
-                                    android:drawableRight="@drawable/ic_nearby_24dp"
-                                    android:focusable="false"
-                                    android:hint="@string/Optional"
-                                    android:inputType="text" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/descriptionLayout"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                app:layout_constraintTop_toBottomOf="@+id/locationLayout">
-
-                                <android.support.v7.widget.AppCompatTextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/Description"
-                                    android:textColor="@color/grayLightTextColor" />
-
-                                <android.support.design.widget.TextInputEditText
-                                    android:id="@+id/description"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="top|left|start"
-                                    android:hint="@string/Optional"
-                                    android:inputType="textMultiLine"
-                                    android:lines="3"
-                                    android:minLines="3" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/faxLayout"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                app:layout_constraintTop_toBottomOf="@+id/descriptionLayout">
-
-                                <android.support.v7.widget.AppCompatTextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/Fax"
-                                    android:textColor="@color/grayLightTextColor" />
-
-                                <android.support.design.widget.TextInputEditText
-                                    android:id="@+id/fax"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="top|left|start"
-                                    android:hint="@string/Optional"
-                                    android:inputType="textMultiLine"
-                                    android:lines="3"
-                                    android:minLines="3" />
-                            </LinearLayout>
+                            <TextView
+                                android:id="@+id/businessId"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:visibility="gone" />
 
                             <android.support.constraint.ConstraintLayout
-                                android:id="@+id/businessAddBtnContainer"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:layout_constraintTop_toBottomOf="@+id/faxLayout">
+                                android:layout_height="wrap_content">
 
-                                <com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView
-                                    android:layout_width="0dp"
+                                <android.support.design.widget.TextInputLayout
+                                    android:id="@+id/businessNameLayout"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_alignParentBottom="true"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintLeft_toLeftOf="parent"
-                                    app:layout_constraintRight_toRightOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintWidth_percent="0.6"
-                                    app:ms9_shadowElevation="@dimen/md_elevation">
+                                    android:hint="@string/BusinessName"
+                                    app:errorEnabled="false"
+                                    app:errorTextAppearance="@style/ErrorText"
+                                    app:hintTextAppearance="@style/HintText">
+
+                                    <android.support.design.widget.TextInputEditText
+                                        android:id="@+id/businessName"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:inputType="text" />
+
+                                </android.support.design.widget.TextInputLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/businessImagesLayout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    app:layout_constraintTop_toBottomOf="@+id/businessNameLayout">
+
+                                    <TextView
+                                        style="@style/AppTheme.TextAppearance"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/sm_margin"
+                                        android:text="@string/Images"
+                                        android:textColor="@color/lightGray" />
+
+                                    <HorizontalScrollView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
+                                            android:orientation="horizontal">
+
+                                            <android.support.v7.widget.RecyclerView
+                                                android:id="@+id/businessImages"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="56dp"
+                                                app:tagBackgroundColor="@color/colorPrimary" />
+
+                                            <ImageView
+                                                android:id="@+id/addAttachmentBtn"
+                                                android:layout_width="40dp"
+                                                android:layout_height="40dp"
+                                                android:layout_gravity="top"
+                                                android:layout_margin="@dimen/sm_margin"
+                                                android:background="@drawable/rectangle_gray"
+                                                android:padding="@dimen/md_padding"
+                                                app:srcCompat="@drawable/ic_add_white_24dp" />
+                                        </LinearLayout>
+
+                                    </HorizontalScrollView>
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/sperator"
+                                        android:layout_marginTop="@dimen/sm_margin"
+                                        android:background="@color/lightGray" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/phoneNumberLayout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/Phonenumber"
+                                    android:orientation="vertical"
+                                    app:layout_constraintTop_toBottomOf="@+id/businessImagesLayout">
+
+                                    <android.support.v7.widget.AppCompatTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/Phonenumber"
+                                        android:textColor="@color/grayLightTextColor" />
+
+                                    <android.support.design.widget.TextInputEditText
+                                        android:id="@+id/phoneNumber"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:hint="@string/Optional"
+                                        android:inputType="phone" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/phoneNumber2Layout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    app:layout_constraintTop_toBottomOf="@+id/phoneNumberLayout">
+
+                                    <android.support.v7.widget.AppCompatTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/Phonenumber2"
+                                        android:textColor="@color/grayLightTextColor" />
+
+                                    <android.support.design.widget.TextInputEditText
+                                        android:id="@+id/phoneNumber2"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:hint="@string/Optional"
+                                        android:inputType="phone" />
+
+                                </LinearLayout>
+
+                                <RelativeLayout
+                                    android:id="@+id/openDayLayout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/lg_margin"
+                                    android:orientation="vertical"
+                                    android:visibility="gone"
+                                    app:layout_constraintTop_toBottomOf="@+id/phoneNumber2Layout">
+
+                                    <android.support.v7.widget.AppCompatTextView
+                                        android:id="@+id/openDayLabel"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_toLeftOf="@+id/editOpenDaysTextView"
+                                        android:layout_toStartOf="@+id/editOpenDaysTextView"
+                                        android:text="@string/openDays"
+                                        android:textColor="@color/grayLightTextColor" />
+
+                                    <android.support.v7.widget.AppCompatTextView
+                                        android:id="@+id/editOpenDaysTextView"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_alignParentRight="true"
+                                        android:background="@drawable/button_bg"
+                                        android:gravity="center"
+                                        android:padding="@dimen/sm_padding"
+                                        android:paddingEnd="@dimen/md_padding"
+                                        android:paddingLeft="@dimen/md_padding"
+                                        android:paddingRight="@dimen/md_padding"
+                                        android:paddingStart="@dimen/md_padding"
+                                        android:text="@string/Edit"
+                                        android:textColor="@color/white"
+                                        app:autoSizeMinTextSize="8sp"
+                                        app:autoSizeTextType="uniform" />
+
+                                </RelativeLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/businessTypeLayout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/lg_margin"
+                                    android:orientation="vertical"
+                                    app:layout_constraintTop_toBottomOf="@+id/openDayLayout">
+
+                                    <android.support.v7.widget.AppCompatTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/businessType"
+                                        android:textColor="@color/grayLightTextColor" />
+
+                                    <com.brainsocket.mainlibrary.Views.Stateslayoutview
+                                        android:id="@+id/stateLayout"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:minHeight="50dp"
+                                        app:NoConnectionLayout="@layout/state_layout_no_connection"
+                                        app:NoDataLayout="@layout/state_layout_no_data"
+                                        app:RefreshbtnRes="@+id/retryBtn"
+                                        app:WaitingLayout="@layout/state_layout_waiting">
+
+                                        <android.support.v7.widget.RecyclerView
+                                            android:id="@+id/businessTypes"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content" />
+
+                                    </com.brainsocket.mainlibrary.Views.Stateslayoutview>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/subCategoryLayout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:visibility="gone"
+                                    app:layout_constraintTop_toBottomOf="@+id/businessTypeLayout">
+
+                                    <android.support.v7.widget.AppCompatTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/SubCategory"
+                                        android:textColor="@color/grayLightTextColor" />
+
+                                    <android.support.v7.widget.RecyclerView
+                                        android:id="@+id/businessSubCategories"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/progress_wheel_height"
+                                        app:tagBackgroundColor="@color/colorPrimary" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/cityLayout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    app:layout_constraintTop_toBottomOf="@+id/subCategoryLayout">
+
+                                    <TextView
+                                        style="@style/AppTheme.TextAppearance"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/sm_margin"
+                                        android:text="@string/City"
+                                        android:textColor="@color/lightGray" />
+
+                                    <com.brainsocket.mainlibrary.Views.Stateslayoutview
+                                        android:id="@+id/cityStateLayout"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:minHeight="@dimen/tag_container_height"
+                                        app:NoConnectionLayout="@layout/state_layout_no_connection"
+                                        app:NoDataLayout="@layout/state_layout_no_data"
+                                        app:RefreshbtnRes="@+id/retryBtn"
+                                        app:WaitingLayout="@layout/state_layout_waiting">
+
+                                        <android.support.v7.widget.RecyclerView
+                                            android:id="@+id/adCities"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content" />
+                                    </com.brainsocket.mainlibrary.Views.Stateslayoutview>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/areaContainer"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    app:layout_constraintTop_toBottomOf="@+id/cityLayout">
+
+                                    <TextView
+                                        style="@style/AppTheme.TextAppearance"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/md_margin"
+                                        android:text="@string/Area"
+                                        android:textColor="@color/lightGray" />
+
+                                    <android.support.v7.widget.RecyclerView
+                                        android:id="@+id/adLocations"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        app:tagBackgroundColor="@color/colorPrimary" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/locationLayout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    app:layout_constraintTop_toBottomOf="@+id/areaContainer">
+
+                                    <android.support.v7.widget.AppCompatTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/Location"
+                                        android:textColor="@color/grayLightTextColor" />
+
+                                    <android.support.design.widget.TextInputEditText
+                                        android:id="@+id/locationEditText"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:drawableEnd="@drawable/ic_nearby_24dp"
+                                        android:drawableRight="@drawable/ic_nearby_24dp"
+                                        android:focusable="false"
+                                        android:hint="@string/Optional"
+                                        android:inputType="text" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/descriptionLayout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    app:layout_constraintTop_toBottomOf="@+id/locationLayout">
+
+                                    <android.support.v7.widget.AppCompatTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/Description"
+                                        android:textColor="@color/grayLightTextColor" />
+
+                                    <android.support.design.widget.TextInputEditText
+                                        android:id="@+id/description"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="top|left|start"
+                                        android:hint="@string/Optional"
+                                        android:inputType="textMultiLine"
+                                        android:lines="3"
+                                        android:minLines="3" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/faxLayout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    app:layout_constraintTop_toBottomOf="@+id/descriptionLayout">
+
+                                    <android.support.v7.widget.AppCompatTextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/Fax"
+                                        android:textColor="@color/grayLightTextColor" />
+
+                                    <android.support.design.widget.TextInputEditText
+                                        android:id="@+id/fax"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="top|left|start"
+                                        android:hint="@string/Optional"
+                                        android:inputType="textMultiLine"
+                                        android:lines="3"
+                                        android:minLines="3" />
+                                </LinearLayout>
+
+                                <android.support.constraint.ConstraintLayout
+                                    android:id="@+id/businessAddBtnContainer"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/md_margin"
+                                    app:layout_constraintTop_toBottomOf="@+id/faxLayout">
 
                                     <android.support.v7.widget.AppCompatButton
                                         android:id="@+id/businessAddBtn"
-                                        style="@style/AppTheme.NormalButtonStyle"
-                                        android:layout_width="match_parent"
+                                        style="@style/AppTheme.SmallButtonStyle"
+                                        android:layout_width="0dp"
                                         android:layout_height="@dimen/sm_btn_height"
-                                        android:layout_margin="@dimen/zero"
+                                        android:layout_margin="@dimen/md_margin"
+                                        android:layout_marginBottom="@dimen/lg_margin"
+                                        android:layout_marginTop="@dimen/lg_margin"
+                                        android:layout_weight="4"
                                         android:background="@drawable/button_bg"
-                                        android:elevation="4dp"
-                                        android:padding="@dimen/md_padding"
+                                        android:paddingEnd="@dimen/lg_padding"
+                                        android:paddingLeft="@dimen/lg_padding"
+                                        android:paddingRight="@dimen/lg_padding"
+                                        android:paddingStart="@dimen/lg_padding"
                                         android:shadowColor="@color/black"
-                                        android:text="@string/RegisterBusiness" />
-                                </com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView>
+                                        android:text="@string/RegisterBusiness"
+                                        android:textColor="@color/white"
+                                        android:textStyle="bold"
+                                        app:elevation="@dimen/xxlg_elevation"
+                                        app:layout_constraintLeft_toLeftOf="parent"
+                                        app:layout_constraintRight_toRightOf="parent"
+                                        app:layout_constraintWidth_percent="0.7" />
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="30dp"
+                                        app:layout_constraintTop_toBottomOf="@+id/businessAddBtn" />
+
+
+                                    <!--<com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView-->
+                                    <!--android:layout_width="0dp"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:layout_alignParentBottom="true"-->
+                                    <!--app:layout_constraintEnd_toEndOf="parent"-->
+                                    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+                                    <!--app:layout_constraintRight_toRightOf="parent"-->
+                                    <!--app:layout_constraintStart_toStartOf="parent"-->
+                                    <!--app:layout_constraintWidth_percent="0.6"-->
+                                    <!--app:ms9_shadowElevation="@dimen/md_elevation">-->
+
+                                    <!--<android.support.v7.widget.AppCompatButton-->
+                                    <!--android:id="@+id/businessAddBtn"-->
+                                    <!--style="@style/AppTheme.NormalButtonStyle"-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="@dimen/sm_btn_height"-->
+                                    <!--android:layout_margin="@dimen/zero"-->
+                                    <!--android:background="@drawable/button_bg"-->
+                                    <!--android:elevation="4dp"-->
+                                    <!--android:padding="@dimen/md_padding"-->
+                                    <!--android:shadowColor="@color/black"-->
+                                    <!--android:text="@string/RegisterBusiness" />-->
+                                    <!--</com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView>-->
+                                </android.support.constraint.ConstraintLayout>
+
                             </android.support.constraint.ConstraintLayout>
 
                         </android.support.constraint.ConstraintLayout>
 
-                    </android.support.constraint.ConstraintLayout>
+                    </android.support.v7.widget.CardView>
 
-                </android.support.v7.widget.CardView>
+                </android.support.v4.widget.NestedScrollView>
 
-            </android.support.v4.widget.NestedScrollView>
+            </android.support.constraint.ConstraintLayout>
 
         </android.support.constraint.ConstraintLayout>
 
+
     </com.brainsocket.mainlibrary.Views.Stateslayoutview>
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/resultContainer"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:alpha="0"
-        android:background="@color/transparent"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
-
-        <include layout="@layout/background_primary_layout" />
-
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/submittedTitle"
-            style="@style/AppTheme.TitleTextAppearance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/AddSubmitted"
-            android:textAlignment="gravity"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toTopOf="@+id/submittedIcon" />
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/submittedIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:src="@mipmap/ic_launcher"
-            app:layout_constrainedHeight="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHeight_default="percent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <android.support.v7.widget.AppCompatTextView
-            style="@style/AppTheme.TextAppearance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/WeWillReviewYourAdAndContactYouBack"
-            android:textAlignment="gravity"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@+id/submittedIcon" />
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/adBackHomeBtn"
-            style="@style/AppTheme.NormalButtonStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/submittedIcon"
-            android:layout_margin="@dimen/md_margin"
-            android:background="@drawable/button_bg"
-            android:padding="@dimen/md_padding"
-            android:shadowColor="@color/black"
-            android:text="@string/Backtohome"
-            android:textColor="@color/white"
-            app:layout_constraintTop_toBottomOf="@+id/guideline2" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.8" />
-
-    </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>
 

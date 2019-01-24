@@ -86,8 +86,8 @@ class BusinessGuideViewHolder constructor(view: View) : RecyclerView.ViewHolder(
             isOwner = user.id == businessGuide.ownerId
         if (!isOwner)
             ProductAddLink.visibility = View.INVISIBLE
-        businessGuideProductRecyclerView.adapter = BusinessGuideProductRecyclerViewAdapter(context, businessGuide.products,
-                isOwner, businessGuide)
+        businessGuideProductRecyclerView.adapter = BusinessGuideProductRecyclerViewAdapter(context,
+                businessGuide.products, isOwner, businessGuide)
 
     }
 

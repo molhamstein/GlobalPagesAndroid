@@ -16,30 +16,45 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.5" />
 
-        <RelativeLayout
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/titleLabel"
+            style="@style/AppTheme.TextAppearance"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/selectTopicsDoYou"
+            android:textAlignment="gravity"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/myCategoriesStateLayout" />
+
+        <com.brainsocket.mainlibrary.Views.Stateslayoutview
+            android:id="@+id/myCategoriesStateLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:NoConnectionLayout="@layout/state_layout_no_connection_min"
+            app:NoDataLayout="@layout/state_layout_no_data"
+            app:RefreshbtnRes="@+id/retryBtn"
+            app:WaitingLayout="@layout/state_layout_waiting"
             app:layout_constraintBottom_toTopOf="@+id/subCategoryTitle"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/categorySperator">
 
-            <android.support.v7.widget.AppCompatTextView
-                style="@style/AppTheme.TextAppearance"
-                android:layout_width="wrap_content"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/myCategories"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="@string/selectWhatAreYou"
-                android:textAlignment="gravity"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
+                android:layout_marginTop="@dimen/lg_margin"
+                app:tagBackgroundColor="@color/colorPrimary" />
 
-        </RelativeLayout>
+        </com.brainsocket.mainlibrary.Views.Stateslayoutview>
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/subCategoryTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:paddingTop="@dimen/md_padding"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

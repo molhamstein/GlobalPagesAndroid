@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.almersal.android.R
 import com.almersal.android.data.entities.TagEntity
+import com.almersal.android.enums.TagType
 import com.almersal.android.listeners.OnTagSelectListener
 import com.almersal.android.viewHolders.TagEntityViewHolder
 
@@ -43,33 +44,17 @@ class TagsRecyclerViewAdapter constructor(var context: Context, var tagsListList
 
 
         holder.tag_close.setOnClickListener {
+            if (poJo.tagId.isBlank() && (poJo.tagType != TagType.Query))
+                return@setOnClickListener
             tagsListList.removeAt(holder.adapterPosition)
             notifyItemRemoved(holder.adapterPosition)
             onTagSelectListener?.onSelectTag(poJo)
             Log.v("", "")
         }
-        holder.tag_toggle.setOnClickListener {
+
+        holder.itemView.setOnClickListener {
             onTagSelectListener?.onTagClick(poJo)
         }
-
-//        var listener = object : RightDrawableOnTouchListener(holder.tag_toggle) {
-//            override fun onDrawableTouch(event: MotionEvent?): Boolean {
-//                tagsListList.removeAt(holder.adapterPosition)
-//                notifyItemRemoved(holder.adapterPosition)
-//                onTagSelectListener?.onSelectTag(pojo)
-//                Log.v("", "")
-//                return false
-//            }
-//        }
-//
-//        holder.tag_toggle.setOnTouchListener(listener)
-//        holder.tag_toggle.setOnCheckedChangeListener { buttonView, isChecked ->
-//            if (isChecked && buttonView != null) {
-//                tagsListList.removeAt(holder.adapterPosition)
-//                notifyItemRemoved(holder.adapterPosition)
-//                onTagSelectListener?.onSelectTag(pojo)
-//            }
-//        }
 
     }
 

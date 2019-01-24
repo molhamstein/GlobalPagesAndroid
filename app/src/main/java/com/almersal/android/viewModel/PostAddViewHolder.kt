@@ -16,9 +16,6 @@ import com.almersal.android.data.entitiesModel.PostModel
 import com.almersal.android.data.validations.ValidationHelper
 import com.almersal.android.repositories.UserRepository
 
-/**
- * Created by Adhamkh on 2018-10-09.
- */
 class PostAddViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) {
 
     var context: Context
@@ -123,26 +120,34 @@ class PostAddViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) 
 
 
         if (adCategories.adapter != null) {
-            (adCategories.adapter as CategoryRecyclerViewAdapter).setCheck(post.category)
+            val pos = (adCategories.adapter as CategoryRecyclerViewAdapter).setCheck(post.category)
+            if (pos > 0)
+                adCategories.smoothScrollToPosition(pos)
             val cat = (adCategories.adapter as CategoryRecyclerViewAdapter).getCurrentCategory()
             if (cat != null)
                 adSubCategories.adapter = SubCategoryRecyclerViewAdapter(context, cat.subCategoriesList)
         }
 
         if (adSubCategories.adapter != null) {
-            (adSubCategories.adapter as SubCategoryRecyclerViewAdapter).setCheck(post.subCategory)
+            val pos = (adSubCategories.adapter as SubCategoryRecyclerViewAdapter).setCheck(post.subCategory)
+            if (pos > 0)
+                adSubCategories.smoothScrollToPosition(pos)
         }
 
 
         if (adCities.adapter != null) {
-            (adCities.adapter as CityRecyclerViewAdapter).setCheck(post.city)
+            val pos = (adCities.adapter as CityRecyclerViewAdapter).setCheck(post.city)
+            if (pos > 0)
+                adCities.smoothScrollToPosition(pos)
             val city = (adCities.adapter as CityRecyclerViewAdapter).getCurrentCity()
             if (city != null)
                 adLocations.adapter = LocationEntityRecyclerViewAdapter(context, city.locations)
         }
 
         if (adLocations.adapter != null) {
-            (adLocations.adapter as LocationEntityRecyclerViewAdapter).setCheck(post.location)
+            val pos=(adLocations.adapter as LocationEntityRecyclerViewAdapter).setCheck(post.location)
+            if(pos>0)
+                adLocations.smoothScrollToPosition(pos)
         }
 
 //        businessGuideModel.ownerId = UserRepository(App.app).getUser()!!.id!!

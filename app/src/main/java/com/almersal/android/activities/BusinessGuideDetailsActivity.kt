@@ -124,7 +124,8 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
     @Optional
     @OnClick(R.id.contactContainer, R.id.contactBtn)
     fun onContactContainerClick(view: View) {
-        val contactDialog = ContactDialog.newInstance(businessGuide.owner.phoneNumber, businessGuide.owner.phoneNumber, businessGuide.owner.phoneNumber)
+        val contactDialog = ContactDialog.newInstance(businessGuide.phone1,
+                businessGuide.phone2, businessGuide.fax)
         contactDialog.show(supportFragmentManager, ContactDialog.ContactDialog_Tag)
         Log.v("View Clicked", view.id.toString())
     }

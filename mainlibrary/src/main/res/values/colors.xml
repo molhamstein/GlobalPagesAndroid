@@ -15,6 +15,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">@android:color/transparent</color>
     <color name="lightGray">@android:color/darker_gray</color>
+    <color name="lightestGray">#ddd</color>
 
     <color name="si_default_text_color">#FF0000</color>
     <color name="si_default_text_color_selected">#FF00FF</color>

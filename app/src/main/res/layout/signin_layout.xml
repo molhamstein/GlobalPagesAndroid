@@ -71,9 +71,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
-                    android:text="adhamkhwaldeh@gmail.com"
                     app:fontFamily="@font/antipasto_extrabold" />
 
+                <!--android:text="adhamkhwaldeh@gmail.com"-->
                 <!--android:textStyle="bold"-->
                 <!--"-->
             </android.support.design.widget.TextInputLayout>
@@ -96,8 +96,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:text="123456"
                     app:fontFamily="@font/antipasto_extrabold" />
+
+                <!--android:text="123456"-->
 
             </android.support.design.widget.TextInputLayout>
 

@@ -118,8 +118,8 @@ public class BindingUtils {
             if (!url.startsWith("http"))
                 url = "http://" + url;
             Context context = imageView.getContext();
-            GlideApp.with(context).load(url).error(R.drawable.businesslogo)
-                    .placeholder(R.mipmap.ic_launcher).into(imageView);
+            GlideApp.with(context).load(url).error(R.drawable.ic_launcher_web)
+                    .placeholder(R.drawable.ic_launcher_web).into(imageView);
         } catch (Exception ex) {
             Log.v("image load", ex.getMessage());
         }
@@ -131,7 +131,7 @@ public class BindingUtils {
             if (!url.startsWith("http"))
                 url = "http://" + url;
             Context context = imageView.getContext();
-            GlideApp.with(context).load(url).error(R.drawable.businesslogo)
+            GlideApp.with(context).load(url).error(R.drawable.ic_launcher_web)
                     .placeholder(R.drawable.ic_launcher_web).into(imageView);
         } catch (Exception ex) {
             Log.v("image load", ex.getMessage());
@@ -143,7 +143,7 @@ public class BindingUtils {
             if (!url.startsWith("http"))
                 url = "http://" + url;
             Context context = imageView.getContext();
-            GlideApp.with(context).load(url).error(R.drawable.businesslogo)
+            GlideApp.with(context).load(url).error(R.drawable.ic_launcher_web)
                     .placeholder(R.drawable.ic_launcher_web).into(imageView);
         } catch (Exception ex) {
             Log.v("image load", ex.getMessage());

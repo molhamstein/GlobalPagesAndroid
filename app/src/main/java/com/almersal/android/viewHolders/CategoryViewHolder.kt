@@ -1,5 +1,6 @@
 package com.almersal.android.viewHolders
 
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ToggleButton
@@ -8,23 +9,26 @@ import butterknife.ButterKnife
 import com.almersal.android.R
 import com.almersal.android.data.entities.Category
 
-/**
- * Created by Adhamkh on 2018-07-03.
- */
-class CategoryViewHolder : RecyclerView.ViewHolder {
+class CategoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-    @BindView(R.id.category_toggle)
-    lateinit var category_toggle: ToggleButton
+    private val context = view.context
 
-    constructor(view: View) : super(view) {
+    init {
         ButterKnife.bind(this, view)
+
     }
 
-    fun bind(category: Category) {
-        category_toggle.textOff = category.getTitle()
-        category_toggle.textOn = category.getTitle()
-        category_toggle.text = category.getTitle()
-        category_toggle.setOnCheckedChangeListener(null)
-        category_toggle.isChecked = category.isSelected
+    @BindView(R.id.category_toggle)
+    lateinit var categoryToggle: ToggleButton
+
+
+    fun bind(category: Category, isTransparent: Boolean) {
+        if (isTransparent)
+            categoryToggle.background = ContextCompat.getDrawable(context, R.drawable.ic_cat_tag_transparent_bg)
+        categoryToggle.textOff = category.getTitle()
+        categoryToggle.textOn = category.getTitle()
+        categoryToggle.text = category.getTitle()
+        categoryToggle.setOnCheckedChangeListener(null)
+        categoryToggle.isChecked = category.isSelected
     }
 }

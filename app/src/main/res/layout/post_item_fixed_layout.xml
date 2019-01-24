@@ -19,13 +19,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/post_Image"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:adjustViewBounds="true"
                 android:background="@color/colorPrimary"
                 android:contentDescription="@string/contentDescription"
+                android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher"
                 app:layout_constraintHeight_percent="0.5"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -76,6 +77,10 @@
                 style="@style/AppTheme.TextAppearance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/md_padding"
+                android:paddingLeft="@dimen/md_padding"
+                android:paddingRight="@dimen/md_padding"
+                android:paddingStart="@dimen/md_padding"
                 android:ellipsize="end"
                 android:shadowColor="@color/lightGray"
                 android:shadowRadius="@integer/textShadow"
@@ -101,6 +106,10 @@
                     android:maxLines="6"
                     android:shadowColor="@color/lightGray"
                     android:shadowRadius="@integer/textShadow"
+                    android:paddingEnd="@dimen/md_padding"
+                    android:paddingLeft="@dimen/md_padding"
+                    android:paddingRight="@dimen/md_padding"
+                    android:paddingStart="@dimen/md_padding"
                     android:textAlignment="gravity"
                     android:textColor="@color/grayDarkTextColor"
                     android:textStyle="bold" />

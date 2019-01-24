@@ -6,6 +6,7 @@ import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.ActivityCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -63,7 +64,7 @@ class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMa
 
     private lateinit var locationRequest: LocationRequest
 
-    private lateinit var lastLocation: Location
+    var lastLocation: Location? = null
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var locationUpdateState: Boolean = false
@@ -109,9 +110,11 @@ class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMa
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(p0: LocationResult?) {
                 super.onLocationResult(p0)
-                lastLocation = p0?.lastLocation!!
+                if (p0 == null)
+                    return
+                lastLocation = p0.lastLocation!!
                 if (firstLocation)
-                    placeMarkerOnMap(LatLng(lastLocation.latitude, lastLocation.longitude))
+                    placeMarkerOnMap(LatLng(lastLocation!!.latitude, lastLocation!!.longitude))
             }
         }
 
@@ -146,6 +149,7 @@ class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMa
                 val currentLatLng = LatLng(location.latitude, location.longitude)
                 placeMarkerOnMap(currentLatLng)
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
+                loadRequest()
             }
         }
 
@@ -254,6 +258,17 @@ class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMa
 
     }
 
+    fun loadRequest() {
+        if ((subCategory != null) && (lastLocation != null)) {
+            businessGuidesPresenter.loadBusinessGuideByLocationAndCategory(pointEntity =
+            PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude), subCategory = subCategory!!)
+        } else if ((subCategory != null)) {
+            businessGuidesPresenter.loadBusinessGuideList(subCategory = subCategory!!)
+            Toast.makeText(this, R.string.weCannotDetermineYourLocation, Toast.LENGTH_LONG).show()
+
+        }
+    }
+
     @OnClick(R.id.tagSearchView)
     fun onTagSearchViewClick(view: View) {
         try {
@@ -274,9 +289,7 @@ class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMa
 
     @OnClick(R.id.refreshBtn)
     fun onRefreshButtonClick(view: View) {
-        if (subCategory != null) {
-            businessGuidesPresenter.loadBusinessGuideList(subCategory = subCategory!!)
-        }
+        loadRequest()
     }
 
 
@@ -345,9 +358,11 @@ class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMa
     override fun onMarkerClick(p0: Marker?): Boolean {
         if (p0 != null) {
             if (p0.tag is BusinessGuide) {
-                val businessGuideSnippetBottomFragment = BusinessGuideSnippetBottomFragment.getNewInstance(p0.tag as BusinessGuide)
-                businessGuideSnippetBottomFragment.show(supportFragmentManager,
-                        BusinessGuideSnippetBottomFragment.BusinessGuideSnippetBottomFragment_Tag)
+                Handler().postDelayed({
+                    val businessGuideSnippetBottomFragment = BusinessGuideSnippetBottomFragment.getNewInstance(p0.tag as BusinessGuide)
+                    businessGuideSnippetBottomFragment.show(supportFragmentManager,
+                            BusinessGuideSnippetBottomFragment.BusinessGuideSnippetBottomFragment_Tag)
+                }, 200)
             }
         }
         return false
@@ -357,7 +372,7 @@ class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMa
     /*Tags Presenter started*/
     override fun onBusinessCategoriesLoaded(categoriesList: MutableList<BusinessGuideCategory>) {
         val categoryFilterBottomSheet = CategoryFilterBottomSheet.getNewInstance(categoriesList.toMutableList(), this)
-        categoryFilterBottomSheet.show(supportFragmentManager, CategoryFilterBottomSheet.CategoryFilterBottmSheet_Tag)
+        categoryFilterBottomSheet.show(supportFragmentManager, CategoryFilterBottomSheet.CategoryFilterBottomSheet_Tag)
         Log.v("", "")
     }
     /*Tags Presenter ended*/
@@ -394,6 +409,8 @@ class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMa
     override fun onLoadBusinessGuideListSuccessfully(businessGuideList: MutableList<BusinessGuide>) {
         businessGuideRecyclerView.adapter = BusinessGuideRecyclerViewAdapter(this, businessGuideList)
         mMap.clear()
+        if (lastLocation != null)
+            placeMarkerOnMap(LatLng(lastLocation!!.latitude, lastLocation!!.longitude))
         businessGuideList.forEach {
             addMarker(it, it.getName(), it.locationPoint)
         }
@@ -418,7 +435,7 @@ class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMa
 
     override fun onSelectSubCategory(subCategory: SubCategory) {
         this.subCategory = subCategory
-        businessGuidesPresenter.loadBusinessGuideList(subCategory)
+        loadRequest()
     }
 
     override fun onSelectCategory(category: Category) {

@@ -19,17 +19,14 @@ import com.almersal.android.listeners.OnCategorySelectListener
 import com.almersal.android.repositories.DummyDataRepositories
 import com.almersal.android.views.SuggestionTagView
 
-/**
- * Created by Adhamkh on 2018-07-27.
- */
-class CategoryFilterBottomSheet : BottomSheetDialogFragment(), OnCategorySelectListener {
 
+class CategoryFilterBottomSheet : BottomSheetDialogFragment(), OnCategorySelectListener {
 
     lateinit var categoriesList: MutableList<Category>
     var onCategorySelectListener: OnCategorySelectListener? = null
 
     companion object {
-        val CategoryFilterBottmSheet_Tag = "CategoryFilterBottmSheet"
+        val CategoryFilterBottomSheet_Tag = "CategoryFilterBottomSheet"
         fun getNewInstance(categoriesList: MutableList<Category>, onCategorySelectListener: OnCategorySelectListener? = null): CategoryFilterBottomSheet {
             val categoryFilterBottmSheet = CategoryFilterBottomSheet()
             categoryFilterBottmSheet.categoriesList = categoriesList
@@ -59,8 +56,8 @@ class CategoryFilterBottomSheet : BottomSheetDialogFragment(), OnCategorySelectL
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dialog.window.attributes.windowAnimations = R.style.BottomSheetAnimation
-        suggestionTags.setAdapter(CategoryRecyclerViewAdapter(context!!,
-                categoriesList, this))
+        suggestionTags.setAdapter(CategoryRecyclerViewAdapter(context = context!!,
+                categoriesList = categoriesList, isTransparent = true, onCategorySelectListener = this))
     }
 
 

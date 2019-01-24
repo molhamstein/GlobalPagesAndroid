@@ -3,9 +3,7 @@ package com.almersal.android.eventsBus
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
-/**
- * Created by Adhamkh on 2018-10-08.
- */
+
 object RxBus {
 
     private val publisher = PublishSubject.create<Any>()

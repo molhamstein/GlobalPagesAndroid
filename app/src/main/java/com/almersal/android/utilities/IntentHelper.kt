@@ -11,6 +11,7 @@ import com.almersal.android.data.entities.*
 import com.google.gson.Gson
 import android.support.v4.content.ContextCompat.startActivity
 import com.almersal.android.R
+import com.almersal.android.enums.FilterType
 
 
 class IntentHelper {
@@ -78,17 +79,19 @@ class IntentHelper {
             context.startActivity(intent)
         }
 
-        fun startPostSearchFilterActivity(context: Context, tagList: MutableList<TagEntity> = mutableListOf()) {
-            val intent = Intent(context, PostSearchActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            intent.putExtra(PostSearchActivity.Suggestion_List_Tag, Gson().toJson(tagList.toTypedArray()))
-            context.startActivity(intent)
-        }
-
-        fun startPostSearchFilterActivityForResult(activity: AppCompatActivity, tagList: MutableList<TagEntity> = mutableListOf()) {
-            val intent = Intent(activity, PostSearchActivity::class.java)
+//        fun startPostSearchFilterActivity(context: Context, tagList: MutableList<TagEntity> = mutableListOf()) {
+//            val intent = Intent(context, PostSearchActivity::class.java)
 //            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//            intent.putExtra(PostSearchActivity.Suggestion_List_Tag, Gson().toJson(tagList.toTypedArray()))
+//            context.startActivity(intent)
+//        }
+
+        fun startPostSearchFilterActivityForResult(activity: AppCompatActivity,
+                                                   tagList: MutableList<TagEntity> = mutableListOf(),
+                                                   filter: FilterType) {
+            val intent = Intent(activity, PostSearchActivity::class.java)
             intent.putExtra(PostSearchActivity.Suggestion_List_Tag, Gson().toJson(tagList.toTypedArray()))
+            intent.putExtra(PostSearchActivity.Post_Search_Filter_Type_Tag,filter.type)
             activity.startActivityForResult(intent, PostSearchActivity.PostSearchActivity_ResultCode)
         }
 

@@ -1,7 +1,5 @@
 package com.almersal.android.activities
 
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -10,7 +8,6 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.View
-import android.view.animation.LinearInterpolator
 import android.widget.Button
 import android.widget.Toast
 import butterknife.BindView
@@ -30,6 +27,7 @@ import com.almersal.android.listeners.OnCategorySelectListener
 import com.almersal.android.listeners.OnCitySelectListener
 import com.almersal.android.repositories.DummyDataRepositories
 import com.almersal.android.repositories.UserRepository
+import com.almersal.android.utilities.IntentHelper
 import com.almersal.android.viewModel.PostAddViewHolder
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
 import com.brainsocket.mainlibrary.Listeners.OnRefreshLayoutListener
@@ -196,7 +194,6 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
             }
         })
 
-
     }
 
     fun requestAction() {
@@ -228,15 +225,16 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
 
     @OnClick(R.id.adBackHomeBtn)
     fun onAddBackHomeClick(view: View) {
-        finish()
+        finishAffinity()
+        IntentHelper.startMainActivity(this)
         Log.v("View Clicked", view.id.toString())
     }
 
     private fun animate() {
-        resultContainer.visibility = View.VISIBLE
-        ViewAnimator.animate(baseContainer).translationY(0f, -1000f)
-                .alpha(1f, 0f).andAnimate(resultContainer).translationY(1000f, 0f)
-                .alpha(0f, 1f).start()
+//        resultContainer.visibility = View.VISIBLE
+        ViewAnimator.animate(baseContainer).translationY(2000f)
+                ./*alpha(1f, 0f).andAnimate(resultContainer).translationY(1000f, 0f)
+        .alpha(0f, 1f).*/start()
 
 //        resultContainer.visibility = View.VISIBLE
 //        val baseAnimator: ObjectAnimator = ObjectAnimator.ofFloat(baseContainer, "alpha", 1.0f, 0.0f)
@@ -404,7 +402,7 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
                     supportFragmentManager.findFragmentByTag(ProgressDialog.ProgressDialog_Tag) as ProgressDialog?
             progressDialog?.dialog?.dismiss()
             val dialog = ProgressDialog.newInstance()
-            dialog.show(supportFragmentManager, ProgressDialog.ProgressDialog_Tag)
+            dialog.showDialog(supportFragmentManager)
         } else {
             val progressDialog: ProgressDialog? =
                     supportFragmentManager.findFragmentByTag(ProgressDialog.ProgressDialog_Tag) as ProgressDialog?

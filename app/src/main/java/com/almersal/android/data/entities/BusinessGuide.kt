@@ -32,11 +32,11 @@ class BusinessGuide {
     var phone2: String = ""
     var fax: String = ""
 
-//    var imageUrl: String = ""
-
-
     var category: BusinessGuideCategory = BusinessGuideCategory()
     var subCategory: SubCategory = SubCategory()
+
+    var city: City = City()
+    var location: LocationEntity = LocationEntity()
 
     constructor()
 

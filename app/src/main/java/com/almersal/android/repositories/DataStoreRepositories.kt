@@ -47,7 +47,7 @@ class DataStoreRepositories constructor(context: Context) : Repository(context) 
 
     fun getPostCategories(): MutableList<PostCategory>? {
         var businessList: MutableList<PostCategory>? = null
-        var pojo = pref.getString(PostCategories_TAG, PostCategories_Default_TAG)
+        val pojo = pref.getString(PostCategories_TAG, PostCategories_Default_TAG)
         if (pojo.isNotEmpty())
             businessList = Gson().fromJson(pojo, Array<PostCategory>::class.java).toMutableList()
         return businessList
@@ -67,7 +67,7 @@ class DataStoreRepositories constructor(context: Context) : Repository(context) 
 
     fun getCities(): MutableList<City>? {
         var cityList: MutableList<City>? = null
-        var pojo = pref.getString(Cities_TAG, Cities_Default_TAG)
+        val pojo = pref.getString(Cities_TAG, Cities_Default_TAG)
         if (pojo.isNotEmpty())
             cityList = Gson().fromJson(pojo, Array<City>::class.java).toMutableList()
         return cityList

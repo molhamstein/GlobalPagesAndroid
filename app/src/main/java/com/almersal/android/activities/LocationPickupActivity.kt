@@ -6,51 +6,33 @@ import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.os.Handler
+import android.os.SystemClock
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.CompoundButton
-import android.widget.ProgressBar
+import android.view.animation.LinearInterpolator
 import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
-import butterknife.OnCheckedChanged
-import butterknife.OnClick
 import com.almersal.android.R
-import com.almersal.android.adapters.BusinessGuideRecyclerViewAdapter
-import com.almersal.android.data.entities.BusinessGuide
 import com.almersal.android.data.entities.PointEntity
-import com.almersal.android.di.component.DaggerBusinessGuideSearchComponent
-import com.almersal.android.di.module.BusinessGuidesModule
-import com.almersal.android.di.ui.BusinessGuidesContract
-import com.almersal.android.di.ui.BusinessGuidesPresenter
-import com.almersal.android.dialogs.bottomSheetFragments.BusinessGuideSnippetBottomFragment
-import com.almersal.android.dialogs.bottomSheetFragments.SubCategoryBottomSheet
 import com.almersal.android.eventsBus.EventActions
 import com.almersal.android.eventsBus.MessageEvent
 import com.almersal.android.eventsBus.RxBus
-import com.brainsocket.mainlibrary.SupportViews.RecyclerViewDecoration.GridDividerDecoration
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.location.places.ui.PlacePicker
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import javax.inject.Inject
 
 
-class LocationPickupActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMapReadyCallback, GoogleMap.OnMapClickListener {
+class LocationPickupActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -71,11 +53,9 @@ class LocationPickupActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
     @BindView(R.id.toolbar)
     lateinit var toolbar: Toolbar
 
-
-//    @BindView(R.id.tagSearchView)
-//    lateinit var tagSearchView: TagSearchView
-
     lateinit var mMap: GoogleMap
+
+    var marker: Marker? = null
 
     var firstLocation = true
 
@@ -97,23 +77,31 @@ class LocationPickupActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
                         firstLocation = false
                         placeMarkerOnMap(LatLng(lastLocation!!.latitude, lastLocation!!.longitude))
                     }
+                } else {
+                    Toast.makeText(baseContext, R.string.pleaseSelectLocation, Toast.LENGTH_LONG).show()
                 }
-
 
             }
         }
 
     }
 
-    private fun placeMarkerOnMap(location: LatLng) {
 
-        val markerOptions = MarkerOptions().position(location)
-//        val titleStr = getAddress(location)  // add these two lines
-        markerOptions.title(resources.getString(R.string.Your))
+    private fun moveCamera(location: LatLng) {
 //        currentcity = CityModel(titleStr, location, CitiesManager.getCitiesSize() == 0)
 //        mMap.clear()
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12.0f))
-        mMap.addMarker(markerOptions)
+    }
+
+    private fun placeMarkerOnMap(location: LatLng) {
+        val markerOptions = MarkerOptions().position(location)
+//        val titleStr = getAddress(location)  // add these two lines
+        markerOptions.title(resources.getString(R.string.Your))
+        moveCamera(location)
+        if (marker == null)
+            marker = mMap.addMarker(markerOptions)
+        else
+            marker?.position = location
     }
 
     private fun setUpMap() {
@@ -233,17 +221,53 @@ class LocationPickupActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
 
     override fun onMapClick(p0: LatLng?) {
         if (p0 != null) {
-            mMap.clear()
-            placeMarkerOnMap(p0)
+//            mMap.clear()
+            var startLatLng: LatLng? = null
+            if (marker != null) {
+                val proj = mMap.projection
+                val startPoint = proj.toScreenLocation(marker?.position)
+                startLatLng = proj.fromScreenLocation(startPoint)
+            }
+            if (startLatLng == null)
+                placeMarkerOnMap(p0)
+            else {
+                animateMarker(p0, startLatLng)
+            }
         }
+    }
+
+    private fun animateMarker(target: LatLng, startLatLng: LatLng) {
+        val duration: Long = 400
+        val handler = Handler()
+        val start: Long = SystemClock.uptimeMillis()
+        val interpolator = LinearInterpolator()
+
+
+        val r: Runnable = object : Runnable {
+            override fun run() {
+                val elapsed = SystemClock.uptimeMillis() - start
+                val t: Float = interpolator.getInterpolation(elapsed.toFloat() / duration)
+                val lng: Double = t * target.longitude + (1 - t) * startLatLng.longitude
+                val lat = t * target.latitude + (1 - t) * startLatLng.latitude
+                val loc = LatLng(lat, lng)
+                marker?.position = loc
+                moveCamera(loc)
+                if (t < 1.0) {
+                    // Post again 10ms later.
+                    handler.postDelayed(this, 10)
+                } else {
+                    moveCamera(target)
+                }
+            }
+        }
+        handler.post(r)
+
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {
         mMap = googleMap!!
         mMap.uiSettings.isZoomControlsEnabled = true
-        mMap.setOnMarkerClickListener(this)
         setUpMap()
-
         mMap.setOnMapClickListener(this)
 
     }
@@ -289,31 +313,6 @@ class LocationPickupActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         createLocationRequest()
         Log.v("", "")
-
-    }
-
-    override fun onMarkerClick(p0: Marker?): Boolean {
-        if (p0 != null) {
-            if (p0.tag is BusinessGuide) {
-                val businessGuideSnippetBottomFragment = BusinessGuideSnippetBottomFragment.getNewInstance(p0.tag as BusinessGuide)
-                businessGuideSnippetBottomFragment.show(supportFragmentManager,
-                        BusinessGuideSnippetBottomFragment.BusinessGuideSnippetBottomFragment_Tag)
-            }
-        }
-        return false
-    }
-
-    private fun addMarker(businessGuide: BusinessGuide, title: String, pointEntity: PointEntity) {
-        try {
-            val marker = mMap.addMarker(MarkerOptions()
-                    .position(LatLng(pointEntity.lat, pointEntity.lng))
-                    .title(title)
-                    .icon(BitmapDescriptorFactory
-                            .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
-            marker.tag = businessGuide
-        } catch (ex: Exception) {
-            Log.v("", "'")
-        }
 
     }
 

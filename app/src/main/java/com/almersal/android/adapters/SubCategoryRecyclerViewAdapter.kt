@@ -12,6 +12,7 @@ import com.almersal.android.listeners.OnSubCategorySelectListener
 import com.almersal.android.viewHolders.SubCategoryViewHolder
 
 class SubCategoryRecyclerViewAdapter constructor(var context: Context, var subCategoriesList: MutableList<SubCategory>,
+                                                 var isTransparent: Boolean = false,
                                                  var onSubCategorySelectListener: OnSubCategorySelectListener? = null) :
         RecyclerView.Adapter<SubCategoryViewHolder>() {
 
@@ -27,7 +28,7 @@ class SubCategoryRecyclerViewAdapter constructor(var context: Context, var subCa
 
     override fun onBindViewHolder(holder: SubCategoryViewHolder, position: Int) {
         val poJo = subCategoriesList[position]
-        holder.bind(poJo)
+        holder.bind(poJo, isTransparent)
         holder.itemView.findViewById<ToggleButton>(R.id.subCategory_toggle)
                 .setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
                     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
@@ -46,12 +47,19 @@ class SubCategoryRecyclerViewAdapter constructor(var context: Context, var subCa
 
     }
 
-    fun setCheck(subCategory: SubCategory) {
-        subCategoriesList.forEach {
+    fun setCheck(subCategory: SubCategory): Int {
+        var index = -1
+        val sz = subCategoriesList.size - 1
+        for (i in 0..(sz)) {
+            val it = subCategoriesList[i]
+            if (it == subCategory)
+                index = i
             it.isSelected = (it == subCategory)
         }
         notifyDataSetChanged()
+        return index
     }
+
 
     fun setCheck(subCategoryId: String) {
         subCategoriesList.forEach {

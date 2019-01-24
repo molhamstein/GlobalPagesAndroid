@@ -131,7 +131,6 @@ class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuid
         requestAction()
     }
 
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
@@ -168,15 +167,16 @@ class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuid
     /*Base presenter started*/
     override fun showProgress(show: Boolean) {
         if (show) {
-            val progressDialog: ProgressDialog? =
-                    supportFragmentManager.findFragmentByTag(ProgressDialog.ProgressDialog_Tag) as ProgressDialog?
-            progressDialog?.dialog?.dismiss()
+//            val progressDialog: ProgressDialog? =
+//                    supportFragmentManager.findFragmentByTag(ProgressDialog.ProgressDialog_Tag) as ProgressDialog?
+//            progressDialog?.dialog?.dismiss()
             val dialog = ProgressDialog.newInstance()
-            dialog.show(supportFragmentManager, ProgressDialog.ProgressDialog_Tag)
+            dialog.showDialog(supportFragmentManager)
         } else {
-            val progressDialog: ProgressDialog? =
-                    supportFragmentManager.findFragmentByTag(ProgressDialog.ProgressDialog_Tag) as ProgressDialog?
-            progressDialog?.dialog?.dismiss()
+            ProgressDialog.closeDialog(supportFragmentManager)
+//            val progressDialog: ProgressDialog? =
+//                    supportFragmentManager.findFragmentByTag(ProgressDialog.ProgressDialog_Tag) as ProgressDialog?
+//            progressDialog?.dialog?.dismiss()
         }
         Log.v("", "")
     }
@@ -195,6 +195,7 @@ class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuid
         businessGuideProductProductViewHolder.bind(productThumb)
         Toast.makeText(baseContext, R.string.productAddedSuccessfully, Toast.LENGTH_LONG).show()
         RxBus.publish(MessageEvent(EventActions.ProductAddActivity_Tag, businessGuideProductProductViewHolder.getProductThumbModel()))
+   finish()
     }
 
     override fun onAddProductFail() {
@@ -206,6 +207,7 @@ class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuid
         finish()
         RxBus.publish(MessageEvent(EventActions.ProductAddActivity_Tag, businessGuideProductProductViewHolder.getProductThumbModel()))
         Toast.makeText(baseContext, R.string.productUpdatedSuccessfully, Toast.LENGTH_LONG).show()
+        finish()
     }
 
     override fun onProductUpdateFail() {
@@ -218,17 +220,14 @@ class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuid
     /*Attachment Presenter started*/
     override fun showAttachmentProgress(show: Boolean) {
         if (show) {
-            val progressDialog: ProgressDialog? =
-                    supportFragmentManager.findFragmentByTag(ProgressDialog.ProgressDialog_Tag) as ProgressDialog?
-            progressDialog?.dialog?.dismiss()
+//            val progressDialog: ProgressDialog? =
+//                    supportFragmentManager.findFragmentByTag(ProgressDialog.ProgressDialog_Tag) as ProgressDialog?
+//            progressDialog?.dialog?.dismiss()
             val dialog = ProgressDialog.newInstance()
-            dialog.show(supportFragmentManager, ProgressDialog.ProgressDialog_Tag)
+            dialog.showDialog(supportFragmentManager)
         } else {
-            val progressDialog: ProgressDialog? =
-                    supportFragmentManager.findFragmentByTag(ProgressDialog.ProgressDialog_Tag) as ProgressDialog?
-            progressDialog?.dialog?.dismiss()
+            ProgressDialog.Companion.closeDialog(supportFragmentManager)
         }
-
     }
 
     override fun showAttachmentProcessingPercentage(percentage: String) {
@@ -238,6 +237,7 @@ class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuid
     override fun showAttachmentLoadErrorMessage(visible: Boolean) {
         if (visible) {
             Toast.makeText(baseContext, R.string.checkInternetConnection, Toast.LENGTH_LONG).show()
+            ProgressDialog.closeDialog(supportFragmentManager)
         } else {
 
         }
@@ -251,8 +251,6 @@ class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuid
     override fun onLoadAttachmentListSuccessfully(filePath: String) {
         BindingUtils.loadImage(productImage, filePath)
         businessGuideProductProductViewHolder.productImageTag.text = (filePath)
-
-
 
     }
     /*Attachment Presenter ended*/

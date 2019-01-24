@@ -19,7 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:adjustViewBounds="true"
-            android:src="@drawable/businesslogo"
+            android:src="@mipmap/ic_launcher"
             app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -104,10 +104,12 @@
                         android:layout_marginTop="@dimen/sm_margin"
                         android:background="@drawable/ic_tag_bg2"
                         android:gravity="center"
+                        android:maxLines="1"
                         android:padding="@dimen/xsm_padding"
                         android:text="Real Estate"
                         android:textAlignment="gravity"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        app:autoSizeTextType="uniform" />
                 </android.support.constraint.ConstraintLayout>
             </com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView>
 

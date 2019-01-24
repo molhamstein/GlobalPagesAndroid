@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.CompoundButton
 import android.widget.ToggleButton
 import com.almersal.android.R
+import com.almersal.android.data.entities.City
 import com.almersal.android.data.entities.LocationEntity
 import com.almersal.android.viewHolders.LocationEntityViewHolder
 
@@ -44,11 +45,17 @@ class LocationEntityRecyclerViewAdapter constructor(var context: Context, var lo
                 })
     }
 
-    fun setCheck(locationEntity: LocationEntity) {
-        locationsListList.forEach {
+    fun setCheck(locationEntity: LocationEntity): Int {
+        var index = -1
+        val sz = locationsListList.size - 1
+        for (i in 0..(sz)) {
+            val it = locationsListList[i]
+            if (it == locationEntity)
+                index = i
             it.isSelected = (it == locationEntity)
         }
         notifyDataSetChanged()
+        return index
     }
 
     fun getCurrentLocation(): LocationEntity? {

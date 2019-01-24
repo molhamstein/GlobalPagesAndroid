@@ -3,43 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/stateLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="50dp"
+    android:layout_height="match_parent"
     app:NoConnectionLayout="@layout/state_layout_no_connection"
     app:NoDataLayout="@layout/state_layout_no_data"
     app:RefreshbtnRes="@+id/retryBtn"
     app:WaitingLayout="@layout/state_layout_waiting">
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha="0.3"
-            android:background="@color/colorAccent" />
+            android:background="@color/colorPrimary" />
 
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar_profile_layout" />
 
-
-        <!--android:layout_above="@+id/updateProfileBtnMainContainer"-->
-
         <android.support.v7.widget.CardView
             android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbar"
-            app:cardBackgroundColor="@color/grayDarkTextColor"
+            android:layout_height="0dp"
+            app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="@dimen/cardview_default_radius"
-            app:cardElevation="@dimen/md_elevation"
-            app:cardUseCompatPadding="true">
+            app:cardElevation="@dimen/lg_elevation"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintHeight_percent="0.8"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="@dimen/md_margin">
 
 
@@ -69,14 +65,14 @@
                         android:layout_gravity="start"
                         android:text="@string/UserName"
                         android:textAlignment="gravity"
-                        android:textColor="@color/lightGray" />
+                        android:textColor="@color/grayDarkTextColor" />
 
                     <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/userNameEditText"
                         style="@style/AppTheme.EditTextStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
+                        android:textColor="@color/grayDarkTextColor"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -99,8 +95,8 @@
                         android:enabled="true"
                         android:hint="@string/Phonenumber"
                         android:textAlignment="gravity"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/white"
+                        android:textColor="@color/grayDarkTextColor"
+                        android:textColorHint="@color/grayDarkTextColor"
                         app:autoSizeTextType="uniform"
                         app:backgroundTint="@color/white" />
 
@@ -134,8 +130,8 @@
                             android:enabled="true"
                             android:focusable="false"
                             android:hint="@string/Birthdate"
-                            android:textColor="@color/white"
-                            android:textColorHint="@color/white"
+                            android:textColor="@color/grayDarkTextColor"
+                            android:textColorHint="@color/grayDarkTextColor"
                             app:autoSizeTextType="uniform"
                             app:backgroundTint="@color/white" />
 
@@ -208,45 +204,151 @@
                     android:layout_height="wrap_content"
                     android:visibility="gone" />
 
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/updateProfileBtnMainContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/md_margin">
+
+                        <!--<com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView-->
+                        <!--android:id="@+id/submitBtnContainer"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="@dimen/xlg_margin"-->
+                        <!--android:layout_weight="4"-->
+                        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+                        <!--app:layout_constraintRight_toRightOf="parent"-->
+                        <!--app:layout_constraintWidth_percent="0.5"-->
+                        <!--app:ms9_shadowElevation="@dimen/md_elevation">-->
+
+                        <!--<LinearLayout-->
+                        <!--style="@style/commonNinePatchShadowItemViewStyle"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_margin="@dimen/md_margin"-->
+                        <!--android:background="@drawable/white_radius_bg"-->
+                        <!--android:padding="@dimen/zero">-->
+
+
+                        <!--<android.support.v7.widget.AppCompatButton-->
+                        <!--android:id="@+id/adAddBtn"-->
+                        <!--style="@style/AppTheme.SmallButtonStyle"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="@dimen/sm_btn_height"-->
+                        <!--android:layout_margin="@dimen/zero"-->
+                        <!--android:layout_weight="4"-->
+                        <!--android:background="@drawable/button_bg"-->
+                        <!--android:paddingEnd="@dimen/lg_padding"-->
+                        <!--android:paddingLeft="@dimen/lg_padding"-->
+                        <!--android:paddingRight="@dimen/lg_padding"-->
+                        <!--android:paddingStart="@dimen/lg_padding"-->
+                        <!--android:shadowColor="@color/black"-->
+                        <!--android:text="@string/Submit"-->
+                        <!--android:textColor="@color/white"-->
+                        <!--android:textStyle="bold"-->
+
+
+                        <!--app:elevation="@dimen/elevation"-->
+                        <!--app:layout_constraintEnd_toEndOf="parent"-->
+                        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+                        <!--app:layout_constraintRight_toRightOf="parent"-->
+                        <!--app:layout_constraintStart_toStartOf="parent"-->
+                        <!--app:layout_constraintWidth_percent="0.7" />-->
+
+
+                        <!--&lt;!&ndash;<android.support.v7.widget.AppCompatButton&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/contactBtn"&ndash;&gt;-->
+                        <!--&lt;!&ndash;style="@style/AppTheme.NormalButtonStyle"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="@dimen/sm_btn_height"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_margin="@dimen/zero"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_weight="4"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:background="@drawable/button_bg"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:drawableEnd="@drawable/ic_transparent_bg"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:drawableLeft="@drawable/ic_phone_white_24dp"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:drawableRight="@drawable/ic_transparent_bg"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:drawableStart="@drawable/ic_phone_white_24dp"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:elevation="@dimen/elevation"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:paddingEnd="@dimen/lg_padding"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:paddingLeft="@dimen/lg_padding"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:paddingRight="@dimen/lg_padding"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:paddingStart="@dimen/lg_padding"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:shadowColor="@color/black"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:text="@string/Contact"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:textColor="@color/white"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:textStyle="bold" />&ndash;&gt;-->
+                        <!--</LinearLayout>-->
+                        <!--</com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView>-->
+
+                        <android.support.v7.widget.AppCompatButton
+                            android:id="@+id/updateProfileBtn"
+                            style="@style/AppTheme.SmallButtonStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/sm_btn_height"
+                            android:layout_margin="@dimen/md_margin"
+                            android:layout_marginBottom="@dimen/lg_margin"
+                            android:layout_marginTop="@dimen/lg_margin"
+                            android:layout_weight="4"
+                            android:background="@drawable/button_bg"
+                            android:paddingEnd="@dimen/lg_padding"
+                            android:paddingLeft="@dimen/lg_padding"
+                            android:paddingRight="@dimen/lg_padding"
+                            android:paddingStart="@dimen/lg_padding"
+                            android:shadowColor="@color/black"
+                            android:text="@string/UpdateProfile"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            app:elevation="@dimen/xxlg_elevation"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintWidth_percent="0.7" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            app:layout_constraintTop_toBottomOf="@+id/updateProfileBtn" />
+
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <!--<com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView-->
+                    <!--android:id="@+id/updateProfileBtnContainer"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:paddingBottom="@dimen/sm_padding"-->
+                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+                    <!--app:layout_constraintRight_toRightOf="parent"-->
+                    <!--app:layout_constraintStart_toStartOf="parent"-->
+                    <!--app:layout_constraintWidth_percent="0.6"-->
+                    <!--app:ms9_shadowElevation="@dimen/md_elevation">-->
+
+                    <!--<android.support.v7.widget.AppCompatButton-->
+                    <!--android:id="@+id/updateProfileBtn"-->
+                    <!--style="@style/AppTheme.NormalButtonStyle"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="@dimen/sm_btn_height"-->
+                    <!--android:background="@drawable/button_bg"-->
+                    <!--android:shadowColor="@color/black"-->
+                    <!--android:text="@string/UpdateProfile"-->
+                    <!--app:elevation="4dp" />-->
+
+                    <!--</com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView>-->
+
+                </android.support.constraint.ConstraintLayout>
+
             </android.support.constraint.ConstraintLayout>
 
         </android.support.v7.widget.CardView>
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/updateProfileBtnMainContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
 
-
-            <com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView
-                android:id="@+id/updateProfileBtnContainer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/md_margin"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintWidth_percent="0.6"
-                app:ms9_shadowElevation="@dimen/md_elevation">
-
-                <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/updateProfileBtn"
-                    style="@style/AppTheme.NormalButtonStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/sm_btn_height"
-                    android:background="@drawable/button_bg"
-                    android:shadowColor="@color/black"
-                    android:text="@string/UpdateProfile"
-                    app:elevation="4dp" />
-
-            </com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView>
-
-        </android.support.constraint.ConstraintLayout>
-
-    </RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </com.brainsocket.mainlibrary.Views.Stateslayoutview>
 

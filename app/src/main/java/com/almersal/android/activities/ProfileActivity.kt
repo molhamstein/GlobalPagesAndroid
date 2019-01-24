@@ -1,16 +1,13 @@
 package com.almersal.android.activities
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.TabLayout
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewCompat
-import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
-import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -30,7 +27,6 @@ import com.almersal.android.data.entities.BusinessGuide
 import com.almersal.android.data.entities.Category
 import com.almersal.android.data.entities.Post
 import com.almersal.android.data.entities.User
-import com.almersal.android.data.mapping.UserProfileMapper
 import com.almersal.android.di.component.DaggerProfileComponent
 import com.almersal.android.di.module.ProfileModule
 import com.almersal.android.di.ui.ProfileContract
@@ -109,8 +105,8 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     @BindView(R.id.birthDate)
     lateinit var birthDate: EditText
 
-
     /*User information ended*/
+
 
     private fun initToolBar() {
         setSupportActionBar(toolbar)
@@ -119,13 +115,10 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
 
     private fun initRecyclerViews() {
         myCategories.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-//        myCategories.adapter = CategoryRecyclerViewAdapter(this, DummyDataRepositories.getCategoriesList())
 
         myPosts.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-//        myPosts.adapter = PostRecyclerViewAdapter(this, DummyDataRepositories.getPostList(), true)
 
         myBusiness.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-//        myBusiness.adapter = BusinessGuideRecyclerViewAdapter(this, DummyDataRepositories.getBusinessGuideList())
     }
 
     private fun initTabLayout() {
@@ -161,7 +154,6 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
         genderTabLayout.removeOnTabSelectedListener(onTabSelectedListener)
 
 
-
     }
 
     private fun initDI() {
@@ -194,9 +186,10 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
         }
         BindingUtils.loadProfileImage(mFab, user.imageProfile)
 
-        if (myCategories.adapter != null) {
-            (myCategories.adapter as CategoryProfileRecyclerViewAdapter).clearAll()
-        }
+        presenter.loadUserCategories(user)
+//        if (myCategories.adapter != null) {
+//            (myCategories.adapter as CategoryProfileRecyclerViewAdapter).clearAll()
+//        }
     }
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
@@ -208,6 +201,20 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
         initDI()
         appbar.addOnOffsetChangedListener(this)
 
+
+        myCategoriesStateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
+            override fun onRefresh() {
+
+            }
+
+            override fun onRequestPermission() {
+                val subCategorySubscriptionBottomSheet: SubCategorySubscriptionBottomSheet =
+                        SubCategorySubscriptionBottomSheet.getNewInstance(null)
+
+                subCategorySubscriptionBottomSheet.show(supportFragmentManager,
+                        SubCategorySubscriptionBottomSheet.SubCategorySubscriptionBottomSheet_Tag)
+            }
+        })
 
         myPostsStateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
             override fun onRefresh() {
@@ -232,14 +239,17 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
         })
 
         RxBus.listen(MessageEvent::class.java).subscribe {
-            when(it.action){
-                EventActions.SubCategorySubscriptionBottomSheet_Tag->{
+            when (it.action) {
+                EventActions.SubCategorySubscriptionBottomSheet_Tag -> {
 
-                    if (myCategories.adapter != null) {
-                        (myCategories.adapter as CategoryProfileRecyclerViewAdapter).clearAll()
-                    }
+                    bindInfo(UserRepository(this@ProfileActivity).getUser()!!)
+//                    if (myCategories.adapter != null) {
+//                        (myCategories.adapter as CategoryProfileRecyclerViewAdapter).clearAll()
+//                    }
 
                 }
+
+//                EventActions.
             }
         }
 
@@ -403,15 +413,17 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
 
     override fun showUserCategoriesEmptyView(visible: Boolean) {
         if (visible) {
-            myCategoriesStateLayout.FlipLayout(LayoutStatesEnum.Nodatalayout)
+            myCategoriesStateLayout.FlipLayout(LayoutStatesEnum.NopermissionLayout)
         } else {
             myCategoriesStateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
         }
     }
 
     override fun onUserCategoriesListSuccessfully(categories: MutableList<Category>) {
-        myCategories.adapter = CategoryProfileRecyclerViewAdapter(context = baseContext,
+        val adapter = CategoryProfileRecyclerViewAdapter(context = baseContext,
                 categoriesList = categories, isClickable = true, onCategorySelectListener = this@ProfileActivity)
+        myCategories.adapter = adapter
+        adapter.clearAll()
     }
     /*My Categories presenter ended */
 
@@ -442,7 +454,7 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     override fun onSelectCategory(category: Category) {
 
         val subCategorySubscriptionBottomSheet: SubCategorySubscriptionBottomSheet =
-                SubCategorySubscriptionBottomSheet.getNewInstance(category.subCategoriesList)
+                SubCategorySubscriptionBottomSheet.getNewInstance(category)
 
         subCategorySubscriptionBottomSheet.show(supportFragmentManager,
                 SubCategorySubscriptionBottomSheet.SubCategorySubscriptionBottomSheet_Tag)
@@ -470,7 +482,7 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     override fun onDeselectCategory(category: Category) {
 
         val subCategorySubscriptionBottomSheet: SubCategorySubscriptionBottomSheet =
-                SubCategorySubscriptionBottomSheet.getNewInstance(category.subCategoriesList)
+                SubCategorySubscriptionBottomSheet.getNewInstance(category)
 
         subCategorySubscriptionBottomSheet.show(supportFragmentManager,
                 SubCategorySubscriptionBottomSheet.SubCategorySubscriptionBottomSheet_Tag)

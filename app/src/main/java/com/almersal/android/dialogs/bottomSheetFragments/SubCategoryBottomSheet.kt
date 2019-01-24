@@ -60,9 +60,8 @@ class SubCategoryBottomSheet : BottomSheetDialogFragment(), OnSubCategorySelectL
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dialog.window.attributes.windowAnimations = R.style.BottomSheetAnimation
-        suggestionTags.setAdapter(SubCategoryRecyclerViewAdapter(context!!,
-                subCategoryList, this))
-//        dialog.window.findViewById<View>(R.id.design_bottom_sheet).setBackgroundResource(android.R.color.transparent)
+        suggestionTags.setAdapter(SubCategoryRecyclerViewAdapter(context = context!!,
+                subCategoriesList = subCategoryList, isTransparent = true, onSubCategorySelectListener = this))
     }
 
 

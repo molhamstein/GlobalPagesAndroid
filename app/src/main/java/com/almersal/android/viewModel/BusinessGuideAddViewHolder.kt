@@ -9,17 +9,20 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.almersal.android.App
 import com.almersal.android.R
-import com.almersal.android.adapters.AttachmentRecyclerViewAdapter
-import com.almersal.android.adapters.CategoryRecyclerViewAdapter
-import com.almersal.android.adapters.SubCategoryRecyclerViewAdapter
+import com.almersal.android.adapters.*
 import com.almersal.android.data.entities.*
 import com.almersal.android.data.entitiesModel.BusinessGuideEditModel
 import com.almersal.android.data.entitiesModel.BusinessGuideModel
 import com.almersal.android.data.validations.ValidationHelper
+import com.almersal.android.listeners.OnSubCategorySelectListener
+import com.almersal.android.repositories.DataStoreRepositories
+import com.almersal.android.repositories.SettingData
 import com.almersal.android.repositories.UserRepository
 
 
-class BusinessGuideAddViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) {
+class BusinessGuideAddViewHolder constructor(view: View,
+                                             val onSubCategorySelectListener: OnSubCategorySelectListener) :
+        RecyclerView.ViewHolder(view) {
 
     @BindView(R.id.businessId)
     lateinit var businessId: TextView
@@ -50,6 +53,24 @@ class BusinessGuideAddViewHolder constructor(view: View) : RecyclerView.ViewHold
 
     @BindView(R.id.fax)
     lateinit var fax: EditText
+
+    @BindView(R.id.openDayLayout)
+    lateinit var openDayLayout: View
+
+    @BindView(R.id.openDayLabel)
+    lateinit var openDayLabel: TextView
+
+    @BindView(R.id.adCities)
+    lateinit var adCities: RecyclerView
+
+    @BindView(R.id.adLocations)
+    lateinit var adLocations: RecyclerView
+
+    @BindView(R.id.areaContainer)
+    lateinit var areaContainer: View
+
+    @BindView(R.id.subCategoryLayout)
+    lateinit var subCategoryLayout: View
 
     var context: Context
 
@@ -99,10 +120,25 @@ class BusinessGuideAddViewHolder constructor(view: View) : RecyclerView.ViewHold
             businessGuideModel.categoryId = cat.id
 
         if (businessSubCategories.adapter != null) {
-            val subCat: SubCategory? = (businessSubCategories.adapter as SubCategoryRecyclerViewAdapter).getCurrentSubCategory()
+            val subCat: SubCategory? = (businessSubCategories.adapter as SubCategoryRecyclerViewAdapter)
+                    .getCurrentSubCategory()
             if (subCat != null)
                 businessGuideModel.subCategoryId = subCat.id
         }
+
+        if (adCities.adapter != null) {
+            val city: City? = (adCities.adapter as CityRecyclerViewAdapter).getCurrentCity()
+            if (city != null)
+                businessGuideModel.cityId = city.id
+        }
+
+        if (adLocations.adapter != null) {
+            val location: LocationEntity? = (adLocations.adapter as LocationEntityRecyclerViewAdapter).getCurrentLocation()
+            if (location != null)
+                businessGuideModel.locationId = location.id
+        }
+
+
 
         if (locationEditText.text.isNotEmpty()) {
             val point = locationEditText.text.toString().split(";")
@@ -117,6 +153,7 @@ class BusinessGuideAddViewHolder constructor(view: View) : RecyclerView.ViewHold
         if (businessGuideModel.openingDays.size > 0)
             businessGuideModel.openingDaysEnabled = true
         businessGuideModel.ownerId = UserRepository(App.app).getUser()!!.id!!
+
         return businessGuideModel
     }
 
@@ -131,14 +168,65 @@ class BusinessGuideAddViewHolder constructor(view: View) : RecyclerView.ViewHold
         phoneNumber2.setText(businessGuide.phone2)
 
         if (businessTypes.adapter != null) {
-            (businessTypes.adapter as CategoryRecyclerViewAdapter).setCheck(businessGuide.category)
+            val pos = (businessTypes.adapter as CategoryRecyclerViewAdapter)
+                    .setCheck(businessGuide.category)
+            if (pos > 0)
+                businessTypes.smoothScrollToPosition(pos)
+
             val cat = (businessTypes.adapter as CategoryRecyclerViewAdapter).getCurrentCategory()
-            if (cat != null)
-                businessSubCategories.adapter = SubCategoryRecyclerViewAdapter(context, cat.subCategoriesList)
+            if (cat != null) {
+                if (cat.id == SettingData.pharmacyCategoryId) {
+                    openDayLayout.visibility = View.VISIBLE
+                } else {
+                    openDayLayout.visibility = View.GONE
+                }
+                businessSubCategories.adapter = SubCategoryRecyclerViewAdapter(context, cat.subCategoriesList,
+                        onSubCategorySelectListener = onSubCategorySelectListener)
+                if (!cat.subCategoriesList.isEmpty()) {
+                    subCategoryLayout.visibility = View.VISIBLE
+                } else {
+                    subCategoryLayout.visibility = View.GONE
+                }
+
+            }
         }
 
         if (businessSubCategories.adapter != null) {
-            (businessSubCategories.adapter as SubCategoryRecyclerViewAdapter).setCheck(businessGuide.subCategory)
+            val pos = (businessSubCategories.adapter as SubCategoryRecyclerViewAdapter)
+                    .setCheck(businessGuide.subCategory)
+            if (pos > 0)
+                businessSubCategories.smoothScrollToPosition(pos)
+        }
+
+        if (adCities.adapter != null) {
+            var city: City? = DataStoreRepositories(context).findCityById(businessGuide.cityId)
+            if (city != null) {
+                val pos = (adCities.adapter as CityRecyclerViewAdapter).setCheck(city)
+                if (pos > 0)
+                    adCities.smoothScrollToPosition(pos)
+
+                city = (adCities.adapter as CityRecyclerViewAdapter).getCurrentCity()
+                if (city != null) {
+                    if (city.locations.isEmpty()) {
+                        areaContainer.visibility = View.GONE
+                    } else {
+                        areaContainer.visibility = View.VISIBLE
+                    }
+                    adLocations.adapter = LocationEntityRecyclerViewAdapter(context, city.locations)
+                }
+
+            }
+        }
+
+        if (adLocations.adapter != null) {
+            val location: LocationEntity? = DataStoreRepositories(context)
+                    .findLocationById(businessGuide.cityId, businessGuide.locationId)
+            if (location != null) {
+                val pos = (adLocations.adapter as LocationEntityRecyclerViewAdapter).setCheck(location)
+                if (pos > 0)
+                    adLocations.smoothScrollToPosition(pos)
+            }
+
         }
 
         val resultPoint = businessGuide.locationPoint.lat.toString() + ";" + businessGuide.locationPoint.lng.toString()

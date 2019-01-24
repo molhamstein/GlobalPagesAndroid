@@ -40,7 +40,7 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
         view.showBusinessGuideProgress(true)
         ApiService().getBusinessGuides(url,/* criteria,*/ object : ParsedRequestListener<MutableList<BusinessGuide>> {
             override fun onResponse(response: MutableList<BusinessGuide>?) {
-//                val poJo = response
+
                 if ((response != null)) {
                     view.showBusinessGuideProgress(false)
                     if (response.size > 0) {
@@ -72,10 +72,21 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
 //        var s = "filter[where][price][between][0]=0&filter[where][price][between][1]=7"
 
         val url = ServerInfo.businessGuideUrl + "?filter[where][locationPoint][near]=" +
-                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[limit]=1000"
+                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[limit]=3"
 
         loadBusinessGuideByUrl(url)
     }
+
+    override fun loadBusinessGuideByLocationAndCategory(pointEntity: PointEntity, subCategory: SubCategory) {
+//        var s = "filter[where][price][between][0]=0&filter[where][price][between][1]=7"
+
+        val url = ServerInfo.businessGuideUrl + "?filter[where][subCategoryId]=" + subCategory.id +
+                "&filter[where][locationPoint][near]=" +
+                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[limit]=3"
+
+        loadBusinessGuideByUrl(url)
+    }
+
 
     override fun loadBusinessGuideForPharmacy(pointEntity: PointEntity, daysEnum: DaysEnum) {
 
@@ -83,7 +94,7 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
 //                "&filter[where][locationPoint][near]=" +
 //                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[limit]=1000"
         val url = ServerInfo.businessGuideUrl + "/searchByLocation?lat=" + pointEntity.lat +
-                "&lng=" + pointEntity.lng + "&openingDay=" + daysEnum.number.toString()
+                "&lng=" + pointEntity.lng + "&openingDay=" + daysEnum.number.toString() + "&code=pharmacies"
         loadBusinessGuideByUrl(url)
     }
 
@@ -108,6 +119,7 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
     }
 
     override fun updateBusinessGuide(businessGuide: BusinessGuideEditModel, token: String) {
+        view.showBusinessGuideProgress(true)
         ApiService().putBusinessGuides(ServerInfo.businessGuideUrl, businessGuide, token, object : ParsedRequestListener<BusinessGuide> {
             override fun onResponse(response: BusinessGuide?) {
                 if (response != null) {

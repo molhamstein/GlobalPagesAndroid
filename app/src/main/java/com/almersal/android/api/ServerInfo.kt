@@ -45,7 +45,7 @@ class ServerInfo {
         /*Notification started*/
         var notificationUrl = baseUrl + "notifications"
 
-        var fireBaseNotificationUrl = baseUrl + "users/setFirebaseToken"
+        var fireBaseNotificationUrl = baseUrl + "users/fcmToken"
 
         /*Notification ended*/
 

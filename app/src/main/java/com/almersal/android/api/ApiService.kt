@@ -284,7 +284,7 @@ class ApiService {
     }
 
     fun putFireBaseToken(url: String, token: String, fireBaseToken: String, requestListener: StringRequestListener) {
-        AndroidNetworking.put(url)
+        AndroidNetworking.post(url)
                 .setContentType("application/json")
                 .addHeaders("Authorization", token)
                 .addQueryParameter("token", fireBaseToken)

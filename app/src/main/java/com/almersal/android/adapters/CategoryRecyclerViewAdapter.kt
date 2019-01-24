@@ -11,8 +11,9 @@ import com.almersal.android.data.entities.Category
 import com.almersal.android.listeners.OnCategorySelectListener
 import com.almersal.android.viewHolders.CategoryViewHolder
 
-class CategoryRecyclerViewAdapter constructor(var context: Context, var categoriesList: MutableList<Category>
-                                              , var onCategorySelectListener: OnCategorySelectListener? = null) :
+class CategoryRecyclerViewAdapter constructor(var context: Context, var categoriesList: MutableList<Category>,
+                                              var isTransparent: Boolean = false,
+                                              var onCategorySelectListener: OnCategorySelectListener? = null) :
         RecyclerView.Adapter<CategoryViewHolder>() {
 
 
@@ -27,7 +28,7 @@ class CategoryRecyclerViewAdapter constructor(var context: Context, var categori
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val poJo = categoriesList[position]
-        holder.bind(poJo)
+        holder.bind(poJo, isTransparent)
         holder.itemView.findViewById<ToggleButton>(R.id.category_toggle)
                 .setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
                     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
@@ -45,11 +46,17 @@ class CategoryRecyclerViewAdapter constructor(var context: Context, var categori
 
     }
 
-    fun setCheck(category: Category) {
-        categoriesList.forEach {
+    fun setCheck(category: Category): Int {
+        var index = -1
+        val sz = categoriesList.size - 1
+        for (i in 0..(sz)) {
+            val it = categoriesList[i]
+            if (it == category)
+                index = i
             it.isSelected = (it == category)
         }
         notifyDataSetChanged()
+        return index
     }
 
     fun getCurrentCategory(): Category? {

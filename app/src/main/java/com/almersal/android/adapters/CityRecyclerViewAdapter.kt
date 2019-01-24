@@ -46,12 +46,19 @@ class CityRecyclerViewAdapter constructor(var context: Context, var citiesListLi
 
     }
 
-    fun setCheck(city: City) {
-        citiesListList.forEach {
+    fun setCheck(city: City): Int {
+        var index = -1
+        val sz = citiesListList.size - 1
+        for (i in 0..(sz)) {
+            val it = citiesListList[i]
+            if (it == city)
+                index = i
             it.isSelected = (it == city)
         }
         notifyDataSetChanged()
+        return index
     }
+
     fun getCurrentCity(): City? {
         citiesListList.forEach {
             if (it.isSelected)

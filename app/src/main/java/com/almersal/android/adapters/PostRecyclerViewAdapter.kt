@@ -19,7 +19,7 @@ class PostRecyclerViewAdapter constructor(var context: Context, private var post
                                           private var postFilterList: MutableList<Post>? = null) :
         RecyclerView.Adapter<PostViewHolder>() {
 
-    private var filterEntity: FilterEntity? = null
+    var filterEntity: FilterEntity? = null
 
     init {
         postFilterList = postsList
@@ -43,13 +43,10 @@ class PostRecyclerViewAdapter constructor(var context: Context, private var post
         return PostViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return postsList.size
-    }
+    override fun getItemCount(): Int = postsList.size
 
-    override fun getItemViewType(position: Int): Int {
-        return postsList[position].getPostType() + (if (isFixed) 2 else 0)
-    }
+    override fun getItemViewType(position: Int): Int =
+            postsList[position].getPostType() + (if (isFixed) 2 else 0)
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         val poJo = postsList[position]
@@ -59,8 +56,6 @@ class PostRecyclerViewAdapter constructor(var context: Context, private var post
             IntentHelper.startPostDetailsActivity(context, poJo)
         }
     }
-
-
 
     fun filterByCriteria(filterEntity: FilterEntity) {
         this.filterEntity = filterEntity
@@ -72,8 +67,8 @@ class PostRecyclerViewAdapter constructor(var context: Context, private var post
             var result = true
             if ((filterEntity.query != null) and (!filterEntity.query.isNullOrEmpty()))
                 result = result and it.title.contains(filterEntity.query!!, false)
-            if (filterEntity.postCategory != null)
-                result = result and (it.category == filterEntity.postCategory)
+            if (filterEntity.category != null)
+                result = result and (it.category == filterEntity.category)
             if (filterEntity.subCategory != null)
                 result = result and (it.subCategory == filterEntity.subCategory)
             if (filterEntity.city != null)
@@ -82,6 +77,7 @@ class PostRecyclerViewAdapter constructor(var context: Context, private var post
                 result = result and (it.location == filterEntity.area)
             result
         }.toMutableList()
+
         notifyDataSetChanged()
     }
 
@@ -91,7 +87,7 @@ class PostRecyclerViewAdapter constructor(var context: Context, private var post
 
         when (tagEntity.tagType) {
             TagType.Category -> {
-                filterEntity!!.postCategory = null
+                filterEntity!!.category = null
             }
             TagType.SubCategory -> {
                 filterEntity!!.subCategory = null
@@ -101,6 +97,9 @@ class PostRecyclerViewAdapter constructor(var context: Context, private var post
             }
             TagType.Location -> {
                 filterEntity!!.area = null
+            }
+            TagType.Query -> {
+                filterEntity!!.query = null
             }
         }
         filterByCriteria(filterEntity!!)
