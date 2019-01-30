@@ -71,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
-                app:cardBackgroundColor="@color/transparent"
+                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="4dp"
                 app:cardElevation="15dp"
                 app:cardUseCompatPadding="true"
@@ -79,304 +79,317 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-
-                <android.support.constraint.ConstraintLayout
+                <com.brainsocket.mainlibrary.Views.Stateslayoutview
+                    android:id="@+id/stateLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:fillViewport="true"
+                    android:minHeight="300dp"
+                    app:NoConnectionLayout="@layout/state_layout_no_connection"
+                    app:NoDataLayout="@layout/state_layout_no_data"
+                    app:RefreshbtnRes="@+id/retryBtn"
+                    app:WaitingLayout="@layout/state_layout_waiting">
 
                     <android.support.constraint.ConstraintLayout
-                        android:id="@+id/info_Layout"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/profileHeaderColor"
-                        android:paddingBottom="@dimen/lg_padding"
-                        android:paddingEnd="@dimen/md_padding"
-                        android:paddingLeft="@dimen/zero"
-                        android:paddingRight="@dimen/md_padding"
-                        android:paddingStart="@dimen/zero"
-                        android:paddingTop="@dimen/md_padding">
+                        android:layout_height="match_parent"
+                        android:background="@color/white">
 
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/postCategory"
-                            style="@style/AppTheme.TextAppearance"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/ic_tag_reverse_bg2"
-                            android:gravity="center"
-                            android:paddingEnd="@dimen/lg_padding"
-                            android:paddingLeft="@dimen/md_padding"
-                            android:paddingRight="@dimen/lg_padding"
-                            android:paddingStart="@dimen/md_padding"
-                            android:text="Real-Estate"
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" />
-
-                        <RelativeLayout
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/info_Layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@+id/postCategory">
+                            android:background="@color/profileHeaderColor"
+                            android:paddingBottom="@dimen/lg_padding"
+                            android:paddingEnd="@dimen/md_padding"
+                            android:paddingLeft="@dimen/zero"
+                            android:paddingRight="@dimen/md_padding"
+                            android:paddingStart="@dimen/zero"
+                            android:paddingTop="@dimen/md_padding">
 
                             <android.support.v7.widget.AppCompatTextView
-                                android:id="@+id/postSubCategory"
-                                style="@style/AppTheme.TextAppearanceSmall"
+                                android:id="@+id/postCategory"
+                                style="@style/AppTheme.TextAppearance"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/sm_margin"
                                 android:background="@drawable/ic_tag_reverse_bg2"
                                 android:gravity="center"
                                 android:paddingEnd="@dimen/lg_padding"
                                 android:paddingLeft="@dimen/md_padding"
                                 android:paddingRight="@dimen/lg_padding"
                                 android:paddingStart="@dimen/md_padding"
-                                android:text="Houses-for-sale"
+                                android:text="Real-Estate"
                                 android:textAlignment="center"
-                                android:textColor="@color/white" />
+                                android:textColor="@color/white"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
 
-                            <LinearLayout
-                                android:layout_width="wrap_content"
+                            <RelativeLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_alignParentRight="true"
-                                android:orientation="vertical">
+                                app:layout_constraintTop_toBottomOf="@+id/postCategory">
 
                                 <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/postSubCategory"
                                     style="@style/AppTheme.TextAppearanceSmall"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="end|right"
-                                    android:text="@string/Addedin"
-                                    android:textAlignment="gravity"
-                                    android:textColor="@color/lightGray" />
+                                    android:layout_marginTop="@dimen/sm_margin"
+                                    android:background="@drawable/ic_tag_reverse_bg2"
+                                    android:gravity="center"
+                                    android:paddingEnd="@dimen/lg_padding"
+                                    android:paddingLeft="@dimen/md_padding"
+                                    android:paddingRight="@dimen/lg_padding"
+                                    android:paddingStart="@dimen/md_padding"
+                                    android:text="Houses-for-sale"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/white" />
 
-                                <android.support.v7.widget.AppCompatTextView
-                                    android:id="@+id/postCreatedDate"
-                                    style="@style/AppTheme.TextAppearance"
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:text="12-12-2018"
-                                    android:textAlignment="gravity"
-                                    android:textColor="@color/white"
-                                    android:textStyle="bold" />
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:orientation="vertical">
 
-                            </LinearLayout>
+                                    <android.support.v7.widget.AppCompatTextView
+                                        style="@style/AppTheme.TextAppearanceSmall"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="end|right"
+                                        android:text="@string/Addedin"
+                                        android:textAlignment="gravity"
+                                        android:textColor="@color/lightGray" />
 
-                            <LinearLayout
-                                android:id="@+id/locationLayout"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/postSubCategory"
-                                android:layout_marginLeft="@dimen/md_margin"
-                                android:layout_marginStart="@dimen/md_margin"
-                                android:layout_marginTop="@dimen/md_margin"
-                                android:orientation="vertical">
+                                    <android.support.v7.widget.AppCompatTextView
+                                        android:id="@+id/postCreatedDate"
+                                        style="@style/AppTheme.TextAppearance"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="12-12-2018"
+                                        android:textAlignment="gravity"
+                                        android:textColor="@color/white"
+                                        android:textStyle="bold" />
 
-                                <android.support.v7.widget.AppCompatTextView
-                                    android:id="@+id/postTitle"
-                                    style="@style/AppTheme.TextAppearance"
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/locationLayout"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="start|left"
-                                    android:text="Appartment for sale"
-                                    android:textAlignment="gravity"
-                                    android:textColor="@color/white"
-                                    android:textStyle="bold" />
+                                    android:layout_below="@+id/postSubCategory"
+                                    android:layout_marginLeft="@dimen/md_margin"
+                                    android:layout_marginStart="@dimen/md_margin"
+                                    android:layout_marginTop="@dimen/md_margin"
+                                    android:orientation="vertical">
 
-                                <android.support.v7.widget.AppCompatTextView
-                                    android:id="@+id/postInLocation"
-                                    style="@style/AppTheme.TextAppearance"
+                                    <android.support.v7.widget.AppCompatTextView
+                                        android:id="@+id/postTitle"
+                                        style="@style/AppTheme.TextAppearance"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="start|left"
+                                        android:text="Appartment for sale"
+                                        android:textAlignment="gravity"
+                                        android:textColor="@color/white"
+                                        android:textStyle="bold" />
+
+                                    <android.support.v7.widget.AppCompatTextView
+                                        android:id="@+id/postInLocation"
+                                        style="@style/AppTheme.TextAppearance"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="In Al Mazeh"
+                                        android:textColor="@color/white"
+                                        android:textStyle="bold"
+                                        android:visibility="invisible" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/cityLayout"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="In Al Mazeh"
-                                    android:textColor="@color/white"
-                                    android:textStyle="bold"
-                                    android:visibility="invisible" />
+                                    android:layout_below="@id/locationLayout"
+                                    android:layout_marginLeft="@dimen/md_margin"
+                                    android:layout_marginStart="@dimen/md_margin"
+                                    android:layout_marginTop="@dimen/xsm_margin"
+                                    android:orientation="vertical">
 
-                            </LinearLayout>
+                                    <android.support.v7.widget.AppCompatTextView
+                                        style="@style/AppTheme.TextAppearanceSmall"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="start|left"
+                                        android:text="@string/City"
+                                        android:textAlignment="gravity"
+                                        android:textColor="@color/lightGray" />
 
-                            <LinearLayout
-                                android:id="@+id/cityLayout"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/locationLayout"
-                                android:layout_marginLeft="@dimen/md_margin"
-                                android:layout_marginStart="@dimen/md_margin"
-                                android:layout_marginTop="@dimen/xsm_margin"
-                                android:orientation="vertical">
+                                    <android.support.v7.widget.AppCompatTextView
+                                        android:id="@+id/postCity"
+                                        style="@style/AppTheme.TextAppearance"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="Damascus"
+                                        android:textAlignment="gravity"
+                                        android:textColor="@color/white"
+                                        android:textStyle="bold" />
 
-                                <android.support.v7.widget.AppCompatTextView
-                                    style="@style/AppTheme.TextAppearanceSmall"
+                                </LinearLayout>
+
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="start|left"
-                                    android:text="@string/City"
-                                    android:textAlignment="gravity"
-                                    android:textColor="@color/lightGray" />
+                                    android:layout_below="@id/cityLayout"
+                                    android:layout_marginLeft="@dimen/md_margin"
+                                    android:layout_marginStart="@dimen/md_margin"
+                                    android:layout_marginTop="@dimen/xsm_margin"
+                                    android:orientation="vertical">
 
-                                <android.support.v7.widget.AppCompatTextView
-                                    android:id="@+id/postCity"
-                                    style="@style/AppTheme.TextAppearance"
+                                    <android.support.v7.widget.AppCompatTextView
+                                        style="@style/AppTheme.TextAppearanceSmall"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="start|left"
+                                        android:text="@string/Area"
+                                        android:textAlignment="gravity"
+                                        android:textColor="@color/lightGray" />
+
+                                    <android.support.v7.widget.AppCompatTextView
+                                        android:id="@+id/postLocation"
+                                        style="@style/AppTheme.TextAppearance"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="Al-Mazeh"
+                                        android:textAlignment="gravity"
+                                        android:textColor="@color/white"
+                                        android:textStyle="bold" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:text="Damascus"
-                                    android:textAlignment="gravity"
-                                    android:textColor="@color/white"
-                                    android:textStyle="bold" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/cityLayout"
-                                android:layout_marginLeft="@dimen/md_margin"
-                                android:layout_marginStart="@dimen/md_margin"
-                                android:layout_marginTop="@dimen/xsm_margin"
-                                android:orientation="vertical">
-
-                                <android.support.v7.widget.AppCompatTextView
-                                    style="@style/AppTheme.TextAppearanceSmall"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="start|left"
-                                    android:text="@string/Area"
-                                    android:textAlignment="gravity"
-                                    android:textColor="@color/lightGray" />
-
-                                <android.support.v7.widget.AppCompatTextView
-                                    android:id="@+id/postLocation"
-                                    style="@style/AppTheme.TextAppearance"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:text="Al-Mazeh"
-                                    android:textAlignment="gravity"
-                                    android:textColor="@color/white"
-                                    android:textStyle="bold" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_alignParentRight="true"
-                                android:layout_below="@id/cityLayout"
-                                android:layout_marginLeft="@dimen/md_margin"
-                                android:layout_marginStart="@dimen/md_margin"
-                                android:layout_marginTop="@dimen/md_margin"
-                                android:orientation="vertical">
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_below="@id/cityLayout"
+                                    android:layout_marginLeft="@dimen/md_margin"
+                                    android:layout_marginStart="@dimen/md_margin"
+                                    android:layout_marginTop="@dimen/md_margin"
+                                    android:orientation="vertical">
 
 
-                                <android.support.v7.widget.AppCompatTextView
-                                    android:id="@+id/contactTextBtn"
-                                    style="@style/AppTheme.TextAppearance"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:drawableLeft="@drawable/ic_phone_white_24dp"
-                                    android:drawablePadding="@dimen/md_padding"
-                                    android:drawableStart="@drawable/ic_phone_white_24dp"
-                                    android:text="@string/Contact"
-                                    android:textAlignment="gravity"
-                                    android:textColor="@color/white"
-                                    android:textStyle="bold" />
+                                    <android.support.v7.widget.AppCompatTextView
+                                        android:id="@+id/contactTextBtn"
+                                        style="@style/AppTheme.TextAppearance"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:drawableLeft="@drawable/ic_phone_white_24dp"
+                                        android:drawablePadding="@dimen/md_padding"
+                                        android:drawableStart="@drawable/ic_phone_white_24dp"
+                                        android:text="@string/Contact"
+                                        android:textAlignment="gravity"
+                                        android:textColor="@color/white"
+                                        android:textStyle="bold" />
 
-                            </LinearLayout>
+                                </LinearLayout>
 
-                        </RelativeLayout>
+                            </RelativeLayout>
 
-                    </android.support.constraint.ConstraintLayout>
-
-                    <android.support.constraint.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:background="@color/white"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/info_Layout">
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/postDescriptionTitle"
-                            style="@style/AppTheme.TextAppearance"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/md_margin"
-                            android:text="@string/Description"
-                            android:textColor="@color/profileHeaderColor"
-                            android:textStyle="bold" />
-
-                        <View
-                            android:id="@+id/categorySperator"
-                            android:layout_width="0dp"
-                            android:layout_height="@dimen/sperator"
-                            android:background="@color/colorPrimary"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/postDescriptionTitle"
-                            app:layout_constraintWidth_default="percent"
-                            app:layout_constraintWidth_percent="0.3" />
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/postDescription"
-                            style="@style/AppTheme.TextAppearance"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start|left"
-                            android:layout_marginBottom="@dimen/lg_margin"
-                            android:paddingEnd="@dimen/md_margin"
-                            android:paddingLeft="@dimen/md_margin"
-                            android:paddingRight="@dimen/md_margin"
-                            android:paddingStart="@dimen/md_margin"
-                            android:text="Ad desctiption that advert about they add, description the app about the description the app about the plah plah ....."
-                            android:textAlignment="gravity"
-                            android:textColor="@color/grayDarkTextColor"
-                            android:textStyle="bold"
-                            app:layout_constraintTop_toBottomOf="@+id/categorySperator" />
+                        </android.support.constraint.ConstraintLayout>
 
                         <android.support.constraint.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
+                            android:background="@color/white"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/postDescription">
+                            app:layout_constraintTop_toBottomOf="@id/info_Layout">
 
-                            <android.support.v7.widget.AppCompatButton
-                                android:id="@+id/contactBtn"
-                                style="@style/AppTheme.NormalButtonStyle"
-                                android:layout_width="0dp"
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/postDescriptionTitle"
+                                style="@style/AppTheme.TextAppearance"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="@dimen/zero"
-                                android:layout_weight="4"
-                                android:background="@drawable/button_bg"
-                                android:drawableEnd="@drawable/ic_transparent_bg"
-                                android:drawableLeft="@drawable/ic_phone_white_24dp"
-                                android:drawableRight="@drawable/ic_transparent_bg"
-                                android:drawableStart="@drawable/ic_phone_white_24dp"
-                                android:paddingEnd="@dimen/lg_padding"
-                                android:paddingLeft="@dimen/lg_padding"
-                                android:paddingRight="@dimen/lg_padding"
-                                android:paddingStart="@dimen/lg_padding"
-                                android:shadowColor="@color/black"
-                                android:text="@string/Contact"
-                                android:textColor="@color/white"
-                                android:textStyle="bold"
-                                app:elevation="@dimen/xxlg_elevation"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
+                                android:padding="@dimen/md_margin"
+                                android:text="@string/Description"
+                                android:textColor="@color/profileHeaderColor"
+                                android:textStyle="bold" />
+
+                            <View
+                                android:id="@+id/categorySperator"
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/sperator"
+                                android:background="@color/colorPrimary"
                                 app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintWidth_percent="0.5" />
+                                app:layout_constraintTop_toBottomOf="@+id/postDescriptionTitle"
+                                app:layout_constraintWidth_default="percent"
+                                app:layout_constraintWidth_percent="0.3" />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/postDescription"
+                                style="@style/AppTheme.TextAppearance"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start|left"
+                                android:layout_marginBottom="@dimen/lg_margin"
+                                android:paddingEnd="@dimen/md_margin"
+                                android:paddingLeft="@dimen/md_margin"
+                                android:paddingRight="@dimen/md_margin"
+                                android:paddingStart="@dimen/md_margin"
+                                android:text="Ad desctiption that advert about they add, description the app about the description the app about the plah plah ....."
+                                android:textAlignment="gravity"
+                                android:textColor="@color/grayDarkTextColor"
+                                android:textStyle="bold"
+                                app:layout_constraintTop_toBottomOf="@+id/categorySperator" />
+
+                            <android.support.constraint.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/postDescription">
+
+                                <android.support.v7.widget.AppCompatButton
+                                    android:id="@+id/contactBtn"
+                                    style="@style/AppTheme.NormalButtonStyle"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/zero"
+                                    android:layout_weight="4"
+                                    android:background="@drawable/button_bg"
+                                    android:drawableEnd="@drawable/ic_transparent_bg"
+                                    android:drawableLeft="@drawable/ic_phone_white_24dp"
+                                    android:drawableRight="@drawable/ic_transparent_bg"
+                                    android:drawableStart="@drawable/ic_phone_white_24dp"
+                                    android:paddingEnd="@dimen/lg_padding"
+                                    android:paddingLeft="@dimen/lg_padding"
+                                    android:paddingRight="@dimen/lg_padding"
+                                    android:paddingStart="@dimen/lg_padding"
+                                    android:shadowColor="@color/black"
+                                    android:text="@string/Contact"
+                                    android:textColor="@color/white"
+                                    android:textStyle="bold"
+                                    app:elevation="@dimen/xxlg_elevation"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintLeft_toLeftOf="parent"
+                                    app:layout_constraintRight_toRightOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintWidth_percent="0.5" />
+
+                            </android.support.constraint.ConstraintLayout>
+
 
                         </android.support.constraint.ConstraintLayout>
 
-
                     </android.support.constraint.ConstraintLayout>
 
-                </android.support.constraint.ConstraintLayout>
+                </com.brainsocket.mainlibrary.Views.Stateslayoutview>
 
             </android.support.v7.widget.CardView>
 

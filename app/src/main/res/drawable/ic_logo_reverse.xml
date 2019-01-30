@@ -33,15 +33,15 @@
         android:pathData="M439.46,85.34V19.76h13.65V85.34Z" />
 
     <path
-        android:fillColor="#2e2d2c"
+        android:fillColor="@color/white"
         android:pathData="M0,3.37l81.89,81.88l-81.89,0l0,-81.88z" />
     <path
-        android:fillColor="#2e2d2c"
+        android:fillColor="@color/white"
         android:pathData="M85.25,0l-40.94,40.94l40.94,40.95l0,-81.89z" />
     <path
-        android:fillColor="#2e2d2c"
+        android:fillColor="@color/white"
         android:pathData="M32.44,85.25l-32.44,-81.88l49.4,81.88l-16.96,0z" />
     <path
-        android:fillColor="#2e2d2c"
+        android:fillColor="@color/white"
         android:pathData="M49.45,89.63l-8.51,17.1l-8.5,-17.02l17.01,-0.08z" />
 </vector>

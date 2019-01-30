@@ -15,57 +15,58 @@ import butterknife.Optional
 import com.almersal.android.R
 import com.almersal.android.adapters.MediaViewPagerAdapter
 import com.almersal.android.data.entities.Post
+import com.almersal.android.di.component.DaggerPostDetailsComponent
+import com.almersal.android.di.module.PostModule
+import com.almersal.android.di.ui.PostContract
+import com.almersal.android.di.ui.PostPresenter
 import com.almersal.android.dialogs.ContactPostDialog
 import com.almersal.android.normalization.DateNormalizer
 import com.almersal.android.repositories.UserRepository
 import com.almersal.android.utilities.IntentHelper
+import com.almersal.android.viewModel.PostViewHolder
+import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
+import com.brainsocket.mainlibrary.Listeners.OnRefreshLayoutListener
 import com.brainsocket.mainlibrary.ViewPagerIndicator.CircleIndicator.CircleIndicator
+import com.brainsocket.mainlibrary.Views.Stateslayoutview
 import com.google.gson.Gson
+import javax.inject.Inject
 
 
-class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener {
+class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, PostContract.View {
 
     companion object {
-        const val Post_Tag = "Post_Tag"
+        const val PostDetailsActivity_Tag = "PostDetailsActivity_Tag"
+        const val PostDetailsActivity_Id_Tag = "PostDetailsActivity_Id_Tag"
     }
 
-    lateinit var post: Post
+    var post: Post? = null
 
-    @BindView(R.id.mediaViewPager)
-    lateinit var mediaViewPager: ViewPager
+    var menuItem: MenuItem? = null
 
-    @BindView(R.id.postCategory)
-    lateinit var postCategory: TextView
-
-    @BindView(R.id.postSubCategory)
-    lateinit var postSubCategory: TextView
-
-    @BindView(R.id.postCreatedDate)
-    lateinit var postCreatedDate: TextView
-
-    @BindView(R.id.postTitle)
-    lateinit var postTitle: TextView
-
-    @BindView(R.id.postCity)
-    lateinit var postCity: TextView
-
-    @BindView(R.id.postLocation)
-    lateinit var postLocation: TextView
-
-    @BindView(R.id.postInLocation)
-    lateinit var postInLocation: TextView
-
-    @BindView(R.id.postDescription)
-    lateinit var postDescription: TextView
-
-    @BindView(R.id.viewPagerIndicator)
-    lateinit var viewPagerIndicator: CircleIndicator
+    lateinit var postViewHolder: PostViewHolder
 
     @BindView(R.id.flexible_example_appbar)
     lateinit var appbar: AppBarLayout
 
     @BindView(R.id.toolbar)
     lateinit var toolbar: Toolbar
+
+    @BindView(R.id.stateLayout)
+    lateinit var stateLayout: Stateslayoutview
+
+    @Inject
+    lateinit var presenter: PostPresenter
+
+    private fun initDI() {
+        val component = DaggerPostDetailsComponent.builder()
+                .postModule(PostModule(this))
+                .build()
+        component.inject(this)
+
+        presenter.attachView(this)
+        presenter.subscribe()
+    }
+
 
     private fun initToolBar() {
         toolbar.title = ""
@@ -78,30 +79,52 @@ class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener
     override fun onBaseCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.post_details_layout)
         ButterKnife.bind(this)
-        val json = intent.getStringExtra(Post_Tag)
-        post = Gson().fromJson(json, Post::class.java)
-
-        appbar.addOnOffsetChangedListener(this)
         initToolBar()
+        appbar.addOnOffsetChangedListener(this)
+        initDI()
 
-        bindInfo()
+        postViewHolder = PostViewHolder(findViewById(android.R.id.content))
+
+        val json = intent.getStringExtra(PostDetailsActivity_Tag)
+        if (!json.isNullOrBlank()) {
+            post = Gson().fromJson(json, Post::class.java)
+            postViewHolder.bind(post!!)
+        } else {
+            val id = intent.getStringExtra(PostDetailsActivity_Id_Tag)
+            presenter.loadPost(id)
+        }
+
+        stateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
+            override fun onRefresh() {
+                val id = intent.getStringExtra(PostDetailsActivity_Id_Tag)
+                presenter.loadPost(id)
+            }
+
+            override fun onRequestPermission() {
+
+            }
+        })
+
+    }
+
+    private fun toggleEditMode() {
+        val user = UserRepository(this).getUser()
+        if ((user != null) && (post != null))
+            menuItem?.isVisible = (post!!.ownerId == user.id)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val user = UserRepository(this).getUser()
-        if (user != null) {
-            val id = user.id
-            if (post.ownerId == id)
-                menuInflater.inflate(R.menu.post_menu, menu)
-        }
-
+        menuInflater.inflate(R.menu.post_menu, menu)
+        menuItem = menu?.findItem(R.id.menu_edit)
+        toggleEditMode()
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.menu_edit -> {
-                IntentHelper.startPostEditActivity(this@PostDetailsActivity, post)
+                IntentHelper.startPostEditActivity(this@PostDetailsActivity, post!!)
             }
         }
         return false
@@ -110,7 +133,7 @@ class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener
     @Optional
     @OnClick(R.id.contactBtn, R.id.contactTextBtn)
     fun onContactButtonClick(view: View) {
-        val contactDialog = ContactPostDialog.newInstance(post.owner.phoneNumber)
+        val contactDialog = ContactPostDialog.newInstance(post!!.owner.phoneNumber)
         contactDialog.show(supportFragmentManager, ContactPostDialog.ContactPostDialog_Tag)
     }
 
@@ -118,26 +141,37 @@ class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
     }
 
-    private fun bindInfo() {
-        try {
-            mediaViewPager.adapter = MediaViewPagerAdapter(this, post.media)
-            viewPagerIndicator.setViewPager(mediaViewPager)
 
-            postCategory.text = post.category.getTitle()
-            postSubCategory.text = post.subCategory.getTitle()
-
-            postTitle.text = post.title
-            postCity.text = post.city.getTitle()
-            postLocation.text = post.location.getTitle()
-
-            val inLocation = resources.getString(R.string.In) + " " + post.location.getTitle()
-            postInLocation.text = inLocation
-
-            postDescription.text = post.description
-            postCreatedDate.text = DateNormalizer.getCanonicalDateFormat(post.creationDate)
-        } catch (ex: Exception) {
+    /*Presenter started*/
+    override fun showProgress(show: Boolean) {
+        if (show) {
+            stateLayout.FlipLayout(LayoutStatesEnum.Waitinglayout)
+        } else {
+            stateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
         }
     }
 
+    override fun showLoadErrorMessage(visible: Boolean) {
+        if (visible) {
+            stateLayout.FlipLayout(LayoutStatesEnum.Noconnectionlayout)
+        } else {
+            stateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+        }
+    }
+
+    override fun showEmptyView(visible: Boolean) {
+        if (visible) {
+            stateLayout.FlipLayout(LayoutStatesEnum.Nodatalayout)
+        } else {
+            stateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+        }
+    }
+
+    override fun onPostLoadedSuccessfully(post: Post) {
+        this.post = post
+        postViewHolder.bind(post)
+        toggleEditMode()
+    }
+    /*Presenter ended*/
 
 }

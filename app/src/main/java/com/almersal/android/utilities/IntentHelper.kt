@@ -55,6 +55,13 @@ class IntentHelper {
             context.startActivity(intent)
         }
 
+        fun startBusinessGuideDetailsActivity(context: Context, id: String) {
+            val intent = Intent(context, BusinessGuideDetailsActivity::class.java)
+            intent.putExtra(BusinessGuideDetailsActivity.BusinessGuideDetailsActivity_Id_Tag, id)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
+
         fun startBusinessGuideEditActivity(context: Context, businessGuide: BusinessGuide) {
             val intent = Intent(context, BusinessGuideAddActivity::class.java)
             val jSon = Gson().toJson(businessGuide)
@@ -74,7 +81,14 @@ class IntentHelper {
 
         fun startPostDetailsActivity(context: Context, post: Post) {
             val intent = Intent(context, PostDetailsActivity::class.java)
-            intent.putExtra(PostDetailsActivity.Post_Tag, Gson().toJson(post))
+            intent.putExtra(PostDetailsActivity.PostDetailsActivity_Tag, Gson().toJson(post))
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
+
+        fun startPostDetailsActivity(context: Context, id: String) {
+            val intent = Intent(context, PostDetailsActivity::class.java)
+            intent.putExtra(PostDetailsActivity.PostDetailsActivity_Id_Tag, id)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
@@ -91,7 +105,7 @@ class IntentHelper {
                                                    filter: FilterType) {
             val intent = Intent(activity, PostSearchActivity::class.java)
             intent.putExtra(PostSearchActivity.Suggestion_List_Tag, Gson().toJson(tagList.toTypedArray()))
-            intent.putExtra(PostSearchActivity.Post_Search_Filter_Type_Tag,filter.type)
+            intent.putExtra(PostSearchActivity.Post_Search_Filter_Type_Tag, filter.type)
             activity.startActivityForResult(intent, PostSearchActivity.PostSearchActivity_ResultCode)
         }
 

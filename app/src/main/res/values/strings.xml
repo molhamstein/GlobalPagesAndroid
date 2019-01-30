@@ -152,7 +152,7 @@
     <string name="doYouWantFollowNotificationsUnderThisCategory">Do you want follow notifications under this category</string>
     <string name="doYouWantUnFollowNotificationsUnderThisCategory">Do you want unfollow notifications under this category</string>
     <string name="SubscribedCategoriesUpdateSuccessfully">Subscribed categories update successfully</string>
-    <string name="selectTopicsDoYou">select what are you look for \n and we will find you top 3 nearby ones</string>
+    <string name="selectTopicsDoYou">Please select the ads types \n you are interested in</string>
     <string name="weCannotDetermineYourLocation">We can\'t determine your location</string>
 
 

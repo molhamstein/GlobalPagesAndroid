@@ -13,7 +13,8 @@ import com.almersal.android.viewHolders.SubCategoryViewHolder
 
 class SubCategoryRecyclerViewAdapter constructor(var context: Context, var subCategoriesList: MutableList<SubCategory>,
                                                  var isTransparent: Boolean = false,
-                                                 var onSubCategorySelectListener: OnSubCategorySelectListener? = null) :
+                                                 var onSubCategorySelectListener: OnSubCategorySelectListener? = null,
+                                                 var clearAll: Boolean = true) :
         RecyclerView.Adapter<SubCategoryViewHolder>() {
 
 
@@ -22,9 +23,8 @@ class SubCategoryRecyclerViewAdapter constructor(var context: Context, var subCa
         return SubCategoryViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return subCategoriesList.size
-    }
+    override fun getItemCount(): Int = subCategoriesList.size
+
 
     override fun onBindViewHolder(holder: SubCategoryViewHolder, position: Int) {
         val poJo = subCategoriesList[position]
@@ -54,7 +54,8 @@ class SubCategoryRecyclerViewAdapter constructor(var context: Context, var subCa
             val it = subCategoriesList[i]
             if (it == subCategory)
                 index = i
-            it.isSelected = (it == subCategory)
+            if (clearAll || !it.isSelected)
+                it.isSelected = (it == subCategory)
         }
         notifyDataSetChanged()
         return index

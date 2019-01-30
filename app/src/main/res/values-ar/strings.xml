@@ -145,7 +145,7 @@
     <string name="doYouWantFollowNotificationsUnderThisCategory">هل تريد تتبع التنبيهات ضمن هذا الصنف</string>
     <string name="doYouWantUnFollowNotificationsUnderThisCategory">هل تريد إلعاء تتبع التنبيهات ضمن هذا الصنف</string>
     <string name="SubscribedCategoriesUpdateSuccessfully">تمت العملية بنجاح</string>
-    <string name="selectTopicsDoYou">select what are you look for \n and we will find you top 3 nearby ones</string>
+    <string name="selectTopicsDoYou">حدد نوع الإعلانات التي تهمك</string>
     <string name="weCannotDetermineYourLocation">لم نتمكن من تحديد موقعك</string>
     <string name="NoDataFound">لايوجد بيانات</string>
     <string name="Retry">إعادة المحاولة</string>

@@ -12,6 +12,7 @@ class PostContract {
         fun updatePost(postModel: PostEditModel, token: String)
 
         fun loadFeaturedPost()
+        fun loadPost(id: String)
     }
 
     interface View : BaseContract.View {
@@ -25,7 +26,7 @@ class PostContract {
         fun showFeaturedPostLoadErrorMessage(visible: Boolean) {}
         fun showFeaturedPostEmptyView(visible: Boolean) {}
         fun onFeaturedPostLoadedSuccessfully(postList: MutableList<Post>) {}
-
+        fun onPostLoadedSuccessfully(post: Post){}
     }
 
 }

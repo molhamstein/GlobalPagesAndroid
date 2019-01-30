@@ -8,7 +8,7 @@ buildscript {
         KOTLIN_VERSION = '1.2.21'
         COMPILE_VERSION = 27
         BUILD_VERSION = "27.0.3"
-        MIN_VERSION = 15
+        MIN_VERSION = 16
         SUPPORT_VERSION = "27.1.1"
         SUPPORT_SERVICE = '15.0.1'
         RX_VERSION = '2.0.1'//'2.1.16'//

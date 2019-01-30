@@ -27,15 +27,16 @@
         android:pathData="M285.81,22H300V85.34H285.81Z" />
 
     <path
-        android:fillColor="#2e2d2c"
+        android:fillColor="@color/white"
         android:pathData="M359.34,3.37l81.89,81.88l-81.89,0l0,-81.88z" />
     <path
-        android:fillColor="#2e2d2c"
+        android:fillColor="@color/white"
         android:pathData="M444.6,0l-40.94,40.94l40.94,40.95l0,-81.89z" />
     <path
-        android:fillColor="#2e2d2c"
+        android:fillColor="@color/white"
         android:pathData="M391.78,85.25l-32.44,-81.88l49.46,81.97l-17.02,-0.09z" />
     <path
-        android:fillColor="#2e2d2c"
+        android:fillColor="@color/white"
         android:pathData="M408.8,89.63l-8.51,17.1l-8.51,-17.02l17.02,-0.08z" />
+
 </vector>

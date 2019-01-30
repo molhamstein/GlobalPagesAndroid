@@ -39,7 +39,8 @@ import com.brainsocket.mainlibrary.Views.Stateslayoutview
 import javax.inject.Inject
 
 
-class MainActivity : BaseActivity(), VolumesContract.View, PostContract.View, NotificationContract.View, OnTagSelectListener {
+class MainActivity : BaseActivity(), VolumesContract.View,
+        PostContract.View, NotificationContract.View, OnTagSelectListener {
 
     @Inject
     lateinit var presenter: VolumesPresenter

@@ -15,6 +15,7 @@ import java.util.HashMap
 
 class ApiService {
 
+
     /*Registration started*/
     fun postUserLogin(url: String, loginModel: LoginModel, requestListener: ParsedRequestListener<LoginResponse>) {
         AndroidNetworking.post(url)
@@ -43,12 +44,10 @@ class ApiService {
                 .build()
                 .getAsObject(User::class.java, requestListener)
     }
-
     /*Registration ended*/
 
 
     /*User Profile started*/
-
     fun getUserPosts(url: String/*, filtration: MutableMap<String, Pair<String, String>>*/, requestListener: ParsedRequestListener<MutableList<Post>>) {
 //        val criteria = Gson().toJson(filtration)
 
@@ -84,8 +83,9 @@ class ApiService {
                 .build()
                 .getAsObject(User::class.java, requestListener)
     }
-
     /*User Profile ended*/
+
+
 
     /*Tagging started*/
     fun getBusinessCategories(url: String, filtration: Map<String, String>, requestListener: ParsedRequestListener<MutableList<BusinessGuideCategory>>) {
@@ -144,6 +144,15 @@ class ApiService {
                 .getAsObjectList(BusinessGuide::class.java, requestListener)
     }
 
+    fun getBusinessGuide(url:String,requestListener: ParsedRequestListener<BusinessGuide>){
+        AndroidNetworking.get(url)
+//                .setContentType("application/json")
+                .setPriority(Priority.HIGH)
+//                .addQueryParameter("filter", criteria)
+                .build()
+                .getAsObject(BusinessGuide::class.java, requestListener)
+    }
+
     fun postBusinessGuides(url: String, businessGuide: BusinessGuideModel, token: String, requestListener: ParsedRequestListener<BusinessGuide>) {
         val json = Gson().toJson(businessGuide)
         AndroidNetworking.post(url)
@@ -175,6 +184,18 @@ class ApiService {
     /*Business Guides ended*/
 
     /*Post started*/
+
+    fun getPost(url: String, requestListener: ParsedRequestListener<Post>) {
+//        val criteria = Gson().toJson(filtration)
+
+        AndroidNetworking.get(url)
+//                .setContentType("application/json")
+                .setPriority(Priority.HIGH)
+//                .addQueryParameter("filter", criteria)
+                .build()
+                .getAsObject(Post::class.java, requestListener)
+    }
+
     fun postPost(url: String, postModel: PostModel, token: String, requestListener: ParsedRequestListener<Post>) {
         val json = Gson().toJson(postModel)
         AndroidNetworking.post(url)
@@ -214,6 +235,7 @@ class ApiService {
     }
 
     /*Post ended*/
+
 
     /*Attachment started*/
 

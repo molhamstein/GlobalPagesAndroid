@@ -11,9 +11,12 @@ import com.almersal.android.enums.TagType
 import com.almersal.android.repositories.DataStoreRepositories
 import com.almersal.android.utilities.IntentHelper
 import com.almersal.android.viewHolders.BusinessGuideViewHolder
+import android.support.v7.widget.GridLayoutManager
+
 
 class BusinessGuideRecyclerViewAdapter constructor(var context: Context, var businessGuideList: MutableList<BusinessGuide>
-                                                   , private var businessGuideFilterList: MutableList<BusinessGuide>? = null)
+                                                   , private var businessGuideFilterList: MutableList<BusinessGuide>? = null,
+                                                   private var isVertical: Boolean = false)
     : RecyclerView.Adapter<BusinessGuideViewHolder>() {
 
     var filterEntity: FilterEntity? = null
@@ -24,6 +27,11 @@ class BusinessGuideRecyclerViewAdapter constructor(var context: Context, var bus
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusinessGuideViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.business_guide_item_layout, parent, false)
+        if (isVertical) {
+            val lp = view.layoutParams as ViewGroup.LayoutParams
+            lp.width = 3 * parent.measuredWidth / 4
+            view.layoutParams = lp
+        }
         return BusinessGuideViewHolder(view)
     }
 
@@ -35,6 +43,7 @@ class BusinessGuideRecyclerViewAdapter constructor(var context: Context, var bus
 
         holder.itemView.setOnClickListener {
             IntentHelper.startBusinessGuideDetailsActivity(context = context, businessGuide = poJo)
+//            IntentHelper.startBusinessGuideDetailsActivity(context = context, id = poJo.id)
         }
 
     }

@@ -8,6 +8,7 @@ import com.almersal.android.data.entitiesModel.BusinessGuideModel
 import com.almersal.android.enums.DaysEnum
 
 class BusinessGuidesContract {
+
     interface Presenter : BaseContract.Presenter<View> {
 
         /*for business guide action*/
@@ -21,11 +22,11 @@ class BusinessGuidesContract {
 
         fun loadBusinessGuideByLocationAndCategory(pointEntity: PointEntity, subCategory: SubCategory)
 
+        fun loadBusinessGuideById(id: String)
 
         fun addBusinessGuide(businessGuide: BusinessGuideModel, token: String)
 
         fun updateBusinessGuide(businessGuide: BusinessGuideEditModel, token: String)
-
 
     }
 
@@ -35,9 +36,8 @@ class BusinessGuidesContract {
         fun showBusinessGuideLoadErrorMessage(visible: Boolean) {}
         fun showBusinessGuideEmptyView(visible: Boolean) {}
         fun onLoadBusinessGuideListSuccessfully(businessGuideList: MutableList<BusinessGuide>) {}
-
+        fun onLoadBusinessGuide(businessGuide: BusinessGuide) {}
         fun onAddBusinessGuideSuccessfully(businessGuide: BusinessGuide) {}
-
         fun onUpdateBusinessGuideSuccessfully(businessGuide: BusinessGuide) {}
 
     }

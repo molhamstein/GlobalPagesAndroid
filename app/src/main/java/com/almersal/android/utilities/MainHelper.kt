@@ -5,9 +5,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 
 
-/**
- * Created by Adhamkh on 2018-06-08.
- */
+
 class MainHelper {
     companion object {
 

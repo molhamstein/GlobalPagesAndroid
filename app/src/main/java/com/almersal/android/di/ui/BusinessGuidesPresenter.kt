@@ -87,7 +87,6 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
         loadBusinessGuideByUrl(url)
     }
 
-
     override fun loadBusinessGuideForPharmacy(pointEntity: PointEntity, daysEnum: DaysEnum) {
 
 //        val url = ServerInfo.businessGuideUrl + "?filter[where][categoryId]=" + SettingData.pharmacyCategoryId +
@@ -96,6 +95,26 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
         val url = ServerInfo.businessGuideUrl + "/searchByLocation?lat=" + pointEntity.lat +
                 "&lng=" + pointEntity.lng + "&openingDay=" + daysEnum.number.toString() + "&code=pharmacies"
         loadBusinessGuideByUrl(url)
+    }
+
+    override fun loadBusinessGuideById(id: String) {
+        view.showProgress(true)
+        val url = ServerInfo.businessGuideUrl + "/" + id
+        ApiService().getBusinessGuide(url,/* criteria,*/ object : ParsedRequestListener<BusinessGuide> {
+            override fun onResponse(response: BusinessGuide?) {
+                view.showProgress(false)
+                if (response != null) {
+                    view.onLoadBusinessGuide(response)
+                    return
+                }
+                view.showEmptyView(true)
+            }
+
+            override fun onError(anError: ANError?) {
+                view.showLoadErrorMessage(true)
+            }
+        })
+
     }
 
     override fun addBusinessGuide(businessGuide: BusinessGuideModel, token: String) {

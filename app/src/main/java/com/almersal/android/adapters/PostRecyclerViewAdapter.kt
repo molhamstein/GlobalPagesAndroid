@@ -53,7 +53,8 @@ class PostRecyclerViewAdapter constructor(var context: Context, private var post
         holder.bind(poJo)
 
         holder.itemView.setOnClickListener {
-            IntentHelper.startPostDetailsActivity(context, poJo)
+            //            IntentHelper.startPostDetailsActivity(context, poJo)
+            IntentHelper.startPostDetailsActivity(context, poJo.id)
         }
     }
 

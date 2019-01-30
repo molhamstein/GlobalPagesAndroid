@@ -11,8 +11,9 @@
         android:layout_height="match_parent"
         android:layout_margin="@dimen/zero"
         android:background="@drawable/transparent_radius_bg"
-        android:padding="@dimen/md_padding"
         app:ms9_shadowElevation="@dimen/lg_elevation">
+        <!--android:padding="@dimen/md_padding"-->
+
         <!--android:rotation="180"-->
 
         <!--<LinearLayout-->
@@ -50,7 +51,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:background="@color/colorPrimary"
                 android:contentDescription="@string/contentDescription"
                 android:src="@mipmap/ic_launcher"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -112,14 +112,14 @@
                     style="@style/AppTheme.TextAppearance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/sm_padding"
                     android:paddingEnd="@dimen/sm_padding"
                     android:paddingLeft="@dimen/sm_padding"
                     android:paddingRight="@dimen/sm_padding"
                     android:paddingStart="@dimen/sm_padding"
                     android:paddingTop="@dimen/zero"
                     android:textColor="@color/grayDarkTextColor"
-                    app:fontFamily="@font/cairo_regular" />
+                    app:fontFamily="@font/cairo_regular"
+                    android:layout_margin="@dimen/zero"/>
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/post_area"
@@ -127,6 +127,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/sm_padding"
+                    android:layout_margin="@dimen/zero"
                     android:textColor="@color/grayDarkTextColor"
                     app:fontFamily="@font/cairo_regular" />
 

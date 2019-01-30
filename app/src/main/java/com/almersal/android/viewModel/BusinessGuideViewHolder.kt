@@ -16,9 +16,7 @@ import com.almersal.android.repositories.DataStoreRepositories
 import com.almersal.android.repositories.UserRepository
 import com.brainsocket.mainlibrary.ViewPagerIndicator.CircleIndicator.CircleIndicator
 
-/**
- * Created by Adhamkh on 2018-10-07.
- */
+
 class BusinessGuideViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) {
 
     @BindView(R.id.mediaViewPager)
@@ -87,7 +85,7 @@ class BusinessGuideViewHolder constructor(view: View) : RecyclerView.ViewHolder(
         if (!isOwner)
             ProductAddLink.visibility = View.INVISIBLE
         businessGuideProductRecyclerView.adapter = BusinessGuideProductRecyclerViewAdapter(context,
-                businessGuide.products, isOwner, businessGuide)
+                businessGuide.products, isOwner, businessGuide, true)
 
     }
 

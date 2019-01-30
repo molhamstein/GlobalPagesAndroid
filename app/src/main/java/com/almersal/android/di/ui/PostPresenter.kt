@@ -86,5 +86,21 @@ class PostPresenter constructor(val context: Context) : PostContract.Presenter {
 
     }
 
+    override fun loadPost(id: String) {
+        view.showProgress(true)
+        ApiService().getPost(ServerInfo.postUrl + "/" + id, object : ParsedRequestListener<Post> {
+            override fun onResponse(response: Post?) {
+                view.showProgress(false)
+                if (response != null) {
+                    view.onPostLoadedSuccessfully(response)
+                } else {
+                    view.showEmptyView(true)
+                }
+            }
+            override fun onError(anError: ANError?) {
+                view.showLoadErrorMessage(true)
+            }
+        })
+    }
 
 }

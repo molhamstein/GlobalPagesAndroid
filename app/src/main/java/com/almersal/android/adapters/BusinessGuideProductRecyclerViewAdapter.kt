@@ -15,11 +15,17 @@ import com.almersal.android.viewHolders.ProductViewHolder
  * Created by Adhamkh on 2018-10-07.
  */
 class BusinessGuideProductRecyclerViewAdapter constructor(var context: Context, private var productThumbList: MutableList<ProductThumb>
-                                                          , private var isOwner: Boolean, private val businessGuide: BusinessGuide)
+                                                          , private var isOwner: Boolean, private val businessGuide: BusinessGuide,
+                                                          private var isVertical: Boolean = false)
     : RecyclerView.Adapter<ProductViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.product_item_layout, parent, false)
+        if (isVertical) {
+            val lp = view.layoutParams as ViewGroup.LayoutParams
+            lp.width = 3 * parent.measuredWidth / 4
+            view.layoutParams = lp
+        }
         return ProductViewHolder(view)
     }
 

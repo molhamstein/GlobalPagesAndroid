@@ -98,7 +98,6 @@ class App : MultiDexApplication(), NotificationContract.View {
             })
         }
 
-
     }
 
     fun isArabic(): Boolean = systemLanguage.equals("ar", false)

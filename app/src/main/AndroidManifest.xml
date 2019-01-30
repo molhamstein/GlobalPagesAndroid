@@ -35,10 +35,13 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="744d0a5d07f3d38b1b890fc323fae55db84397b3" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"

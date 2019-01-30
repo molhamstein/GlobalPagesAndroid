@@ -185,11 +185,8 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
             genderTabLayout.getTabAt(1)!!.select()
         }
         BindingUtils.loadProfileImage(mFab, user.imageProfile)
-
         presenter.loadUserCategories(user)
-//        if (myCategories.adapter != null) {
-//            (myCategories.adapter as CategoryProfileRecyclerViewAdapter).clearAll()
-//        }
+
     }
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
@@ -207,6 +204,7 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
 
             }
 
+            /*Instead of no subCategory Subscribed*/
             override fun onRequestPermission() {
                 val subCategorySubscriptionBottomSheet: SubCategorySubscriptionBottomSheet =
                         SubCategorySubscriptionBottomSheet.getNewInstance(null)
@@ -243,16 +241,10 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
                 EventActions.SubCategorySubscriptionBottomSheet_Tag -> {
 
                     bindInfo(UserRepository(this@ProfileActivity).getUser()!!)
-//                    if (myCategories.adapter != null) {
-//                        (myCategories.adapter as CategoryProfileRecyclerViewAdapter).clearAll()
-//                    }
 
                 }
-
-//                EventActions.
             }
         }
-
 
     }
 
@@ -307,7 +299,6 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
-//        val i = verticalOffset
         if (appBarLayout == null)
             return
 
@@ -389,7 +380,8 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     }
 
     override fun onUserBusinessesListSuccessfully(businessGuideList: MutableList<BusinessGuide>) {
-        myBusiness.adapter = BusinessGuideRecyclerViewAdapter(baseContext, businessGuideList)
+        myBusiness.adapter =
+                BusinessGuideRecyclerViewAdapter(baseContext, businessGuideList, null, true)
     }
     /*My Businesses guide presenter ended*/
 
