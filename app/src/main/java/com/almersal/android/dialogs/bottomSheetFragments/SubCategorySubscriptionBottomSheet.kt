@@ -231,14 +231,12 @@ class SubCategorySubscriptionBottomSheet : BottomSheetDialogFragment(), OnSubCat
     override fun onSelectCategory(category: Category) {
         val res = initSubCategoryRecyclerView(category.subCategoriesList)
         adapter = SubCategoryRecyclerViewAdapter(context = context!!, subCategoriesList = res.first,
-                onSubCategorySelectListener = this)
+                onSubCategorySelectListener = this, clearAll = false)
         suggestionTags.setAdapter(adapter)
         if (res.second > 0) {
             suggestionTags.suggestionTagsRecyclerView.smoothScrollToPosition(res.second)
         }
-
         bindUserInfo(UserRepository(context!!).getUser())
-
     }
 
     override fun onDeselectCategory(category: Category) {
