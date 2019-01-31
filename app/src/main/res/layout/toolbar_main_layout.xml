@@ -24,7 +24,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/md_margin"
-                android:scaleType="fitXY"
+                android:scaleType="fitStart"
                 app:layout_constraintDimensionRatio="W,8:2"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

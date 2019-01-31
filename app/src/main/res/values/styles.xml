@@ -11,6 +11,7 @@
     <style name="headerTextView" parent="Widget.AppCompat.AutoCompleteTextView">
         <item name="android:textColor">@color/grayDarkTextColor</item>
         <item name="android:gravity">center</item>
+        <item name="android:textSize">14sp</item>
         <!--<item name="android:textAlignment">gravity</item>-->
         <item name="android:background">@color/transparent</item>
     </style>

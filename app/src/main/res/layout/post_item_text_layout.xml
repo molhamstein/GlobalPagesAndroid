@@ -48,6 +48,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:shadowColor="@color/lightGray"
+                android:layout_marginLeft="@dimen/md_padding"
+                android:layout_marginRight="@dimen/md_padding"
                 android:shadowRadius="@integer/textShadow"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
@@ -104,6 +106,8 @@
                 android:textAlignment="gravity"
                 android:textColor="@color/grayDarkTextColor"
                 android:textStyle="bold"
+                android:layout_marginLeft="@dimen/md_padding"
+                android:layout_marginRight="@dimen/md_padding"
                 app:layout_constraintTop_toBottomOf="@+id/tagContainer" />
 
             <View
@@ -126,7 +130,9 @@
                     style="@style/AppTheme.TextAppearance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/sm_padding"
+                    android:padding="0dp"
+                    android:layout_marginLeft="@dimen/md_padding"
+                    android:layout_marginRight="@dimen/md_padding"
                     android:textColor="@color/grayLightTextColor" />
 
                 <android.support.v7.widget.AppCompatTextView
@@ -134,7 +140,10 @@
                     style="@style/AppTheme.TextAppearance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/sm_padding"
+                    android:padding="0dp"
+                    android:layout_marginLeft="@dimen/md_padding"
+                    android:layout_marginRight="@dimen/md_padding"
+                    android:paddingBottom="@dimen/sm_padding"
                     android:textColor="@color/grayLightTextColor" />
 
 
