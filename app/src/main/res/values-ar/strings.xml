@@ -151,5 +151,6 @@
     <string name="Retry">إعادة المحاولة</string>
     <string name="noMoreVolumeFound">لايوجد بيانات</string>
     <string name="In">في</string>
+    <string name="enterNumber">أدخل الرقم</string>
 
 </resources>

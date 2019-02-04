@@ -34,6 +34,9 @@ class SignUpViewHolder : RecyclerView.ViewHolder {
     @BindView(R.id.password)
     lateinit var password: EditText
 
+    @BindView(R.id.phoneNumber)
+    lateinit var phoneNumber: EditText
+
     @BindView(R.id.birthdate)
     lateinit var birthdate: EditText
 
@@ -51,7 +54,7 @@ class SignUpViewHolder : RecyclerView.ViewHolder {
 
 
     fun isValid(): Boolean {
-        var signUpModel = getSignUpModel()
+        val signUpModel = getSignUpModel()
         if (ValidationHelper.isEmpty(signUpModel.email)) {
             email.error = context.resources.getString(R.string.enteremail)
             email.requestFocus()
@@ -73,6 +76,12 @@ class SignUpViewHolder : RecyclerView.ViewHolder {
             return false
         }
 
+        if (ValidationHelper.isNullorEmpty(signUpModel.phoneNumber)) {
+            phoneNumber.error = context.resources.getString(R.string.enterNumber)
+            phoneNumber.requestFocus()
+            return false
+        }
+
 //        if (!ValidationHelper.isDate(signUpModel.birthdate!!)) {
         if ((signUpModel.birthdate == null) || (signUpModel.birthdate!!.isEmpty())) {
 //            birthdate.error = context.resources.getString(R.string.selectBirthDate)
@@ -91,10 +100,11 @@ class SignUpViewHolder : RecyclerView.ViewHolder {
     }
 
     fun getSignUpModel(): SignUpModel {
-        var signUpModel = SignUpModel()
+        val signUpModel = SignUpModel()
         signUpModel.email = email.text.toString()
         signUpModel.username = userName.text.toString()
         signUpModel.password = password.text.toString()
+        signUpModel.phoneNumber = phoneNumber.text.toString()
         signUpModel.birthdate = birthdate.text.toString()
         if ((genderTabLayout.selectedTabPosition == 0))
             signUpModel.gender = UserGender.male.gender

@@ -94,6 +94,7 @@
                         android:layout_toStartOf="@+id/genderTabLayout"
                         android:enabled="true"
                         android:hint="@string/Phonenumber"
+                        android:inputType="phone"
                         android:textAlignment="gravity"
                         android:textColor="@color/grayDarkTextColor"
                         android:textColorHint="@color/grayDarkTextColor"
