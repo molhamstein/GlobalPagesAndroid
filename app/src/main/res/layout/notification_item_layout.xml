@@ -7,6 +7,8 @@
         android:id="@+id/notificationName"
         style="@style/AppTheme.TitleTextAppearance"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/cairo_bold"
+        android:textColor="@color/grayDarkTextColor" />
 
 </android.support.constraint.ConstraintLayout>

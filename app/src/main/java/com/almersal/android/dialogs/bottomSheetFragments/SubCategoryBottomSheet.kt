@@ -16,12 +16,8 @@ import com.almersal.android.R
 import com.almersal.android.adapters.SubCategoryRecyclerViewAdapter
 import com.almersal.android.data.entities.SubCategory
 import com.almersal.android.listeners.OnSubCategorySelectListener
-import com.almersal.android.repositories.DummyDataRepositories
 import com.almersal.android.views.SuggestionTagView
 
-/**
- * Created by Adhamkh on 2018-07-27.
- */
 class SubCategoryBottomSheet : BottomSheetDialogFragment(), OnSubCategorySelectListener {
 
 
@@ -29,15 +25,15 @@ class SubCategoryBottomSheet : BottomSheetDialogFragment(), OnSubCategorySelectL
     var onSubCategorySelectListener: OnSubCategorySelectListener? = null
 
     companion object {
-        val SubCategoryBottomSheet_Tag = "SubCategoryBottomSheet"
+       const val SubCategoryBottomSheet_Tag = "SubCategoryBottomSheet_Tag"
         fun getNewInstance(subCategoryList: MutableList<SubCategory>, onSubCategorySelectListener: OnSubCategorySelectListener? = null)
                 : SubCategoryBottomSheet {
-            val subCategoryFilterBottmSheet = SubCategoryBottomSheet()
-            subCategoryFilterBottmSheet.subCategoryList = subCategoryList
-            subCategoryFilterBottmSheet.onSubCategorySelectListener = onSubCategorySelectListener
+            val subCategoryFilterBottomSheet = SubCategoryBottomSheet()
+            subCategoryFilterBottomSheet.subCategoryList = subCategoryList
+            subCategoryFilterBottomSheet.onSubCategorySelectListener = onSubCategorySelectListener
             val bundle = Bundle()
-            subCategoryFilterBottmSheet.arguments = bundle
-            return subCategoryFilterBottmSheet
+            subCategoryFilterBottomSheet.arguments = bundle
+            return subCategoryFilterBottomSheet
         }
     }
 

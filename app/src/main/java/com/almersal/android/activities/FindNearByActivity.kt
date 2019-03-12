@@ -258,7 +258,7 @@ class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMa
 
     }
 
-    fun loadRequest() {
+    private fun loadRequest() {
         if ((subCategory != null) && (lastLocation != null)) {
             businessGuidesPresenter.loadBusinessGuideByLocationAndCategory(pointEntity =
             PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude), subCategory = subCategory!!)

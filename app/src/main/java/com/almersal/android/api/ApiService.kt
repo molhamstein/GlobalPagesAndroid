@@ -10,6 +10,7 @@ import java.io.File
 import com.androidnetworking.interfaces.*
 import com.almersal.android.data.entitiesModel.*
 import com.almersal.android.data.entitiesResponses.AttachmentResponse
+import com.almersal.android.data.entitiesResponses.NotificationReadedResponse
 import java.util.HashMap
 
 
@@ -86,7 +87,6 @@ class ApiService {
     /*User Profile ended*/
 
 
-
     /*Tagging started*/
     fun getBusinessCategories(url: String, filtration: Map<String, String>, requestListener: ParsedRequestListener<MutableList<BusinessGuideCategory>>) {
         val criteria = Gson().toJson(filtration)
@@ -144,7 +144,7 @@ class ApiService {
                 .getAsObjectList(BusinessGuide::class.java, requestListener)
     }
 
-    fun getBusinessGuide(url:String,requestListener: ParsedRequestListener<BusinessGuide>){
+    fun getBusinessGuide(url: String, requestListener: ParsedRequestListener<BusinessGuide>) {
         AndroidNetworking.get(url)
 //                .setContentType("application/json")
                 .setPriority(Priority.HIGH)
@@ -304,6 +304,19 @@ class ApiService {
                 .build()
                 .getAsObjectList(NotificationEntity::class.java, requestListener)
     }
+
+    fun getNotificationsSeen(url: String, notificationIds: MutableList<String>, token: String,
+                             requestListener: ParsedRequestListener<NotificationReadedResponse>) {
+        AndroidNetworking.post(url)
+                .setContentType("application/json")
+                .addHeaders("Authorization", token)
+                .setPriority(Priority.HIGH)
+                .addBodyParameter(notificationIds)
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsObject(NotificationReadedResponse::class.java, requestListener)
+    }
+
 
     fun putFireBaseToken(url: String, token: String, fireBaseToken: String, requestListener: StringRequestListener) {
         AndroidNetworking.post(url)

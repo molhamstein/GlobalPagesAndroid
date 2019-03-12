@@ -95,7 +95,6 @@
                     style="@style/AppTheme.EditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
                     app:fontFamily="@font/antipasto_extrabold" />
 
                 <!--android:text="123456"-->
@@ -138,7 +137,7 @@
                         style="@style/commonNinePatchShadowItemViewStyle"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="@dimen/md_margin"
+                        android:layout_margin="@dimen/xmd_elevation"
                         android:background="@drawable/white_radius_bg"
                         android:padding="@dimen/zero">
 

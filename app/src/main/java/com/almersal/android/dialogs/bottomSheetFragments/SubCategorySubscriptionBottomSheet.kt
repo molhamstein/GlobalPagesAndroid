@@ -312,6 +312,8 @@ class SubCategorySubscriptionBottomSheet : BottomSheetDialogFragment(), OnSubCat
     }
 
     override fun onUpdateProfileSuccessfully(user: User) {
+        val currentUser = UserRepository(context!!).getUser()!!
+        user.token = currentUser.token
         UserRepository(context!!).addUser(user)
         Toast.makeText(context, resources.getString(R.string.SubscribedCategoriesUpdateSuccessfully), Toast.LENGTH_LONG).show()
     }

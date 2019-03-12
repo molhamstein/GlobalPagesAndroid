@@ -1,6 +1,8 @@
 package com.almersal.android.activities
 
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -23,7 +25,7 @@ import com.almersal.android.utilities.IntentHelper
 import com.almersal.android.utilities.MainHelper
 import com.almersal.android.viewModel.SigninViewHolder
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.OnSuccessListener
+
 import com.google.android.gms.tasks.Task
 import javax.inject.Inject
 import com.google.firebase.iid.FirebaseInstanceId
@@ -59,9 +61,12 @@ class SignInActivity : BaseActivity(), SigninContract.View, NotificationContract
     override fun onBaseCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.signin_layout)
         ButterKnife.bind(this)
-
         initDI()
+
         viewHolder = SigninViewHolder(findViewById(android.R.id.content))
+        viewHolder.password.typeface = Typeface.DEFAULT
+        viewHolder.password.transformationMethod = PasswordTransformationMethod()
+
         progressDialog = ProgressDialog.newInstance()
 
     }

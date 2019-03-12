@@ -46,18 +46,34 @@ class WebViewActivity : BaseActivity() {
         webView.setNetworkAvailable(true)
         val webSettings = webView.settings
         webSettings.javaScriptEnabled = true
+        webSettings.loadWithOverviewMode = true
+        webSettings.useWideViewPort = true
         webView.webChromeClient = WebChromeClient()
         webView.webViewClient = AppWebViewClients(progressBar)
-//        webView.webViewClient = object : WebViewClient() {
-//
-//            override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
-//                super.onReceivedError(view, request, error)
+        webView.webViewClient = object : WebViewClient() {
+//            override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+//                view?.loadUrl(url)
+//                return true
 //            }
 //
-//            override fun onPageFinished(view: WebView?, url: String?) {
-//                super.onPageFinished(view, url)
+//            override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
+//                view?.loadUrl(url)
+//                return true
 //            }
-//        }
+
+//            override fun onReceivedError(view: WebView?, errorCode: Int, description: String?, failingUrl: String?) {
+//                super.onReceivedError(view, errorCode, description, failingUrl)
+//            }
+
+            override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
+                super.onReceivedError(view, request, error)
+            }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+//                view?.loadUrl(url)
+            }
+        }
         webView.loadUrl(url)
     }
 
