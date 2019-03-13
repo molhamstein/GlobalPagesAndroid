@@ -33,13 +33,16 @@ import com.almersal.android.di.module.BusinessGuidesModule
 import com.almersal.android.di.module.TagsCollectionModule
 import com.almersal.android.di.ui.BusinessGuidesContract
 import com.almersal.android.di.ui.BusinessGuidesPresenter
+import com.almersal.android.di.ui.TagsCollectionContact
 import com.almersal.android.di.ui.TagsCollectionPresenter
 import com.almersal.android.dialogs.bottomSheetFragments.BusinessGuideSnippetBottomFragment
+import com.almersal.android.dialogs.bottomSheetFragments.CategoryFilterBottomSheet
 import com.almersal.android.dialogs.bottomSheetFragments.SubCategoryBottomSheet
 import com.almersal.android.enums.FilterType
 import com.almersal.android.eventsBus.EventActions
 import com.almersal.android.eventsBus.MessageEvent
 import com.almersal.android.eventsBus.RxBus
+import com.almersal.android.listeners.OnCategorySelectListener
 import com.almersal.android.listeners.OnTagSelectListener
 import com.almersal.android.listeners.RightDrawableOnTouchListener
 import com.almersal.android.repositories.DummyDataRepositories
@@ -62,7 +65,7 @@ import javax.inject.Inject
 
 
 class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMapReadyCallback,
-        BusinessGuidesContract.View, OnTagSelectListener {
+        BusinessGuidesContract.View, TagsCollectionContact.View, OnTagSelectListener, OnCategorySelectListener {
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -83,6 +86,9 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
     @Inject
     lateinit var businessGuidesPresenter: BusinessGuidesPresenter
 
+    @Inject
+    lateinit var tagCollectionPresenter: TagsCollectionPresenter
+
     @BindView(R.id.businessGuideRecyclerView)
     lateinit var businessGuideRecyclerView: RecyclerView
 
@@ -98,13 +104,13 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
     @BindView(R.id.refreshBtn)
     lateinit var refreshBtn: View
 
-
     @BindView(R.id.selectedTagsView)
     lateinit var selectedTagsView: SelectedTagsView
 
     lateinit var mMap: GoogleMap
 
     var firstLocation = true
+    var firstFilterEntity: FilterEntity? = null
 
     private fun initToolBar() {
         setSupportActionBar(toolbar)
@@ -145,12 +151,15 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
 
     private fun initDI() {
         val component = DaggerBusinessGuideSearchComponent.builder()
-//                .tagsCollectionModule(TagsCollectionModule(this))
+                .tagsCollectionModule(TagsCollectionModule(this))
                 .businessGuidesModule(BusinessGuidesModule(this))
                 .build()
         component.inject(this)
 
         businessGuidesPresenter.attachView(this)
+
+        tagCollectionPresenter.attachView(this)
+        tagCollectionPresenter.loadBusinessCategories(true)
 
     }
 
@@ -268,6 +277,7 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
                 }
             }
         }
+
 
     }
 
@@ -444,6 +454,8 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
         businessGuideList.forEach {
             addMarker(it, it.getName(), it.locationPoint)
         }
+        if (firstFilterEntity != null)
+            setFilterEntity(firstFilterEntity!!)
         Log.v("", "")
     }
 
@@ -462,5 +474,23 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
     }
 
     /*Business Guides Presenter ended*/
+
+
+    /*Tags Presenter started*/
+    override fun onBusinessCategoriesLoaded(categoriesList: MutableList<BusinessGuideCategory>) {
+        val categoryFilterBottomSheet = CategoryFilterBottomSheet.getNewInstance(categoriesList.toMutableList(), this)
+        categoryFilterBottomSheet.show(supportFragmentManager, CategoryFilterBottomSheet.CategoryFilterBottomSheet_Tag)
+        Log.v("", "")
+    }
+    /*Tags Presenter ended*/
+
+
+    override fun onSelectCategory(category: Category) {
+        val filterEntity = FilterEntity()
+        filterEntity.category = category
+        firstFilterEntity = filterEntity
+        setFilterEntity(filterEntity)
+        Log.v("", "")
+    }
 
 }

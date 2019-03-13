@@ -26,7 +26,7 @@ class CategoryFilterBottomSheet : BottomSheetDialogFragment(), OnCategorySelectL
     var onCategorySelectListener: OnCategorySelectListener? = null
 
     companion object {
-        val CategoryFilterBottomSheet_Tag = "CategoryFilterBottomSheet"
+        const val CategoryFilterBottomSheet_Tag = "CategoryFilterBottomSheet_Tag"
         fun getNewInstance(categoriesList: MutableList<Category>, onCategorySelectListener: OnCategorySelectListener? = null): CategoryFilterBottomSheet {
             val categoryFilterBottmSheet = CategoryFilterBottomSheet()
             categoryFilterBottmSheet.categoriesList = categoriesList
