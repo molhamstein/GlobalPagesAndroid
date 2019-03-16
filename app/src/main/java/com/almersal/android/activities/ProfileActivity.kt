@@ -436,6 +436,8 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     }
 
     override fun onUpdateProfileSuccessfully(user: User) {
+        val currentUser = UserRepository(this).getUser()!!
+        user.token = currentUser.token
         UserRepository(this).addUser(user)
         bindInfo(user)
         Toast.makeText(this, resources.getString(R.string.SubscribedCategoriesUpdateSuccessfully), Toast.LENGTH_LONG).show()

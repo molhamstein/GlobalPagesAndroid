@@ -9,6 +9,8 @@ class NotificationContract {
         fun loadUnSeenNotifications(userId: String)
         fun loadNotifications(userId: String)
 
+        fun setNotificationSeen(notificationIds: MutableList<String>)
+
         fun registerFireBaseToken(fireBaseToken: String, token: String)
     }
 
@@ -17,6 +19,9 @@ class NotificationContract {
         fun showNotificationLoadErrorMessage(visible: Boolean) {}
         fun showNotificationEmptyView(visible: Boolean) {}
         fun onSeenNotificationsLoaded(notificationList: MutableList<NotificationEntity>) {}
+
+        fun onNotificationSetSeenSuccessfully() {}
+        fun onNotificationSetSeenFailed() {}
 
         fun onRegisterFireBaseTokenSuccessfully() {}
         fun onRegisterFireBaseTokenFailed() {}

@@ -210,9 +210,9 @@ class SignUpActivity : BaseActivity(), SignUpContract.View, NotificationContract
 
     override fun showProgress(show: Boolean) {
         if (show) {
-            progressDialog.show(supportFragmentManager, ProgressDialog.ProgressDialog_Tag)
+            progressDialog.showDialog(supportFragmentManager)
         } else {
-            progressDialog.dismiss()
+            ProgressDialog.closeDialog(supportFragmentManager)
         }
     }
 

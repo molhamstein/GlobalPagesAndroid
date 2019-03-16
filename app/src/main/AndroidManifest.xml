@@ -105,6 +105,7 @@
 
         <activity
             android:name=".activities.BusinessGuideAddActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible|adjustPan">
 
@@ -141,10 +142,14 @@
         <activity android:name=".activities.TestActivity">
 
         </activity>
-        <activity android:name=".activities.FindNearByActivity">
+        <activity
+            android:name=".activities.FindNearByActivity"
+            android:launchMode="singleInstance">
 
         </activity>
-        <activity android:name=".activities.PharmacyDutySearchActivity">
+        <activity
+            android:name=".activities.PharmacyDutySearchActivity"
+            android:launchMode="singleInstance">
 
         </activity>
 

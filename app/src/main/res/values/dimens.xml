@@ -6,6 +6,7 @@
     <dimen name="elevation">4dp</dimen>
     <dimen name="sm_elevation">8dp</dimen>
     <dimen name="md_elevation">8dp</dimen>
+    <dimen name="xmd_elevation">12dp</dimen>
     <dimen name="lg_elevation">16dp</dimen>
     <dimen name="xlg_elevation">32dp</dimen>
     <dimen name="xxlg_elevation">64dp</dimen>

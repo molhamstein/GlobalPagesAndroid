@@ -86,7 +86,7 @@
                 app:errorEnabled="false"
                 app:errorTextAppearance="@style/ErrorText"
                 app:hintTextAppearance="@style/HintText"
-                app:layout_constraintBottom_toTopOf="@+id/moreInfoLayout">
+                app:layout_constraintBottom_toTopOf="@+id/phoneLayout">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/password"
@@ -96,6 +96,26 @@
 
                 <!--android:text="123456"-->
             </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/phoneLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/Phonenumber"
+                app:errorEnabled="false"
+                app:errorTextAppearance="@style/ErrorText"
+                app:hintTextAppearance="@style/HintText"
+                app:layout_constraintBottom_toTopOf="@+id/moreInfoLayout">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/phoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone" />
+
+            </android.support.design.widget.TextInputLayout>
+
 
             <RelativeLayout
                 android:id="@+id/moreInfoLayout"

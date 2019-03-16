@@ -6,6 +6,8 @@ import com.androidnetworking.interfaces.ParsedRequestListener
 import com.almersal.android.api.ApiService
 import com.almersal.android.api.ServerInfo
 import com.almersal.android.data.entities.NotificationEntity
+import com.almersal.android.data.entitiesResponses.NotificationReadedResponse
+import com.almersal.android.repositories.UserRepository
 import com.androidnetworking.interfaces.StringRequestListener
 
 
@@ -57,6 +59,21 @@ class NotificationPresenter constructor(val context: Context) : NotificationCont
     override fun loadNotifications(userId: String) {
         val url = ServerInfo.notificationUrl + "?filter[where][recipientId]=" + userId //+ "&filter[where][seen]=false"
         requestData(url = url)
+    }
+
+    override fun setNotificationSeen(notificationIds: MutableList<String>) {
+        val url = ServerInfo.notificationSeenUrl
+        val token = UserRepository(context).getUser()!!.token
+        ApiService().getNotificationsSeen(url = url, notificationIds = notificationIds, token = token,
+                requestListener = object : ParsedRequestListener<NotificationReadedResponse> {
+                    override fun onResponse(response: NotificationReadedResponse?) {
+                        view.onNotificationSetSeenSuccessfully()
+                    }
+
+                    override fun onError(anError: ANError?) {
+                        view.onNotificationSetSeenFailed()
+                    }
+                })
     }
 
     override fun registerFireBaseToken(fireBaseToken: String, token: String) {

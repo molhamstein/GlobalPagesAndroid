@@ -106,6 +106,15 @@ class NotificationActivity : BaseActivity(), NotificationContract.View {
 
     override fun onSeenNotificationsLoaded(notificationList: MutableList<NotificationEntity>) {
         recyclerView.adapter = NotificationRecyclerViewAdapter(this, notificationList)
+        presenter.setNotificationSeen(notificationIds = notificationList.map { it.id }.toMutableList())
+    }
+
+    override fun onNotificationSetSeenSuccessfully() {
+        super.onNotificationSetSeenSuccessfully()
+    }
+
+    override fun onNotificationSetSeenFailed() {
+        super.onNotificationSetSeenFailed()
     }
     /*Notification presenter ended*/
 }
