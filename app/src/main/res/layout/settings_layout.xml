@@ -130,7 +130,6 @@
         android:text="@string/copyRight"
         android:textAlignment="gravity"
         android:textColor="@color/lightGray"
-        app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.15"

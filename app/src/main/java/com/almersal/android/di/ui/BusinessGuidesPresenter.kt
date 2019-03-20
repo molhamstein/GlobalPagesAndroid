@@ -38,7 +38,7 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
 
     private fun loadBusinessGuideByUrl(url: String) {
         view.showBusinessGuideProgress(true)
-        ApiService().getBusinessGuides(url,/* criteria,*/ object : ParsedRequestListener<MutableList<BusinessGuide>> {
+        ApiService().getBusinessGuides(url, object : ParsedRequestListener<MutableList<BusinessGuide>> {
             override fun onResponse(response: MutableList<BusinessGuide>?) {
 
                 if ((response != null)) {
@@ -69,10 +69,9 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
     }
 
     override fun loadBusinessGuideByLocation(pointEntity: PointEntity) {
-//        var s = "filter[where][price][between][0]=0&filter[where][price][between][1]=7"
 
         val url = ServerInfo.businessGuideUrl + "?filter[where][locationPoint][near]=" +
-                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[limit]=3"
+                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[where][status]=activated&filter[limit]=3"
 
         loadBusinessGuideByUrl(url)
     }
@@ -82,7 +81,7 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
 
         val url = ServerInfo.businessGuideUrl + "?filter[where][subCategoryId]=" + subCategory.id +
                 "&filter[where][locationPoint][near]=" +
-                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[limit]=3"
+                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[where][status]=activated&filter[limit]=3"
 
         loadBusinessGuideByUrl(url)
     }
@@ -93,7 +92,7 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
 //                "&filter[where][locationPoint][near]=" +
 //                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[limit]=1000"
         val url = ServerInfo.businessGuideUrl + "/searchByLocation?lat=" + pointEntity.lat +
-                "&lng=" + pointEntity.lng + "&openingDay=" + daysEnum.number.toString() + "&code=pharmacies"
+                "&lng=" + pointEntity.lng + "&openingDay=" + daysEnum.number.toString() + "&codeCat=pharmacies"
         loadBusinessGuideByUrl(url)
     }
 

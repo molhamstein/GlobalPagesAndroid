@@ -34,7 +34,7 @@
     <string name="AlreadyExisted">موجود مسبقا</string>
 
     <!--Sign in started-->
-    <string name="signInHeader">مرحبًا بك في الصفحات العالمية \n أفضل وجهة للعثور على \n صفقات رائعة</string>
+    <string name="signInHeader">مرحبًا بك في المرسال \n أفضل وجهة للعثور على \n صفقات رائعة</string>
     <string name="Forgotpassword">نسيت كلمة السر؟</string>
     <string name="or">أو</string>
     <string name="Register">تسجيل</string>
@@ -134,12 +134,12 @@
     <string name="Update">حفظ</string>
     <string name="profileUpdatedSuccessfully">تم تعديل معلوماتك بنجاج</string>
 
-    <string name="copyRight">copyRight</string>
+    <string name="copyRight">جميع الحقوق محفوظه لصالح المرسال&#169;, لا يجوز نسخ او تكرار اي جزء من هذا المنتج دون موافقة صريحة</string>
     <string name="Logout">تسجيل خروج</string>
     <string name="AboutUs">حولنا</string>
-    <string name="settingsTitle">Florists at your finger tips</string>
+    <string name="settingsTitle">اعرف ما حولك</string>
     <string name="ContactUs">تواصل معنا</string>
-    <string name="TermsOfUse">تعليمات الاستخدام</string>
+    <string name="TermsOfUse">شروط الخدمة</string>
     <string name="SendMail">إرسال بريد إلكتروني</string>
     <string name="Notifications">التنبيهات</string>
     <string name="doYouWantFollowNotificationsUnderThisCategory">هل تريد تتبع التنبيهات ضمن هذا الصنف</string>

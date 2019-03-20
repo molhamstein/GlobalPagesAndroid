@@ -134,8 +134,7 @@ class ApiService {
 
 
     /*Business Guides started*/
-    fun getBusinessGuides(url: String, /*filtration: MutableMap<String, Pair<String, String>>,*/ requestListener: ParsedRequestListener<MutableList<BusinessGuide>>) {
-//        val criteria = Gson().toJson(filtration)
+    fun getBusinessGuides(url: String, requestListener: ParsedRequestListener<MutableList<BusinessGuide>>) {
         AndroidNetworking.get(url)
 //                .setContentType("application/json")
                 .setPriority(Priority.HIGH)
@@ -322,7 +321,7 @@ class ApiService {
         AndroidNetworking.post(url)
                 .setContentType("application/json")
                 .addHeaders("Authorization", token)
-                .addQueryParameter("token", fireBaseToken)
+                .addBodyParameter("token", fireBaseToken)
                 .setPriority(Priority.HIGH)
                 .build()
                 .getAsString(requestListener)
