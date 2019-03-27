@@ -68,10 +68,39 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
 
     }
 
-    override fun loadBusinessGuideByLocation(pointEntity: PointEntity) {
+    override fun loadBusinessGuideListWithLimit(subCategory: SubCategory) {
+
+
+//        val criteria: MutableMap<String, Pair<String, String>> = HashMap()
+//        criteria["where"] = Pair("subCategoryId", subCategory.id)
+
+        val url = ServerInfo.businessGuideUrl + "?filter[where][subCategoryId]=" + subCategory.id + "&filter[limit]=3"
+        loadBusinessGuideByUrl(url)
+
+    }
+
+    override fun loadBusinessGuideByLocationWithLimit(pointEntity: PointEntity) {
 
         val url = ServerInfo.businessGuideUrl + "?filter[where][locationPoint][near]=" +
                 pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[where][status]=activated&filter[limit]=3"
+
+        loadBusinessGuideByUrl(url)
+    }
+
+    override fun loadBusinessGuideByLocation(pointEntity: PointEntity) {
+
+        val url = ServerInfo.businessGuideUrl + "?filter[where][locationPoint][near]=" +
+                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[where][status]=activated"
+
+        loadBusinessGuideByUrl(url)
+    }
+
+    override fun loadBusinessGuideByLocationAndCategoryWithLimit(pointEntity: PointEntity, subCategory: SubCategory) {
+//        var s = "filter[where][price][between][0]=0&filter[where][price][between][1]=7"
+
+        val url = ServerInfo.businessGuideUrl + "?filter[where][subCategoryId]=" + subCategory.id +
+                "&filter[where][locationPoint][near]=" +
+                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[where][status]=activated"//&filter[limit]=3
 
         loadBusinessGuideByUrl(url)
     }
@@ -81,7 +110,7 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
 
         val url = ServerInfo.businessGuideUrl + "?filter[where][subCategoryId]=" + subCategory.id +
                 "&filter[where][locationPoint][near]=" +
-                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[where][status]=activated&filter[limit]=3"
+                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[where][status]=activated"//&filter[limit]=3
 
         loadBusinessGuideByUrl(url)
     }

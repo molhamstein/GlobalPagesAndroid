@@ -27,6 +27,7 @@ import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.location.places.ui.PlacePicker
 import com.google.android.gms.maps.*
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
@@ -97,6 +98,7 @@ class LocationPickupActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnM
         val markerOptions = MarkerOptions().position(location)
 //        val titleStr = getAddress(location)  // add these two lines
         markerOptions.title(resources.getString(R.string.Your))
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
         moveCamera(location)
         if (marker == null)
             marker = mMap.addMarker(markerOptions)

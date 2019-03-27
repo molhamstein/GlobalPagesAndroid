@@ -29,18 +29,24 @@ class VolumesPresenter constructor(val context: Context) : VolumesContract.Prese
         subscriptions.clear()
     }
 
-    private fun loadData(criteria: MutableMap<String, String>) {
-        ApiService().getVolumes(ServerInfo.volumeUrl + "?filter[where][status]=activated&filter[order]=creationDate DESC", criteria, object : ParsedRequestListener<MutableList<Volume>> {
+    private fun loadData(/*criteria: MutableMap<String, String>*/) {
+        ApiService().getVolumes(ServerInfo.volumeUrl + "?filter[where][status]=activated&filter[skip]=" +
+                index.toString() + "&filter[limit]=1&filter[order]=creationDate DESC"/*, criteria*/, object : ParsedRequestListener<MutableList<Volume>> {
             override fun onResponse(response: MutableList<Volume>?) {
                 if ((response != null)) {
-                    val pojo = response.firstOrNull()
-                    if (pojo != null) {
+                    val poJo = response.firstOrNull()
+                    if (poJo != null) {
                         view.showProgress(false)
-                        view.loadedData(pojo)
+                        view.loadedData(poJo)
+                        view.enablePrev()
                         return
+                    } else {
+                        view.disablePrev()
+                        view.showProgress(false)
                     }
                 }
-                view.showEmptyView(true)
+                view.disablePrev()
+                view.showProgress(false)
             }
 
             override fun onError(anError: ANError?) {
@@ -54,12 +60,11 @@ class VolumesPresenter constructor(val context: Context) : VolumesContract.Prese
         view.showProgress(true)
         view.disableNext()
 
-        val criteria: MutableMap<String, String> = HashMap()
-        criteria.apply {
-            put("filter[limit]", "1")
-            put("filter[skip]", index.toString())
-        }
-        loadData(criteria)
+//        val criteria: MutableMap<String, String> = HashMap()
+//        criteria.apply {
+//            put("", index.toString())
+//        }
+        loadData(/*criteria*/)
     }
 
     override fun loadNextVolume() {
@@ -75,12 +80,12 @@ class VolumesPresenter constructor(val context: Context) : VolumesContract.Prese
             index = 0
             view.noMoreData()
         }
-        val criteria: MutableMap<String, String> = HashMap()
-        criteria.apply {
-            put("filter[limit]", "1")
-            put("filter[skip]", index.toString())
-        }
-        loadData(criteria)
+//        val criteria: MutableMap<String, String> = HashMap()
+//        criteria.apply {
+//            put("filter[limit]", "1")
+//            put("filter[skip]", index.toString())
+//        }
+        loadData(/*criteria*/)
     }
 
     override fun loadPreviousVolume() {
@@ -90,12 +95,12 @@ class VolumesPresenter constructor(val context: Context) : VolumesContract.Prese
         index++
         index = Math.max(index, 0)
 
-        val criteria: MutableMap<String, String> = HashMap()
-        criteria.apply {
-            put("filter[limit]", "1")
-            put("filter[skip]", index.toString())
-        }
-        loadData(criteria)
+//        val criteria: MutableMap<String, String> = HashMap()
+//        criteria.apply {
+//            put("filter[limit]", "1")
+//            put("filter[skip]", index.toString())
+//        }
+        loadData(/*criteria*/)
     }
 
     override fun loadVolumeById(id: String) {

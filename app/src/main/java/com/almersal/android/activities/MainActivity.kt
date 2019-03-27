@@ -22,6 +22,7 @@ import com.almersal.android.di.module.VolumesModule
 import com.almersal.android.di.ui.*
 import com.almersal.android.dialogs.bottomSheetFragments.SubCategorySubscriptionBottomSheet
 import com.almersal.android.enums.FilterType
+import com.almersal.android.enums.UserStatus
 import com.almersal.android.eventsBus.EventActions
 import com.almersal.android.eventsBus.MessageEvent
 import com.almersal.android.eventsBus.RxBus
@@ -77,6 +78,9 @@ class MainActivity : BaseActivity(), VolumesContract.View,
 
     @BindView(R.id.nextBtn)
     lateinit var nextBtn: View
+
+    @BindView(R.id.previousBtn)
+    lateinit var previousBtn: View
 
     @BindView(R.id.main_appbar)
     lateinit var main_appbar: AppBarLayout
@@ -322,7 +326,8 @@ class MainActivity : BaseActivity(), VolumesContract.View,
         volumeTitle.text = volume.getTitle()
 
         val filter = (volumesRecyclerView.adapter as PostRecyclerViewAdapter).filterEntity
-        val adapter = PostRecyclerViewAdapter(MainActivity@ this, volume.posts)
+        val adapter = PostRecyclerViewAdapter(MainActivity@ this,
+                volume.posts.filter { it.status == UserStatus.active.status }.toMutableList())
         volumesRecyclerView.adapter = adapter
         if (filter != null)
             adapter.filterByCriteria(filter)
@@ -343,6 +348,18 @@ class MainActivity : BaseActivity(), VolumesContract.View,
         nextBtn.isClickable = true
         nextBtn.alpha = 1.0f
 
+    }
+
+    override fun disablePrev() {
+        previousBtn.isEnabled = false
+        previousBtn.isClickable = false
+        previousBtn.alpha = 0.5f
+    }
+
+    override fun enablePrev() {
+        previousBtn.isEnabled = true
+        previousBtn.isClickable = true
+        previousBtn.alpha = 1.0f
     }
 
     /*Volume Presenter ended*/

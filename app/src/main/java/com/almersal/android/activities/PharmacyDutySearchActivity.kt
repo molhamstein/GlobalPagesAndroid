@@ -129,6 +129,7 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
         val markerOptions = MarkerOptions().position(location)
 //        val titleStr = getAddress(location)  // add these two lines
         markerOptions.title(resources.getString(R.string.Your))
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
 //        currentcity = CityModel(titleStr, location, CitiesManager.getCitiesSize() == 0)
 //        mMap.clear()
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12.0f))
@@ -274,8 +275,9 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
     @OnClick(R.id.refreshBtn)
     fun onRefreshButtonClick(view: View) {
         if (lastLocation != null) {
-            businessGuidesPresenter.loadBusinessGuideByLocation(pointEntity =
-            PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude))
+            businessGuidesPresenter.loadBusinessGuideForPharmacy(pointEntity =
+            PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
+                    daysEnum = DateHelper.getCurrentDay())
         }
     }
 

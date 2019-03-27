@@ -121,12 +121,12 @@ class ApiService {
 
 
     /*Volumes started*/
-    fun getVolumes(url: String, filtration: Map<String, String>, requestListener: ParsedRequestListener<MutableList<Volume>>) {
-        val criteria = Gson().toJson(filtration)
+    fun getVolumes(url: String/*, filtration: Map<String, String>*/, requestListener: ParsedRequestListener<MutableList<Volume>>) {
+//        val criteria = Gson().toJson(filtration)
         AndroidNetworking.get(url)
 //                .setContentType("application/json")
                 .setPriority(Priority.HIGH)
-                .addQueryParameter("filter", criteria)
+//                .addQueryParameter("filter", criteria)
                 .build()
                 .getAsObjectList(Volume::class.java, requestListener)
     }

@@ -12,6 +12,7 @@ class BusinessGuidesContract {
     interface Presenter : BaseContract.Presenter<View> {
 
         /*for business guide action*/
+        fun loadBusinessGuideByLocationWithLimit(pointEntity: PointEntity)
         fun loadBusinessGuideByLocation(pointEntity: PointEntity)
 
         /*for pharmacy duty action*/
@@ -19,8 +20,10 @@ class BusinessGuidesContract {
 
         /*for nearby action*/
         fun loadBusinessGuideList(subCategory: SubCategory)
+        fun loadBusinessGuideListWithLimit(subCategory: SubCategory)
 
         fun loadBusinessGuideByLocationAndCategory(pointEntity: PointEntity, subCategory: SubCategory)
+        fun loadBusinessGuideByLocationAndCategoryWithLimit(pointEntity: PointEntity, subCategory: SubCategory)
 
         fun loadBusinessGuideById(id: String)
 

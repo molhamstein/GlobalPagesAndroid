@@ -19,6 +19,8 @@ class VolumesContract {
         fun noMoreData()
         fun disableNext()
         fun enableNext()
+        fun disablePrev()
+        fun enablePrev()
     }
 
 }

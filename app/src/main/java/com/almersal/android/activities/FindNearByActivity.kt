@@ -125,6 +125,7 @@ class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMa
         val markerOptions = MarkerOptions().position(location)
 //        val titleStr = getAddress(location)  // add these two lines
         markerOptions.title(resources.getString(R.string.Your))
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
 //        currentcity = CityModel(titleStr, location, CitiesManager.getCitiesSize() == 0)
 //        mMap.clear()
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12.0f))
@@ -260,10 +261,10 @@ class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMa
 
     private fun loadRequest() {
         if ((subCategory != null) && (lastLocation != null)) {
-            businessGuidesPresenter.loadBusinessGuideByLocationAndCategory(pointEntity =
+            businessGuidesPresenter.loadBusinessGuideByLocationAndCategoryWithLimit(pointEntity =
             PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude), subCategory = subCategory!!)
         } else if ((subCategory != null)) {
-            businessGuidesPresenter.loadBusinessGuideList(subCategory = subCategory!!)
+            businessGuidesPresenter.loadBusinessGuideListWithLimit(subCategory = subCategory!!)
             Toast.makeText(this, R.string.weCannotDetermineYourLocation, Toast.LENGTH_LONG).show()
 
         }
