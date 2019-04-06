@@ -16,6 +16,7 @@ import android.util.Log;
 
 import com.almersal.android.R;
 import com.almersal.android.activities.MainActivity;
+import com.crashlytics.android.Crashlytics;
 import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
 
@@ -52,6 +53,7 @@ public class MyJobService extends JobService {
                 }
             });
         } catch (Exception ex) {
+            Crashlytics.log(ex.getLocalizedMessage());
         }
 
         return false;
@@ -70,7 +72,7 @@ public class MyJobService extends JobService {
                 PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+        final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this,TAG)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(title)
                 .setContentText(messageBody)

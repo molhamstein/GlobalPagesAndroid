@@ -29,6 +29,7 @@ import android.util.Log;
 
 import com.almersal.android.R;
 import com.almersal.android.activities.MainActivity;
+import com.crashlytics.android.Crashlytics;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.firebase.jobdispatcher.Job;
@@ -37,7 +38,7 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Map;
 
-public class MyFirebaseMessagingService extends FirebaseMessagingService {
+public class MyFireBaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
 
@@ -63,45 +64,50 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         //Log.d(TAG, "From: " + remoteMessage.getFrom());
+        try {
 
-        // Check if message contains a data payload.
-        if (remoteMessage.getData().size() > 0) {
+            // Check if message contains a data payload.
+            if (remoteMessage.getData().size() > 0) {
 
-            Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+                Log.d(TAG, "Message data payload: " + remoteMessage.getData());
 
-            Map<String, String> stringMap = remoteMessage.getData();
+                Map<String, String> stringMap = remoteMessage.getData();
 
-            String title = stringMap.get("title");
-            String body = stringMap.get("body");
-            String url = stringMap.get("url");
+                String title = stringMap.get("title");
+                String body = stringMap.get("body");
+                String url = stringMap.get("url");
 
-            Bundle bundle = new Bundle();
-            bundle.putString("title", title);
-            bundle.putString("body", body);
-            bundle.putString("url", url);
+                Bundle bundle = new Bundle();
+                bundle.putString("title", title);
+                bundle.putString("body", body);
+                bundle.putString("url", url);
 
-            if (/* Check if data needs to be processed by long running job */ true) {
-                // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
-                //     sendNotification("", "");
-                //  scheduleJob();
-                scheduleJob(bundle);
-                // sendNotification(title, body);
-            } else {
-                // Handle message within 10 seconds
-                //sendNotification("", "");
-                // handleNow();
-                scheduleJob(bundle);
-                //sendNotification(title, body);
+                if (/* Check if data needs to be processed by long running job */ true) {
+                    // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
+                    //     sendNotification("", "");
+                    //  scheduleJob();
+                    scheduleJob(bundle);
+                    // sendNotification(title, body);
+                } else {
+                    // Handle message within 10 seconds
+                    //sendNotification("", "");
+                    // handleNow();
+                    scheduleJob(bundle);
+                    //sendNotification(title, body);
+                }
+
             }
 
-        }
+            //Check if message contains a notification payload.
+            if (remoteMessage.getNotification() != null) {
+                sendNotification("title", remoteMessage.getNotification().getBody());
+                Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+            }
 
-        //Check if message contains a notification payload.
-        if (remoteMessage.getNotification() != null) {
-            sendNotification("title", remoteMessage.getNotification().getBody());
-            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-        }
 
+        } catch (Exception ex) {
+            Crashlytics.log(ex.getLocalizedMessage());
+        }
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
     }
@@ -141,7 +147,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+        final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, TAG)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(title)
                 .setContentText(messageBody)
