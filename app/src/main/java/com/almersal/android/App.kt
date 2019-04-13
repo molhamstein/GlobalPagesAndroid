@@ -5,14 +5,13 @@ import android.support.multidex.MultiDexApplication
 import android.util.Log
 import com.almersal.android.di.component.DaggerAppCompoenent
 import com.almersal.android.di.module.NotificationAppModule
-import com.almersal.android.di.module.NotificationModule
 import com.almersal.android.di.ui.NotificationContract
 import com.almersal.android.di.ui.NotificationPresenter
+import com.almersal.android.repositories.SettingData
 import com.almersal.android.repositories.SettingRepositories
 import com.almersal.android.repositories.UserRepository
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.gsonparserfactory.GsonParserFactory
-import com.androidnetworking.interceptors.HttpLoggingInterceptor
 import com.almersal.android.utilities.LocaleUtils
 import com.crashlytics.android.Crashlytics
 import com.google.android.gms.tasks.OnCompleteListener
@@ -74,11 +73,13 @@ class App : MultiDexApplication(), NotificationContract.View {
             LocaleUtils.updateConfig(this, resources.configuration)
         }
 
-        FirebaseApp.initializeApp(this)
-        Fabric.with(this, Crashlytics())
-        val messages = FirebaseMessaging.getInstance()
-        messages.isAutoInitEnabled = true
+        if (!BuildConfig.DEBUG)
+            Fabric.with(this, Crashlytics())
 
+        FirebaseApp.initializeApp(this)
+        val messages = FirebaseMessaging.getInstance()
+        messages.subscribeToTopic(SettingData.generalTopic)
+        messages.isAutoInitEnabled = true
         val user = UserRepository(context = baseContext).getUser()
         if (user != null) {
             FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener(object : OnCompleteListener<InstanceIdResult> {

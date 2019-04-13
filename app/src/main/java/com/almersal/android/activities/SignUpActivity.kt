@@ -30,6 +30,7 @@ import com.almersal.android.data.entitiesModel.DuplicateModel
 import com.almersal.android.di.module.NotificationModule
 import com.almersal.android.di.ui.NotificationContract
 import com.almersal.android.di.ui.NotificationPresenter
+import com.almersal.android.repositories.SettingData
 import com.almersal.android.repositories.SettingRepositories
 import com.almersal.android.repositories.UserRepository
 import com.google.android.gms.tasks.OnSuccessListener
@@ -145,6 +146,12 @@ class SignUpActivity : BaseActivity(), SignUpContract.View, NotificationContract
         IntentHelper.startSignInActivity(SignUpActivity@ this)
         Log.v("View Clicked", view.id.toString())
     }
+
+    @OnClick(R.id.termsOfUseLayout)
+    fun onTermsOfUseLayoutClick(view: View) {
+        IntentHelper.startWebSite(baseContext, SettingData.siteAddress)
+    }
+
 
     /*Presenter Started*/
     override fun checkValidation(): Boolean {

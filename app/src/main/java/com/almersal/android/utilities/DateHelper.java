@@ -4,9 +4,7 @@ import com.almersal.android.enums.DaysEnum;
 
 import java.util.Calendar;
 
-/**
- * Created by Adhamkh on 2018-10-06.
- */
+
 
 public class DateHelper {
 

@@ -5,6 +5,9 @@ import com.almersal.android.enums.DaysEnum
 
 class SettingData {
     companion object {
+
+        const val generalTopic = "allUsers"
+
         const val pharmacyCategoryId = "5c0e8b3800e72d4b9ea9c49c"
         const val EpsDistance = 0.5
 

@@ -199,6 +199,7 @@
                     app:buttonTint="@color/colorPrimary" />
 
                 <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/termsOfUseLayout"
                     style="@style/AppTheme.TextAppearanceSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -71,6 +71,16 @@ public class MyJobService extends JobService {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
+        String NOTIFY_ID = "1";
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(String.valueOf(NOTIFY_ID),
+                    title, NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription(messageBody);
+            if (getBaseContext().getSystemService(NotificationManager.class) != null) {
+                getBaseContext().getSystemService(NotificationManager.class).createNotificationChannel(channel);
+            }
+        }
+
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this,TAG)
                 .setSmallIcon(R.mipmap.ic_launcher)
@@ -78,6 +88,7 @@ public class MyJobService extends JobService {
                 .setContentText(messageBody)
                 .setAutoCancel(false)
                 .setSound(defaultSoundUri)
+                .setChannelId(NOTIFY_ID)
                 .setContentIntent(pendingIntent);
 
         final NotificationManager notificationManager =

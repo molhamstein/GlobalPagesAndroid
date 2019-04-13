@@ -16,12 +16,14 @@
 
 package com.almersal.android.notifications;
 
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
@@ -146,13 +148,25 @@ public class MyFireBaseMessagingService extends FirebaseMessagingService {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
+        String NOTIFY_ID = "1";
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(String.valueOf(NOTIFY_ID),
+                    title, NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription(messageBody);
+            if (getBaseContext().getSystemService(NotificationManager.class) != null) {
+                getBaseContext().getSystemService(NotificationManager.class).createNotificationChannel(channel);
+            }
+        }
+
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
         final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, TAG)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(title)
                 .setContentText(messageBody)
                 .setAutoCancel(false)
                 .setSound(defaultSoundUri)
+                .setChannelId(NOTIFY_ID)
                 .setContentIntent(pendingIntent);
 
         final NotificationManager notificationManager =
@@ -167,6 +181,7 @@ public class MyFireBaseMessagingService extends FirebaseMessagingService {
                 try {
                     notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
                 } catch (Exception ex) {
+                    Crashlytics.log(ex.getLocalizedMessage());
                 }
             }
         });
