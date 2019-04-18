@@ -8,11 +8,12 @@
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/attachmentImage"
-        android:layout_width="wrap_content"
+        android:adjustViewBounds="true"
+        android:layout_width="@dimen/product_image_width"
         android:layout_height="wrap_content"
         android:src="@mipmap/ic_launcher" />
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/media_remove_action"
         android:layout_width="16dp"
         android:layout_height="16dp"

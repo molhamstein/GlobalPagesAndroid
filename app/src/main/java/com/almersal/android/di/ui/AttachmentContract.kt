@@ -6,6 +6,7 @@ class AttachmentContract {
 
     interface Presenter : BaseContract.Presenter<View> {
         fun loadAttachmentFile(file: File)
+        fun loadVideoAttachmentFile(file: File)
     }
 
     interface View : BaseContract.View {
@@ -14,6 +15,8 @@ class AttachmentContract {
         fun showAttachmentLoadErrorMessage(visible: Boolean)
         fun showAttachmentEmptyView(visible: Boolean)
         fun onLoadAttachmentListSuccessfully(filePath: String)
+
+        fun onLoadVideoAttachmentListSuccessfully(filePath: String) {}
     }
 
 }

@@ -155,6 +155,8 @@
     <string name="selectTopicsDoYou">Please select the ads types \n you are interested in</string>
     <string name="weCannotDetermineYourLocation">We can\'t determine your location</string>
     <string name="enterNumber">Enter number</string>
+    <string name="Videos">Videos</string>
+    <string name="cantPlayThisVideo">Can\'t play this video</string>
 
 
 </resources>

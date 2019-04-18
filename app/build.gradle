@@ -33,6 +33,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        abortOnError false
+    }
     dataBinding {
         enabled = true
     }
@@ -106,7 +109,9 @@ dependencies {
     kapt 'com.android.databinding:compiler:3.1.3'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.github.florent37:viewanimator:1.0.5'
-    implementation project(':calligraphy')
+    implementation 'com.skyfishjy.ripplebackground:library:1.0.1'
+
+    implementation project(':mediaPickerLibary')
     implementation project(':mainlibrary')
     implementation project(':ninepatchlibrary')
     implementation project(':photopicker')

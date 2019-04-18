@@ -18,9 +18,18 @@ class MediaViewPagerAdapter constructor(var context: Context, private var mediaL
         val poJo = mediaList[position]
         val view = inflater.inflate(R.layout.media_item_layout, container, false)
         val mediaView: ImageView = view.findViewById(R.id.imageView)
+        val videoImageView: ImageView = view.findViewById(R.id.videoImageView)
+
+        if (poJo.url.endsWith("mp4", true))
+            videoImageView.visibility = View.VISIBLE
+        else
+            videoImageView.visibility = View.GONE
         BindingUtils.loadMediaImage(mediaView, poJo)
         view.setOnClickListener {
-            IntentHelper.startPictureActivity(context, poJo.url)
+            if (videoImageView.visibility == View.VISIBLE)
+                IntentHelper.startPlayerActivity(context, poJo.url)
+            else
+                IntentHelper.startPictureActivity(context, poJo.url)
         }
 
         container.addView(view)

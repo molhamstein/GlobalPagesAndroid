@@ -45,6 +45,7 @@ import com.almersal.android.views.CustomTabView
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
 import com.brainsocket.mainlibrary.Listeners.OnRefreshLayoutListener
 import com.brainsocket.mainlibrary.Views.Stateslayoutview
+import org.w3c.dom.Text
 import java.util.HashMap
 import javax.inject.Inject
 
@@ -54,7 +55,6 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     @Inject
     lateinit var presenter: ProfilePresenter
 
-    private var progressDialog: ProgressDialog = ProgressDialog()
 
     @BindView(R.id.myPostsStateLayout)
     lateinit var myPostsStateLayout: Stateslayoutview
@@ -138,11 +138,13 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
             override fun onTabUnselected(tab: TabLayout.Tab?) {
                 tab?.customView?.findViewById<TextView>(android.R.id.text1)
                         ?.setTextColor(ContextCompat.getColor(baseContext, R.color.grayLightTextColor))
+                tab?.customView?.visibility = View.GONE
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 tab?.customView?.findViewById<TextView>(android.R.id.text1)
                         ?.setTextColor(ContextCompat.getColor(baseContext, R.color.white))
+                tab?.customView?.visibility = View.VISIBLE
             }
         }
 
@@ -422,10 +424,12 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
 
     /*Profile presenter started*/
     override fun showUpdateProfileProgress(show: Boolean) {
-        if (show)
-            progressDialog.show(supportFragmentManager, ProgressDialog.ProgressDialog_Tag)
-        else
-            progressDialog.dismiss()
+        if (show) {
+            val progressDialog = ProgressDialog()
+            progressDialog.showDialog(supportFragmentManager)
+        } else {
+            ProgressDialog.closeDialog(supportFragmentManager)
+        }
     }
 
     override fun showUpdateProfileLoadErrorMessage(visible: Boolean) {

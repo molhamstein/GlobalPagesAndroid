@@ -152,5 +152,7 @@
     <string name="noMoreVolumeFound">لايوجد بيانات</string>
     <string name="In">في</string>
     <string name="enterNumber">أدخل الرقم</string>
+    <string name="Videos">فيديوهات</string>
+    <string name="cantPlayThisVideo">لايمكن تشغيل الفيديو</string>
 
 </resources>

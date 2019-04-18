@@ -32,6 +32,9 @@ class PostAddViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) 
     @BindView(R.id.adImages)
     lateinit var adImages: RecyclerView
 
+    @BindView(R.id.adVideos)
+    lateinit var adVideos: RecyclerView
+
     @BindView(R.id.adCategories)
     lateinit var adCategories: RecyclerView
 
@@ -78,6 +81,10 @@ class PostAddViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) 
         postModel.description = adDescription.text.toString()
 
         for (item in (adImages.adapter as AttachmentRecyclerViewAdapter).attachmentList) {
+            postModel.media.add(MediaEntity(item.name))
+        }
+
+        for (item in (adVideos.adapter as VideoAttachmentRecyclerViewAdapter).attachmentList) {
             postModel.media.add(MediaEntity(item.name))
         }
 

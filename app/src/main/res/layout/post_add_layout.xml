@@ -212,6 +212,42 @@
 
                             </HorizontalScrollView>
 
+                            <TextView
+                                style="@style/AppTheme.TextAppearance"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/sm_margin"
+                                android:text="@string/Videos"
+                                android:textColor="@color/lightGray" />
+
+                            <HorizontalScrollView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+
+                                    <android.support.v7.widget.RecyclerView
+                                        android:id="@+id/adVideos"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="56dp"
+                                        app:tagBackgroundColor="@color/colorPrimary" />
+
+                                    <ImageView
+                                        android:id="@+id/addVideoAttachmentBtn"
+                                        android:layout_width="40dp"
+                                        android:layout_height="40dp"
+                                        android:layout_gravity="top"
+                                        android:layout_margin="@dimen/sm_margin"
+                                        android:background="@drawable/rectangle_gray"
+                                        android:contentDescription="@string/contentDescription"
+                                        android:padding="@dimen/md_padding"
+                                        app:srcCompat="@drawable/ic_add_white_24dp" />
+                                </LinearLayout>
+
+                            </HorizontalScrollView>
 
                             <android.support.v4.widget.Space
                                 android:layout_width="match_parent"

@@ -223,6 +223,13 @@ class IntentHelper {
             context.startActivity(intent)
         }
 
+        fun startPlayerActivity(context: Context, url: String) {
+            val intent = Intent(context, PlayerActivity::class.java)
+            intent.putExtra(PlayerActivity.PlayerActivity_URL_TAG, url)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
+
         fun startNotificationActivity(context: Context) {
             val intent = Intent(context, NotificationActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK

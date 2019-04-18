@@ -55,4 +55,27 @@ class AttachmentPresenter constructor(val context: Context) : AttachmentContract
 
     }
 
+    override fun loadVideoAttachmentFile(file: File) {
+        view.showAttachmentProgress(true)
+        ApiService().uploadAttachment(ServerInfo.uploadVideoUrl, file,
+                UploadProgressListener { bytesUploaded, totalBytes ->
+                    Log.v("", "")
+                },
+                object : ParsedRequestListener<MutableList<AttachmentResponse>> {
+                    override fun onResponse(response: MutableList<AttachmentResponse>?) {
+                        view.showAttachmentProgress(false)
+                        if (response != null) {
+                            view.onLoadVideoAttachmentListSuccessfully(response[0].url)
+                        }
+                        Log.v("", "")
+                    }
+
+                    override fun onError(anError: ANError?) {
+                        view.showAttachmentProgress(false)
+                        view.showLoadErrorMessage(true)
+                        Log.v("", "")
+                    }
+
+                })
+    }
 }

@@ -40,18 +40,20 @@ import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
 import com.github.florent37.viewanimator.ViewAnimator
 import com.google.gson.Gson
+import net.alhazmy13.mediapicker.Video.VideoPicker
 
 
 class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact.View, AttachmentContract.View
         , OnCategorySelectListener, OnCitySelectListener {
 
     companion object {
-        var PLACE_PICKER_REQUEST = 1
-        var PICTURE_REQUEST = 100
+        const val PLACE_PICKER_REQUEST = 1
 
-        var MAP_BUTTON_REQUEST_CODE = 101
+        const val PICTURE_REQUEST = 100
 
-        var USER_ID_TAG: String = "USER_ID"
+        const val MAP_BUTTON_REQUEST_CODE = 101
+
+        const val USER_ID_TAG: String = "USER_ID"
 
         const val PostAddActivity_Tag = "PostAddActivity_Tag"
     }
@@ -61,6 +63,10 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
 
     @BindView(R.id.adImages)
     lateinit var adImages: RecyclerView
+
+    @BindView(R.id.adVideos)
+    lateinit var adVideos: RecyclerView
+
 
     @BindView(R.id.adCategories)
     lateinit var adCategories: RecyclerView
@@ -111,6 +117,9 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
     private fun initRecyclerViews() {
         adImages.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         adImages.adapter = AttachmentRecyclerViewAdapter(this, DummyDataRepositories.getAttachmentList())
+
+        adVideos.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        adVideos.adapter = VideoAttachmentRecyclerViewAdapter(this, DummyDataRepositories.getAttachmentList())
 
         adCategories.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
 //        adCategories.adapter = CategoryRecyclerViewAdapter(this, DummyDataRepositories.getCategoriesList())
@@ -216,6 +225,16 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
         Log.v("View Clicked", view.id.toString())
     }
 
+    @OnClick(R.id.addVideoAttachmentBtn)
+    fun onAddVideoAttachmentButtonClick(view: View) {
+        VideoPicker.Builder(this)
+                .mode(VideoPicker.Mode.CAMERA_AND_GALLERY)
+                .directory(VideoPicker.Directory.DEFAULT)
+//                .extension(VideoPicker.Extension.MP4)
+                .enableDebuggingMode(true)
+                .build()
+    }
+
     @OnClick(R.id.adAddBtn)
     fun onAdAddBtn(view: View) {
         requestAction()
@@ -270,6 +289,10 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
                 }
                 PostAddActivity.MAP_BUTTON_REQUEST_CODE -> {
                     Log.v("", "")
+                }
+                VideoPicker.VIDEO_PICKER_REQUEST_CODE -> {
+                    val returnValue = data!!.getStringArrayListExtra(VideoPicker.EXTRA_VIDEO_PATH)
+                    attachmentPresenter.loadVideoAttachmentFile(File(returnValue[0]))
                 }
             }
         }
@@ -430,6 +453,12 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
 
     override fun onLoadAttachmentListSuccessfully(filePath: String) {
         (adImages.adapter as AttachmentRecyclerViewAdapter).addItem(Attachment(filePath))
+        Toast.makeText(baseContext, R.string.uploadFileSuccessfully, Toast.LENGTH_LONG).show()
+        Log.v("", "")
+    }
+
+    override fun onLoadVideoAttachmentListSuccessfully(filePath: String) {
+        (adVideos.adapter as VideoAttachmentRecyclerViewAdapter).addItem(Attachment(filePath))
         Toast.makeText(baseContext, R.string.uploadFileSuccessfully, Toast.LENGTH_LONG).show()
         Log.v("", "")
     }

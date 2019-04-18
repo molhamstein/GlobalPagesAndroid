@@ -41,6 +41,8 @@ class ServerInfo {
 
         var uploadImageUrl = baseUrl + "attachments/images/upload"
 
+        var uploadVideoUrl = baseUrl + "attachments/videos/upload"
+
 
         /*Notification started*/
         var notificationUrl = baseUrl + "notifications"

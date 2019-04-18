@@ -303,29 +303,43 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/addPostBtn"
-                        android:layout_toStartOf="@+id/addPostBtn"
+                        android:layout_toLeftOf="@+id/addPostBtnContainer"
+                        android:layout_toStartOf="@+id/addPostBtnContainer"
                         android:contentDescription="@string/contentDescription"
                         android:src="@drawable/places_ic_search" />
 
-                    <ImageView
-                        android:id="@+id/addPostBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <com.skyfishjy.library.RippleBackground
+                        android:id="@+id/addPostBtnContainer"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:contentDescription="@string/contentDescription"
-                        android:paddingEnd="@dimen/sm_padding"
-                        android:paddingLeft="@dimen/sm_padding"
-                        android:paddingRight="@dimen/sm_padding"
-                        android:paddingStart="@dimen/sm_padding"
-                        android:src="@drawable/ic_plus_gray_24dp" />
+                        app:rb_color="#F3C100"
+                        app:rb_duration="1500"
+                        app:rb_radius="32dp"
+                        app:rb_rippleAmount="3"
+                        app:rb_scale="6">
+
+                        <ImageView
+                            android:id="@+id/addPostBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:contentDescription="@string/contentDescription"
+                            android:paddingEnd="@dimen/sm_padding"
+                            android:paddingLeft="@dimen/sm_padding"
+                            android:paddingRight="@dimen/sm_padding"
+                            android:paddingStart="@dimen/sm_padding"
+                            android:src="@drawable/ic_plus_gray_24dp" />
+                    </com.skyfishjy.library.RippleBackground>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/sperator"
-                        android:layout_below="@id/addPostBtn"
+                        android:layout_below="@id/addPostBtnContainer"
                         android:background="@color/colorPrimary"
                         android:visibility="invisible" />
 

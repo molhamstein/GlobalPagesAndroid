@@ -23,7 +23,6 @@ import com.google.firebase.messaging.FirebaseMessaging
 import io.fabric.sdk.android.Fabric
 //import com.onesignal.OneSignal
 //import com.jacksonandroidnetworking.JacksonParserFactory
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 import java.util.*
 import javax.inject.Inject
 
@@ -56,12 +55,6 @@ class App : MultiDexApplication(), NotificationContract.View {
         AndroidNetworking.initialize(applicationContext)
         AndroidNetworking.setParserFactory(GsonParserFactory())
 
-        CalligraphyConfig.initDefault(CalligraphyConfig.Builder()
-//                .setDefaultFontPath("fonts/Roboto-RobotoRegular.ttf")
-                .setFontAttrId(R.attr.fontPath)
-                .build())
-
-
         val locale = Locale.getDefault()
         var localeCode = "ar"
         if (locale.displayName.contains("en", true)) {
@@ -73,8 +66,7 @@ class App : MultiDexApplication(), NotificationContract.View {
             LocaleUtils.updateConfig(this, resources.configuration)
         }
 
-        if (!BuildConfig.DEBUG)
-            Fabric.with(this, Crashlytics())
+
 
         FirebaseApp.initializeApp(this)
         val messages = FirebaseMessaging.getInstance()
@@ -98,7 +90,8 @@ class App : MultiDexApplication(), NotificationContract.View {
                 }
             })
         }
-
+        if (!BuildConfig.DEBUG)
+            Fabric.with(this, Crashlytics())
     }
 
     fun isArabic(): Boolean = systemLanguage.equals("ar", false)

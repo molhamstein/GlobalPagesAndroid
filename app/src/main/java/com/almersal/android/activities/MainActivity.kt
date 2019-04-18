@@ -1,6 +1,8 @@
 package com.almersal.android.activities
 
+import android.animation.ValueAnimator
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.*
 import android.util.Log
@@ -37,6 +39,8 @@ import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
 import com.brainsocket.mainlibrary.Listeners.OnRefreshLayoutListener
 import com.brainsocket.mainlibrary.Views.NotificationBadge
 import com.brainsocket.mainlibrary.Views.Stateslayoutview
+import com.github.florent37.viewanimator.ViewAnimator
+import com.skyfishjy.library.RippleBackground
 import javax.inject.Inject
 
 
@@ -84,6 +88,9 @@ class MainActivity : BaseActivity(), VolumesContract.View,
 
     @BindView(R.id.main_appbar)
     lateinit var main_appbar: AppBarLayout
+
+    @BindView(R.id.addPostBtnContainer)
+    lateinit var addPostBtnContainer: RippleBackground
 
     @BindView(R.id.loginBtn)
     lateinit var loginBtn: ImageView
@@ -180,6 +187,29 @@ class MainActivity : BaseActivity(), VolumesContract.View,
                 }
             }
         }
+
+
+
+
+        Handler().postDelayed({
+            val btn: View = findViewById(R.id.addPostBtn)
+            ViewAnimator.animate(btn).rotation(180f, 0.0f/*Math.PI.toFloat()*/).scale(0.5f, 1.0f)
+//                    .flash()
+                    .duration(500)
+//                .repeatCount(-1)
+//                .repeatMode(ValueAnimator.REVERSE)
+                    .onStart {
+                        addPostBtnContainer.startRippleAnimation()
+                    }
+                    .onStop {
+                        addPostBtnContainer.stopRippleAnimation()
+                    }
+//                .startDelay(5000)
+                    .start()
+//                .startDelay(5000)
+
+        }, 2000)
+
 
     }
 

@@ -1,1 +1,1 @@
-include ':app', ':mainlibrary', ':calligraphy', ':ninepatchlibrary', ':photopicker'
+include ':app', ':mainlibrary', ':ninepatchlibrary', ':photopicker', ':mediaPickerLibary'
