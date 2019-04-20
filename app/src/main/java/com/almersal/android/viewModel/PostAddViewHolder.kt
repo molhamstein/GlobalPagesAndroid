@@ -14,6 +14,7 @@ import com.almersal.android.data.entities.*
 import com.almersal.android.data.entitiesModel.PostEditModel
 import com.almersal.android.data.entitiesModel.PostModel
 import com.almersal.android.data.validations.ValidationHelper
+import com.almersal.android.enums.MediaTypeEnum
 import com.almersal.android.repositories.UserRepository
 
 class PostAddViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) {
@@ -81,11 +82,11 @@ class PostAddViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) 
         postModel.description = adDescription.text.toString()
 
         for (item in (adImages.adapter as AttachmentRecyclerViewAdapter).attachmentList) {
-            postModel.media.add(MediaEntity(item.name))
+            postModel.media.add(MediaEntity(item.name, item.type, item.thumbnail))
         }
 
         for (item in (adVideos.adapter as VideoAttachmentRecyclerViewAdapter).attachmentList) {
-            postModel.media.add(MediaEntity(item.name))
+            postModel.media.add(MediaEntity(item.name, MediaTypeEnum.VIDEOS.type, item.thumbnail))
         }
 
         if (adCategories.adapter != null) {
@@ -123,7 +124,9 @@ class PostAddViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) 
         adTitle.setText(post.title)
         adDescription.setText(post.description)
 
-        adImages.adapter = AttachmentRecyclerViewAdapter(context, post.media.map { Attachment(it.url) }.toMutableList())
+        adImages.adapter = AttachmentRecyclerViewAdapter(context, post.media.map {
+            Attachment(it.url, it.type, it.thumbnail)
+        }.toMutableList())
 
 
         if (adCategories.adapter != null) {
@@ -152,8 +155,8 @@ class PostAddViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) 
         }
 
         if (adLocations.adapter != null) {
-            val pos=(adLocations.adapter as LocationEntityRecyclerViewAdapter).setCheck(post.location)
-            if(pos>0)
+            val pos = (adLocations.adapter as LocationEntityRecyclerViewAdapter).setCheck(post.location)
+            if (pos > 0)
                 adLocations.smoothScrollToPosition(pos)
         }
 

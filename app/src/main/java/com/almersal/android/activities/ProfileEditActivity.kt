@@ -240,7 +240,7 @@ class ProfileEditActivity : BaseActivity(), ProfileContract.View, AttachmentCont
 
     }
 
-    override fun onLoadAttachmentListSuccessfully(filePath: String) {
+    override fun onLoadAttachmentListSuccessfully(filePath: String, thumbnail: String) {
         profileEditViewHolder.setImageUrl(filePath)
 
     }

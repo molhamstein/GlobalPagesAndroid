@@ -2,14 +2,13 @@ package com.almersal.android.di.ui
 
 import android.content.Context
 import android.util.Log
-import com.androidnetworking.error.ANError
-import com.androidnetworking.interfaces.*
 import com.almersal.android.api.ApiService
 import com.almersal.android.api.ServerInfo
 import com.almersal.android.data.entitiesResponses.AttachmentResponse
+import com.androidnetworking.error.ANError
+import com.androidnetworking.interfaces.ParsedRequestListener
+import com.androidnetworking.interfaces.UploadProgressListener
 import io.reactivex.disposables.CompositeDisposable
-import org.json.JSONArray
-import org.json.JSONObject
 import java.io.File
 
 
@@ -40,7 +39,7 @@ class AttachmentPresenter constructor(val context: Context) : AttachmentContract
                     override fun onResponse(response: MutableList<AttachmentResponse>?) {
                         view.showAttachmentProgress(false)
                         if (response != null) {
-                            view.onLoadAttachmentListSuccessfully(response[0].url)
+                            view.onLoadAttachmentListSuccessfully(response[0].url,response[0].thumbnail)
                         }
                         Log.v("", "")
                     }
@@ -65,7 +64,7 @@ class AttachmentPresenter constructor(val context: Context) : AttachmentContract
                     override fun onResponse(response: MutableList<AttachmentResponse>?) {
                         view.showAttachmentProgress(false)
                         if (response != null) {
-                            view.onLoadVideoAttachmentListSuccessfully(response[0].url)
+                            view.onLoadVideoAttachmentListSuccessfully(response[0].url, response[0].thumbnail)
                         }
                         Log.v("", "")
                     }

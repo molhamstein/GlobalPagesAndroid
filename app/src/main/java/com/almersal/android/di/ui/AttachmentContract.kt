@@ -14,9 +14,8 @@ class AttachmentContract {
         fun showAttachmentProcessingPercentage(percentage: String)
         fun showAttachmentLoadErrorMessage(visible: Boolean)
         fun showAttachmentEmptyView(visible: Boolean)
-        fun onLoadAttachmentListSuccessfully(filePath: String)
-
-        fun onLoadVideoAttachmentListSuccessfully(filePath: String) {}
+        fun onLoadAttachmentListSuccessfully(filePath: String, thumbnail: String)
+        fun onLoadVideoAttachmentListSuccessfully(filePath: String, thumbnail: String) {}
     }
 
 }

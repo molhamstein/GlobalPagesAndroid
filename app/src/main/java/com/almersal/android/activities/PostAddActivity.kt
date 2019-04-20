@@ -23,6 +23,7 @@ import com.almersal.android.di.module.PostModule
 import com.almersal.android.di.module.TagsCollectionModule
 import com.almersal.android.di.ui.*
 import com.almersal.android.dialogs.ProgressDialog
+import com.almersal.android.enums.MediaTypeEnum
 import com.almersal.android.listeners.OnCategorySelectListener
 import com.almersal.android.listeners.OnCitySelectListener
 import com.almersal.android.repositories.DummyDataRepositories
@@ -32,15 +33,14 @@ import com.almersal.android.viewModel.PostAddViewHolder
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
 import com.brainsocket.mainlibrary.Listeners.OnRefreshLayoutListener
 import com.brainsocket.mainlibrary.Views.Stateslayoutview
-import com.google.android.gms.location.places.ui.PlacePicker
-import java.io.File
-import javax.inject.Inject
-
-import com.fxn.pix.Pix
-import com.fxn.utility.PermUtil
 import com.github.florent37.viewanimator.ViewAnimator
+import com.google.android.gms.location.places.ui.PlacePicker
 import com.google.gson.Gson
 import net.alhazmy13.mediapicker.Video.VideoPicker
+import java.io.File
+import javax.inject.Inject
+import com.fxn.pix.Pix
+import com.fxn.utility.PermUtil
 
 
 class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact.View, AttachmentContract.View
@@ -451,14 +451,16 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
         Log.v("", "")
     }
 
-    override fun onLoadAttachmentListSuccessfully(filePath: String) {
-        (adImages.adapter as AttachmentRecyclerViewAdapter).addItem(Attachment(filePath))
+    override fun onLoadAttachmentListSuccessfully(filePath: String, thumbnail: String) {
+        (adImages.adapter as AttachmentRecyclerViewAdapter)
+                .addItem(Attachment(filePath, MediaTypeEnum.IMAGES.type, thumbnail))
         Toast.makeText(baseContext, R.string.uploadFileSuccessfully, Toast.LENGTH_LONG).show()
         Log.v("", "")
     }
 
-    override fun onLoadVideoAttachmentListSuccessfully(filePath: String) {
-        (adVideos.adapter as VideoAttachmentRecyclerViewAdapter).addItem(Attachment(filePath))
+    override fun onLoadVideoAttachmentListSuccessfully(filePath: String, thumbnail: String) {
+        (adVideos.adapter as VideoAttachmentRecyclerViewAdapter)
+                .addItem(Attachment(filePath, MediaTypeEnum.VIDEOS.type, thumbnail))
         Toast.makeText(baseContext, R.string.uploadFileSuccessfully, Toast.LENGTH_LONG).show()
         Log.v("", "")
     }

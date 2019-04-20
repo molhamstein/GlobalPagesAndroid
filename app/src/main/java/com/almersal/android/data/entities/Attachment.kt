@@ -1,10 +1,11 @@
 package com.almersal.android.data.entities
 
-/**
- * Created by Adhamkh on 2018-07-19.
- */
+
 class Attachment {
     var name: String = ""
+    var thumbnail: String = ""
+    var type: String = ""
+
     var size: String = ""
     var atime: String = ""
     var mtime: String = ""
@@ -12,9 +13,16 @@ class Attachment {
 
     constructor()
 
-    constructor(name: String) {
+//    constructor(name: String, type: String = "images",thumbnail: String) {
+//        this.name = name
+//        this.type = type
+//        this.thumbnail = ""
+//    }
+
+
+    constructor(name: String, type: String, thumbnail: String) {
         this.name = name
+        this.type = type
+        this.thumbnail = thumbnail
     }
-
-
 }

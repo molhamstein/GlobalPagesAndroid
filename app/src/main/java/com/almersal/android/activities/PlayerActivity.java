@@ -7,7 +7,6 @@ package com.almersal.android.activities;
 
 import android.media.MediaPlayer;
 import android.net.Uri;
-
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.view.WindowManager;
 import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 
 import com.almersal.android.R;
 import com.almersal.android.views.FullScreenVideoView;
@@ -47,6 +45,7 @@ public class PlayerActivity extends BaseActivity {
         setContentView(R.layout.player_layout);
         ButterKnife.bind(this);
         videoInit();
+        progress.setVisibility(View.GONE);
 
     }
 
@@ -69,7 +68,9 @@ public class PlayerActivity extends BaseActivity {
         url = getIntent().getStringExtra(PlayerActivity_URL_TAG);
 
         videoview.setMediaController(new MediaController(this));
-//        url="rtsp://172.16.202.5:1935/vod/sample.mp4";
+
+        if (!url.startsWith("http://"))
+            url = "http://" + url;
         videoview.setVideoURI(Uri.parse(url));
         videoview.setOnErrorListener(listener);
 //        videoview.setOnSeekChangeListener(new OnSeekChangeListener() {
@@ -79,18 +80,18 @@ public class PlayerActivity extends BaseActivity {
 //            }
 //        });
 
-        videoview.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mediaPlayer) {
-                progress.setVisibility(View.GONE);
-                if (mPosition > 0) {
-                    videoview.seekTo(mPosition);
-                } else {
-                    videoview.seekTo(1);
-                }
-                videoview.start();
-            }
-        });
+//        videoview.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+//            @Override
+//            public void onPrepared(MediaPlayer mediaPlayer) {
+//                progress.setVisibility(View.GONE);
+//                if (mPosition > 0) {
+//                    videoview.seekTo(mPosition);
+//                } else {
+//                    videoview.seekTo(1);
+//                }
+//                videoview.start();
+//            }
+//        });
 
         videoview.start();
 

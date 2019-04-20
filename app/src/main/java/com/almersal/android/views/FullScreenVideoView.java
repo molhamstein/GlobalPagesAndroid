@@ -6,9 +6,6 @@ import android.widget.VideoView;
 
 import com.almersal.android.listeners.OnSeekChangeListener;
 
-/**
- * Created by Adhamkh on 2019-04-18.
- */
 
 public class FullScreenVideoView extends VideoView {
 

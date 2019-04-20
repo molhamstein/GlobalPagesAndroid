@@ -109,7 +109,7 @@ class BusinessGuideAddViewHolder constructor(view: View,
         businessGuideModel.nameEn = businessName.text.toString()
 
         for (item in (businessImages.adapter as AttachmentRecyclerViewAdapter).attachmentList) {
-            businessGuideModel.covers.add(MediaEntity(item.name))
+            businessGuideModel.covers.add(MediaEntity(item.name, item.type, item.thumbnail))
         }
 
         businessGuideModel.phone1 = phoneNumber.text.toString()
@@ -162,7 +162,9 @@ class BusinessGuideAddViewHolder constructor(view: View,
 
         businessName.setText(businessGuide.nameEn)
 
-        businessImages.adapter = AttachmentRecyclerViewAdapter(context, businessGuide.covers.map { Attachment(it.url) }.toMutableList())
+        businessImages.adapter = AttachmentRecyclerViewAdapter(context, businessGuide.covers.map {
+            Attachment(it.url, it.type, it.thumbnail)
+        }.toMutableList())
 
         phoneNumber.setText(businessGuide.phone1)
         phoneNumber2.setText(businessGuide.phone2)

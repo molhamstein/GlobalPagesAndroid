@@ -641,14 +641,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         mBottomSheetBehavior.setPeekHeight((int) (Utility.convertDpToPixel(194, this)));
         mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            /**
-             * Called when the bottom sheet changes its state.
-             *
-             * @param bottomSheet The bottom sheet view.
-             * @param newState    The new state. This will be one of {@link #STATE_DRAGGING},
-             *                    {@link #STATE_SETTLING}, {@link #STATE_EXPANDED},
-             *                    {@link #STATE_COLLAPSED}, or {@link #STATE_HIDDEN}.
-             */
+
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
 

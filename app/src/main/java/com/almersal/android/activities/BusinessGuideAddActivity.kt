@@ -10,14 +10,12 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.TextView
+import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
-import com.almersal.android.R
-import com.google.android.gms.location.places.ui.PlacePicker
-import android.widget.Toast
 import butterknife.Optional
+import com.almersal.android.R
 import com.almersal.android.adapters.*
 import com.almersal.android.data.entities.*
 import com.almersal.android.data.entitiesModel.BusinessGuideEditModel
@@ -28,6 +26,7 @@ import com.almersal.android.di.module.TagsCollectionModule
 import com.almersal.android.di.ui.*
 import com.almersal.android.dialogs.OpenDaysDialog
 import com.almersal.android.dialogs.ProgressDialog
+import com.almersal.android.enums.MediaTypeEnum
 import com.almersal.android.eventsBus.EventActions
 import com.almersal.android.eventsBus.MessageEvent
 import com.almersal.android.eventsBus.RxBus
@@ -43,13 +42,13 @@ import com.almersal.android.viewModel.BusinessGuideAddViewHolder
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
 import com.brainsocket.mainlibrary.Listeners.OnRefreshLayoutListener
 import com.brainsocket.mainlibrary.Views.Stateslayoutview
-import javax.inject.Inject
-
-import com.fxn.pix.Pix
-import com.fxn.utility.PermUtil
 import com.github.florent37.viewanimator.ViewAnimator
+import com.google.android.gms.location.places.ui.PlacePicker
 import com.google.gson.Gson
 import java.io.File
+import javax.inject.Inject
+import com.fxn.pix.Pix
+import com.fxn.utility.PermUtil
 
 class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, AttachmentContract.View
         , BusinessGuidesContract.View, OnCategorySelectListener, OnSubCategorySelectListener
@@ -464,8 +463,9 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
         Log.v("", "")
     }
 
-    override fun onLoadAttachmentListSuccessfully(filePath: String) {
-        (businessImages.adapter as AttachmentRecyclerViewAdapter).addItem(Attachment(filePath))
+    override fun onLoadAttachmentListSuccessfully(filePath: String, thumbnail: String) {
+        (businessImages.adapter as AttachmentRecyclerViewAdapter)
+                .addItem(Attachment(filePath, MediaTypeEnum.IMAGES.type, thumbnail))
         Toast.makeText(baseContext, R.string.uploadFileSuccessfully, Toast.LENGTH_LONG).show()
         Log.v("", "")
     }

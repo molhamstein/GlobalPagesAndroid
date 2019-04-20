@@ -16,11 +16,9 @@ import com.almersal.android.api.ServerInfo
 import com.almersal.android.data.entities.BusinessGuide
 import com.almersal.android.data.entities.ProductThumb
 import com.almersal.android.data.entitiesModel.ProductThumbEditModel
-import com.almersal.android.data.entitiesModel.ProductThumbModel
 import com.almersal.android.di.component.DaggerProductAddCommponent
 import com.almersal.android.di.module.AttachmentModule
 import com.almersal.android.di.module.BusinessGuideProductModule
-import com.almersal.android.di.module.TagsCollectionModule
 import com.almersal.android.di.ui.AttachmentContract
 import com.almersal.android.di.ui.AttachmentPresenter
 import com.almersal.android.di.ui.BusinessGuideProductContract
@@ -32,12 +30,11 @@ import com.almersal.android.eventsBus.RxBus
 import com.almersal.android.repositories.UserRepository
 import com.almersal.android.utilities.BindingUtils
 import com.almersal.android.viewModel.BusinessGuideProductViewHolder
-import javax.inject.Inject
-
-import com.fxn.pix.Pix
-import com.fxn.utility.PermUtil
 import com.google.gson.Gson
 import java.io.File
+import javax.inject.Inject
+import com.fxn.pix.Pix
+import com.fxn.utility.PermUtil
 
 class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuideProductContract.View {
     companion object {
@@ -195,7 +192,7 @@ class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuid
         businessGuideProductProductViewHolder.bind(productThumb)
         Toast.makeText(baseContext, R.string.productAddedSuccessfully, Toast.LENGTH_LONG).show()
         RxBus.publish(MessageEvent(EventActions.ProductAddActivity_Tag, businessGuideProductProductViewHolder.getProductThumbModel()))
-   finish()
+        finish()
     }
 
     override fun onAddProductFail() {
@@ -248,7 +245,7 @@ class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuid
 
     }
 
-    override fun onLoadAttachmentListSuccessfully(filePath: String) {
+    override fun onLoadAttachmentListSuccessfully(filePath: String, thumbnail: String) {
         BindingUtils.loadImage(productImage, filePath)
         businessGuideProductProductViewHolder.productImageTag.text = (filePath)
 

@@ -81,11 +81,11 @@ class DummyDataRepositories {
 //            add(TagEntity("سيارات", "Cars"))
 //        }
 
-        fun getMediaList() = mutableListOf<MediaEntity>().apply {
-            add(MediaEntity("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg"))
-            add(MediaEntity("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg"))
-            add(MediaEntity("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg"))
-        }
+//        fun getMediaList() = mutableListOf<MediaEntity>().apply {
+//            add(MediaEntity("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg"))
+//            add(MediaEntity("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg"))
+//            add(MediaEntity("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg"))
+//        }
 
         fun getPostList() = mutableListOf<Post>().apply {
             add(Post("mercedes E350", "نضيفة خالية برا جوا زنار نضافة", "activated",

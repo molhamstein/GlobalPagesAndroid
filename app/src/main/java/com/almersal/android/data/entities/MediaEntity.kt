@@ -8,8 +8,14 @@ class MediaEntity {
 
     constructor()
 
-    constructor(url: String) {
+//    constructor(url: String) {
+//        this.url = url
+//    }
+
+    constructor(url: String, type: String, thumbnail: String) {
         this.url = url
+        this.type = type
+        this.thumbnail = thumbnail
     }
 
 
