@@ -154,5 +154,7 @@
     <string name="enterNumber">أدخل الرقم</string>
     <string name="Videos">فيديوهات</string>
     <string name="cantPlayThisVideo">لايمكن تشغيل الفيديو</string>
+    <string name="noApplicationToOpenEmail">No application found to open email</string>
+    <string name="NewVolumeAdded">New volume added</string>
 
 </resources>

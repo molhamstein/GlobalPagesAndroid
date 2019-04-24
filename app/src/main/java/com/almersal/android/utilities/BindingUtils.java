@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.almersal.android.R;
 import com.almersal.android.configrations.GlideApp;
@@ -22,8 +21,6 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 
-import jp.wasabeef.glide.transformations.BlurTransformation;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 
@@ -102,6 +99,18 @@ public class BindingUtils {
     public static void loadMediaImage(ImageView imageView, MediaEntity mediaEntity) {
         try {
             String url = /* ServerInfo.Companion.getImagesBaseUrl() +*/ mediaEntity.getUrl();
+            if (!url.startsWith("http"))
+                url = "http://" + url;
+            Context context = imageView.getContext();
+            GlideApp.with(context).load(url).error(R.drawable.ic_launcher_web)
+                    .placeholder(R.drawable.ic_launcher_web).into(imageView);
+        } catch (Exception ex) {
+            Log.v("image load", ex.getMessage());
+        }
+    }
+
+    public static void loadMediaImage(ImageView imageView, String url) {
+        try {
             if (!url.startsWith("http"))
                 url = "http://" + url;
             Context context = imageView.getContext();

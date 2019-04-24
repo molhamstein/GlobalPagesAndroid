@@ -1,13 +1,12 @@
 package com.almersal.android.di.ui
 
 import android.content.Context
-import com.androidnetworking.error.ANError
-import com.androidnetworking.interfaces.ParsedRequestListener
 import com.almersal.android.api.ApiService
 import com.almersal.android.api.ServerInfo
 import com.almersal.android.data.entities.Volume
+import com.androidnetworking.error.ANError
+import com.androidnetworking.interfaces.ParsedRequestListener
 import io.reactivex.disposables.CompositeDisposable
-import java.util.HashMap
 
 class VolumesPresenter constructor(val context: Context) : VolumesContract.Presenter {
 
@@ -104,7 +103,31 @@ class VolumesPresenter constructor(val context: Context) : VolumesContract.Prese
     }
 
     override fun loadVolumeById(id: String) {
-//        ApiService().getVolumes(ServerInfo.VolumeUrl,)
+        ApiService().getVolumes(ServerInfo.volumeUrl +
+                "?filter[where][status]=activated&filter[where][id]=" + id
+                , object : ParsedRequestListener<MutableList<Volume>> {
+            override fun onResponse(response: MutableList<Volume>?) {
+                if ((response != null)) {
+                    val poJo = response.firstOrNull()
+                    if (poJo != null) {
+                        view.showProgress(false)
+                        view.loadedData(poJo)
+                        view.enablePrev()
+                        return
+                    } else {
+                        view.disablePrev()
+                        view.showProgress(false)
+                    }
+                }
+                view.disablePrev()
+                view.showProgress(false)
+            }
+
+            override fun onError(anError: ANError?) {
+                view.showLoadErrorMessage(true)
+            }
+        })
+
     }
 
 }

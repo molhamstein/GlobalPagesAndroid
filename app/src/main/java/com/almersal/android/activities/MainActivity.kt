@@ -1,8 +1,6 @@
 package com.almersal.android.activities
 
-import android.animation.ValueAnimator
 import android.os.Bundle
-import android.os.Handler
 import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.*
 import android.util.Log
@@ -10,7 +8,9 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import butterknife.*
+import butterknife.BindView
+import butterknife.ButterKnife
+import butterknife.OnClick
 import com.almersal.android.R
 import com.almersal.android.adapters.PostRecyclerViewAdapter
 import com.almersal.android.adapters.PostSliderRecyclerViewAdapter
@@ -189,26 +189,39 @@ class MainActivity : BaseActivity(), VolumesContract.View,
         }
 
 
+        Thread({
+            var fin = false
+            try {
+                while (true) {
+                    if (fin)
+                        break
 
-
-        Handler().postDelayed({
-            val btn: View = findViewById(R.id.addPostBtn)
-            ViewAnimator.animate(btn).rotation(180f, 0.0f/*Math.PI.toFloat()*/).scale(0.5f, 1.0f)
+                    runOnUiThread {
+                        fin = isFinishing
+                        val btn: View = findViewById(R.id.addPostBtn)
+                        ViewAnimator.animate(btn).rotation(180f, 0.0f/*Math.PI.toFloat()*/)
+                                .scale(0.5f, 1.0f)
+                                .duration(200)
+                                .onStart {
+                                    addPostBtnContainer.startRippleAnimation()
+                                }
+                                .onStop {
+                                    addPostBtnContainer.stopRippleAnimation()
+                                }
+                                .start()
 //                    .flash()
-                    .duration(500)
-//                .repeatCount(-1)
-//                .repeatMode(ValueAnimator.REVERSE)
-                    .onStart {
-                        addPostBtnContainer.startRippleAnimation()
+//                    .repeatCount(-1)
+//                    .repeatMode(ValueAnimator.REVERSE)
+//                    .startDelay(5000)
+//                    .startDelay(5000)
                     }
-                    .onStop {
-                        addPostBtnContainer.stopRippleAnimation()
-                    }
-//                .startDelay(5000)
-                    .start()
-//                .startDelay(5000)
-
-        }, 2000)
+                    Thread.sleep(5000)
+                }
+            } catch (ex: Exception) {
+                Log.v("", "")
+                Log.v("", "")
+            }
+        }).start()
 
 
     }

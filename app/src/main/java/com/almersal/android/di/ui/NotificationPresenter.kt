@@ -61,6 +61,11 @@ class NotificationPresenter constructor(val context: Context) : NotificationCont
         requestData(url = url)
     }
 
+    override fun loadNotifications() {
+        val url = ServerInfo.notificationUrl
+        requestData(url = url)
+    }
+
     override fun setNotificationSeen(notificationIds: MutableList<String>) {
         val url = ServerInfo.notificationSeenUrl
         val token = UserRepository(context).getUser()!!.token

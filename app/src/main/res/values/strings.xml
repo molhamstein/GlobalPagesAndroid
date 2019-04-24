@@ -157,6 +157,8 @@
     <string name="enterNumber">Enter number</string>
     <string name="Videos">Videos</string>
     <string name="cantPlayThisVideo">Can\'t play this video</string>
+    <string name="noApplicationToOpenEmail">No application found to open email</string>
+    <string name="NewVolumeAdded">New volume added</string>
 
 
 </resources>

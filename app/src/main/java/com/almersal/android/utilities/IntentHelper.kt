@@ -2,16 +2,15 @@ package com.almersal.android.utilities
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Picture
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.widget.Toast
+import com.almersal.android.R
 import com.almersal.android.activities.*
 import com.almersal.android.data.entities.*
-import com.google.gson.Gson
-import android.support.v4.content.ContextCompat.startActivity
-import com.almersal.android.R
 import com.almersal.android.enums.FilterType
+import com.google.gson.Gson
 
 
 class IntentHelper {
@@ -223,6 +222,13 @@ class IntentHelper {
             context.startActivity(intent)
         }
 
+        fun startPictureListActivity(context: Context, mediaEntityList: MutableList<MediaEntity>) {
+            val intent = Intent(context, PicturesListActivity::class.java)
+            intent.putExtra(PicturesListActivity.PicturesListActivity_Tag, Gson().toJson(mediaEntityList))
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
+
         fun startPlayerActivity(context: Context, url: String) {
             val intent = Intent(context, PlayerActivity::class.java)
             intent.putExtra(PlayerActivity.PlayerActivity_URL_TAG, url)
@@ -237,22 +243,34 @@ class IntentHelper {
         }
 
         fun startEmailAddress(context: Context, email: String) {
-            val intent = Intent(Intent.ACTION_SENDTO)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            intent.type = "text/plain"
-            intent.data = Uri.parse("mailto:" + email)
-            intent.putExtra(Intent.EXTRA_EMAIL, email)
-            intent.putExtra(Intent.EXTRA_SUBJECT, "")
-            intent.putExtra(Intent.EXTRA_TEXT, "")
-
-            context.startActivity(Intent.createChooser(intent,
-                    context.resources.getString(R.string.SendMail)))
+            try {
+                val intent = Intent(Intent.ACTION_SENDTO)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                intent.type = "text/plain"
+                intent.data = Uri.parse("mailto:" + email)
+                intent.putExtra(Intent.EXTRA_EMAIL, email)
+                intent.putExtra(Intent.EXTRA_SUBJECT, "")
+                intent.putExtra(Intent.EXTRA_TEXT, "")
+                val intent2 = Intent.createChooser(intent,
+                        context.resources.getString(R.string.SendMail))
+                intent2.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                context.startActivity(intent2)
+            } catch (ex: Exception) {
+                Toast.makeText(context, R.string.noApplicationToOpenEmail, Toast.LENGTH_LONG).show()
+            }
         }
 
         fun startWebSite(context: Context, site: String) {
             val intent = Intent(context, WebViewActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             intent.putExtra(WebViewActivity.WebViewActivity_Tag, site)
+            context.startActivity(intent)
+        }
+
+        fun startVolumesActivity(context: Context, id: String) {
+            val intent = Intent(context, VolumesActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            intent.putExtra(VolumesActivity.VolumesActivity_Tag, id)
             context.startActivity(intent)
         }
 

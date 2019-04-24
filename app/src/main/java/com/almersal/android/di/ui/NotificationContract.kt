@@ -9,6 +9,8 @@ class NotificationContract {
         fun loadUnSeenNotifications(userId: String)
         fun loadNotifications(userId: String)
 
+        fun loadNotifications()
+
         fun setNotificationSeen(notificationIds: MutableList<String>)
 
         fun registerFireBaseToken(fireBaseToken: String, token: String)

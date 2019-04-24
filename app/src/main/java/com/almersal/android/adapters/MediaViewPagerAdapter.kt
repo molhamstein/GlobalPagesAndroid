@@ -28,8 +28,10 @@ class MediaViewPagerAdapter constructor(var context: Context, private var mediaL
         view.setOnClickListener {
             if (videoImageView.visibility == View.VISIBLE)
                 IntentHelper.startPlayerActivity(context, poJo.url)
-            else
-                IntentHelper.startPictureActivity(context, poJo.url)
+            else {
+                IntentHelper.startPictureListActivity(context, mediaList)
+//                IntentHelper.startPictureActivity(context, poJo.url)
+            }
         }
 
         container.addView(view)

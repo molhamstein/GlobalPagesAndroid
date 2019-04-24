@@ -6,5 +6,11 @@ class NotificationEntity {
     var message: String = ""
     var _type: String = ""
     var seen: Boolean = false
+    var data: DataClass = DataClass()
+    var creationDate: String = ""
+
+    class DataClass {
+        var volumeId: String = ""
+    }
 
 }

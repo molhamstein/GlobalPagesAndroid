@@ -58,6 +58,7 @@ class NotificationActivity : BaseActivity(), NotificationContract.View {
         presenter.subscribe()
         val user: User = UserRepository(this).getUser()!!
         presenter.loadNotifications(userId = user.id!!)
+        presenter.loadNotifications()
     }
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {

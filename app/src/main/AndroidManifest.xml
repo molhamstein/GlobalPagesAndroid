@@ -217,11 +217,22 @@
 
         </activity>
 
+        <activity
+            android:name=".activities.PicturesListActivity"
+            android:launchMode="singleInstance"
+            android:theme="@style/Theme.Transparent">
+
+        </activity>
+
         <activity android:name=".activities.WebViewActivity">
 
         </activity>
 
         <activity android:name=".activities.NotificationActivity">
+
+        </activity>
+
+        <activity android:name=".activities.VolumesActivity">
 
         </activity>
 
