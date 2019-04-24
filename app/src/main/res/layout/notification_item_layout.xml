@@ -6,11 +6,14 @@
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/notificationName"
-        style="@style/AppTheme.MediumTextAppearance"
+        style="@style/AppTheme.SmallButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/cairo_bold"
-        android:textColor="@color/black"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="start"
+        android:textColor="@color/grayDarkTextColor"
         app:fontFamily="@font/cairo_regular" />
 
     <android.support.v7.widget.AppCompatTextView
@@ -19,10 +22,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/cairo_bold"
-        android:textColor="@color/black"
+        android:textColor="@color/grayDarkTextColor"
         app:fontFamily="@font/cairo_regular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notificationName" />
+        app:layout_constraintTop_toTopOf="@+id/notificationName" />
 
 </android.support.constraint.ConstraintLayout>
