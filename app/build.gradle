@@ -111,6 +111,8 @@ dependencies {
     implementation 'com.github.florent37:viewanimator:1.0.5'
     implementation 'com.skyfishjy.ripplebackground:library:1.0.1'
 
+    implementation 'de.mrmaffen:vlc-android-sdk:2.0.6'
+
     implementation project(':mediaPickerLibary')
     implementation project(':mainlibrary')
     implementation project(':ninepatchlibrary')
