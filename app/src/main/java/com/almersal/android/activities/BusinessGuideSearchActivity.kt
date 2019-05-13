@@ -479,9 +479,9 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
 
     /*Tags Presenter started*/
     override fun onBusinessCategoriesLoaded(categoriesList: MutableList<BusinessGuideCategory>) {
-        val categoryFilterBottomSheet = CategoryFilterBottomSheet.getNewInstance(categoriesList.toMutableList(), this)
-        categoryFilterBottomSheet.show(supportFragmentManager, CategoryFilterBottomSheet.CategoryFilterBottomSheet_Tag)
-        Log.v("", "")
+//        val categoryFilterBottomSheet = CategoryFilterBottomSheet.getNewInstance(categoriesList.toMutableList(), this)
+//        categoryFilterBottomSheet.show(supportFragmentManager, CategoryFilterBottomSheet.CategoryFilterBottomSheet_Tag)
+//        Log.v("", "")
     }
     /*Tags Presenter ended*/
 

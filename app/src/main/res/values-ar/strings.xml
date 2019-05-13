@@ -155,6 +155,6 @@
     <string name="Videos">فيديوهات</string>
     <string name="cantPlayThisVideo">لايمكن تشغيل الفيديو</string>
     <string name="noApplicationToOpenEmail">No application found to open email</string>
-    <string name="NewVolumeAdded">تقد هذه الاعلانات التي تهمك في هذا العدد الجديد</string>
+    <string name="NewVolumeAdded">تفقد هذه الاعلانات التي تهمك في هذا العدد الجديد</string>
 
 </resources>
