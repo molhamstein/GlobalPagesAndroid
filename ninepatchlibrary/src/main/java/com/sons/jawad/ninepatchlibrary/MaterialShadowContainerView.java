@@ -171,7 +171,7 @@ public class MaterialShadowContainerView extends FrameLayout {
             }
 
             if (mUseSpotShadow && (mCurrentSpotShadowDrawable1 != null || mCurrentSpotShadowDrawable2 != null)) {
-                final int savedCount = canvas.save(Canvas.MATRIX_SAVE_FLAG);
+                final int savedCount = canvas.save();
 
                 canvas.translate(mSpotShadowTranslationX, mSpotShadowTranslationY);
 

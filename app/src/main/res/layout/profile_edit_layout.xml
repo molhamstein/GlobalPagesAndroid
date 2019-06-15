@@ -40,6 +40,7 @@
 
 
                 <android.support.v7.widget.AppCompatImageView
+                    app:layout_constraintTop_toTopOf="parent"
                     android:id="@+id/profileImage"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
@@ -108,6 +109,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:baselineAligned="false"
+                    android:visibility="gone"
                     android:orientation="horizontal"
                     app:layout_constraintTop_toBottomOf="@+id/phoneLayout">
 
@@ -200,6 +202,7 @@
 
 
                 <TextView
+                    app:layout_constraintTop_toTopOf="parent"
                     android:id="@+id/imageProfileUrl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -214,6 +217,7 @@
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
                         android:layout_marginTop="@dimen/md_margin">
 
                         <!--<com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView-->
@@ -288,6 +292,7 @@
 
                         <android.support.v7.widget.AppCompatButton
                             android:id="@+id/updateProfileBtn"
+                            app:layout_constraintTop_toTopOf="parent"
                             style="@style/AppTheme.SmallButtonStyle"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/sm_btn_height"

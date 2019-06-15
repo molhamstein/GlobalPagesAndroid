@@ -7,11 +7,25 @@
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/notificationName"
         style="@style/AppTheme.MediumTextAppearance"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/cairo_bold"
+        android:fontFamily="@font/cairo_regular"
         android:textColor="@color/black"
-        app:fontFamily="@font/cairo_regular" />
+        app:layout_constraintEnd_toStartOf="@+id/deleteBtn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/deleteBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/deleteBtn"
+        android:layout_width="@dimen/iconWidth"
+        android:layout_height="@dimen/iconHeight"
+        android:padding="@dimen/sm_padding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_delete_black_24dp" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/notificationDate"

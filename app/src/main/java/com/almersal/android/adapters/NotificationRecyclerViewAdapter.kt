@@ -3,10 +3,14 @@ package com.almersal.android.adapters
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.almersal.android.R
 import com.almersal.android.data.entities.NotificationEntity
 import com.almersal.android.enums.NotificationsTypeEnum
+import com.almersal.android.eventsBus.EventActions
+import com.almersal.android.eventsBus.MessageEvent
+import com.almersal.android.eventsBus.RxBus
 import com.almersal.android.utilities.IntentHelper
 import com.almersal.android.viewHolders.NotificationViewHolder
 
@@ -22,6 +26,9 @@ class NotificationRecyclerViewAdapter constructor(val context: Context, private 
     override fun onBindViewHolder(holder: NotificationViewHolder, position: Int) {
         val poJo: NotificationEntity = notificationList[position]
         holder.bind(poJo)
+        holder.itemView.findViewById<View>(R.id.deleteBtn).setOnClickListener {
+            RxBus.publish(MessageEvent(EventActions.Notification_Delete_By_Id, poJo.id))
+        }
         holder.itemView.setOnClickListener {
             when (poJo._type) {
                 NotificationsTypeEnum.ADD_NEW_VOLUME.type -> {
@@ -29,6 +36,7 @@ class NotificationRecyclerViewAdapter constructor(val context: Context, private 
                 }
             }
         }
+
     }
 
     override fun getItemCount(): Int = notificationList.size

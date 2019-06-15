@@ -9,8 +9,8 @@ class SignUpModel {
     var email: String = ""
     var username: String? = null
     var password: String = ""
-    var gender: String? = UserGender.male.gender
-    var birthdate: String? = DateNormalizer.getCanonicalDateTimeFormat(Calendar.getInstance().time)
+//    var gender: String? = UserGender.male.gender
+//    var birthdate: String? = DateNormalizer.getCanonicalDateTimeFormat(Calendar.getInstance().time)
     var phoneNumber: String = ""
 
     var termAndCondition: Boolean = false

@@ -55,8 +55,8 @@ class ProfileEditActivity : BaseActivity(), ProfileContract.View, AttachmentCont
     @BindView(R.id.stateLayout)
     lateinit var stateLayout: Stateslayoutview
 
-    @BindView(R.id.genderTabLayout)
-    lateinit var genderTabLayout: TabLayout
+//    @BindView(R.id.genderTabLayout)
+//    lateinit var genderTabLayout: TabLayout
 
     @BindView(R.id.toolbar)
     lateinit var toolBar: Toolbar
@@ -87,34 +87,34 @@ class ProfileEditActivity : BaseActivity(), ProfileContract.View, AttachmentCont
     }
 
     private fun initTabLayout() {
-        val maleTab = genderTabLayout.newTab().setCustomView(CustomTabView(context = baseContext)
-                .setGender(R.string.male, R.mipmap.ic_male_24dp)).setText(R.string.male)
-        val femaleTab = genderTabLayout.newTab().setCustomView(CustomTabView(context = baseContext)
-                .setGender(R.string.female, R.mipmap.ic_female_24dp)).setText(R.string.female)
-
-        genderTabLayout.addTab(maleTab)
-        genderTabLayout.addTab(femaleTab)
-
-        genderTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-                Log.v("", "")
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-                tab?.customView?.findViewById<TextView>(android.R.id.text1)
-                        ?.setTextColor(ContextCompat.getColor(baseContext, R.color.grayDarkTextColor))
-                tab?.customView?.findViewById<ImageView>(R.id.gender_icon)?.alpha = 0.3f
-            }
-
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                tab?.customView?.findViewById<TextView>(android.R.id.text1)
-                        ?.setTextColor(ContextCompat.getColor(baseContext, R.color.black))
-                tab?.customView?.findViewById<ImageView>(R.id.gender_icon)?.alpha = 1.0f
-            }
-        })
-
-        femaleTab.select()
-        maleTab.select()
+//        val maleTab = genderTabLayout.newTab().setCustomView(CustomTabView(context = baseContext)
+//                .setGender(R.string.male, R.mipmap.ic_male_24dp)).setText(R.string.male)
+//        val femaleTab = genderTabLayout.newTab().setCustomView(CustomTabView(context = baseContext)
+//                .setGender(R.string.female, R.mipmap.ic_female_24dp)).setText(R.string.female)
+//
+//        genderTabLayout.addTab(maleTab)
+//        genderTabLayout.addTab(femaleTab)
+//
+//        genderTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+//            override fun onTabReselected(tab: TabLayout.Tab?) {
+//                Log.v("", "")
+//            }
+//
+//            override fun onTabUnselected(tab: TabLayout.Tab?) {
+//                tab?.customView?.findViewById<TextView>(android.R.id.text1)
+//                        ?.setTextColor(ContextCompat.getColor(baseContext, R.color.grayDarkTextColor))
+//                tab?.customView?.findViewById<ImageView>(R.id.gender_icon)?.alpha = 0.3f
+//            }
+//
+//            override fun onTabSelected(tab: TabLayout.Tab?) {
+//                tab?.customView?.findViewById<TextView>(android.R.id.text1)
+//                        ?.setTextColor(ContextCompat.getColor(baseContext, R.color.black))
+//                tab?.customView?.findViewById<ImageView>(R.id.gender_icon)?.alpha = 1.0f
+//            }
+//        })
+//
+//        femaleTab.select()
+//        maleTab.select()
 
     }
 
@@ -126,8 +126,8 @@ class ProfileEditActivity : BaseActivity(), ProfileContract.View, AttachmentCont
                     date.set(Calendar.YEAR, year)
                     date.set(Calendar.MONTH, month)
                     date.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                    profileEditViewHolder.birthDate.setText(DateNormalizer.getCanonicalDateFormat(date = date.time))
-                    profileEditViewHolder.birthDateLayout.error = null
+//                    profileEditViewHolder.birthDate.setText(DateNormalizer.getCanonicalDateFormat(date = date.time))
+//                    profileEditViewHolder.birthDateLayout.error = null
                 }
                 , date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH))
         datePicker.show()
@@ -194,11 +194,11 @@ class ProfileEditActivity : BaseActivity(), ProfileContract.View, AttachmentCont
         }
     }
 
-    @Optional
-    @OnClick(R.id.birthDateLayout, R.id.birthDate)
-    fun onBirthDateClick(view: View) {
-        initDatePicker()
-    }
+//    @Optional
+//    @OnClick(R.id.birthDateLayout, R.id.birthDate)
+//    fun onBirthDateClick(view: View) {
+//        initDatePicker()
+//    }
 
     @OnClick(R.id.profileImage)
     fun onProfileImageClick(view: View) {

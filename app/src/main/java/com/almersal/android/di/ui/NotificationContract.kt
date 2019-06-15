@@ -1,5 +1,6 @@
 package com.almersal.android.di.ui
 
+import android.content.Context
 import com.almersal.android.data.entities.NotificationEntity
 
 
@@ -7,9 +8,14 @@ class NotificationContract {
 
     interface Presenter : BaseContract.Presenter<View> {
         fun loadUnSeenNotifications(userId: String)
+
         fun loadNotifications(userId: String)
 
         fun loadNotifications()
+
+        fun clearAllNotifications(context: Context)
+
+        fun deleteNotificationById(notificationId: String)
 
         fun setNotificationSeen(notificationIds: MutableList<String>)
 
@@ -27,6 +33,14 @@ class NotificationContract {
 
         fun onRegisterFireBaseTokenSuccessfully() {}
         fun onRegisterFireBaseTokenFailed() {}
+
+        fun onNotificationsDeleteProgress(show: Boolean) {}
+        fun onNotificationsClearedSuccessfully() {}
+        fun onNotificationsClearFailed() {}
+
+        fun onNotificationDeleteSuccessfully() {}
+        fun onNotificationDeleteFailed() {}
+
     }
 
 }
