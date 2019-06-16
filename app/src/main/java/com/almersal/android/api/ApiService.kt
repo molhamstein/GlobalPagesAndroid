@@ -310,7 +310,7 @@ class ApiService {
                 .setContentType("application/json")
                 .addHeaders("Authorization", token)
                 .setPriority(Priority.HIGH)
-                .addBodyParameter(notificationIds)
+                .addBodyParameter("notifications",notificationIds)
                 .setPriority(Priority.HIGH)
                 .build()
                 .getAsObject(NotificationReadedResponse::class.java, requestListener)
