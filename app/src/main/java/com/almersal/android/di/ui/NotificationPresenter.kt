@@ -94,7 +94,7 @@ class NotificationPresenter constructor(val context: Context) : NotificationCont
     }
 
     override fun loadNotifications() {
-        val url = ServerInfo.notificationUrl
+        val url = ServerInfo.notificationUrl + "?filter[order]=creationDate%20DESC"
         requestData(url = url)
     }
 
