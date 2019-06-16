@@ -154,7 +154,7 @@
     <string name="enterNumber">أدخل الرقم</string>
     <string name="Videos">فيديوهات</string>
     <string name="cantPlayThisVideo">لايمكن تشغيل الفيديو</string>
-<<<<<<< HEAD
+
     <string name="noApplicationToOpenEmail">لايوجد تطبيق لفتح البريد الإلكتروني</string>
     <string name="NewVolumeAdded">تم إضافة مجموعة جديدة</string>
     <string name="delete">حذف</string>
@@ -163,9 +163,9 @@
     <string name="notificationDeleteSuccessfully">تم حذف التنبيه بنجاح</string>
     <string name="notificationsDeleteFailed">فشل حذف التنبيه</string>
     <string name="notificationDeleteFailed">فشل حذف التنبيه</string>
-=======
+
     <string name="noApplicationToOpenEmail">No application found to open email</string>
     <string name="NewVolumeAdded">تفقد هذه الاعلانات التي تهمك في هذا العدد الجديد</string>
->>>>>>> d3175102c82b728f5de27cc65deefb985f3274f9
+
 
 </resources>

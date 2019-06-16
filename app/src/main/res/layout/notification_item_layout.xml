@@ -26,18 +26,19 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_delete_black_24dp" />
-=======
+
+    <android.support.v7.widget.AppCompatTextView
         style="@style/AppTheme.TextAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/cairo_bold"
-        android:padding="16dp"
-        android:gravity="start"
         android:layout_marginEnd="100dp"
         android:layout_marginRight="100dp"
+        android:fontFamily="@font/cairo_bold"
+        android:gravity="start"
+        android:padding="16dp"
         android:textColor="@color/grayDarkTextColor"
-        app:fontFamily="@font/cairo_regular" />
->>>>>>> d3175102c82b728f5de27cc65deefb985f3274f9
+        app:fontFamily="@font/cairo_regular"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/notificationDate"
