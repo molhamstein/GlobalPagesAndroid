@@ -6,7 +6,6 @@
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/notificationName"
-<<<<<<< HEAD
         style="@style/AppTheme.MediumTextAppearance"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

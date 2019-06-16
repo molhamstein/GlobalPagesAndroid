@@ -52,12 +52,12 @@ class NotificationPresenter constructor(val context: Context) : NotificationCont
     }
 
     override fun loadUnSeenNotifications(userId: String) {
-        val url = ServerInfo.notificationUrl + "?filter[where][recipientId]=" + userId + "&filter[where][seen]=false"
+        val url = ServerInfo.notificationUrl + "?filter[where][recipientId]=" + userId + "&filter[where][seen]=false&filter[order]=creationDate%20DESC"
         requestData(url = url)
     }
 
     override fun loadNotifications(userId: String) {
-        val url = ServerInfo.notificationUrl + "?filter[where][recipientId]=" + userId //+ "&filter[where][seen]=false"
+        val url = ServerInfo.notificationUrl + "?filter[where][recipientId]=" + userId + "&filter[order]=creationDate%20DESC" //+ "&filter[where][seen]=false"
         requestData(url = url)
     }
 
