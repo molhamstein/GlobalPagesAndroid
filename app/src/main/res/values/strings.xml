@@ -158,7 +158,7 @@
     <string name="Videos">Videos</string>
     <string name="cantPlayThisVideo">Can\'t play this video</string>
     <string name="noApplicationToOpenEmail">No application found to open email</string>
-    <string name="NewVolumeAdded">New volume added</string>
+    <!--<string name="NewVolumeAdded">New volume added</string>-->
     <string name="delete">delete</string>
     <string name="doYouWantDeleteAllNotifications">Do you want delete all notifications</string>
     <string name="notificationsDeleteSuccessfully">Notifications delete successfully</string>
@@ -166,7 +166,7 @@
     <string name="notificationsDeleteFailed">Notifications delete failed</string>
     <string name="notificationDeleteFailed">Notification delete failed</string>
 
-    <string name="NewVolumeAdded">There is some ads that might interist you in this new volume</string>
+    <string name="NewVolumeAdded">There is some ads that might interest you in this new volume</string>
 
 
 

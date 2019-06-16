@@ -156,7 +156,7 @@
     <string name="cantPlayThisVideo">لايمكن تشغيل الفيديو</string>
 
     <string name="noApplicationToOpenEmail">لايوجد تطبيق لفتح البريد الإلكتروني</string>
-    <string name="NewVolumeAdded">تم إضافة مجموعة جديدة</string>
+    <!--<string name="NewVolumeAdded">تم إضافة مجموعة جديدة</string>-->
     <string name="delete">حذف</string>
     <string name="doYouWantDeleteAllNotifications">هل تريد حذف كل التنبيهات</string>
     <string name="notificationsDeleteSuccessfully">تم حذف التنبيهات بنجاح</string>
@@ -164,7 +164,7 @@
     <string name="notificationsDeleteFailed">فشل حذف التنبيه</string>
     <string name="notificationDeleteFailed">فشل حذف التنبيه</string>
 
-    <string name="noApplicationToOpenEmail">No application found to open email</string>
+    <!--<string name="noApplicationToOpenEmail">No application found to open email</string>-->
     <string name="NewVolumeAdded">تفقد هذه الاعلانات التي تهمك في هذا العدد الجديد</string>
 
 
