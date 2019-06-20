@@ -304,13 +304,13 @@ class ApiService {
                 .getAsObjectList(NotificationEntity::class.java, requestListener)
     }
 
-    fun getNotificationsSeen(url: String, notificationIds: MutableList<String>, token: String,
+    fun setNotificationsSeen(url: String, notificationIds: MutableList<String>, token: String,
                              requestListener: ParsedRequestListener<NotificationReadedResponse>) {
         AndroidNetworking.post(url)
                 .setContentType("application/json")
                 .addHeaders("Authorization", token)
                 .setPriority(Priority.HIGH)
-                .addBodyParameter("notifications",notificationIds)
+                .addBodyParameter("notifications",notificationIds.toString())
                 .setPriority(Priority.HIGH)
                 .build()
                 .getAsObject(NotificationReadedResponse::class.java, requestListener)

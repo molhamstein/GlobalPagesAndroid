@@ -69,7 +69,7 @@ class NotificationPresenter constructor(val context: Context) : NotificationCont
     override fun setNotificationSeen(notificationIds: MutableList<String>) {
         val url = ServerInfo.notificationSeenUrl
         val token = UserRepository(context).getUser()!!.token
-        ApiService().getNotificationsSeen(url = url, notificationIds = notificationIds, token = token,
+        ApiService().setNotificationsSeen(url = url, notificationIds = notificationIds, token = token,
                 requestListener = object : ParsedRequestListener<NotificationReadedResponse> {
                     override fun onResponse(response: NotificationReadedResponse?) {
                         view.onNotificationSetSeenSuccessfully()
