@@ -44,7 +44,7 @@ class PictureViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) 
         BindingUtils.loadMediaImage(pictureImage, url)
         itemView.setOnClickListener {
             if (videoImageView.visibility == View.VISIBLE)
-                IntentHelper.startPlayerActivity(context, poJo.url)
+                IntentHelper.startVideoActivity(context, poJo.url)
         }
 
     }

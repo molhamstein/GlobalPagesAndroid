@@ -83,8 +83,12 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     @BindView(R.id.myBusiness)
     lateinit var myBusiness: RecyclerView
 
-    @BindView(R.id.genderTabLayout)
-    lateinit var genderTabLayout: TabLayout
+//    @BindView(R.id.genderTabLayout)
+//    lateinit var genderTabLayout: TabLayout
+//
+//    @BindView(R.id.birthDate)
+//    lateinit var birthDate: EditText
+
 
     private val percentageToShowImage = 20
 
@@ -101,9 +105,6 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
 
     @BindView(R.id.userEmail)
     lateinit var userEmail: TextView
-
-    @BindView(R.id.birthDate)
-    lateinit var birthDate: EditText
 
     /*User information ended*/
 
@@ -122,13 +123,13 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     }
 
     private fun initTabLayout() {
-        val maleTab = genderTabLayout.newTab().setCustomView(CustomTabView(context = baseContext)
-                .setGender(R.string.male, R.mipmap.ic_male_24dp)).setText(R.string.male)
-        val femaleTab = genderTabLayout.newTab().setCustomView(CustomTabView(context = baseContext)
-                .setGender(R.string.female, R.mipmap.ic_female_24dp)).setText(R.string.female)
-
-        genderTabLayout.addTab(maleTab)
-        genderTabLayout.addTab(femaleTab)
+//        val maleTab = genderTabLayout.newTab().setCustomView(CustomTabView(context = baseContext)
+//                .setGender(R.string.male, R.mipmap.ic_male_24dp)).setText(R.string.male)
+//        val femaleTab = genderTabLayout.newTab().setCustomView(CustomTabView(context = baseContext)
+//                .setGender(R.string.female, R.mipmap.ic_female_24dp)).setText(R.string.female)
+//
+//        genderTabLayout.addTab(maleTab)
+//        genderTabLayout.addTab(femaleTab)
 
         val onTabSelectedListener: TabLayout.OnTabSelectedListener = object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -148,12 +149,12 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
             }
         }
 
-        genderTabLayout.addOnTabSelectedListener(onTabSelectedListener)
-
-        femaleTab.select()
-        maleTab.select()
-
-        genderTabLayout.removeOnTabSelectedListener(onTabSelectedListener)
+//        genderTabLayout.addOnTabSelectedListener(onTabSelectedListener)
+//
+//        femaleTab.select()
+//        maleTab.select()
+//
+//        genderTabLayout.removeOnTabSelectedListener(onTabSelectedListener)
 
 
     }
@@ -180,12 +181,12 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     private fun bindInfo(user: User) {
         userName.text = user.username
         userEmail.text = user.email
-        birthDate.setText((if (user.birthdate != null) user.birthdate!! else ""))
-        if ((user.gender != null) and user.gender!!.equals(UserGender.male.gender, false)) {
-            genderTabLayout.getTabAt(0)!!.select()
-        } else {
-            genderTabLayout.getTabAt(1)!!.select()
-        }
+//        birthDate.setText((if (user.birthdate != null) user.birthdate!! else ""))
+//        if ((user.gender != null) and user.gender!!.equals(UserGender.male.gender, false)) {
+//            genderTabLayout.getTabAt(0)!!.select()
+//        } else {
+//            genderTabLayout.getTabAt(1)!!.select()
+//        }
         BindingUtils.loadProfileImage(mFab, user.imageProfile)
         presenter.loadUserCategories(user)
 

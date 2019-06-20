@@ -40,7 +40,7 @@ class SelectedTagsView : RelativeLayout {
     }
 
     fun getAdapter(): RecyclerView.Adapter<*> {
-        return selectedTags.adapter
+        return selectedTags.adapter!!
     }
 
 }

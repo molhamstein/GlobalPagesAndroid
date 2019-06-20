@@ -27,14 +27,18 @@ class ProfileEditViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     @BindView(R.id.userNameEditText)
     lateinit var userNameEditText: EditText
 
-    @BindView(R.id.birthDate)
-    lateinit var birthDate: EditText
+//    @BindView(R.id.birthDateLayout)
+//    lateinit var birthDateLayout: TextInputLayout
+//
+//    @BindView(R.id.birthDate)
+//    lateinit var birthDate: EditText
+//
+//    @BindView(R.id.genderTabLayout)
+//    lateinit var genderTabLayout: TabLayout
 
     @BindView(R.id.phoneNumber)
     lateinit var phoneNumber: EditText
 
-    @BindView(R.id.genderTabLayout)
-    lateinit var genderTabLayout: TabLayout
 
     @BindView(R.id.imageProfileUrl)
     lateinit var imageProfileUrl: TextView
@@ -42,8 +46,6 @@ class ProfileEditViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     @BindView(R.id.profileImage)
     lateinit var profileImage: ImageView
 
-    @BindView(R.id.birthDateLayout)
-    lateinit var birthDateLayout: TextInputLayout
 
     @BindView(R.id.myCategories)
     lateinit var myCategories: RecyclerView
@@ -59,13 +61,13 @@ class ProfileEditViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun getProfileModel(): ProfileModel {
         val profileModel = getDefaultProfileModel()
         profileModel.username = userNameEditText.text.toString()
-        profileModel.birthdate = birthDate.text.toString()
         profileModel.phoneNumber = phoneNumber.text.toString()
 
-        if ((genderTabLayout.selectedTabPosition == 0))
-            profileModel.gender = UserGender.male.gender
-        else
-            profileModel.gender = UserGender.female.gender
+//        profileModel.birthdate = birthDate.text.toString()
+//        if ((genderTabLayout.selectedTabPosition == 0))
+//            profileModel.gender = UserGender.male.gender
+//        else
+//            profileModel.gender = UserGender.female.gender
 
         profileModel.imageProfile = imageProfileUrl.text.toString()
 
@@ -90,18 +92,18 @@ class ProfileEditViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun bindView(profileModel: ProfileModel) {
         userNameEditText.setText(profileModel.username)
-        birthDate.setText(profileModel.birthdate)
         phoneNumber.setText(profileModel.phoneNumber)
 
-        if (profileModel.gender != null) {
-            if (profileModel.gender!!.equals(UserGender.male.gender)) {
-                genderTabLayout.getTabAt(0)!!.select()
-            } else {
-                genderTabLayout.getTabAt(1)!!.select()
-            }
-        } else {
-            genderTabLayout.getTabAt(0)!!.select()
-        }
+//        birthDate.setText(profileModel.birthdate)
+//        if (profileModel.gender != null) {
+//            if (profileModel.gender!!.equals(UserGender.male.gender)) {
+//                genderTabLayout.getTabAt(0)!!.select()
+//            } else {
+//                genderTabLayout.getTabAt(1)!!.select()
+//            }
+//        } else {
+//            genderTabLayout.getTabAt(0)!!.select()
+//        }
         imageProfileUrl.text = profileModel.imageProfile
 
 

@@ -1,6 +1,7 @@
 package com.almersal.android.viewHolders
 
 import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
@@ -34,6 +35,11 @@ class NotificationViewHolder constructor(view: View) : RecyclerView.ViewHolder(v
             else -> {
                 notificationName.text = notificationEntity.message
             }
+        }
+        if ((notificationEntity.data == null) || (notificationEntity.data.volumeId.isNullOrBlank())) {
+            itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.grayLightTextColor))
+        } else {
+            itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
         }
         notificationDate.text = DateNormalizer
                 .getCanonicalDateTime(notificationEntity.creationDate)

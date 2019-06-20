@@ -61,6 +61,38 @@ class NotificationPresenter constructor(val context: Context) : NotificationCont
         requestData(url = url)
     }
 
+    override fun clearAllNotifications(context: Context) {
+        view.onNotificationsDeleteProgress(true)
+        ApiService().putNotificationClear(ServerInfo.notificationClear, context, object : StringRequestListener {
+            override fun onResponse(response: String?) {
+                view.onNotificationsDeleteProgress(false)
+                view.onNotificationsClearedSuccessfully()
+            }
+
+            override fun onError(anError: ANError?) {
+                view.onNotificationsDeleteProgress(false)
+                view.onNotificationsClearFailed()
+            }
+        })
+    }
+
+    override fun deleteNotificationById(notificationId: String) {
+        val url = ServerInfo.notificationUrl + "/" + notificationId
+        view.onNotificationsDeleteProgress(true)
+        ApiService().deleteNotificationById(url, object : StringRequestListener {
+            override fun onResponse(response: String?) {
+                view.onNotificationsDeleteProgress(false)
+                view.onNotificationDeleteSuccessfully()
+            }
+
+            override fun onError(anError: ANError?) {
+                view.onNotificationsDeleteProgress(false)
+                view.onNotificationDeleteFailed()
+            }
+        })
+
+    }
+
     override fun loadNotifications() {
         val url = ServerInfo.notificationUrl + "?filter[order]=creationDate%20DESC"
         requestData(url = url)
@@ -80,6 +112,7 @@ class NotificationPresenter constructor(val context: Context) : NotificationCont
                     }
                 })
     }
+
 
     override fun registerFireBaseToken(fireBaseToken: String, token: String) {
 

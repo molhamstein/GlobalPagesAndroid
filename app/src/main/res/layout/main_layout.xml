@@ -8,13 +8,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@drawable/background_header_pattern"
             android:contentDescription="@string/contentDescription"
             app:layout_constraintHeight_default="percent"
-            app:layout_constraintHeight_percent="0.5" />
+            app:layout_constraintHeight_percent="0.5"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -239,17 +240,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/previousBtn"
-                    android:layout_toLeftOf="@+id/nextBtn"
-                    android:layout_toRightOf="@+id/previousBtn"
                     android:layout_toStartOf="@+id/nextBtn"
+                    android:layout_toLeftOf="@+id/nextBtn"
+                    android:layout_toEndOf="@+id/previousBtn"
+                    android:layout_toRightOf="@+id/previousBtn"
+                    android:fontFamily="@font/cairo_regular"
                     android:gravity="center"
                     android:shadowColor="@color/grayDarkTextColor"
                     android:shadowRadius="@integer/textShadow"
                     android:text="03/08/2018"
                     android:textColor="@color/grayDarkTextColor"
-                    android:textStyle="bold"
-                    app:fontFamily="@font/cairo_regular" />
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/nextBtn"
@@ -285,8 +286,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:layout_toLeftOf="@id/searchFilterBtn"
                         android:layout_toStartOf="@id/searchFilterBtn"
+                        android:layout_toLeftOf="@id/searchFilterBtn"
                         android:textAlignment="gravity" />
 
                     <!--<com.almersal.android.views.SearchTagViewView&ndash;&gt;-->
@@ -303,8 +304,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/addPostBtnContainer"
                         android:layout_toStartOf="@+id/addPostBtnContainer"
+                        android:layout_toLeftOf="@+id/addPostBtnContainer"
                         android:contentDescription="@string/contentDescription"
                         android:src="@drawable/places_ic_search" />
 
@@ -331,10 +332,10 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:contentDescription="@string/contentDescription"
-                            android:paddingEnd="@dimen/sm_padding"
-                            android:paddingLeft="@dimen/sm_padding"
-                            android:paddingRight="@dimen/sm_padding"
                             android:paddingStart="@dimen/sm_padding"
+                            android:paddingLeft="@dimen/sm_padding"
+                            android:paddingEnd="@dimen/sm_padding"
+                            android:paddingRight="@dimen/sm_padding"
                             android:src="@drawable/ic_plus_gray_24dp" />
                     </com.skyfishjy.library.RippleBackground>
 

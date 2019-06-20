@@ -1,5 +1,6 @@
 package com.almersal.android.api
 
+import android.content.Context
 import android.util.Log
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
@@ -11,6 +12,7 @@ import com.androidnetworking.interfaces.*
 import com.almersal.android.data.entitiesModel.*
 import com.almersal.android.data.entitiesResponses.AttachmentResponse
 import com.almersal.android.data.entitiesResponses.NotificationReadedResponse
+import com.almersal.android.repositories.UserRepository
 import java.util.HashMap
 
 
@@ -304,13 +306,37 @@ class ApiService {
                 .getAsObjectList(NotificationEntity::class.java, requestListener)
     }
 
-    fun setNotificationsSeen(url: String, notificationIds: MutableList<String>, token: String,
+    fun putNotificationClear(url: String,context: Context, requestListener: StringRequestListener) {
+        val token = UserRepository(context).getUser()!!.token
+        AndroidNetworking.put(url)
+                .addHeaders("Authorization", token)
+//                .setContentType("application/json")
+                .setPriority(Priority.HIGH)
+//                .addQueryParameter("filter", criteria)
+                .build()
+                .getAsString(requestListener)
+    }
+
+    fun deleteNotificationById(url: String, requestListener: StringRequestListener) {
+        AndroidNetworking.delete(url)
+//                .setContentType("application/json")
+                .setPriority(Priority.HIGH)
+//                .addQueryParameter("filter", criteria)
+                .build()
+                .getAsString(requestListener)
+    }
+
+    fun getNotificationsSeen(url: String, notificationIds: MutableList<String>, token: String,
                              requestListener: ParsedRequestListener<NotificationReadedResponse>) {
+        val jSon = Gson().toJson(notificationIds)
         AndroidNetworking.post(url)
                 .setContentType("application/json")
                 .addHeaders("Authorization", token)
                 .setPriority(Priority.HIGH)
-                .addBodyParameter("notifications",notificationIds.toString())
+                .addPathParameter("notifications",jSon)
+                .addUrlEncodeFormBodyParameter("notifications",jSon)
+                .addQueryParameter("notifications",jSon)
+                .addBodyParameter(jSon)
                 .setPriority(Priority.HIGH)
                 .build()
                 .getAsObject(NotificationReadedResponse::class.java, requestListener)

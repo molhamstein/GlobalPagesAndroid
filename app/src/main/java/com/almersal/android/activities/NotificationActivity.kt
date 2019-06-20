@@ -1,9 +1,14 @@
 package com.almersal.android.activities
 
+import android.content.DialogInterface
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.almersal.android.R
@@ -14,6 +19,10 @@ import com.almersal.android.di.component.DaggerNotificationComponent
 import com.almersal.android.di.module.NotificationModule
 import com.almersal.android.di.ui.NotificationContract
 import com.almersal.android.di.ui.NotificationPresenter
+import com.almersal.android.dialogs.ProgressDialog
+import com.almersal.android.eventsBus.EventActions
+import com.almersal.android.eventsBus.MessageEvent
+import com.almersal.android.eventsBus.RxBus
 import com.almersal.android.repositories.UserRepository
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
 import com.brainsocket.mainlibrary.Listeners.OnRefreshLayoutListener
@@ -58,7 +67,7 @@ class NotificationActivity : BaseActivity(), NotificationContract.View {
         presenter.subscribe()
         val user: User = UserRepository(this).getUser()!!
         presenter.loadNotifications(userId = user.id!!)
-        presenter.loadNotifications()
+//        presenter.loadNotifications()
     }
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
@@ -78,6 +87,53 @@ class NotificationActivity : BaseActivity(), NotificationContract.View {
 
             }
         })
+
+
+        RxBus.listen(MessageEvent::class.java).subscribe {
+            if (isFinishing)
+                return@subscribe
+            when (it.action) {
+                EventActions.Notification_Delete_By_Id -> {
+                    presenter.deleteNotificationById(it.message as String)
+                }
+            }
+        }
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.notification_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.menu_delete -> {
+                val builder1 = AlertDialog.Builder(this)
+                builder1.setMessage(R.string.doYouWantDeleteAllNotifications)
+                builder1.setCancelable(true)
+
+                builder1.setPositiveButton(
+                        R.string.Yes,
+                        object : DialogInterface.OnClickListener {
+                            override fun onClick(p0: DialogInterface?, p1: Int) {
+                                presenter.clearAllNotifications(context = this@NotificationActivity)
+                            }
+                        })
+
+                builder1.setNegativeButton(
+                        R.string.No,
+                        object : DialogInterface.OnClickListener {
+                            override fun onClick(p0: DialogInterface?, p1: Int) {
+
+                            }
+                        })
+
+                val alert11 = builder1.create()
+                alert11.show()
+            }
+        }
+        return true
     }
 
     /*Notification presenter started*/
@@ -118,4 +174,37 @@ class NotificationActivity : BaseActivity(), NotificationContract.View {
         super.onNotificationSetSeenFailed()
     }
     /*Notification presenter ended*/
+
+
+    /*Notifications Delete presenter started*/
+    override fun onNotificationsDeleteProgress(show: Boolean) {
+        if (show) {
+            val progressDialog = ProgressDialog.newInstance()
+            progressDialog.showDialog(supportFragmentManager)
+        } else {
+            ProgressDialog.closeDialog(supportFragmentManager)
+        }
+    }
+
+    override fun onNotificationsClearedSuccessfully() {
+        Toast.makeText(this, R.string.notificationsDeleteSuccessfully, Toast.LENGTH_SHORT).show()
+        val user: User = UserRepository(this).getUser()!!
+        presenter.loadNotifications(userId = user.id!!)
+    }
+
+    override fun onNotificationsClearFailed() {
+        Toast.makeText(this, R.string.notificationsDeleteFailed, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onNotificationDeleteSuccessfully() {
+        Toast.makeText(this, R.string.notificationDeleteSuccessfully, Toast.LENGTH_SHORT).show()
+        val user: User = UserRepository(this).getUser()!!
+        presenter.loadNotifications(userId = user.id!!)
+    }
+
+    override fun onNotificationDeleteFailed() {
+        Toast.makeText(this, R.string.notificationDeleteFailed, Toast.LENGTH_SHORT).show()
+    }
+    /*Notifications Delete presenter ended*/
+
 }

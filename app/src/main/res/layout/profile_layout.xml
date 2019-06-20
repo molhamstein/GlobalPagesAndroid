@@ -67,7 +67,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/profileHeaderColor"
-                        android:padding="@dimen/md_padding">
+                        android:padding="@dimen/md_padding"
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
                             android:id="@+id/settingBtn"
@@ -76,6 +77,7 @@
                             android:contentDescription="@string/contentDescription"
                             android:padding="@dimen/md_margin"
                             app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/ic_settings_white_24dp" />
 
                         <RelativeLayout
@@ -168,6 +170,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/emailLayout"
+                                android:visibility="gone"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toRightOf="parent">
 
@@ -175,8 +178,8 @@
                                     android:id="@+id/birthdateLayout"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_toLeftOf="@+id/genderTabLayout"
                                     android:layout_toStartOf="@+id/genderTabLayout"
+                                    android:layout_toLeftOf="@+id/genderTabLayout"
                                     app:errorEnabled="false"
                                     app:hintEnabled="false">
 
@@ -184,8 +187,8 @@
                                         android:id="@+id/birthDate"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_toLeftOf="@+id/genderTabLayout"
                                         android:layout_toStartOf="@+id/genderTabLayout"
+                                        android:layout_toLeftOf="@+id/genderTabLayout"
                                         android:drawableEnd="@drawable/ic_arrow_drop_down_white_24dp"
                                         android:drawableRight="@drawable/ic_arrow_drop_down_white_24dp"
                                         android:enabled="true"
@@ -203,9 +206,9 @@
                                     android:id="@+id/genderTabLayout"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
                                     android:layout_alignParentEnd="true"
                                     android:layout_alignParentRight="true"
-                                    android:layout_alignParentTop="true"
                                     app:tabGravity="center"
                                     app:tabIndicatorColor="@color/transparent"
                                     app:tabMode="fixed"
@@ -234,7 +237,8 @@
                             android:padding="@dimen/md_margin"
                             android:text="@string/SubscribetoCategory"
                             android:textColor="@color/profileHeaderColor"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <View
                             android:id="@+id/categorySperator"

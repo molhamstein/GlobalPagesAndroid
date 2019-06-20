@@ -37,11 +37,11 @@ class SignUpViewHolder : RecyclerView.ViewHolder {
     @BindView(R.id.phoneNumber)
     lateinit var phoneNumber: EditText
 
-    @BindView(R.id.birthdate)
-    lateinit var birthdate: EditText
-
-    @BindView(R.id.genderTabLayout)
-    lateinit var genderTabLayout: TabLayout
+//    @BindView(R.id.birthdate)
+//    lateinit var birthdate: EditText
+//
+//    @BindView(R.id.genderTabLayout)
+//    lateinit var genderTabLayout: TabLayout
 
     @BindView(R.id.acceptTerms)
     lateinit var acceptTerms: CheckBox
@@ -83,12 +83,12 @@ class SignUpViewHolder : RecyclerView.ViewHolder {
         }
 
 //        if (!ValidationHelper.isDate(signUpModel.birthdate!!)) {
-        if ((signUpModel.birthdate == null) || (signUpModel.birthdate!!.isEmpty())) {
-//            birthdate.error = context.resources.getString(R.string.selectBirthDate)
-            birthdateLayout.error = context.resources.getString(R.string.selectBirthDate)
-//            birthdate.requestFocus()
-            return false
-        }
+//        if ((signUpModel.birthdate == null) || (signUpModel.birthdate!!.isEmpty())) {
+////            birthdate.error = context.resources.getString(R.string.selectBirthDate)
+//            birthdateLayout.error = context.resources.getString(R.string.selectBirthDate)
+////            birthdate.requestFocus()
+//            return false
+//        }
 
         if (!signUpModel.termAndCondition) {
             MainHelper.hideKeyboard(itemView)
@@ -105,11 +105,11 @@ class SignUpViewHolder : RecyclerView.ViewHolder {
         signUpModel.username = userName.text.toString()
         signUpModel.password = password.text.toString()
         signUpModel.phoneNumber = phoneNumber.text.toString()
-        signUpModel.birthdate = birthdate.text.toString()
-        if ((genderTabLayout.selectedTabPosition == 0))
-            signUpModel.gender = UserGender.male.gender
-        else
-            signUpModel.gender = UserGender.female.gender
+//        signUpModel.birthdate = birthdate.text.toString()
+//        if ((genderTabLayout.selectedTabPosition == 0))
+//            signUpModel.gender = UserGender.male.gender
+//        else
+//            signUpModel.gender = UserGender.female.gender
 
         signUpModel.termAndCondition = acceptTerms.isChecked
 
