@@ -32,6 +32,8 @@ class NotificationRecyclerViewAdapter constructor(val context: Context, private 
         holder.itemView.setOnClickListener {
             when (poJo._type) {
                 NotificationsTypeEnum.ADD_NEW_VOLUME.type -> {
+                    poJo.clicked = true
+                    RxBus.publish(MessageEvent(EventActions.Notification_Set_Clicked, poJo))
                     IntentHelper.startVolumesActivity(context, poJo.data.volumeId)
                 }
             }

@@ -42,6 +42,7 @@ import com.brainsocket.mainlibrary.Views.Stateslayoutview
 import com.github.florent37.viewanimator.ViewAnimator
 import com.skyfishjy.library.RippleBackground
 import javax.inject.Inject
+import java.util.*
 
 
 class MainActivity : BaseActivity(), VolumesContract.View,
@@ -94,6 +95,10 @@ class MainActivity : BaseActivity(), VolumesContract.View,
 
     @BindView(R.id.loginBtn)
     lateinit var loginBtn: ImageView
+
+    var featuredPosition: Int = 0
+    var featuredDirectionInc = true
+    val featuredPostsTimer: Timer = Timer()
 
     private fun initToolBar() {
         toolBar.setTitle(R.string.app_name)
@@ -435,6 +440,8 @@ class MainActivity : BaseActivity(), VolumesContract.View,
 
     override fun onFeaturedPostLoadedSuccessfully(postList: MutableList<Post>) {
         featuredPostsRecyclerView.adapter = PostSliderRecyclerViewAdapter(context = baseContext, postList = postList)
+
+        featuredPostsTimer.scheduleAtFixedRate(AutoScrollTask(), 2000, 5000)
     }
     /*Post Presenter ended*/
 
@@ -460,5 +467,32 @@ class MainActivity : BaseActivity(), VolumesContract.View,
     }
     /*Notification presenter ended*/
 
+    private inner class AutoScrollTask : TimerTask() {
+
+        override fun run() {
+            var end = false
+            var itemsCount = featuredPostsRecyclerView.getAdapter()?.getItemCount()
+            if (featuredPostsRecyclerView.getAdapter() != null && itemsCount != null) {
+                if (featuredDirectionInc) {
+                    if (featuredPosition >= itemsCount - 1){
+                        featuredPosition--
+                        featuredDirectionInc = false
+                    } else {
+                        featuredPosition++
+                    }
+                } else {
+                    if (featuredPosition <= 0){
+                        featuredPosition++
+                        featuredDirectionInc = true
+                    } else {
+                        featuredPosition--
+                    }
+                }
+            }
+
+            print("featuredPosition is" + featuredPosition)
+            featuredPostsRecyclerView.smoothScrollToPosition(featuredPosition)
+        }
+    }
 
 }

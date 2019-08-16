@@ -13,6 +13,8 @@ class EventActions {
 
         const val Notification_Delete_By_Id = "Notification_Delete_By_Id"
         const val Notification_Delete_All = "Notification_Delete_All"
+        const val Notification_Set_Clicked = "Notification_Set_Clicked"
+
 
 //        const val BusinessGuideAddActivity_Tag = "BusinessGuideAddActivity_Tag"
 

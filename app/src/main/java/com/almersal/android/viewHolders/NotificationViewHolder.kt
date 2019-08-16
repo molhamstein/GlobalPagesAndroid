@@ -36,10 +36,10 @@ class NotificationViewHolder constructor(view: View) : RecyclerView.ViewHolder(v
                 notificationName.text = notificationEntity.message
             }
         }
-        if ((notificationEntity.data == null) || (notificationEntity.data.volumeId.isNullOrBlank())) {
-            itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.grayLightTextColor))
-        } else {
+        if ((notificationEntity.clicked)) {
             itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
+        } else {
+            itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.grayXLightTextColor))
         }
         notificationDate.text = DateNormalizer
                 .getCanonicalDateTime(notificationEntity.creationDate)

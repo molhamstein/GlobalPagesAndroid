@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -28,6 +29,7 @@ import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
 import com.brainsocket.mainlibrary.Listeners.OnRefreshLayoutListener
 import com.brainsocket.mainlibrary.SupportViews.RecyclerViewDecoration.GridDividerDecoration
 import com.brainsocket.mainlibrary.Views.Stateslayoutview
+import net.alhazmy13.mediapicker.Image.ImageTags
 import javax.inject.Inject
 
 
@@ -44,7 +46,6 @@ class NotificationActivity : BaseActivity(), NotificationContract.View {
 
     @Inject
     lateinit var presenter: NotificationPresenter
-
 
     private fun initToolBar() {
         toolbar.setTitle(R.string.Notifications)
@@ -93,8 +94,23 @@ class NotificationActivity : BaseActivity(), NotificationContract.View {
             if (isFinishing)
                 return@subscribe
             when (it.action) {
+
                 EventActions.Notification_Delete_By_Id -> {
-                    presenter.deleteNotificationById(it.message as String)
+                    val builder = AlertDialog.Builder(this)
+                    builder.setTitle(R.string.delete_notification)
+                    builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+                        presenter.deleteNotificationById(it.message as String)
+                        //alertDialog?.dismiss()
+                    }
+                    builder.setNegativeButton(android.R.string.no) { dialog, which ->
+                        //alertDialog?.dismiss()
+                    }
+                    builder.show()
+                    //presenter.deleteNotificationById(it.message as String)
+                }
+
+                EventActions.Notification_Set_Clicked -> {
+                    presenter.setNotificationClicked(it.message as NotificationEntity)
                 }
             }
         }
@@ -168,6 +184,12 @@ class NotificationActivity : BaseActivity(), NotificationContract.View {
 
     override fun onNotificationSetSeenSuccessfully() {
         super.onNotificationSetSeenSuccessfully()
+    }
+
+    override fun onNotificationSetClickedSuccessfully() {
+        super.onNotificationSetClickedSuccessfully()
+        val user: User = UserRepository(this).getUser()!!
+        presenter.loadNotifications(userId = user.id!!)
     }
 
     override fun onNotificationSetSeenFailed() {

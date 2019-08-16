@@ -163,6 +163,7 @@
     <string name="notificationDeleteSuccessfully">تم حذف التنبيه بنجاح</string>
     <string name="notificationsDeleteFailed">فشل حذف التنبيه</string>
     <string name="notificationDeleteFailed">فشل حذف التنبيه</string>
+    <string name="delete_notification">حذف هذا الاشعار</string>
 
     <!--<string name="noApplicationToOpenEmail">No application found to open email</string>-->
     <string name="NewVolumeAdded">تفقد هذه الاعلانات التي تهمك في هذا العدد الجديد</string>

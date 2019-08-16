@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+    <color name="leku_mid_grey">#9199A1</color>
+    <color name="leku_search_background">#0000</color>
+    <color name="leku_soft_grey">#ECEEEF</color>
+    <color name="leku_strong_grey">#50545A</color>
+    <color name="leku_white">#FFFFFF</color>
+    <color name="leku_white_alpha">#F2FFFFFF</color>
+    <dimen name="leku_gap">8dp</dimen>
+    <dimen name="leku_information_bottom_margin">24dp</dimen>
+    <string name="leku_app_name" ns1:ignore="UnusedResources" translatable="false">Leku</string>
+    <string name="leku_coordinates">Coordinates</string>
+    <string name="leku_latitude">Latitude</string>
+    <string name="leku_load_location_error">Something went wrong. Please try again.</string>
+    <string name="leku_longitude">Longitude</string>
+    <string name="leku_network_resource">network</string>
+    <string name="leku_no_geocoder_available">Service not available</string>
+    <string name="leku_no_search_results">There are no results for your search</string>
+    <string name="leku_search_hint">Search</string>
+    <string name="leku_title_activity_location_picker" ns1:ignore="UnusedResources">Location Picker</string>
+    <string name="leku_toolbar_action_voice_title">Voice</string>
+    <string name="leku_unknown_location">unknown location</string>
+    <string name="leku_voice_search_extra_language">en-EN</string>
+    <string name="leku_voice_search_promp">Search by voice…</string>
+</resources>

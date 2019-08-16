@@ -19,6 +19,8 @@ class NotificationContract {
 
         fun setNotificationSeen(notificationIds: MutableList<String>)
 
+        fun setNotificationClicked(notification: NotificationEntity)
+
         fun registerFireBaseToken(fireBaseToken: String, token: String)
     }
 
@@ -30,6 +32,8 @@ class NotificationContract {
 
         fun onNotificationSetSeenSuccessfully() {}
         fun onNotificationSetSeenFailed() {}
+
+        fun onNotificationSetClickedSuccessfully() {}
 
         fun onRegisterFireBaseTokenSuccessfully() {}
         fun onRegisterFireBaseTokenFailed() {}

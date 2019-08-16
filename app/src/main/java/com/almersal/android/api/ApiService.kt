@@ -326,7 +326,7 @@ class ApiService {
                 .getAsString(requestListener)
     }
 
-    fun getNotificationsSeen(url: String, notificationIds: MutableList<String>, token: String,
+    fun setNotificationsSeen(url: String, notificationIds: MutableList<String>, token: String,
                              requestListener: ParsedRequestListener<NotificationReadedResponse>) {
         val jSon = Gson().toJson(notificationIds)
         AndroidNetworking.post(url)
@@ -342,6 +342,17 @@ class ApiService {
                 .getAsObject(NotificationReadedResponse::class.java, requestListener)
     }
 
+    fun setNotificationClicked(url: String, notification: NotificationEntity, token: String,
+                             requestListener: ParsedRequestListener<NotificationEntity>) {
+        val jSon = Gson().toJson(notification)
+        AndroidNetworking.put(url + "/" + notification.id)
+                .setContentType("application/json")
+                .addHeaders("Authorization", token)
+                .addStringBody(jSon)
+                .addBodyParameter(notification)
+                .build()
+                .getAsObject(NotificationEntity::class.java, requestListener)
+    }
 
     fun putFireBaseToken(url: String, token: String, fireBaseToken: String, requestListener: StringRequestListener) {
         AndroidNetworking.post(url)

@@ -21,7 +21,7 @@
         android:id="@+id/deleteBtn"
         android:layout_width="@dimen/iconWidth"
         android:layout_height="@dimen/iconHeight"
-        android:padding="@dimen/sm_padding"
+        android:padding="@dimen/md_padding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"

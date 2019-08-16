@@ -165,6 +165,7 @@
     <string name="notificationDeleteSuccessfully">Notification delete successfully</string>
     <string name="notificationsDeleteFailed">Notifications delete failed</string>
     <string name="notificationDeleteFailed">Notification delete failed</string>
+    <string name="delete_notification">delete this notification?</string>
 
     <string name="NewVolumeAdded">There is some ads that might interest you in this new volume</string>
 

@@ -113,6 +113,21 @@ class NotificationPresenter constructor(val context: Context) : NotificationCont
                 })
     }
 
+    override fun setNotificationClicked(notification: NotificationEntity) {
+        val url = ServerInfo.notificationClickedUrl
+        val token = UserRepository(context).getUser()!!.token
+        ApiService().setNotificationClicked(url = url, notification = notification, token = token,
+                requestListener = object : ParsedRequestListener<NotificationEntity> {
+                    override fun onResponse(response: NotificationEntity?) {
+                        view.onNotificationSetClickedSuccessfully()
+                    }
+
+                    override fun onError(anError: ANError?) {
+
+                    }
+                })
+    }
+
 
     override fun registerFireBaseToken(fireBaseToken: String, token: String) {
 
