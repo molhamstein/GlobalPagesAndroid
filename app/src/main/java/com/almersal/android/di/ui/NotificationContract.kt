@@ -9,7 +9,7 @@ class NotificationContract {
     interface Presenter : BaseContract.Presenter<View> {
         fun loadUnSeenNotifications(userId: String)
 
-        fun loadNotifications(userId: String)
+        fun loadNotifications(userId: String, limit: Int, skip: Int)
 
         fun loadNotifications()
 

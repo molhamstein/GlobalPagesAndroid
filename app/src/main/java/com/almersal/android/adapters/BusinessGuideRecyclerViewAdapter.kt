@@ -101,4 +101,9 @@ class BusinessGuideRecyclerViewAdapter constructor(var context: Context, var bus
         filterByCriteria(filterEntity!!)
     }
 
+    fun addAll(list:List<BusinessGuide>){
+        businessGuideList.addAll(list)
+        notifyDataSetChanged()
+    }
+
 }

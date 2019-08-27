@@ -56,7 +56,9 @@ class NotificationPresenter constructor(val context: Context) : NotificationCont
         requestData(url = url)
     }
 
-    override fun loadNotifications(userId: String) {
+
+    // Pagination is not implemented yet ...
+    override fun loadNotifications(userId: String, limit: Int, skip: Int) {
         val url = ServerInfo.notificationUrl + "?filter[where][recipientId]=" + userId + "&filter[order]=creationDate%20DESC" //+ "&filter[where][seen]=false"
         requestData(url = url)
     }

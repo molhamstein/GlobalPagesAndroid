@@ -31,11 +31,16 @@ class BusinessGuideViewHolder : RecyclerView.ViewHolder {
     @BindView(R.id.businessIcon)
     lateinit var businessIcon: ImageView
 
+    @BindView(R.id.vipBadge)
+    lateinit var vipBadge: ImageView
+
     constructor(view: View) : super(view) {
         ButterKnife.bind(this, view)
     }
 
     fun bind(businessGuide: BusinessGuide) {
+
+        vipBadge.visibility = if(businessGuide.vip)View.VISIBLE else View.GONE
         businessTitle.text = businessGuide.getName()
         businessDetails.text = businessGuide.description
         businessCategory.text = businessGuide.category.getTitle()

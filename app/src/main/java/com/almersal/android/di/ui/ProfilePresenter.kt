@@ -32,7 +32,9 @@ class ProfilePresenter constructor(val context: Context) : ProfileContract.Prese
         subscriptions.clear()
     }
 
-    override fun loadUserPosts(userId: String /*criteria: MutableMap<String, Pair<String, String>>*/) {
+    override fun loadUserPosts(
+        userId: String /*criteria: MutableMap<String, Pair<String, String>>*/
+    ) {
         view.showUserPostsProgress(true)
         val url = ServerInfo.postUrl + "?filter[where][ownerId]=" + userId
         ApiService().getUserPosts(url/*, criteria*/, object : ParsedRequestListener<MutableList<Post>> {
@@ -63,7 +65,9 @@ class ProfilePresenter constructor(val context: Context) : ProfileContract.Prese
 
     }
 
-    override fun loadUserBusinesses(userId: String /*criteria: MutableMap<String, Pair<String, String>>*/) {
+    override fun loadUserBusinesses(
+        userId: String /*criteria: MutableMap<String, Pair<String, String>>*/
+    ) {
         view.showUserBusinessesProgress(true)
         val url = ServerInfo.businessGuideUrl + "?filter[where][ownerId]=" + userId
         ApiService().getUserBusinesses(url/*, criteria*/, object : ParsedRequestListener<MutableList<BusinessGuide>> {

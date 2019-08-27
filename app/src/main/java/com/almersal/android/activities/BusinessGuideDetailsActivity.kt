@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -53,6 +54,8 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
 
     @BindView(R.id.stateLayout)
     lateinit var stateLayout: Stateslayoutview
+
+
 
     var menuItem: MenuItem? = null
 

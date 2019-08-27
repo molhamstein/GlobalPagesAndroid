@@ -25,7 +25,6 @@ import com.almersal.android.R
 import com.almersal.android.adapters.BusinessGuideRecyclerViewAdapter
 import com.almersal.android.data.entities.BusinessGuide
 import com.almersal.android.data.entities.PointEntity
-import com.almersal.android.di.component.DaggerBusinessGuideSearchComponent
 import com.almersal.android.di.component.DaggerPharmacyDutySearchComponent
 import com.almersal.android.di.module.BusinessGuidesModule
 import com.almersal.android.di.ui.BusinessGuidesContract
@@ -90,6 +89,9 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
 
     var firstLocation = true
 
+    var limit = 10
+    var pageId = 0
+
     private fun initToolBar() {
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener { onBackPressed() }
@@ -98,6 +100,30 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
     private fun initRecyclerView() {
         businessGuideRecyclerView.layoutManager = LinearLayoutManager(this)
         businessGuideRecyclerView.addItemDecoration(GridDividerDecoration(this))
+        val lm = businessGuideRecyclerView.layoutManager as LinearLayoutManager
+        businessGuideRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+
+                val visibleItemCount = lm.childCount
+                val totalItemCount = lm.itemCount
+                val firstVisibleItemPosition = lm.findFirstVisibleItemPosition()
+                if (progressBar.visibility == View.GONE)
+                    if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
+                        && firstVisibleItemPosition >= 0
+                        && totalItemCount >= limit
+                    ) {
+                        pageId++
+                        businessGuidesPresenter.loadBusinessGuideForPharmacy(
+                            pointEntity =
+                            PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
+                            daysEnum = DateHelper.getCurrentDay(),
+                            limit = limit,
+                            skip = limit * pageId
+                        )
+                    }
+            }
+        })
     }
 
     private fun initLocation() {
@@ -112,9 +138,13 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
                         firstLocation = false
 
                         placeMarkerOnMap(LatLng(lastLocation!!.latitude, lastLocation!!.longitude))
-                        businessGuidesPresenter.loadBusinessGuideForPharmacy(pointEntity =
-                        PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
-                                daysEnum = DateHelper.getCurrentDay())
+                        businessGuidesPresenter.loadBusinessGuideForPharmacy(
+                            pointEntity =
+                            PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
+                            daysEnum = DateHelper.getCurrentDay(),
+                            limit = 10,
+                            skip = 0
+                        )
                     }
                 }
 
@@ -275,9 +305,13 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
     @OnClick(R.id.refreshBtn)
     fun onRefreshButtonClick(view: View) {
         if (lastLocation != null) {
-            businessGuidesPresenter.loadBusinessGuideForPharmacy(pointEntity =
-            PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
-                    daysEnum = DateHelper.getCurrentDay())
+            businessGuidesPresenter.loadBusinessGuideForPharmacy(
+                pointEntity =
+                PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
+                daysEnum = DateHelper.getCurrentDay(),
+                limit = 10,
+                skip = 0
+            )
         }
     }
 

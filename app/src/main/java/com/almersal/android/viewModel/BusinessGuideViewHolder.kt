@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -52,6 +53,9 @@ class BusinessGuideViewHolder constructor(view: View) : RecyclerView.ViewHolder(
     @BindView(R.id.ProductAddLink)
     lateinit var ProductAddLink: View
 
+    @BindView(R.id.vipBadge)
+    lateinit var vipBadge: ImageView
+
     var context: Context
 
     init {
@@ -63,6 +67,7 @@ class BusinessGuideViewHolder constructor(view: View) : RecyclerView.ViewHolder(
         mediaViewPager.adapter = MediaViewPagerAdapter(context, businessGuide.covers/* DummyDataRepositories.getMediaList()*/)
         viewPagerIndicator.setViewPager(mediaViewPager)
 
+        vipBadge.visibility = if(businessGuide.vip) View.VISIBLE else View.GONE
         businessTitle.text = businessGuide.getName()
 
         businessCategory.text = businessGuide.category.getTitle()

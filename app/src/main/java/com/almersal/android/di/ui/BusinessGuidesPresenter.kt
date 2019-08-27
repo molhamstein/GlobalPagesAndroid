@@ -87,10 +87,15 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
         loadBusinessGuideByUrl(url)
     }
 
-    override fun loadBusinessGuideByLocation(pointEntity: PointEntity) {
+    override fun loadBusinessGuideByLocation(
+        pointEntity: PointEntity,
+        limit: Int,
+        skip: Int
+    ) {
 
         val url = ServerInfo.businessGuideUrl + "?filter[where][locationPoint][near]=" +
-                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[where][status]=activated"
+                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[where][status]=activated" +
+                "&filter[limit]=$limit&filter[skip]=$skip"
 
         loadBusinessGuideByUrl(url)
     }
@@ -115,7 +120,12 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
         loadBusinessGuideByUrl(url)
     }
 
-    override fun loadBusinessGuideForPharmacy(pointEntity: PointEntity, daysEnum: DaysEnum) {
+    override fun loadBusinessGuideForPharmacy(
+        pointEntity: PointEntity,
+        daysEnum: DaysEnum,
+        limit: Int,
+        skip: Int
+    ) {
 
 //        val url = ServerInfo.businessGuideUrl + "?filter[where][categoryId]=" + SettingData.pharmacyCategoryId +
 //                "&filter[where][locationPoint][near]=" +
@@ -147,41 +157,49 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
 
     override fun addBusinessGuide(businessGuide: BusinessGuideModel, token: String) {
         view.showBusinessGuideProgress(true)
-        ApiService().postBusinessGuides(ServerInfo.businessGuideUrl, businessGuide, token, object : ParsedRequestListener<BusinessGuide> {
-            override fun onResponse(response: BusinessGuide?) {
-                if (response != null) {
-                    view.showBusinessGuideProgress(false)
-                    view.onAddBusinessGuideSuccessfully(response)
-                    return
+        ApiService().postBusinessGuides(
+            ServerInfo.businessGuideUrl,
+            businessGuide,
+            token,
+            object : ParsedRequestListener<BusinessGuide> {
+                override fun onResponse(response: BusinessGuide?) {
+                    if (response != null) {
+                        view.showBusinessGuideProgress(false)
+                        view.onAddBusinessGuideSuccessfully(response)
+                        return
+                    }
+                    Log.v("", "")
                 }
-                Log.v("", "")
-            }
 
-            override fun onError(anError: ANError?) {
-                view.showBusinessGuideLoadErrorMessage(true)
-                Log.v("", "")
-            }
-        })
+                override fun onError(anError: ANError?) {
+                    view.showBusinessGuideLoadErrorMessage(true)
+                    Log.v("", "")
+                }
+            })
 
     }
 
     override fun updateBusinessGuide(businessGuide: BusinessGuideEditModel, token: String) {
         view.showBusinessGuideProgress(true)
-        ApiService().putBusinessGuides(ServerInfo.businessGuideUrl, businessGuide, token, object : ParsedRequestListener<BusinessGuide> {
-            override fun onResponse(response: BusinessGuide?) {
-                if (response != null) {
-                    view.showBusinessGuideProgress(false)
-                    view.onUpdateBusinessGuideSuccessfully(response)
-                    return
+        ApiService().putBusinessGuides(
+            ServerInfo.businessGuideUrl,
+            businessGuide,
+            token,
+            object : ParsedRequestListener<BusinessGuide> {
+                override fun onResponse(response: BusinessGuide?) {
+                    if (response != null) {
+                        view.showBusinessGuideProgress(false)
+                        view.onUpdateBusinessGuideSuccessfully(response)
+                        return
+                    }
+                    Log.v("", "")
                 }
-                Log.v("", "")
-            }
 
-            override fun onError(anError: ANError?) {
-                view.showBusinessGuideLoadErrorMessage(true)
-                Log.v("", "")
-            }
-        })
+                override fun onError(anError: ANError?) {
+                    view.showBusinessGuideLoadErrorMessage(true)
+                    Log.v("", "")
+                }
+            })
 
     }
 

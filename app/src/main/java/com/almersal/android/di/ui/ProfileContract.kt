@@ -9,8 +9,14 @@ import com.almersal.android.data.entitiesModel.ProfileModel
 class ProfileContract {
 
     interface Presenter : BaseContract.Presenter<View> {
-        fun loadUserPosts(userId: String /*criteria: MutableMap<String, Pair<String, String>>*/)
-        fun loadUserBusinesses(userId: String /*criteria: MutableMap<String, Pair<String, String>>*/)
+        fun loadUserPosts(
+            userId: String /*criteria: MutableMap<String, Pair<String, String>>*/
+        )
+
+        fun loadUserBusinesses(
+            userId: String /*criteria: MutableMap<String, Pair<String, String>>*/
+        )
+
         fun loadUserCategories(user: User)
 
         fun updateProfile(profileModel: ProfileModel, token: String)

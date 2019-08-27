@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GlobalPagesAndroid.iml" filepath="$PROJECT_DIR$/GlobalPagesAndroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/GlobalPagesAndroid.iml" filepath="$PROJECT_DIR$/.idea/GlobalPagesAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/mainlibrary/mainlibrary.iml" filepath="$PROJECT_DIR$/mainlibrary/mainlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/mediaPickerLibary/mediaPickerLibary.iml" filepath="$PROJECT_DIR$/mediaPickerLibary/mediaPickerLibary.iml" />

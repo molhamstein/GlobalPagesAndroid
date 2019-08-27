@@ -31,7 +31,7 @@
             android:src="@drawable/ic_close_white_24dp" />
 
         <android.support.constraint.Guideline
-            android:id="@+id/guideline"
+            android:id="@+id/hGuideline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -47,10 +47,10 @@
             app:cardCornerRadius="@dimen/cardRadius"
             app:cardElevation="@dimen/lg_elevation"
             app:cardUseCompatPadding="true"
-            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintBottom_toTopOf="@+id/hGuideline"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline">
+            app:layout_constraintTop_toTopOf="@+id/hGuideline">
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"

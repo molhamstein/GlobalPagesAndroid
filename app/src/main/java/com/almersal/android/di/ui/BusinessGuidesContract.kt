@@ -13,10 +13,14 @@ class BusinessGuidesContract {
 
         /*for business guide action*/
         fun loadBusinessGuideByLocationWithLimit(pointEntity: PointEntity)
-        fun loadBusinessGuideByLocation(pointEntity: PointEntity)
+        fun loadBusinessGuideByLocation(
+            pointEntity: PointEntity,
+            limit: Int,
+            skip: Int
+        )
 
         /*for pharmacy duty action*/
-        fun loadBusinessGuideForPharmacy(pointEntity: PointEntity, daysEnum: DaysEnum)
+        fun loadBusinessGuideForPharmacy(pointEntity: PointEntity, daysEnum: DaysEnum, limit: Int, skip: Int)
 
         /*for nearby action*/
         fun loadBusinessGuideList(subCategory: SubCategory)

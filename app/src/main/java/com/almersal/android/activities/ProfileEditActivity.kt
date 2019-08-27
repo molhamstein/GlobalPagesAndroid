@@ -4,20 +4,15 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.View
 import android.widget.DatePicker
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import butterknife.BindView
 
 import butterknife.ButterKnife
 import butterknife.OnClick
-import butterknife.Optional
 import com.almersal.android.R
 import com.almersal.android.data.entities.Category
 import com.almersal.android.data.entities.User
@@ -31,10 +26,8 @@ import com.almersal.android.di.ui.ProfileContract
 import com.almersal.android.di.ui.ProfilePresenter
 import com.almersal.android.dialogs.ProgressDialog
 import com.almersal.android.enums.UserStatus
-import com.almersal.android.normalization.DateNormalizer
 import com.almersal.android.repositories.UserRepository
 import com.almersal.android.viewModel.ProfileEditViewHolder
-import com.almersal.android.views.CustomTabView
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
 import com.brainsocket.mainlibrary.Listeners.OnRefreshLayoutListener
 import com.brainsocket.mainlibrary.Views.Stateslayoutview

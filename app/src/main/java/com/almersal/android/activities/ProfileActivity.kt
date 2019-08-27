@@ -12,7 +12,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -33,7 +32,6 @@ import com.almersal.android.di.ui.ProfileContract
 import com.almersal.android.di.ui.ProfilePresenter
 import com.almersal.android.dialogs.ProgressDialog
 import com.almersal.android.dialogs.bottomSheetFragments.SubCategorySubscriptionBottomSheet
-import com.almersal.android.enums.UserGender
 import com.almersal.android.eventsBus.EventActions
 import com.almersal.android.eventsBus.MessageEvent
 import com.almersal.android.eventsBus.RxBus
@@ -41,11 +39,9 @@ import com.almersal.android.listeners.OnCategorySelectListener
 import com.almersal.android.repositories.UserRepository
 import com.almersal.android.utilities.BindingUtils
 import com.almersal.android.utilities.IntentHelper
-import com.almersal.android.views.CustomTabView
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
 import com.brainsocket.mainlibrary.Listeners.OnRefreshLayoutListener
 import com.brainsocket.mainlibrary.Views.Stateslayoutview
-import org.w3c.dom.Text
 import java.util.HashMap
 import javax.inject.Inject
 
@@ -105,6 +101,8 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
 
     @BindView(R.id.userEmail)
     lateinit var userEmail: TextView
+
+
 
     /*User information ended*/
 

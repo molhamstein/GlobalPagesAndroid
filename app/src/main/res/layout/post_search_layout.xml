@@ -18,7 +18,7 @@
         android:layout_below="@+id/toolbar">
 
         <android.support.constraint.Guideline
-            android:id="@+id/guideline"
+            android:id="@+id/hGuideline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

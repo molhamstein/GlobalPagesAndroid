@@ -6,7 +6,6 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -29,7 +28,6 @@ import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
 import com.brainsocket.mainlibrary.Listeners.OnRefreshLayoutListener
 import com.brainsocket.mainlibrary.SupportViews.RecyclerViewDecoration.GridDividerDecoration
 import com.brainsocket.mainlibrary.Views.Stateslayoutview
-import net.alhazmy13.mediapicker.Image.ImageTags
 import javax.inject.Inject
 
 
@@ -47,6 +45,9 @@ class NotificationActivity : BaseActivity(), NotificationContract.View {
     @Inject
     lateinit var presenter: NotificationPresenter
 
+    var limit = 10
+    var skip = 0
+
     private fun initToolBar() {
         toolbar.setTitle(R.string.Notifications)
         setSupportActionBar(toolbar)
@@ -56,6 +57,31 @@ class NotificationActivity : BaseActivity(), NotificationContract.View {
     private fun initRecyclerView() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(GridDividerDecoration(this))
+
+//        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//
+//            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+//
+//                val lm = recyclerView.layoutManager as LinearLayoutManager
+//                val visibleItemCount = lm.childCount
+//                val totalItemCount = lm.itemCount
+//                val firstVisibleItemPosition = lm.findFirstVisibleItemPosition()
+//                if (progressBar.visibility == View.GONE)
+//                    if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
+//                        && firstVisibleItemPosition >= 0
+//                        && totalItemCount >= limit
+//                    ) {
+//                        pageId++
+//                        businessGuidesPresenter.loadBusinessGuideByLocation(
+//                            pointEntity =
+//                            PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
+//                            limit = limit,
+//                            skip = limit * pageId
+//                        )
+//                    }
+//            }
+//        })
+
     }
 
     fun initDI() {
@@ -67,7 +93,7 @@ class NotificationActivity : BaseActivity(), NotificationContract.View {
         presenter.attachView(this)
         presenter.subscribe()
         val user: User = UserRepository(this).getUser()!!
-        presenter.loadNotifications(userId = user.id!!)
+        presenter.loadNotifications(userId = user.id!!, limit = 10, skip = 0)
 //        presenter.loadNotifications()
     }
 
@@ -81,7 +107,7 @@ class NotificationActivity : BaseActivity(), NotificationContract.View {
         stateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
             override fun onRefresh() {
                 val user: User = UserRepository(this@NotificationActivity).getUser()!!
-                presenter.loadNotifications(userId = user.id!!)
+                presenter.loadNotifications(userId = user.id!!, limit = 10, skip = 0)
             }
 
             override fun onRequestPermission() {
@@ -189,7 +215,7 @@ class NotificationActivity : BaseActivity(), NotificationContract.View {
     override fun onNotificationSetClickedSuccessfully() {
         super.onNotificationSetClickedSuccessfully()
         val user: User = UserRepository(this).getUser()!!
-        presenter.loadNotifications(userId = user.id!!)
+        presenter.loadNotifications(userId = user.id!!, limit = 10, skip = 0)
     }
 
     override fun onNotificationSetSeenFailed() {
@@ -211,7 +237,7 @@ class NotificationActivity : BaseActivity(), NotificationContract.View {
     override fun onNotificationsClearedSuccessfully() {
         Toast.makeText(this, R.string.notificationsDeleteSuccessfully, Toast.LENGTH_SHORT).show()
         val user: User = UserRepository(this).getUser()!!
-        presenter.loadNotifications(userId = user.id!!)
+        presenter.loadNotifications(userId = user.id!!, limit = 10, skip = 0)
     }
 
     override fun onNotificationsClearFailed() {
@@ -221,7 +247,7 @@ class NotificationActivity : BaseActivity(), NotificationContract.View {
     override fun onNotificationDeleteSuccessfully() {
         Toast.makeText(this, R.string.notificationDeleteSuccessfully, Toast.LENGTH_SHORT).show()
         val user: User = UserRepository(this).getUser()!!
-        presenter.loadNotifications(userId = user.id!!)
+        presenter.loadNotifications(userId = user.id!!, limit = 10, skip = 0)
     }
 
     override fun onNotificationDeleteFailed() {

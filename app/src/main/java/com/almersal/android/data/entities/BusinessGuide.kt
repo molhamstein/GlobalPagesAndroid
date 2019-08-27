@@ -4,6 +4,7 @@ import com.almersal.android.App
 
 class BusinessGuide {
 
+    var vip = false
     var nameEn: String = ""
     var nameAr: String = ""
 
@@ -38,6 +39,7 @@ class BusinessGuide {
     var city: City = City()
     var location: LocationEntity = LocationEntity()
 
+
     constructor()
 
     constructor(logo: String, nameAr: String, nameEn: String, category: BusinessGuideCategory, subCategory: SubCategory) {
@@ -49,6 +51,7 @@ class BusinessGuide {
     }
 
     fun getName(): String {
+
         return if (App.app.isArabic()) nameAr else nameAr
     }
 
