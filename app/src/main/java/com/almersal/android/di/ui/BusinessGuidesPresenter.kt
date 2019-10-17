@@ -2,16 +2,17 @@ package com.almersal.android.di.ui
 
 import android.content.Context
 import android.util.Log
+import com.almersal.android.App
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.ParsedRequestListener
 import com.almersal.android.api.ApiService
 import com.almersal.android.api.ServerInfo
-import com.almersal.android.data.entities.BusinessGuide
-import com.almersal.android.data.entities.PointEntity
-import com.almersal.android.data.entities.SubCategory
+import com.almersal.android.data.entities.*
 import com.almersal.android.data.entitiesModel.BusinessGuideEditModel
 import com.almersal.android.data.entitiesModel.BusinessGuideModel
+import com.almersal.android.data.filtration.FilterEntity
 import com.almersal.android.enums.DaysEnum
+import com.almersal.android.repositories.DataStoreRepositories
 import io.reactivex.disposables.CompositeDisposable
 
 class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuidesContract.Presenter {
@@ -90,12 +91,38 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
     override fun loadBusinessGuideByLocation(
         pointEntity: PointEntity,
         limit: Int,
-        skip: Int
+        skip: Int,
+        filterEntity: FilterEntity?
     ) {
+
+        var filterQuery = ""
+        val language = App.app.isArabic()
+
+        if (!filterEntity?.query.isNullOrEmpty())
+            filterQuery += if (language) {
+                "&filter[where][or][1][nameAr][like]=${filterEntity?.query}"
+            } else {
+                "&filter[where][or][0][nameEn][like]=${filterEntity?.query}"
+            }
+
+        if (filterEntity?.category != null)
+            filterQuery += "&filter[where][categoryId]=${filterEntity.category?.id}"
+
+        if (filterEntity?.subCategory != null)
+            filterQuery += "&filter[where][subCategoryId]=${filterEntity.subCategory?.id}"
+
+//        if (filterEntity?.city != null) {
+//            val city: City? = DataStoreRepositories(context).findCityById(it.cityId)
+//            result = result and (city == filterEntity.city)
+//        }
+//        if (filterEntity.area != null) {
+//            val location: LocationEntity? = DataStoreRepositories(context).findLocationById(it.cityId, it.locationId)
+//            result = result and (location == filterEntity.area)
+//        }
 
         val url = ServerInfo.businessGuideUrl + "?filter[where][locationPoint][near]=" +
                 pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[where][status]=activated" +
-                "&filter[limit]=$limit&filter[skip]=$skip"
+                "&filter[limit]=$limit&filter[skip]=$skip" + filterQuery
 
         loadBusinessGuideByUrl(url)
     }
@@ -105,7 +132,7 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
 
         val url = ServerInfo.businessGuideUrl + "?filter[where][subCategoryId]=" + subCategory.id +
                 "&filter[where][locationPoint][near]=" +
-                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[where][status]=activated"//&filter[limit]=3
+                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[where][status]=activated&filter[limit]=3"
 
         loadBusinessGuideByUrl(url)
     }

@@ -60,7 +60,8 @@ import javax.inject.Inject
 
 
 class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMapReadyCallback,
-    BusinessGuidesContract.View, TagsCollectionContact.View, OnTagSelectListener, OnCategorySelectListener {
+    BusinessGuidesContract.View, TagsCollectionContact.View, OnTagSelectListener, OnCategorySelectListener,
+    GoogleMap.OnMapLongClickListener {
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -104,8 +105,9 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
     @BindView(R.id.selectedTagsView)
     lateinit var selectedTagsView: SelectedTagsView
 
-    lateinit var mMap: GoogleMap
 
+    lateinit var mMap: GoogleMap
+    var selectedMarker: Marker? = null
     var firstLocation = true
     var firstFilterEntity: FilterEntity? = null
     var limit = 10
@@ -140,7 +142,8 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
                             pointEntity =
                             PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
                             limit = limit,
-                            skip = limit * pageId
+                            skip = limit * pageId, filterEntity = firstFilterEntity
+
                         )
                     }
             }
@@ -165,7 +168,7 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
                             pointEntity =
                             PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
                             limit = limit,
-                            skip = limit * pageId
+                            skip = limit * pageId, filterEntity = firstFilterEntity
                         )
                     }
                 }
@@ -198,8 +201,10 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
 //        currentcity = CityModel(titleStr, location, CitiesManager.getCitiesSize() == 0)
 //        mMap.clear()
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12.0f))
-        mMap.addMarker(markerOptions)
+        if (selectedMarker == null)
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12.0f))
+        selectedMarker?.remove()
+        selectedMarker = mMap.addMarker(markerOptions)
     }
 
     private fun setUpMap() {
@@ -322,20 +327,36 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
     }
 
     private fun setFilterEntity(filterEntity: FilterEntity) {
-        selectedTagsView.setAdapter(TagsRecyclerViewAdapter(baseContext, filterEntity.getTags()))
-        (selectedTagsView.getAdapter() as TagsRecyclerViewAdapter).onTagSelectListener = this
-        if (businessGuideRecyclerView.adapter != null) {
-            val adapter = businessGuideRecyclerView.adapter as BusinessGuideRecyclerViewAdapter
-            adapter.filterByCriteria(filterEntity)
-            val businessGuideList = adapter.businessGuideList
 
-            mMap.clear()
-            if (lastLocation != null)
-                placeMarkerOnMap(LatLng(lastLocation!!.latitude, lastLocation!!.longitude))
-            businessGuideList.forEach {
-                addMarker(it, it.getName(), it.locationPoint)
-            }
-        }
+//__________________Offline Filtering_____________________
+
+//        selectedTagsView.setAdapter(TagsRecyclerViewAdapter(baseContext, filterEntity.getTags()))
+//        (selectedTagsView.getAdapter() as TagsRecyclerViewAdapter).onTagSelectListener = this
+//        if (businessGuideRecyclerView.adapter != null) {
+//            val adapter = businessGuideRecyclerView.adapter as BusinessGuideRecyclerViewAdapter
+//            adapter.filterByCriteria(filterEntity)
+//            val businessGuideList = adapter.businessGuideList
+//
+//            mMap.clear()
+//            if (lastLocation != null)
+//                placeMarkerOnMap(LatLng(lastLocation!!.latitude, lastLocation!!.longitude))
+//            businessGuideList.forEach {
+//                addMarker(it, it.getName(), it.locationPoint)
+//            }
+//        }
+
+
+        pageId = 0
+        firstFilterEntity = filterEntity
+        businessGuidesPresenter.loadBusinessGuideByLocation(
+            pointEntity =
+            PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
+            limit = limit,
+            skip = limit * pageId, filterEntity = firstFilterEntity
+
+        )
+
+
     }
 
 
@@ -387,7 +408,10 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
         if (lastLocation != null) {
             businessGuidesPresenter.loadBusinessGuideByLocation(
                 pointEntity =
-                PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude), limit = 10, skip = 0
+                PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
+                limit = 10,
+                skip = 0,
+                filterEntity = firstFilterEntity
             )
         }
     }
@@ -411,6 +435,7 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
         mMap = googleMap!!
         mMap.uiSettings.isZoomControlsEnabled = true
         mMap.setOnMarkerClickListener(this)
+        mMap.setOnMapLongClickListener(this)
         setUpMap()
     }
 
@@ -454,6 +479,20 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
         createLocationRequest()
         Log.v("", "")
 
+    }
+
+    override fun onMapLongClick(p0: LatLng?) {
+
+        placeMarkerOnMap(p0!!)
+        lastLocation?.latitude = p0.latitude
+        lastLocation?.longitude = p0.longitude
+
+        businessGuidesPresenter.loadBusinessGuideByLocation(
+            pointEntity =
+            PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
+            limit = limit,
+            skip = limit * pageId, filterEntity = firstFilterEntity
+        )
     }
 
     override fun onMarkerClick(p0: Marker?): Boolean {
@@ -508,8 +547,8 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
         businessGuideList.forEach {
             addMarker(it, it.getName(), it.locationPoint)
         }
-        if (firstFilterEntity != null)
-            setFilterEntity(firstFilterEntity!!)
+//        if (firstFilterEntity != null)
+//            setFilterEntity(firstFilterEntity!!)
         Log.v("", "")
     }
 

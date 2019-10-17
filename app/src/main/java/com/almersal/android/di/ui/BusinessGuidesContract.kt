@@ -5,6 +5,7 @@ import com.almersal.android.data.entities.PointEntity
 import com.almersal.android.data.entities.SubCategory
 import com.almersal.android.data.entitiesModel.BusinessGuideEditModel
 import com.almersal.android.data.entitiesModel.BusinessGuideModel
+import com.almersal.android.data.filtration.FilterEntity
 import com.almersal.android.enums.DaysEnum
 
 class BusinessGuidesContract {
@@ -16,7 +17,8 @@ class BusinessGuidesContract {
         fun loadBusinessGuideByLocation(
             pointEntity: PointEntity,
             limit: Int,
-            skip: Int
+            skip: Int,
+            filterEntity: FilterEntity?
         )
 
         /*for pharmacy duty action*/

@@ -2,7 +2,7 @@
     <string name="app_name">almersal</string>
 
     <!--<string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDAbTRgO8FsaOZ_410l83nQb5G1-OhEdXo</string>-->
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBjqioJFsSmfzlviqJRnQyejNE8y9tFYbg</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBVTosczyliutwohQGmBlShgHvZO-CHldU</string>
 
     <string name="default_notification_channel_id" translatable="false">313</string>
 
