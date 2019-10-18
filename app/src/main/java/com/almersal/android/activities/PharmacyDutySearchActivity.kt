@@ -48,7 +48,7 @@ import javax.inject.Inject
 
 
 class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMapReadyCallback,
-        BusinessGuidesContract.View {
+    BusinessGuidesContract.View, GoogleMap.OnCameraMoveStartedListener {
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -91,7 +91,8 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
 
     var limit = 10
     var pageId = 0
-
+    var maxDistance = 0f
+    var changeViewTypeFlag = true
     private fun initToolBar() {
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener { onBackPressed() }
@@ -119,7 +120,8 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
                             PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
                             daysEnum = DateHelper.getCurrentDay(),
                             limit = limit,
-                            skip = limit * pageId
+                            skip = limit * pageId,
+                            maxDistance = maxDistance
                         )
                     }
             }
@@ -133,17 +135,18 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
             override fun onLocationResult(p0: LocationResult?) {
                 super.onLocationResult(p0)
                 if (p0?.lastLocation != null) {
-                    lastLocation = p0.lastLocation
+
                     if (firstLocation) {
                         firstLocation = false
-
-                        placeMarkerOnMap(LatLng(lastLocation!!.latitude, lastLocation!!.longitude))
+                        lastLocation = p0.lastLocation
+                        //placeMarkerOnMap(LatLng(lastLocation!!.latitude, lastLocation!!.longitude))
                         businessGuidesPresenter.loadBusinessGuideForPharmacy(
                             pointEntity =
                             PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
                             daysEnum = DateHelper.getCurrentDay(),
-                            limit = 10,
-                            skip = 0
+                            limit = limit,
+                            skip = limit * pageId,
+                            maxDistance = maxDistance
                         )
                     }
                 }
@@ -154,23 +157,17 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
 
     }
 
-    private fun placeMarkerOnMap(location: LatLng) {
-
-        val markerOptions = MarkerOptions().position(location)
-//        val titleStr = getAddress(location)  // add these two lines
-        markerOptions.title(resources.getString(R.string.Your))
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-//        currentcity = CityModel(titleStr, location, CitiesManager.getCitiesSize() == 0)
-//        mMap.clear()
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12.0f))
-        mMap.addMarker(markerOptions)
-    }
 
     private fun setUpMap() {
-        if (ActivityCompat.checkSelfPermission(this,
-                        android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE
+            )
             return
         }
 //        mMap.isMyLocationEnabled = true
@@ -182,7 +179,7 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
             if (location != null) {
                 lastLocation = location
                 val currentLatLng = LatLng(location.latitude, location.longitude)
-                placeMarkerOnMap(currentLatLng)
+                //placeMarkerOnMap(currentLatLng)
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
             }
         }
@@ -193,11 +190,16 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
     /*GPS Track Started */
     private fun startLocationUpdates() {
         //1
-        if (ActivityCompat.checkSelfPermission(this,
-                        android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-                    LOCATION_PERMISSION_REQUEST_CODE)
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
             return
         }
         //2
@@ -214,7 +216,7 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
 
         val builder = LocationSettingsRequest.Builder()
-                .addLocationRequest(locationRequest)
+            .addLocationRequest(locationRequest)
 
         // 4
         val client = LocationServices.getSettingsClient(this)
@@ -233,8 +235,10 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
                 try {
                     // Show the dialog by calling startResolutionForResult(),
                     // and check the result in onActivityResult().
-                    e.startResolutionForResult(this@PharmacyDutySearchActivity,
-                            REQUEST_CHECK_SETTINGS)
+                    e.startResolutionForResult(
+                        this@PharmacyDutySearchActivity,
+                        REQUEST_CHECK_SETTINGS
+                    )
                 } catch (sendEx: IntentSender.SendIntentException) {
                     // Ignore the error.
                 }
@@ -252,8 +256,8 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
     private fun initDI() {
         val component = DaggerPharmacyDutySearchComponent.builder()
 //                .tagsCollectionModule(TagsCollectionModule(this))
-                .businessGuidesModule(BusinessGuidesModule(this))
-                .build()
+            .businessGuidesModule(BusinessGuidesModule(this))
+            .build()
         component.inject(this)
 
         businessGuidesPresenter.attachView(this)
@@ -272,7 +276,7 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
         initDI()
 
         val mapFragment = supportFragmentManager
-                .findFragmentById(R.id.map) as SupportMapFragment
+            .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
 //        businessGuideRecyclerView.adapter = BusinessGuideRecyclerViewAdapter(this
@@ -310,7 +314,8 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
                 PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
                 daysEnum = DateHelper.getCurrentDay(),
                 limit = 10,
-                skip = 0
+                skip = 0,
+                maxDistance = null
             )
         }
     }
@@ -332,6 +337,7 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
         mMap = googleMap!!
         mMap.uiSettings.isZoomControlsEnabled = true
         mMap.setOnMarkerClickListener(this)
+        mMap.setOnCameraMoveStartedListener(this)
         setUpMap()
     }
 
@@ -351,7 +357,7 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
                 var addressText = place.name.toString()
                 addressText += "\n" + place.address.toString()
 
-                placeMarkerOnMap(place.latLng)
+                //placeMarkerOnMap(place.latLng)
             }
         }
     }
@@ -378,13 +384,43 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
 
     }
 
+
+    override fun onCameraMoveStarted(p0: Int) {
+        lastLocation?.latitude = mMap.projection.visibleRegion.latLngBounds.center.latitude
+        lastLocation?.longitude = mMap.projection.visibleRegion.latLngBounds.center.longitude
+        val currentLatLng = LatLng(lastLocation?.latitude!!, lastLocation?.longitude!!)
+        //placeMarkerOnMap(currentLatLng)
+        val distance: FloatArray? = floatArrayOf(0f, 0f, 0f)
+        Location.distanceBetween(
+            mMap.projection.visibleRegion.latLngBounds.northeast.latitude,
+            mMap.projection.visibleRegion.latLngBounds.northeast.longitude,
+            mMap.cameraPosition.target.latitude,
+            mMap.cameraPosition.target.longitude,
+            distance
+        )
+
+        maxDistance = distance!![0] / 1000
+        pageId = 0
+        businessGuidesPresenter.loadBusinessGuideForPharmacy(
+            pointEntity =
+            PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
+            daysEnum = DateHelper.getCurrentDay(),
+            limit = limit,
+            skip = pageId * limit,
+            maxDistance = maxDistance
+        )
+    }
+
     override fun onMarkerClick(p0: Marker?): Boolean {
         if (p0 != null) {
             if (p0.tag is BusinessGuide) {
                 Handler().postDelayed({
-                    val businessGuideSnippetBottomFragment = BusinessGuideSnippetBottomFragment.getNewInstance(p0.tag as BusinessGuide)
-                    businessGuideSnippetBottomFragment.show(supportFragmentManager,
-                            BusinessGuideSnippetBottomFragment.BusinessGuideSnippetBottomFragment_Tag)
+                    val businessGuideSnippetBottomFragment =
+                        BusinessGuideSnippetBottomFragment.getNewInstance(p0.tag as BusinessGuide)
+                    businessGuideSnippetBottomFragment.show(
+                        supportFragmentManager,
+                        BusinessGuideSnippetBottomFragment.BusinessGuideSnippetBottomFragment_Tag
+                    )
                 }, 200)
             }
         }
@@ -420,7 +456,11 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
 
     override fun onLoadBusinessGuideListSuccessfully(businessGuideList: MutableList<BusinessGuide>) {
         businessGuideRecyclerView.adapter = BusinessGuideRecyclerViewAdapter(this, businessGuideList)
-//        findViewById<CompoundButton>(R.id.viewTypeToggle).isChecked = true
+        var viewTypeToggle = findViewById<CompoundButton>(R.id.viewTypeToggle)
+        if (changeViewTypeFlag) {
+            changeViewTypeFlag = false
+            viewTypeToggle.isChecked = true
+        }
         businessGuideList.forEach {
             addMarker(it, it.getName(), it.locationPoint)
         }
@@ -429,11 +469,15 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
 
     private fun addMarker(businessGuide: BusinessGuide, title: String, pointEntity: PointEntity) {
         try {
-            val marker = mMap.addMarker(MarkerOptions()
+            val marker = mMap.addMarker(
+                MarkerOptions()
                     .position(LatLng(pointEntity.lat, pointEntity.lng))
                     .title(title)
-                    .icon(BitmapDescriptorFactory
-                            .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
+                    .icon(
+                        BitmapDescriptorFactory
+                            .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
+                    )
+            )
             marker.tag = businessGuide
         } catch (ex: Exception) {
             Log.v("", "'")

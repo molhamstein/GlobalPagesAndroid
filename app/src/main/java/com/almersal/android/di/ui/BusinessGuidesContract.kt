@@ -18,18 +18,29 @@ class BusinessGuidesContract {
             pointEntity: PointEntity,
             limit: Int,
             skip: Int,
-            filterEntity: FilterEntity?
+            filterEntity: FilterEntity?,
+            maxDistance: Float?
         )
 
         /*for pharmacy duty action*/
-        fun loadBusinessGuideForPharmacy(pointEntity: PointEntity, daysEnum: DaysEnum, limit: Int, skip: Int)
+        fun loadBusinessGuideForPharmacy(
+            pointEntity: PointEntity,
+            daysEnum: DaysEnum,
+            limit: Int,
+            skip: Int,
+            maxDistance: Float?
+        )
 
         /*for nearby action*/
         fun loadBusinessGuideList(subCategory: SubCategory)
         fun loadBusinessGuideListWithLimit(subCategory: SubCategory)
 
         fun loadBusinessGuideByLocationAndCategory(pointEntity: PointEntity, subCategory: SubCategory)
-        fun loadBusinessGuideByLocationAndCategoryWithLimit(pointEntity: PointEntity, subCategory: SubCategory)
+        fun loadBusinessGuideByLocationAndCategoryWithLimit(
+            pointEntity: PointEntity,
+            subCategory: SubCategory,
+            maxDistance: Float?
+        )
 
         fun loadBusinessGuideById(id: String)
 

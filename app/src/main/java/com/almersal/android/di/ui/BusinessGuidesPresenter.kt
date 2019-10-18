@@ -12,7 +12,6 @@ import com.almersal.android.data.entitiesModel.BusinessGuideEditModel
 import com.almersal.android.data.entitiesModel.BusinessGuideModel
 import com.almersal.android.data.filtration.FilterEntity
 import com.almersal.android.enums.DaysEnum
-import com.almersal.android.repositories.DataStoreRepositories
 import io.reactivex.disposables.CompositeDisposable
 
 class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuidesContract.Presenter {
@@ -92,7 +91,8 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
         pointEntity: PointEntity,
         limit: Int,
         skip: Int,
-        filterEntity: FilterEntity?
+        filterEntity: FilterEntity?,
+        maxDistance: Float?
     ) {
 
         var filterQuery = ""
@@ -100,39 +100,52 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
 
         if (!filterEntity?.query.isNullOrEmpty())
             filterQuery += if (language) {
-                "&filter[where][or][1][nameAr][like]=${filterEntity?.query}"
+                "&keyword=${filterEntity?.query}"
             } else {
-                "&filter[where][or][0][nameEn][like]=${filterEntity?.query}"
+                "&keyword=${filterEntity?.query}"
             }
 
         if (filterEntity?.category != null)
-            filterQuery += "&filter[where][categoryId]=${filterEntity.category?.id}"
+            filterQuery += "&catId=${filterEntity.category?.id}"
 
         if (filterEntity?.subCategory != null)
-            filterQuery += "&filter[where][subCategoryId]=${filterEntity.subCategory?.id}"
+            filterQuery += "&subCatId=${filterEntity.subCategory?.id}"
 
-//        if (filterEntity?.city != null) {
-//            val city: City? = DataStoreRepositories(context).findCityById(it.cityId)
-//            result = result and (city == filterEntity.city)
-//        }
-//        if (filterEntity.area != null) {
-//            val location: LocationEntity? = DataStoreRepositories(context).findLocationById(it.cityId, it.locationId)
-//            result = result and (location == filterEntity.area)
-//        }
+        if (filterEntity?.city != null) {
+            filterQuery += "&cityId=${filterEntity.city?.id}"
+        }
+        if (filterEntity?.area != null) {
+            filterQuery += "&locationId=${filterEntity.area?.id}"
+        }
 
-        val url = ServerInfo.businessGuideUrl + "?filter[where][locationPoint][near]=" +
-                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[where][status]=activated" +
-                "&filter[limit]=$limit&filter[skip]=$skip" + filterQuery
+        filterQuery += "&units=kilometers&maxDistance=$maxDistance"
+        //http://192.168.1.8:3000/api/businesses/searchByLocation?lat=33.514&lng=36.31&codeCat=pharmacies
+        // &limit=100&skip=0&openingDay=0&units=kilometers&maxDistance=3000
+        // &cityId=123&locationId=123&catId=123&subCatId=123
+
+        val url = ServerInfo.businessGuideUrl + "/searchByLocation?lat=" +
+                pointEntity.lat.toString() + "&lng=" + pointEntity.lng.toString() +
+                "&limit=$limit&skip=$skip" + filterQuery
+
+//        val url = ServerInfo.businessGuideUrl + "?filter[where][locationPoint][near]=" +
+//                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[where][status]=activated" +
+//                "&filter[limit]=$limit&filter[skip]=$skip" + filterQuery
 
         loadBusinessGuideByUrl(url)
     }
 
-    override fun loadBusinessGuideByLocationAndCategoryWithLimit(pointEntity: PointEntity, subCategory: SubCategory) {
+    override fun loadBusinessGuideByLocationAndCategoryWithLimit(
+        pointEntity: PointEntity,
+        subCategory: SubCategory,
+        maxDistance: Float?
+    ) {
 //        var s = "filter[where][price][between][0]=0&filter[where][price][between][1]=7"
 
-        val url = ServerInfo.businessGuideUrl + "?filter[where][subCategoryId]=" + subCategory.id +
-                "&filter[where][locationPoint][near]=" +
-                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[where][status]=activated&filter[limit]=3"
+
+
+        val url = ServerInfo.businessGuideUrl + "/searchByLocation?lat=" +
+                pointEntity.lat.toString() + "&lng=" + pointEntity.lng.toString() +
+                "&limit=3"+ "&subCatId=${subCategory.id}"+"&units=kilometers&maxDistance=$maxDistance"
 
         loadBusinessGuideByUrl(url)
     }
@@ -151,14 +164,16 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
         pointEntity: PointEntity,
         daysEnum: DaysEnum,
         limit: Int,
-        skip: Int
+        skip: Int,
+        maxDistance: Float?
     ) {
 
 //        val url = ServerInfo.businessGuideUrl + "?filter[where][categoryId]=" + SettingData.pharmacyCategoryId +
 //                "&filter[where][locationPoint][near]=" +
 //                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[limit]=1000"
         val url = ServerInfo.businessGuideUrl + "/searchByLocation?lat=" + pointEntity.lat +
-                "&lng=" + pointEntity.lng + "&openingDay=" + daysEnum.number.toString() + "&codeCat=pharmacies"
+                "&lng=" + pointEntity.lng + "&openingDay=" + daysEnum.number.toString() + "&codeCat=pharmacies"+
+                "&units=kilometers&maxDistance=$maxDistance"
         loadBusinessGuideByUrl(url)
     }
 

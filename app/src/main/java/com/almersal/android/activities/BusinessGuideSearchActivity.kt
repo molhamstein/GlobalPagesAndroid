@@ -36,6 +36,7 @@ import com.almersal.android.di.ui.TagsCollectionPresenter
 import com.almersal.android.dialogs.bottomSheetFragments.BusinessGuideSnippetBottomFragment
 import com.almersal.android.dialogs.bottomSheetFragments.SubCategoryBottomSheet
 import com.almersal.android.enums.FilterType
+import com.almersal.android.enums.TagType
 import com.almersal.android.eventsBus.EventActions
 import com.almersal.android.eventsBus.MessageEvent
 import com.almersal.android.eventsBus.RxBus
@@ -52,16 +53,13 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import javax.inject.Inject
 
 
 class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMapReadyCallback,
     BusinessGuidesContract.View, TagsCollectionContact.View, OnTagSelectListener, OnCategorySelectListener,
-    GoogleMap.OnMapLongClickListener {
+    GoogleMap.OnCameraMoveStartedListener {
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -107,12 +105,12 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
 
 
     lateinit var mMap: GoogleMap
-    var selectedMarker: Marker? = null
     var firstLocation = true
     var firstFilterEntity: FilterEntity? = null
     var limit = 10
     var pageId = 0
-
+    var maxDistance = 0f
+    var changeViewTypeFlag = true
     private fun initToolBar() {
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener { onBackPressed() }
@@ -142,7 +140,7 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
                             pointEntity =
                             PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
                             limit = limit,
-                            skip = limit * pageId, filterEntity = firstFilterEntity
+                            skip = limit * pageId, filterEntity = firstFilterEntity, maxDistance = maxDistance
 
                         )
                     }
@@ -160,16 +158,19 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
             override fun onLocationResult(p0: LocationResult?) {
                 super.onLocationResult(p0)
                 if (p0?.lastLocation != null) {
-                    lastLocation = p0.lastLocation
+
                     if (firstLocation) {
                         firstLocation = false
-                        placeMarkerOnMap(LatLng(lastLocation!!.latitude, lastLocation!!.longitude))
-                        businessGuidesPresenter.loadBusinessGuideByLocation(
-                            pointEntity =
-                            PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
-                            limit = limit,
-                            skip = limit * pageId, filterEntity = firstFilterEntity
+                        lastLocation = p0.lastLocation
+                        mMap.moveCamera(
+                            CameraUpdateFactory.newLatLngZoom(
+                                LatLng(
+                                    lastLocation!!.latitude,
+                                    lastLocation!!.longitude
+                                ), 12.0f
+                            )
                         )
+
                     }
                 }
 
@@ -193,19 +194,6 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
 
     }
 
-    private fun placeMarkerOnMap(location: LatLng) {
-
-        val markerOptions = MarkerOptions().position(location)
-//        val titleStr = getAddress(location)  // add these two lines
-        markerOptions.title(resources.getString(R.string.Your))
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-//        currentcity = CityModel(titleStr, location, CitiesManager.getCitiesSize() == 0)
-//        mMap.clear()
-        if (selectedMarker == null)
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12.0f))
-        selectedMarker?.remove()
-        selectedMarker = mMap.addMarker(markerOptions)
-    }
 
     private fun setUpMap() {
         if (ActivityCompat.checkSelfPermission(
@@ -228,7 +216,7 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
             if (location != null) {
                 lastLocation = location
                 val currentLatLng = LatLng(location.latitude, location.longitude)
-                placeMarkerOnMap(currentLatLng)
+//                placeMarkerOnMap(currentLatLng)
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
             }
         }
@@ -307,7 +295,6 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
         initRecyclerView()
 
         initDI()
-
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -330,8 +317,7 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
 
 //__________________Offline Filtering_____________________
 
-//        selectedTagsView.setAdapter(TagsRecyclerViewAdapter(baseContext, filterEntity.getTags()))
-//        (selectedTagsView.getAdapter() as TagsRecyclerViewAdapter).onTagSelectListener = this
+
 //        if (businessGuideRecyclerView.adapter != null) {
 //            val adapter = businessGuideRecyclerView.adapter as BusinessGuideRecyclerViewAdapter
 //            adapter.filterByCriteria(filterEntity)
@@ -345,14 +331,15 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
 //            }
 //        }
 
-
+        selectedTagsView.setAdapter(TagsRecyclerViewAdapter(baseContext, filterEntity.getTags()))
+        (selectedTagsView.getAdapter() as TagsRecyclerViewAdapter).onTagSelectListener = this
         pageId = 0
         firstFilterEntity = filterEntity
         businessGuidesPresenter.loadBusinessGuideByLocation(
             pointEntity =
             PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
             limit = limit,
-            skip = limit * pageId, filterEntity = firstFilterEntity
+            skip = limit * pageId, filterEntity = firstFilterEntity, maxDistance = maxDistance
 
         )
 
@@ -385,13 +372,27 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
     }
 
     override fun onSelectTag(tagEntity: TagEntity) {
-        if (businessGuideRecyclerView.adapter != null) {
-            val adapter = businessGuideRecyclerView.adapter as BusinessGuideRecyclerViewAdapter
-            adapter.excludeFilter(tagEntity)
-            if (adapter.filterEntity != null)
-                setFilterEntity(adapter.filterEntity!!)
+
+//            if (adapter.filterEntity != null)
+        when (tagEntity.tagType) {
+            TagType.Category -> {
+                firstFilterEntity!!.category = null
+            }
+            TagType.SubCategory -> {
+                firstFilterEntity!!.subCategory = null
+            }
+            TagType.City -> {
+                firstFilterEntity!!.city = null
+            }
+            TagType.Location -> {
+                firstFilterEntity!!.area = null
+            }
+            TagType.Query -> {
+                firstFilterEntity!!.query = null
+            }
         }
-        Log.v("", "")
+        firstFilterEntity?.let { setFilterEntity(it) }
+
     }
 
     override fun onTagClick(tagEntity: TagEntity) {
@@ -411,7 +412,8 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
                 PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
                 limit = 10,
                 skip = 0,
-                filterEntity = firstFilterEntity
+                filterEntity = firstFilterEntity,
+                maxDistance = maxDistance
             )
         }
     }
@@ -435,7 +437,7 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
         mMap = googleMap!!
         mMap.uiSettings.isZoomControlsEnabled = true
         mMap.setOnMarkerClickListener(this)
-        mMap.setOnMapLongClickListener(this)
+        mMap.setOnCameraMoveStartedListener(this)
         setUpMap()
     }
 
@@ -454,7 +456,7 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
                 var addressText = place.name.toString()
                 addressText += "\n" + place.address.toString()
 
-                placeMarkerOnMap(place.latLng)
+//                placeMarkerOnMap(place.latLng)
             }
         }
     }
@@ -481,19 +483,30 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
 
     }
 
-    override fun onMapLongClick(p0: LatLng?) {
+    override fun onCameraMoveStarted(p0: Int) {
+        lastLocation?.latitude = mMap.projection.visibleRegion.latLngBounds.center.latitude
+        lastLocation?.longitude = mMap.projection.visibleRegion.latLngBounds.center.longitude
+        val currentLatLng = LatLng(lastLocation?.latitude!!, lastLocation?.longitude!!)
+        //placeMarkerOnMap(currentLatLng)
+        val distance: FloatArray? = floatArrayOf(0f, 0f, 0f)
+        Location.distanceBetween(
+            mMap.projection.visibleRegion.latLngBounds.northeast.latitude,
+            mMap.projection.visibleRegion.latLngBounds.northeast.longitude,
+            mMap.cameraPosition.target.latitude,
+            mMap.cameraPosition.target.longitude,
+            distance
+        )
 
-        placeMarkerOnMap(p0!!)
-        lastLocation?.latitude = p0.latitude
-        lastLocation?.longitude = p0.longitude
-
+        maxDistance = distance!![0] / 1000
+        pageId = 0
         businessGuidesPresenter.loadBusinessGuideByLocation(
             pointEntity =
             PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
             limit = limit,
-            skip = limit * pageId, filterEntity = firstFilterEntity
+            skip = limit * pageId, filterEntity = firstFilterEntity, maxDistance = maxDistance
         )
     }
+
 
     override fun onMarkerClick(p0: Marker?): Boolean {
         if (p0 != null) {
@@ -535,15 +548,25 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
     }
 
     override fun showBusinessGuideEmptyView(visible: Boolean) {
-        Toast.makeText(baseContext, R.string.NoDataFound, Toast.LENGTH_LONG).show()
+        if (pageId == 0) {
+            businessGuideRecyclerView.adapter = BusinessGuideRecyclerViewAdapter(this, mutableListOf())
+            mMap.clear()
+            Toast.makeText(baseContext, R.string.NoDataFound, Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onLoadBusinessGuideListSuccessfully(businessGuideList: MutableList<BusinessGuide>) {
-        if (pageId == 0)
+
+        if (pageId == 0) {
             businessGuideRecyclerView.adapter = BusinessGuideRecyclerViewAdapter(this, businessGuideList)
-        else
+            mMap.clear()
+        } else
             (businessGuideRecyclerView.adapter as BusinessGuideRecyclerViewAdapter).addAll(businessGuideList)
-        findViewById<CompoundButton>(R.id.viewTypeToggle).isChecked = true
+        var viewTypeToggle = findViewById<CompoundButton>(R.id.viewTypeToggle)
+        if (changeViewTypeFlag) {
+            changeViewTypeFlag = false
+            viewTypeToggle.isChecked = true
+        }
         businessGuideList.forEach {
             addMarker(it, it.getName(), it.locationPoint)
         }
