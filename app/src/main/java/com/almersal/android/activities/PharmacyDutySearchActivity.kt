@@ -89,10 +89,10 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
 
     var firstLocation = true
 
-    var limit = 10
+    var limit = 100
     var pageId = 0
     var maxDistance = 0f
-    var changeViewTypeFlag = true
+    var changeViewTypeFlag = false
     private fun initToolBar() {
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener { onBackPressed() }

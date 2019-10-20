@@ -107,7 +107,7 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
     lateinit var mMap: GoogleMap
     var firstLocation = true
     var firstFilterEntity: FilterEntity? = null
-    var limit = 10
+    var limit = 100
     var pageId = 0
     var maxDistance = 0f
     var changeViewTypeFlag = true
@@ -410,7 +410,7 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
             businessGuidesPresenter.loadBusinessGuideByLocation(
                 pointEntity =
                 PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
-                limit = 10,
+                limit = 100,
                 skip = 0,
                 filterEntity = firstFilterEntity,
                 maxDistance = maxDistance
