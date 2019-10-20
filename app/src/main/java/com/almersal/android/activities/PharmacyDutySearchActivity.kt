@@ -48,7 +48,7 @@ import javax.inject.Inject
 
 
 class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMapReadyCallback,
-    BusinessGuidesContract.View, GoogleMap.OnCameraMoveStartedListener {
+    BusinessGuidesContract.View, GoogleMap.OnCameraIdleListener {
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -337,7 +337,7 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
         mMap = googleMap!!
         mMap.uiSettings.isZoomControlsEnabled = true
         mMap.setOnMarkerClickListener(this)
-        mMap.setOnCameraMoveStartedListener(this)
+        mMap.setOnCameraIdleListener(this)
         setUpMap()
     }
 
@@ -385,7 +385,7 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
     }
 
 
-    override fun onCameraMoveStarted(p0: Int) {
+    override fun onCameraIdle() {
         lastLocation?.latitude = mMap.projection.visibleRegion.latLngBounds.center.latitude
         lastLocation?.longitude = mMap.projection.visibleRegion.latLngBounds.center.longitude
         val currentLatLng = LatLng(lastLocation?.latitude!!, lastLocation?.longitude!!)

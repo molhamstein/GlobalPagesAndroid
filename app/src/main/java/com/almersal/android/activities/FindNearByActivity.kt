@@ -53,7 +53,7 @@ import javax.inject.Inject
 
 class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMapReadyCallback,
     TagsCollectionContact.View, BusinessGuidesContract.View, OnSubCategorySelectListener, OnCategorySelectListener,
-    GoogleMap.OnCameraMoveStartedListener {
+    GoogleMap.OnCameraIdleListener {
 
 
     companion object {
@@ -327,7 +327,7 @@ class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMa
         mMap = googleMap!!
         mMap.uiSettings.isZoomControlsEnabled = true
         mMap.setOnMarkerClickListener(this)
-        mMap.setOnCameraMoveStartedListener(this)
+        mMap.setOnCameraIdleListener(this)
         setUpMap()
     }
 
@@ -374,7 +374,7 @@ class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMa
 
     }
 
-    override fun onCameraMoveStarted(p0: Int) {
+    override fun onCameraIdle() {
         lastLocation?.latitude = mMap.projection.visibleRegion.latLngBounds.center.latitude
         lastLocation?.longitude = mMap.projection.visibleRegion.latLngBounds.center.longitude
         val currentLatLng = LatLng(lastLocation?.latitude!!, lastLocation?.longitude!!)
