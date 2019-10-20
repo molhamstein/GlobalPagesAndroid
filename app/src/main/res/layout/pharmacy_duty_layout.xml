@@ -28,6 +28,7 @@
         app:cardCornerRadius="@dimen/cardview_default_radius"
         app:cardElevation="@dimen/cardview_default_elevation"
         app:cardUseCompatPadding="true"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <RelativeLayout
