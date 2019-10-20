@@ -145,7 +145,7 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
 
         val url = ServerInfo.businessGuideUrl + "/searchByLocation?lat=" +
                 pointEntity.lat.toString() + "&lng=" + pointEntity.lng.toString() +
-                "&limit=3"+ "&subCatId=${subCategory.id}"+"&units=kilometers&maxDistance=$maxDistance"
+                "&limit=100"+ "&subCatId=${subCategory.id}"+"&units=kilometers&maxDistance=$maxDistance"
 
         loadBusinessGuideByUrl(url)
     }
