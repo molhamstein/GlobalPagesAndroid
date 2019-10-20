@@ -48,7 +48,7 @@ import javax.inject.Inject
 
 
 class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMapReadyCallback,
-    BusinessGuidesContract.View, GoogleMap.OnCameraIdleListener {
+    BusinessGuidesContract.View {
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -91,7 +91,7 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
 
     var limit = 100
     var pageId = 0
-    var maxDistance = 0f
+    var maxDistance = 12f
     var changeViewTypeFlag = false
     private fun initToolBar() {
         setSupportActionBar(toolbar)
@@ -139,7 +139,7 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
                     if (firstLocation) {
                         firstLocation = false
                         lastLocation = p0.lastLocation
-                        //placeMarkerOnMap(LatLng(lastLocation!!.latitude, lastLocation!!.longitude))
+                        placeMarkerOnMap(LatLng(lastLocation!!.latitude, lastLocation!!.longitude))
                         businessGuidesPresenter.loadBusinessGuideForPharmacy(
                             pointEntity =
                             PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
@@ -157,6 +157,17 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
 
     }
 
+    private fun placeMarkerOnMap(location: LatLng) {
+
+        val markerOptions = MarkerOptions().position(location)
+//        val titleStr = getAddress(location)  // add these two lines
+        markerOptions.title(resources.getString(R.string.Your))
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+//        currentcity = CityModel(titleStr, location, CitiesManager.getCitiesSize() == 0)
+//        mMap.clear()
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12.0f))
+        mMap.addMarker(markerOptions)
+    }
 
     private fun setUpMap() {
         if (ActivityCompat.checkSelfPermission(
@@ -179,7 +190,7 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
             if (location != null) {
                 lastLocation = location
                 val currentLatLng = LatLng(location.latitude, location.longitude)
-                //placeMarkerOnMap(currentLatLng)
+                placeMarkerOnMap(currentLatLng)
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
             }
         }
@@ -315,7 +326,7 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
                 daysEnum = DateHelper.getCurrentDay(),
                 limit = 10,
                 skip = 0,
-                maxDistance = null
+                maxDistance = maxDistance
             )
         }
     }
@@ -337,7 +348,6 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
         mMap = googleMap!!
         mMap.uiSettings.isZoomControlsEnabled = true
         mMap.setOnMarkerClickListener(this)
-        mMap.setOnCameraIdleListener(this)
         setUpMap()
     }
 
@@ -357,7 +367,7 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
                 var addressText = place.name.toString()
                 addressText += "\n" + place.address.toString()
 
-                //placeMarkerOnMap(place.latLng)
+                placeMarkerOnMap(place.latLng)
             }
         }
     }
@@ -382,33 +392,6 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
         createLocationRequest()
         Log.v("", "")
 
-    }
-
-
-    override fun onCameraIdle() {
-        lastLocation?.latitude = mMap.projection.visibleRegion.latLngBounds.center.latitude
-        lastLocation?.longitude = mMap.projection.visibleRegion.latLngBounds.center.longitude
-        val currentLatLng = LatLng(lastLocation?.latitude!!, lastLocation?.longitude!!)
-        //placeMarkerOnMap(currentLatLng)
-        val distance: FloatArray? = floatArrayOf(0f, 0f, 0f)
-        Location.distanceBetween(
-            mMap.projection.visibleRegion.latLngBounds.northeast.latitude,
-            mMap.projection.visibleRegion.latLngBounds.northeast.longitude,
-            mMap.cameraPosition.target.latitude,
-            mMap.cameraPosition.target.longitude,
-            distance
-        )
-
-        maxDistance = distance!![0] / 1000
-        pageId = 0
-        businessGuidesPresenter.loadBusinessGuideForPharmacy(
-            pointEntity =
-            PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
-            daysEnum = DateHelper.getCurrentDay(),
-            limit = limit,
-            skip = pageId * limit,
-            maxDistance = maxDistance
-        )
     }
 
     override fun onMarkerClick(p0: Marker?): Boolean {

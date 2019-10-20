@@ -145,7 +145,7 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
 
         val url = ServerInfo.businessGuideUrl + "/searchByLocation?lat=" +
                 pointEntity.lat.toString() + "&lng=" + pointEntity.lng.toString() +
-                "&limit=3"+ "&subCatId=${subCategory.id}"+"&units=kilometers&maxDistance=$maxDistance"
+                "&limit=3"+ "&subCatId=${subCategory.id}"+"&units=kilometers&maxDistance=$maxDistance&status=activated"
 
         loadBusinessGuideByUrl(url)
     }
@@ -173,7 +173,7 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
 //                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[limit]=1000"
         val url = ServerInfo.businessGuideUrl + "/searchByLocation?lat=" + pointEntity.lat +
                 "&lng=" + pointEntity.lng + "&openingDay=" + daysEnum.number.toString() + "&codeCat=pharmacies"+
-                "&units=kilometers&maxDistance=$maxDistance"
+                "&units=kilometers&maxDistance=$maxDistance&status=activated"
         loadBusinessGuideByUrl(url)
     }
 
