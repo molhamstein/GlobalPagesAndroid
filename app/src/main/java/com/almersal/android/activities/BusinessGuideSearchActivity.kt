@@ -59,7 +59,7 @@ import javax.inject.Inject
 
 class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMapReadyCallback,
     BusinessGuidesContract.View, TagsCollectionContact.View, OnTagSelectListener, OnCategorySelectListener,
-    GoogleMap.OnCameraMoveStartedListener {
+    GoogleMap.OnCameraIdleListener {
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -436,8 +436,9 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
     override fun onMapReady(googleMap: GoogleMap?) {
         mMap = googleMap!!
         mMap.uiSettings.isZoomControlsEnabled = true
-        mMap.setOnMarkerClickListener(this)
-        mMap.setOnCameraMoveStartedListener(this)
+//        mMap.setOnMarkerClickListener(this)
+//        mMap.setOnCameraMoveStartedListener(this)
+        mMap.setOnCameraIdleListener(this)
         setUpMap()
     }
 
@@ -483,7 +484,7 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
 
     }
 
-    override fun onCameraMoveStarted(p0: Int) {
+    override fun onCameraIdle() {
         lastLocation?.latitude = mMap.projection.visibleRegion.latLngBounds.center.latitude
         lastLocation?.longitude = mMap.projection.visibleRegion.latLngBounds.center.longitude
         val currentLatLng = LatLng(lastLocation?.latitude!!, lastLocation?.longitude!!)

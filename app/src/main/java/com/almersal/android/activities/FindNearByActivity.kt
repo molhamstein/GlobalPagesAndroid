@@ -52,9 +52,7 @@ import javax.inject.Inject
 
 
 class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMapReadyCallback,
-    TagsCollectionContact.View, BusinessGuidesContract.View, OnSubCategorySelectListener, OnCategorySelectListener,
-    GoogleMap.OnCameraMoveStartedListener {
-
+    TagsCollectionContact.View, BusinessGuidesContract.View, OnSubCategorySelectListener, OnCategorySelectListener {
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -96,7 +94,7 @@ class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMa
     var subCategory: SubCategory? = null
 
 
-    var maxDistance = 0f
+    var maxDistance = 12f
 
     private fun initToolBar() {
         setSupportActionBar(toolbar)
@@ -120,18 +118,22 @@ class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMa
                 if (firstLocation) {
                     firstLocation = false
                     lastLocation = p0.lastLocation!!
-                    mMap.moveCamera(
-                        CameraUpdateFactory.newLatLngZoom(
-                            LatLng(
-                                lastLocation!!.latitude,
-                                lastLocation!!.longitude
-                            ), 12.0f
-                        )
-                    )
+                    placeMarkerOnMap(LatLng(lastLocation!!.latitude, lastLocation!!.longitude))
                 }
             }
         }
+    }
 
+    private fun placeMarkerOnMap(location: LatLng) {
+        firstLocation = false
+        val markerOptions = MarkerOptions().position(location)
+//        val titleStr = getAddress(location)  // add these two lines
+        markerOptions.title(resources.getString(R.string.Your))
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+//        currentcity = CityModel(titleStr, location, CitiesManager.getCitiesSize() == 0)
+//        mMap.clear()
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12.0f))
+        mMap.addMarker(markerOptions)
     }
 
 
@@ -156,7 +158,10 @@ class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMa
             if (location != null) {
                 lastLocation = location
                 val currentLatLng = LatLng(location.latitude, location.longitude)
+                placeMarkerOnMap(currentLatLng)
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
+                loadRequest()
+
             }
         }
 
@@ -327,7 +332,6 @@ class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMa
         mMap = googleMap!!
         mMap.uiSettings.isZoomControlsEnabled = true
         mMap.setOnMarkerClickListener(this)
-        mMap.setOnCameraMoveStartedListener(this)
         setUpMap()
     }
 
@@ -347,7 +351,7 @@ class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMa
                 var addressText = place.name.toString()
                 addressText += "\n" + place.address.toString()
 
-//                placeMarkerOnMap(place.latLng)
+                placeMarkerOnMap(place.latLng)
             }
         }
     }
@@ -373,26 +377,6 @@ class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMa
         Log.v("", "")
 
     }
-
-    override fun onCameraMoveStarted(p0: Int) {
-        lastLocation?.latitude = mMap.projection.visibleRegion.latLngBounds.center.latitude
-        lastLocation?.longitude = mMap.projection.visibleRegion.latLngBounds.center.longitude
-        val currentLatLng = LatLng(lastLocation?.latitude!!, lastLocation?.longitude!!)
-        //placeMarkerOnMap(currentLatLng)
-        val distance: FloatArray? = floatArrayOf(0f, 0f, 0f)
-        Location.distanceBetween(
-            mMap.projection.visibleRegion.latLngBounds.northeast.latitude,
-            mMap.projection.visibleRegion.latLngBounds.northeast.longitude,
-            mMap.cameraPosition.target.latitude,
-            mMap.cameraPosition.target.longitude,
-            distance
-        )
-
-        maxDistance = distance!![0] / 1000
-
-        loadRequest()
-    }
-
 
     override fun onMarkerClick(p0: Marker?): Boolean {
         if (p0 != null) {
@@ -451,7 +435,8 @@ class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMa
     override fun onLoadBusinessGuideListSuccessfully(businessGuideList: MutableList<BusinessGuide>) {
         businessGuideRecyclerView.adapter = BusinessGuideRecyclerViewAdapter(this, businessGuideList)
         mMap.clear()
-
+        if (lastLocation != null)
+            placeMarkerOnMap(LatLng(lastLocation!!.latitude, lastLocation!!.longitude))
         businessGuideList.forEach {
             addMarker(it, it.getName(), it.locationPoint)
         }
