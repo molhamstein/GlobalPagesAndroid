@@ -1,34 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.almersal.android">
-
+    
     <uses-permission android:name="android.permission.INTERNET" />
+    
     <uses-permission-sdk-23 android:name="android.permission.INTERNET" />
-
+    
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    
     <uses-permission-sdk-23 android:name="android.permission.ACCESS_FINE_LOCATION" />
-
+    
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    
     <uses-permission-sdk-23 android:name="android.permission.ACCESS_NETWORK_STATE" />
-
+    
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    
     <uses-permission-sdk-23 android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
+    
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    
     <uses-permission-sdk-23 android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
+    
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    
     <uses-permission-sdk-23 android:name="android.permission.WAKE_LOCK" />
-
+    
     <uses-permission android:name="android.permission.CAMERA" />
+    
     <uses-permission-sdk-23 android:name="android.permission.CAMERA" />
-
+    
     <uses-feature
         android:name="android.hardware.location.network"
         android:required="false" />
     <uses-feature
         android:name="android.hardware.location.gps"
         android:required="false" />
-
+    
     <application
         android:name=".App"
         android:allowBackup="false"
@@ -38,226 +46,128 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-        <uses-library android:name="org.apache.http.legacy" android:required="false" />
-
+        <activity android:name=".activities.JobDetailsActivity"></activity>
+        <activity android:name=".activities.JobsSearchActivity" />
+        <activity android:name=".activities.EditResumeActivity" />
+        <activity android:name=".activities.UserResumeActivity" />
+        
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+        
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="744d0a5d07f3d38b1b890fc323fae55db84397b3" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@mipmap/ic_launcher" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
-
-
+        
         <activity android:name=".activities.SplashActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
+    
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".activities.PlayerActivity"
             android:keepScreenOn="true"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".activities.MainActivity"
-            android:label="@string/app_name">
-
-        </activity>
-
+            android:label="@string/app_name" />
         <activity
             android:name=".activities.LocationCheckActivity"
-            android:theme="@style/Theme.Transparent">
-
-        </activity>
-        <activity android:name=".activities.LocationPickupActivity">
-
-        </activity>
-
-
-        <!--Registration Activities started-->
-
-        <activity android:name=".activities.SignInActivity">
-
-        </activity>
-
+            android:theme="@style/Theme.Transparent" />
+        <activity android:name=".activities.LocationPickupActivity" /> <!-- Registration Activities started -->
+        <activity android:name=".activities.SignInActivity" />
         <activity
             android:name=".activities.SignUpActivity"
-            android:theme="@style/AppTheme">
-
-        </activity>
-
-        <activity android:name=".activities.ForgotPasswordActivity">
-
-        </activity>
-
-        <activity android:name=".activities.ProfileActivity">
-
-        </activity>
-
-        <!--Registration Activities ended-->
-
-        <!--Business Activities Started-->
-
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activities.ForgotPasswordActivity" />
+        <activity android:name=".activities.ProfileActivity" /> <!-- Registration Activities ended -->
+        <!-- JobBusiness Activities Started -->
         <activity
             android:name=".activities.BusinessGuideAddActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible|adjustPan">
-
-        </activity>
-
-        <activity android:name=".activities.BusinessGuideDetailsActivity">
-
-        </activity>
-
-        <activity android:name=".activities.BusinessGuideSearchActivity">
-
-        </activity>
-
-        <!--Business Activities Started-->
-
-
-        <!--Post Activities started-->
-
-        <activity android:name=".activities.PostAddActivity">
-
-        </activity>
+            android:windowSoftInputMode="stateVisible|adjustPan" />
+        <activity android:name=".activities.BusinessGuideDetailsActivity" />
+        <activity android:name=".activities.BusinessGuideSearchActivity" /> <!-- JobBusiness Activities Started -->
+        <!-- Post Activities started -->
+        <activity android:name=".activities.PostAddActivity" />
         <activity
             android:name=".activities.PostSearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible|adjustPan">
-
-        </activity>
-        <activity android:name=".activities.PostDetailsActivity">
-
-        </activity>
-        <!--Post Activities ended-->
-
-
-        <activity android:name=".activities.TestActivity">
-
-        </activity>
+            android:windowSoftInputMode="stateVisible|adjustPan" />
+        <activity android:name=".activities.PostDetailsActivity" /> <!-- Post Activities ended -->
+        <activity android:name=".activities.TestActivity" />
         <activity
             android:name=".activities.FindNearByActivity"
-            android:launchMode="singleInstance">
-
-        </activity>
+            android:launchMode="singleInstance" />
         <activity
             android:name=".activities.PharmacyDutySearchActivity"
-            android:launchMode="singleInstance">
-
-        </activity>
-
-        <!--<activity-->
-        <!--android:name="com.schibstedspain.leku.LocationPickerActivity"-->
-        <!--android:label="@string/leku_title_activity_location_picker"-->
-        <!--android:parentActivityName=".activities.BusinessGuideAddActivity"-->
-        <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar"-->
-        <!--android:windowSoftInputMode="adjustPan">-->
-        <!--<intent-filter>-->
-        <!--<action android:name="android.intent.action.SEARCH" />-->
-        <!--</intent-filter>-->
-
-        <!--<meta-data-->
-        <!--android:name="android.app.searchable"-->
-        <!--android:resource="@xml/leku_searchable" />-->
-        <!--<meta-data-->
-        <!--android:name="android.support.PARENT_ACTIVITY"-->
-        <!--android:value=".activities.BusinessGuideAddActivity" />-->
-        <!--</activity>-->
-
+            android:launchMode="singleInstance" /> <!-- <activity -->
+        <!-- android:name="com.schibstedspain.leku.LocationPickerActivity" -->
+        <!-- android:label="@string/leku_title_activity_location_picker" -->
+        <!-- android:parentActivityName=".activities.BusinessGuideAddActivity" -->
+        <!-- android:theme="@style/Theme.AppCompat.Light.NoActionBar" -->
+        <!-- android:windowSoftInputMode="adjustPan"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.SEARCH" /> -->
+        <!-- </intent-filter> -->
+        <!-- <meta-data -->
+        <!-- android:name="android.app.searchable" -->
+        <!-- android:resource="@xml/leku_searchable" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="android.support.PARENT_ACTIVITY" -->
+        <!-- android:value=".activities.BusinessGuideAddActivity" /> -->
+        <!-- </activity> -->
         <activity
             android:name=".activities.ProfileEditActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible|adjustPan">
-
-        </activity>
-
+            android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
             android:name=".activities.ProductDetailsActivity"
-            android:theme="@style/Theme.Transparent">
-
-        </activity>
-
+            android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".activities.ProductAddActivity"
-            android:theme="@style/Theme.Transparent">
-
-        </activity>
-
-        <activity android:name=".activities.LocationViewerActivity">
-
-        </activity>
-
-        <activity android:name=".activities.SettingsActivity">
-
-        </activity>
-
+            android:theme="@style/Theme.Transparent" />
+        <activity android:name=".activities.LocationViewerActivity" />
+        <activity android:name=".activities.SettingsActivity" />
         <activity
             android:name=".activities.PictureActivity"
             android:launchMode="singleInstance"
-            android:theme="@style/Theme.Transparent">
-
-        </activity>
-
+            android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".activities.PicturesListActivity"
             android:launchMode="singleInstance"
-            android:theme="@style/Theme.Transparent">
-
-        </activity>
-
-        <activity android:name=".activities.WebViewActivity">
-
-        </activity>
-
-        <activity android:name=".activities.NotificationActivity">
-
-        </activity>
-
-        <activity android:name=".activities.VolumesActivity">
-
-        </activity>
-
+            android:theme="@style/Theme.Transparent" />
+        <activity android:name=".activities.WebViewActivity" />
+        <activity android:name=".activities.NotificationActivity" />
+        <activity android:name=".activities.VolumesActivity" />
         <activity
             android:name=".activities.VideoDetailsActivity"
             android:configChanges="orientation"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme">
-
-        </activity>
-
-
+            android:theme="@style/AppTheme" />
+        
         <service android:name=".notifications.MyFireBaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
-
-        <service android:name=".notifications.MyJobService">
-
-        </service>
-
-
+        <service android:name=".notifications.MyJobService" />
     </application>
 
 </manifest>

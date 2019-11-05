@@ -403,7 +403,7 @@ class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMa
     }
     /*Tags Presenter ended*/
 
-    /*Business Guides Presenter started*/
+    /*JobBusiness Guides Presenter started*/
 
     override fun showBusinessGuideProgress(show: Boolean) {
         if (show) {
@@ -461,7 +461,7 @@ class FindNearByActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMa
 
     }
 
-    /*Business Guides Presenter ended*/
+    /*JobBusiness Guides Presenter ended*/
 
     override fun onSelectSubCategory(subCategory: SubCategory) {
         this.subCategory = subCategory

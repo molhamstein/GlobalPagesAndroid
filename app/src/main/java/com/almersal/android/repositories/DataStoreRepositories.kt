@@ -1,10 +1,7 @@
 package com.almersal.android.repositories
 
 import android.content.Context
-import com.almersal.android.data.entities.BusinessGuideCategory
-import com.almersal.android.data.entities.City
-import com.almersal.android.data.entities.LocationEntity
-import com.almersal.android.data.entities.PostCategory
+import com.almersal.android.data.entities.*
 import com.google.gson.Gson
 
 class DataStoreRepositories constructor(context: Context) : Repository(context) {
@@ -18,9 +15,12 @@ class DataStoreRepositories constructor(context: Context) : Repository(context) 
 
         var Cities_TAG: String = "Cities_Tag"
         var Cities_Default_TAG: String = ""
+
+        var JobCategories_TAG: String = "JobCategories_Tag"
+        var JobCategories_Default_TAG: String = ""
     }
 
-    /*Business Categories Started*/
+    /*JobBusiness Categories Started*/
     fun putBusinessCategories(businessList: MutableList<BusinessGuideCategory>) {
         editor.putString(BusinessCategories_TAG, Gson().toJson(businessList)).apply()
     }
@@ -37,7 +37,7 @@ class DataStoreRepositories constructor(context: Context) : Repository(context) 
         editor.putString(BusinessCategories_TAG, BusinessCategories_Default_TAG)
     }
 
-    /*Business Categories Ended*/
+    /*JobBusiness Categories Ended*/
 
 
     /*Post Categories started*/
@@ -96,5 +96,18 @@ class DataStoreRepositories constructor(context: Context) : Repository(context) 
         return null
     }
     /*Cities ended*/
+
+
+    fun putJobCategories(businessList: MutableList<JobCategory>) {
+        editor.putString(JobCategories_TAG, Gson().toJson(businessList)).apply()
+    }
+
+    fun getJobCategories(): MutableList<JobCategory>? {
+        var jobList: MutableList<JobCategory>? = null
+        val poJo = pref.getString(JobCategories_TAG, JobCategories_Default_TAG)
+        if (poJo.isNotEmpty())
+            jobList = Gson().fromJson(poJo, Array<JobCategory>::class.java).toMutableList()
+        return jobList
+    }
 
 }

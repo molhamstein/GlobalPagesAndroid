@@ -46,7 +46,7 @@ import java.util.*
 
 
 class MainActivity : BaseActivity(), VolumesContract.View,
-        PostContract.View, NotificationContract.View, OnTagSelectListener {
+    PostContract.View, NotificationContract.View, OnTagSelectListener {
 
     @Inject
     lateinit var presenter: VolumesPresenter
@@ -96,6 +96,7 @@ class MainActivity : BaseActivity(), VolumesContract.View,
     @BindView(R.id.loginBtn)
     lateinit var loginBtn: ImageView
 
+
     var featuredPosition: Int = 0
     var featuredDirectionInc = true
     val featuredPostsTimer: Timer = Timer()
@@ -107,10 +108,10 @@ class MainActivity : BaseActivity(), VolumesContract.View,
 
     private fun initDI() {
         val component = DaggerMainComponent.builder()
-                .notificationModule(NotificationModule(this))
-                .volumesModule(VolumesModule(this))
-                .postModule(PostModule(this))
-                .build()
+            .notificationModule(NotificationModule(this))
+            .volumesModule(VolumesModule(this))
+            .postModule(PostModule(this))
+            .build()
         component.inject(this)
 
         presenter.attachView(this)
@@ -179,9 +180,13 @@ class MainActivity : BaseActivity(), VolumesContract.View,
 
         /*First time home page*/
         if (SettingRepositories(this).getFirstSubscription() &&
-                (UserRepository(this).getUser() != null)) {
+            (UserRepository(this).getUser() != null)
+        ) {
             val dialog = SubCategorySubscriptionBottomSheet.getNewInstance(null)
-            dialog.show(supportFragmentManager, SubCategorySubscriptionBottomSheet.SubCategorySubscriptionBottomSheet_Tag)
+            dialog.show(
+                supportFragmentManager,
+                SubCategorySubscriptionBottomSheet.SubCategorySubscriptionBottomSheet_Tag
+            )
         }
 
 
@@ -194,7 +199,7 @@ class MainActivity : BaseActivity(), VolumesContract.View,
         }
 
 
-        Thread({
+        Thread {
             var fin = false
             try {
                 while (true) {
@@ -205,20 +210,20 @@ class MainActivity : BaseActivity(), VolumesContract.View,
                         fin = isFinishing
                         val btn: View = findViewById(R.id.addPostBtn)
                         ViewAnimator.animate(btn).rotation(180f, 0.0f/*Math.PI.toFloat()*/)
-                                .scale(0.5f, 1.0f)
-                                .duration(200)
-                                .onStart {
-                                    addPostBtnContainer.startRippleAnimation()
-                                }
-                                .onStop {
-                                    addPostBtnContainer.stopRippleAnimation()
-                                }
-                                .start()
-//                    .flash()
-//                    .repeatCount(-1)
-//                    .repeatMode(ValueAnimator.REVERSE)
-//                    .startDelay(5000)
-//                    .startDelay(5000)
+                            .scale(0.5f, 1.0f)
+                            .duration(200)
+                            .onStart {
+                                addPostBtnContainer.startRippleAnimation()
+                            }
+                            .onStop {
+                                addPostBtnContainer.stopRippleAnimation()
+                            }
+                            .start()
+    //                    .flash()
+    //                    .repeatCount(-1)
+    //                    .repeatMode(ValueAnimator.REVERSE)
+    //                    .startDelay(5000)
+    //                    .startDelay(5000)
                     }
                     Thread.sleep(5000)
                 }
@@ -226,7 +231,7 @@ class MainActivity : BaseActivity(), VolumesContract.View,
                 Log.v("", "")
                 Log.v("", "")
             }
-        }).start()
+        }.start()
 
 
     }
@@ -263,6 +268,18 @@ class MainActivity : BaseActivity(), VolumesContract.View,
 //        IntentHelper.startDutyPharmacyActivity(this)
         Log.v("View Clicked", view.id.toString())
     }
+
+
+    @OnClick(R.id.jobsBtn)
+    fun onJobsBtnClicked(view: View) {
+        val activityName = JobsSearchActivity::class.java.canonicalName
+        IntentHelper.startActivityByName(this, activityName)
+//        IntentHelper.startDutyPharmacyActivity(this)
+        Log.v("View Clicked", view.id.toString())
+    }
+
+
+
 
     @OnClick(R.id.loginBtn)
     fun onLoginBtnClick(view: View) {
@@ -316,8 +333,12 @@ class MainActivity : BaseActivity(), VolumesContract.View,
         if (volumesRecyclerView.adapter != null) {
             val adapter = volumesRecyclerView.adapter as PostRecyclerViewAdapter
             adapter.excludeFilter(tagEntity)
-            selectedTagsView.setAdapter((TagsRecyclerViewAdapter(baseContext, adapter.filterEntity!!.getTags(),
-                    onTagSelectListener = this)))
+            selectedTagsView.setAdapter(
+                (TagsRecyclerViewAdapter(
+                    baseContext, adapter.filterEntity!!.getTags(),
+                    onTagSelectListener = this
+                ))
+            )
         }
         Log.v("", "")
     }
@@ -375,7 +396,8 @@ class MainActivity : BaseActivity(), VolumesContract.View,
 
         val filter = (volumesRecyclerView.adapter as PostRecyclerViewAdapter).filterEntity
         val adapter = PostRecyclerViewAdapter(MainActivity@ this,
-                volume.posts.filter { it.status == UserStatus.active.status }.toMutableList())
+            volume.posts.filter { it.status == UserStatus.active.status }.toMutableList()
+        )
         volumesRecyclerView.adapter = adapter
         if (filter != null)
             adapter.filterByCriteria(filter)
@@ -474,14 +496,14 @@ class MainActivity : BaseActivity(), VolumesContract.View,
             var itemsCount = featuredPostsRecyclerView.getAdapter()?.getItemCount()
             if (featuredPostsRecyclerView.getAdapter() != null && itemsCount != null) {
                 if (featuredDirectionInc) {
-                    if (featuredPosition >= itemsCount - 1){
+                    if (featuredPosition >= itemsCount - 1) {
                         featuredPosition--
                         featuredDirectionInc = false
                     } else {
                         featuredPosition++
                     }
                 } else {
-                    if (featuredPosition <= 0){
+                    if (featuredPosition <= 0) {
                         featuredPosition++
                         featuredDirectionInc = true
                     } else {

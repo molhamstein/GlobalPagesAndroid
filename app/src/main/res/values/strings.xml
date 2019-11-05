@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">almersal</string>
-
+    
     <!--<string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDAbTRgO8FsaOZ_410l83nQb5G1-OhEdXo</string>-->
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBVTosczyliutwohQGmBlShgHvZO-CHldU</string>
-
+    
     <string name="default_notification_channel_id" translatable="false">313</string>
-
+    
     <string name="contentDescription">content Description</string>
-
+    
     <!--SignUp started-->
     <string name="Email">Email</string>
     <string name="UserName">UserName</string>
@@ -36,21 +36,21 @@
     <string name="No">No</string>
     <string name="doYouWantAddFirstBusiness">Do you want add first business</string>
     <string name="AlreadyExisted">Already existed</string>
-
+    
     <!--Sign in started-->
     <string name="signInHeader">Welcome to Almersal \n Your best destination to find \n great deals around</string>
     <string name="Forgotpassword">Forgot password?</string>
     <string name="or">or</string>
     <string name="Register">Register</string>
     <string name="anewAccount">a new account</string>
-
+    
     <!--forget password-->
     <string name="forgotHeader">So you forgot your password?</string>
     <string name="Submit">Submit</string>
     <string name="resetPassword">Reset password</string>
     <string name="emailnotExisted">Email not existed</string>
     <string name="resetPasswordSuccesfully">Please check your mail </string>
-
+    
     <!--filter started-->
     <string name="Filter">Filter</string>
     <string name="Searchkeyword">Search keyword</string>
@@ -59,17 +59,19 @@
     <string name="City">City</string>
     <string name="Area">Area</string>
     <string name="Apply">Apply</string>
-
+    
     <!--home-->
     <string name="BusinessGuide">Business Guide</string>
     <string name="FindNearBy">Find Nearby</string>
     <string name="OnDutyPharmacies">Oncall Pharmacy</string>
-
+    <string name="ResumeBtn">Resume</string>
+    
+    
     <!--post details-->
     <string name="Addedin">Added In</string>
     <string name="Contact">Contact</string>
     <string name="Description">Description</string>
-
+    
     <!--profile-->
     <string name="AdsAdded">Ads Added</string>
     <string name="SubscribetoCategory">Subscribe to categories</string>
@@ -77,7 +79,7 @@
     <string name="MyBusiness">My Business</string>
     <string name="Profile">Profile</string>
     <string name="MyProfile">My Profile</string>
-
+    
     <!--add post-->
     <string name="AddNewAd">Add New Ad</string>
     <string name="AdTitleMaxchars">Ad Title ( Max 35 chars )</string>
@@ -88,7 +90,7 @@
     <string name="AddSubmitted">Add Submitted</string>
     <string name="Backtohome">Back to home</string>
     <string name="WeWillReviewYourAdAndContactYouBack">We will review your ad and contact \n you back</string>
-
+    
     <!--add business-->
     <string name="AddBusiness">Add Business</string>
     <string name="Skip">Skip</string>
@@ -100,7 +102,7 @@
     <string name="Location">Location</string>
     <string name="Optional">(Optional)</string>
     <string name="Fax">Fax</string>
-
+    
     <!--business details-->
     <string name="Edit">Edit</string>
     <string name="Ok">OK</string>
@@ -166,9 +168,41 @@
     <string name="notificationsDeleteFailed">Notifications delete failed</string>
     <string name="notificationDeleteFailed">Notification delete failed</string>
     <string name="delete_notification">delete this notification?</string>
-
+    
     <string name="NewVolumeAdded">There is some ads that might interest you in this new volume</string>
-
-
+    
+    <string name="experience">Experience</string>
+    <string name="skills">Skills</string>
+    <string name="education">Education</string>
+    <string name="references">References</string>
+    <string name="done">Done</string>
+    <string name="change_profile_picture">Change profile picture</string>
+    <string name="name">Name</string>
+    <string name="specialty">Specialty</string>
+    <string name="bio">Bio</string>
+    <string name="phone">Phone</string>
+    <string name="contact_info">Contact Info</string>
+    <string name="save_amp_preview"><![CDATA[Save & Preview]]></string>
+    <string name="preview_without_saving">Preview without saving</string>
+    <string name="position_title">Position Title</string>
+    <string name="company_name">Company Name</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="i_currently_work_here">I currently work here</string>
+    <string name="required_field">This field is required</string>
+    <string name="present">Present</string>
+    <string name="education_title">Title</string>
+    <string name="educational_entity">Educational Entity</string>
+    <string name="skill_search_hint">E.g. Development, Marketing, Design, etc</string>
+    <string name="view_cv">View CV</string>
+    <string name="new_string">New</string>
+    <string name="job_offers">Job Offers</string>
+    <string name="responsibilities">Responsibilities</string>
+    <string name="qualifications">Qualifications</string>
+    <string name="salary_range">Salary Range</string>
+    <string name="education_level">Education Level</string>
+    <string name="job_type">Job Type</string>
+    <string name="deactivate">Deactivate</string>
+    <string name="applied_before">You have applied before</string>
 
 </resources>

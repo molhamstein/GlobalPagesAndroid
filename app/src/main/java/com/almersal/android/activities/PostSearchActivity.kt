@@ -84,15 +84,17 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
 
     private fun initDI() {
         val component = DaggerPostSearchComponent.builder()
-                .tagsCollectionModule(TagsCollectionModule(this))
-                .build()
+            .tagsCollectionModule(TagsCollectionModule(this))
+            .build()
         component.inject(this)
         presenter.attachView(this)
         presenter.subscribe()
-        if (filterType() == FilterType.PostFilter) {
-            presenter.loadPostCategories(true)
-        } else {
-            presenter.loadBusinessCategories(true)
+        when {
+            filterType() == FilterType.PostFilter ->
+                presenter.loadPostCategories(true)
+            filterType() == FilterType.BusinessFilter ->
+                presenter.loadBusinessCategories(true)
+            else -> presenter.getJobCategories(true)
         }
         presenter.loadCities(true)
     }
@@ -102,6 +104,9 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
         if (res == FilterType.PostFilter.type) {
             return FilterType.PostFilter
         }
+        if (res == FilterType.JobsFilter.type)
+            return FilterType.JobsFilter
+
         return FilterType.BusinessFilter
     }
 
@@ -161,7 +166,7 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
         tags?.forEach {
             when (it.tagType) {
                 TagType.City -> {
-                    for (i in 0..(mutableList.size - 1)) {
+                    for (i in 0 until mutableList.size) {
                         val poJo = mutableList[i]
                         if (it.tagId == poJo.id) {
                             poJo.isSelected = true
@@ -199,8 +204,10 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
     override fun onBaseCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.post_search_layout)
         ButterKnife.bind(this)
-        tags = Gson().fromJson(intent.extras.getString(Suggestion_List_Tag).toString(),
-                Array<TagEntity>::class.java).toMutableList()
+        tags = Gson().fromJson(
+            intent.extras.getString(Suggestion_List_Tag).toString(),
+            Array<TagEntity>::class.java
+        ).toMutableList()
 
         initToolBar()
         initRecyclerViews()
@@ -222,7 +229,8 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
                 filterEntity.category = category
         }
         if (filterSubCategories.adapter != null)
-            filterEntity.subCategory = (filterSubCategories.adapter as SubCategoryRecyclerViewAdapter).getCurrentSubCategory()
+            filterEntity.subCategory =
+                (filterSubCategories.adapter as SubCategoryRecyclerViewAdapter).getCurrentSubCategory()
 
         if (filterCities.adapter != null)
             filterEntity.city = (filterCities.adapter as CityRecyclerViewAdapter).getCurrentCity()
@@ -231,8 +239,10 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
 
         if (filterType() == FilterType.PostFilter) {
             RxBus.publish(MessageEvent(EventActions.Post_Filter_Activity_Tag, filterEntity))
-        } else {
+        } else if (filterType() == FilterType.BusinessFilter) {
             RxBus.publish(MessageEvent(EventActions.Business_Filter_Activity_Tag, filterEntity))
+        } else {
+            RxBus.publish(MessageEvent(EventActions.Job_Filter_Activity_Tag, filterEntity))
         }
 
         finish()
@@ -255,7 +265,8 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
 
     override fun onPostCategoriesLoaded(categoriesList: MutableList<PostCategory>) {
         val res = initCategory(categoriesList.filter { it.parentCategoryId.isNullOrBlank() }.toMutableList())
-        filterCategories.adapter = CategoryRecyclerViewAdapter(context = this, categoriesList = res.first, onCategorySelectListener = this)
+        filterCategories.adapter =
+            CategoryRecyclerViewAdapter(context = this, categoriesList = res.first, onCategorySelectListener = this)
         if (res.second > 0)
             filterCategories.smoothScrollToPosition(res.second)
     }
@@ -274,8 +285,10 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
 
     override fun onBusinessCategoriesLoaded(categoriesList: MutableList<BusinessGuideCategory>) {
         val res = initCategory(categoriesList.filter { it.parentCategoryId.isNullOrBlank() }.toMutableList())
-        filterCategories.adapter = CategoryRecyclerViewAdapter(context = this, categoriesList = res.first,
-                onCategorySelectListener = this)
+        filterCategories.adapter = CategoryRecyclerViewAdapter(
+            context = this, categoriesList = res.first,
+            onCategorySelectListener = this
+        )
         if (res.second > 0)
             filterCategories.smoothScrollToPosition(res.second)
     }
@@ -285,7 +298,8 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
         subCategoryContainer.visibility = View.GONE
 
         subCategoryContainer.visibility = View.VISIBLE
-        val res = initSubCategory(category.subCategoriesList.toMutableList())
+        val subCategories = category.subCategoriesList
+        val res = initSubCategory(subCategories)
         filterSubCategories.adapter = SubCategoryRecyclerViewAdapter(this, res.first)
         if (res.second > 0)
             filterSubCategories.smoothScrollToPosition(res.second)
@@ -324,6 +338,20 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
         filterLocations.adapter = LocationEntityRecyclerViewAdapter(this, res.first)
         if (res.second > 0)
             filterLocations.smoothScrollToPosition(res.second)
+    }
+
+    override fun showJobCategoriesLoadErrorMessage(visible: Boolean) {}
+    override fun showJobCategoriesEmptyView(visible: Boolean) {}
+    override fun showJobCategoriesProgress(visible: Boolean) {}
+    override fun onJobCategoriesLoaded(categoriesList: MutableList<JobCategory>) {
+        val res = initCategory(categoriesList.filter { it.parentCategoryId.isNullOrBlank() }.toMutableList())
+        filterCategories.adapter = CategoryRecyclerViewAdapter(
+            context = this, categoriesList = res.first,
+            onCategorySelectListener = this
+        )
+        if (res.second > 0)
+            filterCategories.smoothScrollToPosition(res.second)
+
     }
     /*Event not presenter ended*/
 

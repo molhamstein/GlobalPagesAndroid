@@ -118,7 +118,7 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
                         businessGuidesPresenter.loadBusinessGuideForPharmacy(
                             pointEntity =
                             PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
-                            daysEnum = DateHelper.getCurrentDay(),
+                            daysEnum = DateHelper.currentDay,
                             limit = limit,
                             skip = limit * pageId,
                             maxDistance = maxDistance
@@ -143,7 +143,7 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
                         businessGuidesPresenter.loadBusinessGuideForPharmacy(
                             pointEntity =
                             PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
-                            daysEnum = DateHelper.getCurrentDay(),
+                            daysEnum = DateHelper.currentDay,
                             limit = limit,
                             skip = limit * pageId,
                             maxDistance = maxDistance
@@ -323,7 +323,7 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
             businessGuidesPresenter.loadBusinessGuideForPharmacy(
                 pointEntity =
                 PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
-                daysEnum = DateHelper.getCurrentDay(),
+                daysEnum = DateHelper.currentDay,
                 limit = 10,
                 skip = 0,
                 maxDistance = maxDistance
@@ -410,7 +410,7 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
         return false
     }
 
-    /*Business Guides Presenter started*/
+    /*JobBusiness Guides Presenter started*/
 
     override fun showBusinessGuideProgress(show: Boolean) {
         if (show) {
@@ -468,6 +468,6 @@ class PharmacyDutySearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListen
 
     }
 
-    /*Business Guides Presenter ended*/
+    /*JobBusiness Guides Presenter ended*/
 
 }

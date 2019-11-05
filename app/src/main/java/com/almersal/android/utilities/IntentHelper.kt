@@ -99,9 +99,11 @@ class IntentHelper {
 //            context.startActivity(intent)
 //        }
 
-        fun startPostSearchFilterActivityForResult(activity: AppCompatActivity,
-                                                   tagList: MutableList<TagEntity> = mutableListOf(),
-                                                   filter: FilterType) {
+        fun startPostSearchFilterActivityForResult(
+            activity: AppCompatActivity,
+            tagList: MutableList<TagEntity> = mutableListOf(),
+            filter: FilterType
+        ) {
             val intent = Intent(activity, PostSearchActivity::class.java)
             intent.putExtra(PostSearchActivity.Suggestion_List_Tag, Gson().toJson(tagList.toTypedArray()))
             intent.putExtra(PostSearchActivity.Post_Search_Filter_Type_Tag, filter.type)
@@ -143,6 +145,22 @@ class IntentHelper {
             try {
                 val intent = Intent()
                 intent.setClassName(context, activityName)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                context.startActivity(intent)
+            } catch (ex: Exception) {
+                Log.v("", "")
+                Log.v("", "")
+            }
+        }
+
+
+        fun startJobeDetailsActivity(context: Context, job: Job, editFlag: Boolean) {
+            try {
+                val intent = Intent()
+                intent.setClassName(context, JobDetailsActivity::class.java.canonicalName)
+                val jSon = Gson().toJson(job)
+                intent.putExtra(JobDetailsActivity.job_intent_key, jSon)
+                intent.putExtra(JobDetailsActivity.edit_flag_key, editFlag)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 context.startActivity(intent)
             } catch (ex: Exception) {
@@ -258,8 +276,10 @@ class IntentHelper {
                 intent.putExtra(Intent.EXTRA_EMAIL, email)
                 intent.putExtra(Intent.EXTRA_SUBJECT, "")
                 intent.putExtra(Intent.EXTRA_TEXT, "")
-                val intent2 = Intent.createChooser(intent,
-                        context.resources.getString(R.string.SendMail))
+                val intent2 = Intent.createChooser(
+                    intent,
+                    context.resources.getString(R.string.SendMail)
+                )
                 intent2.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 context.startActivity(intent2)
             } catch (ex: Exception) {

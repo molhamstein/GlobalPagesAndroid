@@ -6,6 +6,7 @@ class EventActions {
 
         const val Post_Filter_Activity_Tag = "Post_Filter_Activity_Tag"
         const val Business_Filter_Activity_Tag = "Business_Filter_Activity_Tag"
+        const val Job_Filter_Activity_Tag = "Job_Filter_Activity_Tag"
 
         const val LocationPickupActivity_Tag = "LocationPickupActivity_Tag"
         const val ProductAddActivity_Tag = "ProductAddActivity_Tag"

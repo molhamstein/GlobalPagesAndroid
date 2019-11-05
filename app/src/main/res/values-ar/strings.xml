@@ -61,7 +61,7 @@
     <string name="BusinessGuide">دليل الأعمال</string>
     <string name="FindNearBy">إبحث قربي</string>
     <string name="OnDutyPharmacies">صيدلية مناوبة</string>
-
+    <string name="ResumeBtn">السيرة الذاتية</string>
 
     <!--post details-->
     <string name="Addedin">أضيف في</string>
@@ -167,6 +167,41 @@
 
     <!--<string name="noApplicationToOpenEmail">No application found to open email</string>-->
     <string name="NewVolumeAdded">تفقد هذه الاعلانات التي تهمك في هذا العدد الجديد</string>
+    
+    
+    <string name="experience">الخبرة</string>
+    <string name="skills">المهارات</string>
+    <string name="education">التعليم</string>
+    <string name="references">المراجع</string>
+    <string name="done">تم</string>
+    <string name="change_profile_picture">تغيير صورة الحساب</string>
+    <string name="name">الاسم</string>
+    <string name="specialty">الاختصاص</string>
+    <string name="bio">مختصر</string>
+    <string name="phone">الهاتف</string>
+    <string name="contact_info">معلومات التواصل</string>
+    <string name="save_amp_preview">حفظ وعرض</string>
+    <string name="preview_without_saving">عرض من دون حفظ</string>
+    <string name="position_title">عنوان الوظيفة</string>
+    <string name="company_name">اسم الشركة</string>
+    <string name="from">من</string>
+    <string name="to">إلى</string>
+    <string name="i_currently_work_here">أعمل هنا حالياً</string>
+    <string name="required_field">هذا الحقل مطلوب</string>
+    <string name="present">الآن</string>
+    <string name="education_title">العنوان</string>
+    <string name="educational_entity">اسم المدرسة/ الكلية</string>
+    <string name="skill_search_hint">مثال: برمجة، تسويق، تصميم، الخ</string>
+    <string name="view_cv">عرض السيرة الذاتية</string>
+    <string name="new_string">جديد</string>
+    <string name="job_offers">آخر الوظائف</string>
+    <string name="responsibilities">المسؤوليات</string>
+    <string name="qualifications">المؤهلات</string>
+    <string name="salary_range">مجال الراتب</string>
+    <string name="education_level">مستوى التعليم</string>
+    <string name="job_type">نمط العمل</string>
+    <string name="deactivate">إلغاء تفعيل</string>
+    <string name="applied_before">لقد قمت بالتقدم مسبقاٌ لهذه الوظيفة</string>
 
 
 </resources>

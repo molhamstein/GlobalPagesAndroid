@@ -33,8 +33,10 @@
                 app:expandedTitleTextAppearance="@style/CollapsingTextAppearance.Inverse"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:title="">
+                
 
             </android.support.design.widget.CollapsingToolbarLayout>
+            
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.widget.NestedScrollView
@@ -68,9 +70,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/profileHeaderColor"
-                        android:padding="@dimen/md_padding"
+                        android:paddingStart="@dimen/md_padding"
+                        android:paddingEnd="@dimen/md_padding"
+                        android:paddingTop="@dimen/md_padding"
+                        android:paddingBottom="20dp"
                         app:layout_constraintEnd_toEndOf="parent"
-                       
                         app:layout_constraintTop_toTopOf="parent">
     
                     
@@ -227,11 +231,26 @@
                         </RelativeLayout>
 
                     </android.support.constraint.ConstraintLayout>
-
+    
+                    <android.support.v7.widget.AppCompatButton
+                        android:id="@+id/cvBtn"
+                        style="@style/AppTheme.NormalButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:text="@string/view_cv"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        app:backgroundTint="@color/colorPrimary"
+                        app:layout_constraintBottom_toTopOf="@+id/collectionsContainer"
+                        app:layout_constraintTop_toBottomOf="@id/info_Layout"
+                        />
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/collectionsContainer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingTop="20dp"
                         app:layout_constraintTop_toBottomOf="@id/info_Layout">
 
                         <android.support.v7.widget.AppCompatTextView
@@ -452,7 +471,8 @@
             app:elevation="8dp"
             app:layout_anchor="@id/flexible.example.cardview"
             app:layout_anchorGravity="top|center|center_horizontal" />
-
+    
+ 
     </android.support.design.widget.CoordinatorLayout>
 
 

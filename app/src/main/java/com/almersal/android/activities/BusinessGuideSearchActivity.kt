@@ -525,7 +525,7 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
         return false
     }
 
-    /*Business Guides Presenter started*/
+    /*JobBusiness Guides Presenter started*/
 
     override fun showBusinessGuideProgress(show: Boolean) {
         if (show) {
@@ -594,7 +594,7 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
 
     }
 
-    /*Business Guides Presenter ended*/
+    /*JobBusiness Guides Presenter ended*/
 
 
     /*Tags Presenter started*/

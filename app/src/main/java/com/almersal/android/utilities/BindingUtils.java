@@ -214,4 +214,17 @@ public class BindingUtils {
         }
     }
 
+
+    public static void loadBusinessImage(ImageView imageView, String url) {
+        try {
+            if (!url.startsWith("http"))
+                url = "http://" + url;
+            Context context = imageView.getContext();
+            GlideApp.with(context).load(url).error(R.drawable.job_holder)
+                    .placeholder(R.drawable.job_holder).into(imageView);
+        } catch (Exception ex) {
+            Log.v("image load", ex.getMessage());
+        }
+    }
+
 }

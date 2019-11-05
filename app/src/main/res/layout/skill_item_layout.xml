@@ -1,0 +1,45 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/sm_margin"
+    android:layout_marginBottom="@dimen/md_margin"
+    android:background="@drawable/ic_view_tag_bg"
+    android:padding="@dimen/zero">
+    
+    
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tagName"
+        style="@style/AppTheme.TextAppearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/lg_padding"
+        android:paddingLeft="@dimen/lg_padding"
+        android:paddingEnd="@dimen/lg_padding"
+        android:paddingRight="@dimen/lg_padding"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    
+    
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/removeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:contentDescription="@string/contentDescription"
+        android:src="@drawable/ic_close_white_24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tagName"
+        app:layout_constraintLeft_toRightOf="@+id/tagName"
+        app:layout_constraintStart_toEndOf="@id/tagName"
+        app:layout_constraintTop_toTopOf="@+id/tagName" />
+
+
+</android.support.constraint.ConstraintLayout>
+        
+
+    
+
+

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    
+    
+    <ImageView
+        android:id="@+id/circle"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/yellow_circle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    
+    
+    <TextView
+        android:id="@+id/title"
+        style="@style/AppTheme.TextAppearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:lineSpacingExtra="0dp"
+        android:text="Data Scientist"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/circle"
+        app:layout_constraintTop_toTopOf="@id/circle" />
+    
+    <TextView
+        android:id="@+id/details"
+        style="@style/AppTheme.TextAppearanceSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:lineSpacingExtra="0dp"
+        android:text="Open System Technology"
+        android:textColor="@color/grayDarkTextColor"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/circle"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+    
+    <TextView
+        android:id="@+id/date"
+        style="@style/AppTheme.TextAppearanceSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:lineSpacingExtra="0dp"
+        android:text="2 Jan, 19 - Present"
+        android:textColor="@color/grayLightTextColor"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@id/circle"
+        app:layout_constraintTop_toBottomOf="@id/details" />
+</android.support.constraint.ConstraintLayout>
