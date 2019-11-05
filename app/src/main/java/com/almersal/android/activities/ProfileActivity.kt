@@ -255,6 +255,11 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
         bindInfo(user)
     }
 
+    @OnClick(R.id.cvBtn)
+    fun onCvBtnClicked() {
+        val activityName = UserResumeActivity::class.java.canonicalName
+        IntentHelper.startActivityByName(this, activityName)
+    }
     @OnClick(R.id.flexible_example_fab)
     fun onProfileImageClick(view: View) {
         val user = UserRepository(context = baseContext).getUser()!!
@@ -293,7 +298,8 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.menu_edit -> {
-                IntentHelper.startProfileEditActivity(this)
+                val activityName = EditResumeActivity::class.java.canonicalName
+                IntentHelper.startActivityByName(this, activityName)
             }
         }
         return true

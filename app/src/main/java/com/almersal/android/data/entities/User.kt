@@ -26,6 +26,7 @@ class User {
     var phoneNumber: String = ""
 
     var postCategoriesIds: MutableList<String>? = null
+    var CV: UserResume? = null
 
     class ObjectID {
         var Id: String = ""

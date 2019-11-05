@@ -119,7 +119,7 @@ class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuid
 
     @OnClick(R.id.productImage)
     fun onProductImageClick(view: View) {
-        Pix.start(this@ProductAddActivity, ProductAddActivity.PICTURE_REQUEST, 1)
+        Pix.start(this@ProductAddActivity, PICTURE_REQUEST, 1)
         Log.v("View Clicked", view.id.toString())
     }
 
@@ -132,12 +132,12 @@ class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuid
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
             when (requestCode) {
-                ProductAddActivity.PICTURE_REQUEST -> {
+                PICTURE_REQUEST -> {
                     val returnValue = data!!.getStringArrayListExtra(Pix.IMAGE_RESULTS)
                     attachmentPresenter.loadAttachmentFile(File(returnValue[0]))
                     Log.v("", "")
                 }
-                ProductAddActivity.MAP_BUTTON_REQUEST_CODE -> {
+                MAP_BUTTON_REQUEST_CODE -> {
                     Log.v("", "")
                 }
             }
@@ -151,7 +151,7 @@ class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuid
             PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS -> {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Pix.start(this@ProductAddActivity, ProductAddActivity.PICTURE_REQUEST, 1)
+                    Pix.start(this@ProductAddActivity, PICTURE_REQUEST, 1)
                 } else {
                     Toast.makeText(this@ProductAddActivity, resources.getString(R.string.Approve_Permissions_To_Pick_Images), Toast.LENGTH_LONG).show()
                 }
@@ -187,7 +187,7 @@ class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuid
     }
     /*Base presenter ended*/
 
-    /*Business Guide Product Presenter started*/
+    /*JobBusiness Guide Product Presenter started*/
     override fun onAddProductSuccessfully(productThumb: ProductThumb) {
         businessGuideProductProductViewHolder.bind(productThumb)
         Toast.makeText(baseContext, R.string.productAddedSuccessfully, Toast.LENGTH_LONG).show()
@@ -211,7 +211,7 @@ class ProductAddActivity : BaseActivity(), AttachmentContract.View, BusinessGuid
         Toast.makeText(baseContext, R.string.unexpectedErrorHappend, Toast.LENGTH_LONG).show()
     }
 
-    /*Business Guide Product Presenter ended*/
+    /*JobBusiness Guide Product Presenter ended*/
 
 
     /*Attachment Presenter started*/

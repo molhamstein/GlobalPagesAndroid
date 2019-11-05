@@ -472,7 +472,7 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
     /*Attachment presenter ended*/
 
 
-    /*Business guide presenter started*/
+    /*JobBusiness guide presenter started*/
     override fun showBusinessGuideProgress(show: Boolean) {
         if (show) {
             mainStateLayout.FlipLayout(LayoutStatesEnum.Waitinglayout)
@@ -510,7 +510,7 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
         animateResult()
     }
 
-    /*Business guide presenter ended*/
+    /*JobBusiness guide presenter ended*/
 
     override fun onOpenDayListSelect(openDayList: MutableList<String>) {
         businessGuideAddViewHolder.openDayList = openDayList

@@ -12,9 +12,11 @@ import com.almersal.android.listeners.OnCitySelectListener
 import com.almersal.android.viewHolders.CityViewHolder
 
 
-class CityRecyclerViewAdapter constructor(var context: Context, var citiesListList: MutableList<City>
-                                          , var onCitySelectListener: OnCitySelectListener? = null) :
-        RecyclerView.Adapter<CityViewHolder>() {
+class CityRecyclerViewAdapter constructor(
+    var context: Context, var citiesListList: MutableList<City>
+    , var onCitySelectListener: OnCitySelectListener? = null
+) :
+    RecyclerView.Adapter<CityViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityViewHolder {
@@ -30,21 +32,23 @@ class CityRecyclerViewAdapter constructor(var context: Context, var citiesListLi
         var pojo = citiesListList[position]
         holder.bind(pojo)
         holder.itemView.findViewById<ToggleButton>(R.id.city_toggle)
-                .setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
-                    override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-                        if (isChecked) {
-                            setCheck(pojo)
-                            onCitySelectListener?.onSelectCity(pojo)
-                        } else {
-                            buttonView?.setOnCheckedChangeListener(null)
-                            pojo.isSelected = false
-                            buttonView?.isChecked = pojo.isSelected
-                            buttonView?.setOnCheckedChangeListener(this)
-                        }
+            .setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
+                override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+                    if (isChecked) {
+                        setCheck(pojo)
+                        onCitySelectListener?.onSelectCity(pojo)
+                    } else {
+                        buttonView?.setOnCheckedChangeListener(null)
+                        pojo.isSelected = false
+                        buttonView?.isChecked = pojo.isSelected
+                        buttonView?.setOnCheckedChangeListener(this)
                     }
-                })
+                }
+            })
+
 
     }
+
 
     fun setCheck(city: City): Int {
         var index = -1

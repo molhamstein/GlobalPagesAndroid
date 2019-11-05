@@ -7,6 +7,7 @@ import com.almersal.android.api.ApiService
 import com.almersal.android.api.ServerInfo
 import com.almersal.android.data.entities.BusinessGuideCategory
 import com.almersal.android.data.entities.City
+import com.almersal.android.data.entities.JobCategory
 import com.almersal.android.data.entities.PostCategory
 import com.almersal.android.repositories.DataStoreRepositories
 import io.reactivex.disposables.CompositeDisposable
@@ -49,22 +50,25 @@ class TagsCollectionPresenter constructor(val context: Context) : TagsCollection
         criteriaCategory["include"] = "subCategories"
 
         //businessCategoriesUrl
-        ApiService().getBusinessCategories(ServerInfo.businessCategoriesUrl, criteriaCategory, object : ParsedRequestListener<MutableList<BusinessGuideCategory>> {
-            override fun onResponse(response: MutableList<BusinessGuideCategory>?) {
-                view.showProgress(false)
-                if (response != null) {
-                    DataStoreRepositories(context).putBusinessCategories(response)
-                    view.onBusinessCategoriesLoaded(response)
-                } else {
-                    view.showBusinessCategoriesEmptyView(true)
+        ApiService().getBusinessCategories(
+            ServerInfo.businessCategoriesUrl,
+            criteriaCategory,
+            object : ParsedRequestListener<MutableList<BusinessGuideCategory>> {
+                override fun onResponse(response: MutableList<BusinessGuideCategory>?) {
+                    view.showProgress(false)
+                    if (response != null) {
+                        DataStoreRepositories(context).putBusinessCategories(response)
+                        view.onBusinessCategoriesLoaded(response)
+                    } else {
+                        view.showBusinessCategoriesEmptyView(true)
+                    }
                 }
-            }
 
-            override fun onError(anError: ANError?) {
-                view.showBusinessCategoriesProgress(false)
-                view.showBusinessCategoriesLoadErrorMessage(true)
-            }
-        })
+                override fun onError(anError: ANError?) {
+                    view.showBusinessCategoriesProgress(false)
+                    view.showBusinessCategoriesLoadErrorMessage(true)
+                }
+            })
 
     }
 
@@ -82,22 +86,25 @@ class TagsCollectionPresenter constructor(val context: Context) : TagsCollection
         val criteriaCategory: MutableMap<String, String> = HashMap()//[ownerId]
         criteriaCategory["include"] = "subCategories"
 
-        ApiService().getPostCategories(ServerInfo.postCategoriesUrl, criteriaCategory, object : ParsedRequestListener<MutableList<PostCategory>> {
-            override fun onResponse(response: MutableList<PostCategory>?) {
-                view.showPostCategoriesProgress(false)
-                if (response != null) {
-                    DataStoreRepositories(context).putPostCategories(response)
-                    view.onPostCategoriesLoaded(response)
-                } else {
-                    view.showPostCategoriesEmptyView(true)
+        ApiService().getPostCategories(
+            ServerInfo.postCategoriesUrl,
+            criteriaCategory,
+            object : ParsedRequestListener<MutableList<PostCategory>> {
+                override fun onResponse(response: MutableList<PostCategory>?) {
+                    view.showPostCategoriesProgress(false)
+                    if (response != null) {
+                        DataStoreRepositories(context).putPostCategories(response)
+                        view.onPostCategoriesLoaded(response)
+                    } else {
+                        view.showPostCategoriesEmptyView(true)
+                    }
                 }
-            }
 
-            override fun onError(anError: ANError?) {
-                view.showPostCategoriesProgress(false)
-                view.showPostCategoriesLoadErrorMessage(true)
-            }
-        })
+                override fun onError(anError: ANError?) {
+                    view.showPostCategoriesProgress(false)
+                    view.showPostCategoriesLoadErrorMessage(true)
+                }
+            })
     }
 
     override fun loadCities(withCache: Boolean) {
@@ -131,6 +138,40 @@ class TagsCollectionPresenter constructor(val context: Context) : TagsCollection
             }
         })
 
+    }
+
+    override fun getJobCategories(withCache: Boolean) {
+        view.showJobCategoriesProgress(true)
+        if (withCache) {
+            val categoriesList = DataStoreRepositories(context).getJobCategories()
+            if (categoriesList != null && categoriesList.isNotEmpty()) {
+                view.showJobCategoriesProgress(false)
+                view.onJobCategoriesLoaded(categoriesList.filter { it.parentCategoryId.isNullOrEmpty() }.toMutableList())
+                return
+            }
+        }
+
+        val criteriaCategory: MutableMap<String, String> = HashMap()//[ownerId]
+        criteriaCategory["include"] = "subCategories"
+
+        //businessCategoriesUrl
+        ApiService().getJobCategories(ServerInfo.jobCategoriesUrl, criteriaCategory, object :
+            ParsedRequestListener<MutableList<JobCategory>> {
+            override fun onResponse(response: MutableList<JobCategory>?) {
+                view.showProgress(false)
+                if (response != null) {
+                    DataStoreRepositories(context).putJobCategories(response)
+                    view.onJobCategoriesLoaded(response)
+                } else {
+                    view.showJobCategoriesEmptyView(true)
+                }
+            }
+
+            override fun onError(anError: ANError?) {
+                view.showJobCategoriesProgress(false)
+                view.showJobCategoriesLoadErrorMessage(true)
+            }
+        })
     }
 
 }

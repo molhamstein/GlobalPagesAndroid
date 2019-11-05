@@ -4,7 +4,9 @@ package com.almersal.android.api
 class ServerInfo {
 
     companion object {
-        var baseUrl = "http://almersal.co/api/"
+        //        var baseUrl = "http://almersal.co/api/"
+        var baseUrl = "http://157.230.121.161:3000/api/"
+//        var baseUrl = "http://192.168.1.11:3000/api/"
 
         /*Registration started*/
         var SigninUrl = baseUrl + "users/login/?include=user"
@@ -17,6 +19,7 @@ class ServerInfo {
 
         /*Profile started*/
         var updateProfile = baseUrl + "users"//"users/update"
+        var getUserResume = updateProfile + "/"
 
         /*Profile ended*/
 
@@ -50,6 +53,14 @@ class ServerInfo {
         var notificationClickedUrl = notificationUrl
         var notificationClear = notificationUrl + "/clear"
         var fireBaseNotificationUrl = baseUrl + "users/fcmToken"
+        var tagsUrl = baseUrl + "tags"
+        var cvUrl = baseUrl + "userCVs/updateMyCv"
+
+
+        var jobsUrl = baseUrl + "jobOpportunities/"
+        var jobSearchUrl = "${jobsUrl}searchJob"
+        var jobCategoriesUrl = baseUrl + "jobOpportunityCategories"
+        var jobUserUrl = baseUrl + "jobOpportunityUsers/"
 
         /*Notification ended*/
 

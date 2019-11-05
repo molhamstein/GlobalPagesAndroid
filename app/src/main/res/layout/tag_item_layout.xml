@@ -63,6 +63,7 @@
                     android:id="@+id/tag_close"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="visible"
                     android:contentDescription="@string/contentDescription"
                     android:src="@drawable/ic_close_white_24dp"
                     app:layout_constraintBottom_toBottomOf="@+id/tagName"
