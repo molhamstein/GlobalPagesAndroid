@@ -116,6 +116,8 @@ class EditResumeActivity : BaseActivity(),
         editSkillsBtn.setOnClickListener(this)
         changeProfilePicBtn.setOnClickListener(this)
         doneBtn.setOnClickListener(this)
+        backBtn.setOnClickListener(this)
+
     }
 
 
@@ -356,6 +358,9 @@ class EditResumeActivity : BaseActivity(),
                     presenter.updateProfile(updatedProfile)
                 }
             }
+            backBtn -> {
+                onBackPressed()
+            }
 
         }
     }
@@ -469,13 +474,17 @@ class EditResumeActivity : BaseActivity(),
     }
 
     override fun onCitiesLoaded(citiesList: MutableList<City>) {
-
-        onSelectCity(user!!.CV!!.city!!)
         val citiesAdapter =
             CityRecyclerViewAdapter(context = baseContext, citiesListList = citiesList, onCitySelectListener = this)
         adCities.adapter = citiesAdapter
-
-        citiesAdapter.setCheck(user!!.CV!!.city!!)
+        user?.let { user ->
+            user.CV?.let { CV ->
+                CV.city?.let { city ->
+                    onSelectCity(city)
+                    citiesAdapter.setCheck(city)
+                }
+            }
+        }
 
 
     }
@@ -522,8 +531,6 @@ class EditResumeActivity : BaseActivity(),
         else
             progressDialog.dismiss()
     }
-
-
 
 
 }
