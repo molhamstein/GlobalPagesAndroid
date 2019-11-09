@@ -5,14 +5,14 @@ import android.view.View
 import android.widget.Toast
 import com.almersal.android.R
 import com.almersal.android.adapters.SkillsAdapter
-import com.almersal.android.data.entities.Job
-import com.almersal.android.data.entities.Tag
+import com.almersal.android.data.entities.*
 import com.almersal.android.di.component.DaggerJobDetailsComponent
 import com.almersal.android.di.module.JobDetailsModule
 import com.almersal.android.di.ui.JobDetailsContract
 import com.almersal.android.di.ui.JobDetailsPresenter
 import com.almersal.android.normalization.DateNormalizer
 import com.almersal.android.utilities.BindingUtils
+import com.almersal.android.utilities.IntentHelper
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -31,7 +31,7 @@ class JobDetailsActivity : BaseActivity(), JobDetailsContract.View, View.OnClick
     }
 
     var editFlag: Boolean = false
-    var job: Job? = null
+    var job: JobDetails? = null
 
     @Inject
     lateinit var presenter: JobDetailsPresenter
@@ -43,19 +43,18 @@ class JobDetailsActivity : BaseActivity(), JobDetailsContract.View, View.OnClick
             .build()
         component.inject(this)
         presenter.attachView(this)
+        val jobId: String = intent.getStringExtra(job_intent_key)
+        presenter.getJobDetails(jobId)
 
-        val jSon: String? = intent.getStringExtra(job_intent_key)
         editFlag = intent.getBooleanExtra(edit_flag_key, false)
-        jSon?.let {
-            job = Gson().fromJson(jSon, Job::class.java)
-            bindView(job!!)
-
-            presenter.getTags(job?.id!!)
-        }
         editDetails(editFlag)
 
         apply.setOnClickListener(this)
         bottomApply.setOnClickListener(this)
+        deactivate.setOnClickListener(this)
+        editBtn.setOnClickListener(this)
+        applicantsBtn.setOnClickListener(this)
+        applicantsNumber.setOnClickListener(this)
 
     }
 
@@ -77,57 +76,113 @@ class JobDetailsActivity : BaseActivity(), JobDetailsContract.View, View.OnClick
     }
 
 
-    fun bindView(job: Job) {
-        BindingUtils.loadBusinessImage(image, job.business.logo)
+    fun bindView(job: JobDetails) {
+        BindingUtils.loadBusinessImage(image, job.business?.logo)
         positionTitle.text = job.name
-        companyName.text = job.business.name
-        location.text = job.business.city?.getTitle() + "," + job.business.location?.getTitle()
+        companyName.text = job.business?.name
+        location.text = job.business?.city?.getTitle() + "," + job.business?.location?.getTitle()
         date.text = DateNormalizer.getCustomFormate(job.creationDate, "MMM dd, yyyy")
+
+
         descriptionValue.text = job.description
-        categoryName.text = job.category.getTitle()
-        subCategoryName.text = job.subCategory.getTitle()
+        descriptionValue.visibility = if (job.description.isNullOrEmpty()) View.GONE else View.VISIBLE
+        descriptionText.visibility = if (job.description.isNullOrEmpty()) View.GONE else View.VISIBLE
+
+        categoryName.text = job.category?.getTitle()
+        subCategoryName.text = job.subCategory?.getTitle()
+
+
         qualificationsValue.text = job.qualifications
+        qualificationsValue.visibility = if (job.qualifications.isNullOrEmpty()) View.GONE else View.VISIBLE
+        qualificationsText.visibility = if (job.qualifications.isNullOrEmpty()) View.GONE else View.VISIBLE
+
+
         responsibilitiesValue.text = job.responsibilities
+        responsibilitiesValue.visibility = if (job.responsibilities.isNullOrEmpty()) View.GONE else View.VISIBLE
+        responsibilitiesText.visibility = if (job.responsibilities.isNullOrEmpty()) View.GONE else View.VISIBLE
+
         salaryValue.text = job.rangeSalary
+        salaryValue.visibility = if (job.rangeSalary.isNullOrEmpty()) View.GONE else View.VISIBLE
+        salaryText.visibility = if (job.rangeSalary.isNullOrEmpty()) View.GONE else View.VISIBLE
+
         educationValue.text = job.minimumEducationLevel
+        educationValue.visibility = if (job.minimumEducationLevel.isNullOrEmpty()) View.GONE else View.VISIBLE
+        educationText.visibility = if (job.minimumEducationLevel.isNullOrEmpty()) View.GONE else View.VISIBLE
+
         jobTypeValue.text = job.jobType
+        jobTypeValue.visibility = if (job.jobType.isNullOrEmpty()) View.GONE else View.VISIBLE
+        jobTypeText.visibility = if (job.jobType.isNullOrEmpty()) View.GONE else View.VISIBLE
+
+
+
+        if (job.userIsApplied) {
+            apply.text = getString(R.string.applied_before)
+            apply.isEnabled = false
+        }
+        onTagsLoaded(job.tags)
 
 
     }
 
     override fun onClick(v: View?) {
-        presenter.applyToJob(job!!.id)
+        when (v) {
+            apply -> {
+                presenter.applyToJob(job?.id ?: "")
+            }
+            deactivate -> {
+                presenter.deactivateJob(job?.id!!, JobStatus("deactivated"))
+            }
+
+            applicantsBtn,applicantsNumber->{
+
+            }
+
+
+            editBtn ->{
+                IntentHelper.startEditJobActivity(this,job!!)
+            }
+        }
+
     }
 
     override fun showProgress(show: Boolean) {
-        if(show){
+        if (show) {
             progress.visibility = View.VISIBLE
-        }
-        else{
+        } else {
             progress.visibility = View.GONE
         }
     }
 
-    override fun showTagsProgress(show: Boolean) {
-        if (show) {
-            skills.visibility = View.GONE
-            skillsProgress.visibility = View.VISIBLE
-        } else {
-            skills.visibility = View.VISIBLE
-            skillsProgress.visibility = View.GONE
-        }
-    }
 
-    override fun onTagsLoaded(tags: MutableList<Tag>?) {
+    fun onTagsLoaded(tags: List<Tag>?) {
         val skillLayoutManager = FlexboxLayoutManager(this)
         skillLayoutManager.alignItems = AlignItems.BASELINE
         skillLayoutManager.flexWrap = FlexWrap.WRAP
         skills.layoutManager = skillLayoutManager
-        skills.adapter = SkillsAdapter(this, tags!!, false)
+        skills.adapter = SkillsAdapter(this, tags?.let { tags.toMutableList() } ?: mutableListOf(), false)
+        if ((skills.adapter as SkillsAdapter).data.isNotEmpty()) {
+            skills.visibility = View.VISIBLE
+            skillsText.visibility = View.VISIBLE
+        }
     }
 
-    override fun onApplySuccess(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    override fun onJobDetailsLoaded(jobDetails: JobDetails) {
+        job = jobDetails
+        bindView(jobDetails)
+    }
+
+    override fun onUpdateDetailsSuccess(jobDetails: JobDetails) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+
+    override fun onJobDeactivated(jobDetails: JobDetails) {
+        Toast.makeText(this, getString(R.string.job_deactived), Toast.LENGTH_SHORT).show()
+        onBackPressed()
+    }
+
+    override fun onApplySuccess(applyJobResponse: ApplyJobResponse) {
+        Toast.makeText(this, getString(R.string.applied_success), Toast.LENGTH_SHORT).show()
     }
 
     override fun appliedBefore() {

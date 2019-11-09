@@ -35,7 +35,7 @@ import com.google.gson.Gson
 import javax.inject.Inject
 
 class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener,
-        BusinessGuidesContract.View {
+    BusinessGuidesContract.View {
 
     companion object {
         const val BusinessGuideDetailsActivity_Tag = "BusinessGuideDetailsActivity_Tag"
@@ -56,7 +56,6 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
     lateinit var stateLayout: Stateslayoutview
 
 
-
     var menuItem: MenuItem? = null
 
     @Inject
@@ -64,8 +63,8 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
 
     private fun initDI() {
         val component = DaggerBusinessGuideDetailsComponent.builder()
-                .businessGuidesModule(BusinessGuidesModule(this))
-                .build()
+            .businessGuidesModule(BusinessGuidesModule(this))
+            .build()
         component.inject(this)
 
         presenter.attachView(this)
@@ -105,7 +104,7 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
                         val productThumbModel: ProductThumbEditModel = it.message as ProductThumbEditModel
                         (businessGuideViewHolder.businessGuideProductRecyclerView.adapter
                                 as BusinessGuideProductRecyclerViewAdapter)
-                                .addOrUpdateItem(ProductProductModelTransformation.productTransform(productThumbModel))
+                            .addOrUpdateItem(ProductProductModelTransformation.productTransform(productThumbModel))
                     } catch (ex: Exception) {
                         Log.v("", "")
                     }
@@ -127,7 +126,7 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
     }
 
 
-   private fun toggleEditMode() {
+    private fun toggleEditMode() {
         val user = UserRepository(this).getUser()
         if ((user != null) && (businessGuide != null))
             menuItem?.isVisible = (businessGuide!!.ownerId == user.id)
@@ -144,6 +143,11 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
         IntentHelper.startProductAddActivity(baseContext, businessGuide!!)
     }
 
+    @OnClick(R.id.jobAddLink)
+    fun onJobAddBtn(view: View) {
+        IntentHelper.startAddNewJobActivity(this, businessGuide?.id ?: "")
+        Log.v("View Clicked", view.id.toString())
+    }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
@@ -173,8 +177,10 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
     @Optional
     @OnClick(R.id.contactContainer, R.id.contactBtn)
     fun onContactContainerClick(view: View) {
-        val contactDialog = ContactDialog.newInstance(businessGuide!!.phone1,
-                businessGuide!!.phone2, businessGuide!!.fax)
+        val contactDialog = ContactDialog.newInstance(
+            businessGuide!!.phone1,
+            businessGuide!!.phone2, businessGuide!!.fax
+        )
         contactDialog.show(supportFragmentManager, ContactDialog.ContactDialog_Tag)
         Log.v("View Clicked", view.id.toString())
     }

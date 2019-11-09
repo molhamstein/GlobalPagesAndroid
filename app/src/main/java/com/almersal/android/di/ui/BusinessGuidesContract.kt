@@ -1,8 +1,6 @@
 package com.almersal.android.di.ui
 
-import com.almersal.android.data.entities.BusinessGuide
-import com.almersal.android.data.entities.PointEntity
-import com.almersal.android.data.entities.SubCategory
+import com.almersal.android.data.entities.*
 import com.almersal.android.data.entitiesModel.BusinessGuideEditModel
 import com.almersal.android.data.entitiesModel.BusinessGuideModel
 import com.almersal.android.data.filtration.FilterEntity
@@ -47,6 +45,7 @@ class BusinessGuidesContract {
         fun addBusinessGuide(businessGuide: BusinessGuideModel, token: String)
 
         fun updateBusinessGuide(businessGuide: BusinessGuideEditModel, token: String)
+
 
     }
 

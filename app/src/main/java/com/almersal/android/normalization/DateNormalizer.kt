@@ -39,7 +39,7 @@ class DateNormalizer {
 //            return result
         }
 
-        fun getCustomFormate(fromDate: String, formatString: String): String {
+        fun getCustomFormate(fromDate: String?, formatString: String): String {
             val mainFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
             val date = mainFormat.parse(fromDate)
 

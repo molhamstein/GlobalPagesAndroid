@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -102,6 +103,9 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
 
     @BindView(R.id.areaContainer)
     lateinit var areaContainer: View
+
+    @BindView(R.id.jobAddLink)
+    lateinit var jobAddLink: TextView
 
     @Inject
     lateinit var presenter: TagsCollectionPresenter
@@ -271,6 +275,8 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
         requestAction()
         Log.v("View Clicked", view.id.toString())
     }
+
+
 
     @OnClick(R.id.adBackHomeBtn)
     fun onAdBackHomeButtonClick(view: View) {
@@ -509,6 +515,7 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
         businessGuideAddViewHolder.bindBusinessGuide(businessGuide)
         animateResult()
     }
+
 
     /*JobBusiness guide presenter ended*/
 

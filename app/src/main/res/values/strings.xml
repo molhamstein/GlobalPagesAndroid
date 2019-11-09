@@ -203,6 +203,19 @@
     <string name="education_level">Education Level</string>
     <string name="job_type">Job Type</string>
     <string name="deactivate">Deactivate</string>
-    <string name="applied_before">You have applied before</string>
+    <string name="applied_before">Applied before</string>
+    <string name="applied_success">Your application has been sent successfully</string>
+    <string name="base_info">Base Info</string>
+    <string name="name_ar">Name Ar</string>
+    <string name="name_en">Name En</string>
+    <string name="description_ar">Description Ar</string>
+    <string name="description_en">Description En</string>
+    <string name="responsibilities_ar">Responsibilities Ar</string>
+    <string name="responsibilities_en">Responsibilities En</string>
+    <string name="qualifications_ar">Qualifications Ar</string>
+    <string name="qualifications_en">Qualifications En</string>
+    <string name="job_added">Job has been added successfully</string>
+    <string name="job_deactived">This job has been deactivated</string>
+    <string name="job_edited">Job has been edited successfully</string>
 
 </resources>
