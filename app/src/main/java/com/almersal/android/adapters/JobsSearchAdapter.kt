@@ -3,21 +3,19 @@ package com.almersal.android.adapters
 import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.almersal.android.R
-import com.almersal.android.activities.JobDetailsActivity
 import com.almersal.android.data.entities.Job
 import com.almersal.android.normalization.DateNormalizer
+import com.almersal.android.repositories.UserRepository
 import com.almersal.android.utilities.BindingUtils
-import com.almersal.android.utilities.DateHelper
 import com.almersal.android.utilities.IntentHelper
 import com.almersal.android.viewHolders.JobSearchViewHolder
 import kotlinx.android.synthetic.main.job_search_item_layout.*
 
 
-class JobsSearchAdapter(var context: Context, var data: MutableList<Job>, var editFlag: Boolean) :
+class JobsSearchAdapter(var context: Context, var data: MutableList<Job>) :
     RecyclerView.Adapter<JobSearchViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JobSearchViewHolder {
@@ -39,7 +37,9 @@ class JobsSearchAdapter(var context: Context, var data: MutableList<Job>, var ed
 
         holder.date.text = DateNormalizer.getCustomFormate(data[position].creationDate, "MMM dd, yyyy")
         holder.containerView?.setOnClickListener {
-            IntentHelper.startJobeDetailsActivity(context, data[position], editFlag)
+            val userId = UserRepository(context).getUser()?.id
+            val flag = userId == data[position].ownerId
+            IntentHelper.startJobDetailsActivity(context, data[position],flag )
         }
     }
 

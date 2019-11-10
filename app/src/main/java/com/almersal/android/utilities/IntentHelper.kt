@@ -154,13 +154,39 @@ class IntentHelper {
         }
 
 
-        fun startJobeDetailsActivity(context: Context, job: Job, editFlag: Boolean) {
+        fun startJobDetailsActivity(context: Context, job: Job, editFlag: Boolean) {
             try {
                 val intent = Intent()
                 intent.setClassName(context, JobDetailsActivity::class.java.canonicalName)
-                val jSon = Gson().toJson(job)
-                intent.putExtra(JobDetailsActivity.job_intent_key, jSon)
+                intent.putExtra(JobDetailsActivity.job_intent_key, job.id)
                 intent.putExtra(JobDetailsActivity.edit_flag_key, editFlag)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                context.startActivity(intent)
+            } catch (ex: Exception) {
+                Log.v("", "")
+                Log.v("", "")
+            }
+        }
+
+        fun startEditJobActivity(context: Context, job: JobDetails) {
+            try {
+                val intent = Intent()
+                intent.setClassName(context, EditJobActivity::class.java.canonicalName)
+                intent.putExtra(EditJobActivity.jobId_key, job.id)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                context.startActivity(intent)
+            } catch (ex: Exception) {
+                Log.v("", "")
+                Log.v("", "")
+            }
+        }
+
+
+        fun startAddNewJobActivity(context: Context, businessId: String) {
+            try {
+                val intent = Intent()
+                intent.setClassName(context, AddNewJobActivity::class.java.canonicalName)
+                intent.putExtra(AddNewJobActivity.businessId_key, businessId)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 context.startActivity(intent)
             } catch (ex: Exception) {

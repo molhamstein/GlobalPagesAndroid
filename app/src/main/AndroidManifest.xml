@@ -46,7 +46,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.JobDetailsActivity"></activity>
+        <activity android:name=".activities.EditJobActivity"></activity>
+        <activity android:name=".activities.AddNewJobActivity" />
+        <activity android:name=".activities.JobDetailsActivity" />
         <activity android:name=".activities.JobsSearchActivity" />
         <activity android:name=".activities.EditResumeActivity" />
         <activity android:name=".activities.UserResumeActivity" />
