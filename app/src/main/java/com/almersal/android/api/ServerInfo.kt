@@ -58,6 +58,12 @@ class ServerInfo {
 
 
         var jobsUrl = baseUrl + "jobOpportunities/"
+        var jobDetailsUrl = "/getJobOpportunity"
+        var updateJobDetailsUrl = "/updateJobOpportunity"
+        var addNewJob = "/addJobOpportunity"
+        var jobApplicants = "/employee"
+
+
         var jobSearchUrl = "${jobsUrl}searchJob?status=activated"
         var jobCategoriesUrl = baseUrl + "jobOpportunityCategories"
         var jobUserUrl = baseUrl + "jobOpportunityUsers/"

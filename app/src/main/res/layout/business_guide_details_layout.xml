@@ -4,21 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
-
+    
     <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/annonce.main.coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary">
-
+        
         <android.support.design.widget.AppBarLayout
             android:id="@+id/flexible.example.appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/profileHeaderColor"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
+            
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/flexible.example.collapsing"
                 android:layout_width="match_parent"
@@ -30,18 +30,18 @@
                 app:expandedTitleTextAppearance="@style/CollapsingTextAppearance.Inverse"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
                 app:title="">
-
+                
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-
+                    
                     <com.brainsocket.mainlibrary.SupportViews.ViewPagers.RtlViewPager
                         android:id="@+id/mediaViewPager"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_alignParentTop="true"
                         app:SwipePager="all" />
-
+                    
                     <com.brainsocket.mainlibrary.ViewPagerIndicator.CircleIndicator.CircleIndicator
                         android:id="@+id/viewPagerIndicator"
                         android:layout_width="match_parent"
@@ -51,20 +51,20 @@
                         android:layout_marginBottom="40dp"
                         app:ci_drawable="@drawable/selected_indicator"
                         app:ci_drawable_unselected="@drawable/unselected_indicator" />
-
-
+                
+                
                 </RelativeLayout>
-
+            
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
-
+        
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fillViewport="true"
             app:behavior_overlapTop="60dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
+            
             <android.support.v7.widget.CardView
                 android:id="@+id/flexible.example.cardview"
                 android:layout_width="match_parent"
@@ -78,7 +78,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/toolbar">
-
+                
                 <com.brainsocket.mainlibrary.Views.Stateslayoutview
                     android:id="@+id/stateLayout"
                     android:layout_width="match_parent"
@@ -89,26 +89,27 @@
                     app:NoDataLayout="@layout/state_layout_no_data"
                     app:RefreshbtnRes="@+id/retryBtn"
                     app:WaitingLayout="@layout/state_layout_waiting">
-
-
+                    
+                    
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-    
+                        
                         <android.support.constraint.Guideline
                             android:id="@+id/hGuideline"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:layout_constraintGuide_percent="0.01"
-        
-                            android:orientation="horizontal"/>
+                            android:orientation="horizontal"
+                            
+                            app:layout_constraintGuide_percent="0.01" />
+                        
                         <android.support.constraint.Guideline
                             android:id="@+id/vGuideline"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:layout_constraintGuide_percent="0.02"
-                            android:orientation="vertical"/>
-    
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.02" />
+                        
                         <ImageView
                             android:id="@+id/vipBadge"
                             android:layout_width="30dp"
@@ -118,7 +119,7 @@
                             android:src="@drawable/vip"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
-    
+                        
                         <android.support.constraint.ConstraintLayout
                             android:id="@+id/info_Layout"
                             android:layout_width="0dp"
@@ -133,7 +134,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@id/vGuideline"
                             app:layout_constraintTop_toTopOf="@id/hGuideline">
-        
+                            
                             <android.support.v7.widget.AppCompatTextView
                                 android:id="@+id/businessTitle"
                                 style="@style/AppTheme.TextAppearance"
@@ -150,7 +151,7 @@
                                 android:textStyle="bold"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintStart_toStartOf="parent" />
-        
+                            
                             <ImageView
                                 android:id="@+id/locationBtn"
                                 android:layout_width="wrap_content"
@@ -159,7 +160,7 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintRight_toRightOf="parent"
                                 app:srcCompat="@drawable/ic_nearby_white" />
-        
+                            
                             <android.support.v7.widget.AppCompatTextView
                                 android:id="@+id/businessSubCategories"
                                 style="@style/AppTheme.TextAppearance"
@@ -177,7 +178,7 @@
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/businessTitle" />
-        
+                            
                             <View
                                 android:id="@+id/subCategorySperator"
                                 android:layout_width="0dp"
@@ -191,7 +192,7 @@
                                 app:layout_constraintTop_toBottomOf="@+id/businessSubCategories"
                                 app:layout_constraintWidth_default="percent"
                                 app:layout_constraintWidth_percent="0.3" />
-        
+                            
                             <!--app:layout_constraintLeft_toLeftOf="@+id/businessSubCategories"-->
                             <!--app:layout_constraintTop_toBottomOf="@+id/businessSubCategories"-->
                             <RelativeLayout
@@ -199,8 +200,8 @@
                                 android:layout_height="wrap_content"
                                 android:visibility="visible"
                                 app:layout_constraintTop_toBottomOf="@+id/subCategorySperator">
-    
-    
+                                
+                                
                                 <LinearLayout
                                     android:id="@+id/categoryLayout"
                                     android:layout_width="wrap_content"
@@ -210,7 +211,7 @@
                                     android:layout_marginLeft="@dimen/md_margin"
                                     android:layout_marginTop="@dimen/md_margin"
                                     android:orientation="vertical">
-        
+                                    
                                     <android.support.v7.widget.AppCompatTextView
                                         style="@style/AppTheme.TextAppearanceSmall"
                                         android:layout_width="wrap_content"
@@ -219,7 +220,7 @@
                                         android:text="@string/Category"
                                         android:textAlignment="gravity"
                                         android:textColor="@color/lightGray" />
-        
+                                    
                                     <android.support.v7.widget.AppCompatTextView
                                         android:id="@+id/businessCategory"
                                         style="@style/AppTheme.TextAppearance"
@@ -230,9 +231,9 @@
                                         android:textAlignment="gravity"
                                         android:textColor="@color/white"
                                         android:textStyle="bold" />
-    
+                                
                                 </LinearLayout>
-    
+                                
                                 <LinearLayout
                                     android:id="@+id/subCateogryLayout"
                                     android:layout_width="wrap_content"
@@ -242,7 +243,7 @@
                                     android:layout_marginLeft="@dimen/md_margin"
                                     android:layout_marginTop="@dimen/md_margin"
                                     android:orientation="vertical">
-        
+                                    
                                     <android.support.v7.widget.AppCompatTextView
                                         style="@style/AppTheme.TextAppearanceSmall"
                                         android:layout_width="wrap_content"
@@ -251,7 +252,7 @@
                                         android:text="@string/SubCategory"
                                         android:textAlignment="gravity"
                                         android:textColor="@color/lightGray" />
-        
+                                    
                                     <android.support.v7.widget.AppCompatTextView
                                         android:id="@+id/businessSubCategories2"
                                         style="@style/AppTheme.TextAppearance"
@@ -262,9 +263,9 @@
                                         android:textAlignment="gravity"
                                         android:textColor="@color/white"
                                         android:textStyle="bold" />
-    
+                                
                                 </LinearLayout>
-    
+                                
                                 <LinearLayout
                                     android:id="@+id/cityLayout"
                                     android:layout_width="wrap_content"
@@ -274,7 +275,7 @@
                                     android:layout_marginLeft="@dimen/md_margin"
                                     android:layout_marginTop="@dimen/md_margin"
                                     android:orientation="vertical">
-        
+                                    
                                     <android.support.v7.widget.AppCompatTextView
                                         style="@style/AppTheme.TextAppearanceSmall"
                                         android:layout_width="wrap_content"
@@ -283,7 +284,7 @@
                                         android:text="@string/City"
                                         android:textAlignment="gravity"
                                         android:textColor="@color/lightGray" />
-        
+                                    
                                     <android.support.v7.widget.AppCompatTextView
                                         android:id="@+id/businessCity"
                                         style="@style/AppTheme.TextAppearance"
@@ -294,9 +295,9 @@
                                         android:textAlignment="gravity"
                                         android:textColor="@color/white"
                                         android:textStyle="bold" />
-    
+                                
                                 </LinearLayout>
-    
+                                
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -305,7 +306,7 @@
                                     android:layout_marginLeft="@dimen/md_margin"
                                     android:layout_marginTop="@dimen/md_margin"
                                     android:orientation="vertical">
-        
+                                    
                                     <android.support.v7.widget.AppCompatTextView
                                         style="@style/AppTheme.TextAppearanceSmall"
                                         android:layout_width="wrap_content"
@@ -314,7 +315,7 @@
                                         android:text="@string/Area"
                                         android:textAlignment="gravity"
                                         android:textColor="@color/lightGray" />
-        
+                                    
                                     <android.support.v7.widget.AppCompatTextView
                                         android:id="@+id/businessLocation"
                                         style="@style/AppTheme.TextAppearance"
@@ -325,9 +326,9 @@
                                         android:textAlignment="gravity"
                                         android:textColor="@color/white"
                                         android:textStyle="bold" />
-    
+                                
                                 </LinearLayout>
-    
+                                
                                 <LinearLayout
                                     android:id="@+id/contactContainer"
                                     android:layout_width="wrap_content"
@@ -339,8 +340,8 @@
                                     android:layout_marginLeft="@dimen/md_margin"
                                     android:layout_marginTop="@dimen/md_margin"
                                     android:orientation="vertical">
-        
-        
+                                    
+                                    
                                     <android.support.v7.widget.AppCompatTextView
                                         style="@style/AppTheme.TextAppearance"
                                         android:layout_width="wrap_content"
@@ -353,13 +354,13 @@
                                         android:textAlignment="gravity"
                                         android:textColor="@color/white"
                                         android:textStyle="bold" />
-    
+                                
                                 </LinearLayout>
-
+                            
                             </RelativeLayout>
-    
+                        
                         </android.support.constraint.ConstraintLayout>
-
+                        
                         <android.support.constraint.ConstraintLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -367,7 +368,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@id/vGuideline"
                             app:layout_constraintTop_toBottomOf="@id/info_Layout">
-
+                            
                             <android.support.v7.widget.AppCompatTextView
                                 android:id="@+id/descriptionTitle"
                                 style="@style/AppTheme.TextAppearance"
@@ -377,7 +378,7 @@
                                 android:text="@string/Description"
                                 android:textColor="@color/profileHeaderColor"
                                 android:textStyle="bold" />
-
+                            
                             <View
                                 android:id="@+id/categorySperator"
                                 android:layout_width="0dp"
@@ -388,7 +389,7 @@
                                 app:layout_constraintTop_toBottomOf="@+id/descriptionTitle"
                                 app:layout_constraintWidth_default="percent"
                                 app:layout_constraintWidth_percent="0.3" />
-
+                            
                             <android.support.v7.widget.AppCompatTextView
                                 android:id="@+id/businessDescription"
                                 style="@style/AppTheme.TextAppearance"
@@ -396,16 +397,16 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start|left"
                                 android:layout_marginBottom="@dimen/lg_margin"
-                                android:paddingEnd="@dimen/zero"
-                                android:paddingLeft="@dimen/md_margin"
-                                android:paddingRight="@dimen/zero"
                                 android:paddingStart="@dimen/md_margin"
+                                android:paddingLeft="@dimen/md_margin"
+                                android:paddingEnd="@dimen/zero"
+                                android:paddingRight="@dimen/zero"
                                 android:text="Ad desctiption that advert about they add, description the app about the description the app about the plah plah ....."
                                 android:textAlignment="gravity"
                                 android:textColor="@color/grayDarkTextColor"
                                 android:textStyle="bold"
                                 app:layout_constraintTop_toBottomOf="@+id/categorySperator" />
-
+                            
                             <android.support.v7.widget.AppCompatTextView
                                 android:id="@+id/servicesAndProducts"
                                 style="@style/AppTheme.TextAppearance"
@@ -416,7 +417,7 @@
                                 android:textColor="@color/profileHeaderColor"
                                 android:textStyle="bold"
                                 app:layout_constraintTop_toBottomOf="@+id/businessDescription" />
-
+                            
                             <android.support.v7.widget.AppCompatTextView
                                 android:id="@+id/ProductAddLink"
                                 style="@style/AppTheme.TextAppearance"
@@ -429,8 +430,8 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/businessDescription" />
-
-
+                            
+                            
                             <View
                                 android:id="@+id/servicesAndProductsSperator"
                                 android:layout_width="0dp"
@@ -441,7 +442,7 @@
                                 app:layout_constraintTop_toBottomOf="@+id/servicesAndProducts"
                                 app:layout_constraintWidth_default="percent"
                                 app:layout_constraintWidth_percent="0.3" />
-
+                            
                             <android.support.v7.widget.RecyclerView
                                 android:id="@+id/businessGuideProductRecyclerView"
                                 android:layout_width="match_parent"
@@ -449,14 +450,70 @@
                                 android:layout_alignParentTop="true"
                                 app:SwipePager="all"
                                 app:layout_constraintTop_toBottomOf="@+id/servicesAndProductsSperator" />
-
-
+                            
+                            
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/jobOffersText"
+                                style="@style/AppTheme.TextAppearance"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/md_margin"
+                                android:text="@string/job_offers"
+                                android:textColor="@color/profileHeaderColor"
+                                android:textStyle="bold"
+                                app:layout_constraintTop_toBottomOf="@+id/businessGuideProductRecyclerView" />
+                            
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/jobAddLink"
+                                style="@style/AppTheme.TextAppearance"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="@dimen/md_margin"
+                                android:text="@string/Add"
+                                android:textColor="@color/profileHeaderColor"
+                                android:textStyle="bold"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/businessGuideProductRecyclerView" />
+                            
+                            
+                            <View
+                                android:id="@+id/jobOffersSeparator"
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/sperator"
+                                android:background="@color/colorPrimary"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/jobOffersText"
+                                app:layout_constraintWidth_default="percent"
+                                app:layout_constraintWidth_percent="0.3" />
+                            
+                            
+                            <ImageView
+                                android:id="@+id/jobsPlaceHolder"
+                                android:layout_width="match_parent"
+                                android:layout_height="150dp"
+                                android:src="@drawable/employee"
+                                
+                                app:layout_constraintTop_toBottomOf="@+id/jobOffersSeparator" />
+                            
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/jobsRecycler"
+                                android:layout_width="match_parent"
+                                android:layout_height="150dp"
+                                android:layout_alignParentTop="true"
+                                android:visibility="gone"
+                                app:SwipePager="all"
+                                app:layout_constraintTop_toBottomOf="@+id/jobOffersSeparator" />
+                            
+                            
                             <android.support.constraint.ConstraintLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/businessGuideProductRecyclerView">
-
+                                app:layout_constraintTop_toBottomOf="@+id/jobsPlaceHolder">
+                                
                                 <android.support.v7.widget.AppCompatButton
                                     android:id="@+id/contactBtn"
                                     style="@style/AppTheme.NormalButtonStyle"
@@ -465,14 +522,14 @@
                                     android:layout_margin="@dimen/zero"
                                     android:layout_weight="4"
                                     android:background="@drawable/button_bg"
-                                    android:drawableEnd="@drawable/ic_transparent_bg"
-                                    android:drawableLeft="@drawable/ic_phone_white_24dp"
-                                    android:drawableRight="@drawable/ic_transparent_bg"
                                     android:drawableStart="@drawable/ic_phone_white_24dp"
-                                    android:paddingEnd="@dimen/lg_padding"
-                                    android:paddingLeft="@dimen/lg_padding"
-                                    android:paddingRight="@dimen/lg_padding"
+                                    android:drawableLeft="@drawable/ic_phone_white_24dp"
+                                    android:drawableEnd="@drawable/ic_transparent_bg"
+                                    android:drawableRight="@drawable/ic_transparent_bg"
                                     android:paddingStart="@dimen/lg_padding"
+                                    android:paddingLeft="@dimen/lg_padding"
+                                    android:paddingEnd="@dimen/lg_padding"
+                                    android:paddingRight="@dimen/lg_padding"
                                     android:shadowColor="@color/black"
                                     android:text="@string/Contact"
                                     android:textColor="@color/white"
@@ -485,23 +542,23 @@
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
                                     app:layout_constraintWidth_percent="0.5" />
-
+                            
                             </android.support.constraint.ConstraintLayout>
-
-
+                        
+                        
                         </android.support.constraint.ConstraintLayout>
-
+                    
                     </android.support.constraint.ConstraintLayout>
-
+                
                 </com.brainsocket.mainlibrary.Views.Stateslayoutview>
-
+            
             </android.support.v7.widget.CardView>
-
+        
         </android.support.v4.widget.NestedScrollView>
-
-
+    
+    
     </android.support.design.widget.CoordinatorLayout>
-
+    
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar_post_details_layout"
