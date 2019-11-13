@@ -36,7 +36,7 @@
             
             android:background="@drawable/oval_red"
             android:gravity="center"
-            android:text="10"
+            android:text="Job offer"
             
             android:textColor="@color/white"
             android:textSize="8sp"
