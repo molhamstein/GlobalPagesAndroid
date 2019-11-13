@@ -215,6 +215,9 @@
     <string name="job_added">تم إضافة العمل بنجاح</string>
     <string name="job_deactived">تم إلغاء تفعيل هذه الوظيفة بنجاح</string>
     <string name="job_edited">تم تعديل الوظيفة بنجاح</string>
+    <string name="invalid_link">الرابط غير صالح</string>
+    <string name="status_success">تم تغيير حالة الطلب بنجاح</string>
+    <string name="status_failed">فشلت عملية تغيير الحالة</string>
 
 
 </resources>

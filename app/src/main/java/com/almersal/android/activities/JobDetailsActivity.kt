@@ -12,11 +12,11 @@ import com.almersal.android.di.ui.JobDetailsContract
 import com.almersal.android.di.ui.JobDetailsPresenter
 import com.almersal.android.normalization.DateNormalizer
 import com.almersal.android.utilities.BindingUtils
+import com.almersal.android.utilities.EnumsProvider
 import com.almersal.android.utilities.IntentHelper
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_job_details.*
 import kotlinx.android.synthetic.main.activity_job_details.companyName
 import kotlinx.android.synthetic.main.activity_job_details.location
@@ -68,7 +68,8 @@ class JobDetailsActivity : BaseActivity(), JobDetailsContract.View, View.OnClick
             return
         }
 
-
+        applicantsBtn.visibility = View.GONE
+        applicantsNumber.visibility = View.GONE
         editBtn.visibility = View.GONE
         applyBtn.visibility = View.VISIBLE
         deactivateBtn.visibility = View.GONE
@@ -90,6 +91,8 @@ class JobDetailsActivity : BaseActivity(), JobDetailsContract.View, View.OnClick
 
         categoryName.text = job.category?.getTitle()
         subCategoryName.text = job.subCategory?.getTitle()
+        subCategoryName.visibility = if (job.subCategory?.getTitle().isNullOrBlank()) View.GONE else View.VISIBLE
+        categoryName.visibility = if (job.category?.getTitle().isNullOrBlank()) View.GONE else View.VISIBLE
 
 
         qualificationsValue.text = job.qualifications
@@ -105,11 +108,12 @@ class JobDetailsActivity : BaseActivity(), JobDetailsContract.View, View.OnClick
         salaryValue.visibility = if (job.rangeSalary.isNullOrEmpty()) View.GONE else View.VISIBLE
         salaryText.visibility = if (job.rangeSalary.isNullOrEmpty()) View.GONE else View.VISIBLE
 
-        educationValue.text = job.minimumEducationLevel
+        educationValue.text =
+            EnumsProvider.educationLevels.firstOrNull { job.minimumEducationLevel?.equals(it.name) ?: false }?.level
         educationValue.visibility = if (job.minimumEducationLevel.isNullOrEmpty()) View.GONE else View.VISIBLE
         educationText.visibility = if (job.minimumEducationLevel.isNullOrEmpty()) View.GONE else View.VISIBLE
 
-        jobTypeValue.text = job.jobType
+        jobTypeValue.text = EnumsProvider.jobTypes.firstOrNull { job.jobType?.equals(it.name) ?: false }?.type
         jobTypeValue.visibility = if (job.jobType.isNullOrEmpty()) View.GONE else View.VISIBLE
         jobTypeText.visibility = if (job.jobType.isNullOrEmpty()) View.GONE else View.VISIBLE
 
@@ -119,6 +123,7 @@ class JobDetailsActivity : BaseActivity(), JobDetailsContract.View, View.OnClick
             apply.text = getString(R.string.applied_before)
             apply.isEnabled = false
         }
+
         onTagsLoaded(job.tags)
 
 
@@ -133,13 +138,13 @@ class JobDetailsActivity : BaseActivity(), JobDetailsContract.View, View.OnClick
                 presenter.deactivateJob(job?.id!!, JobStatus("deactivated"))
             }
 
-            applicantsBtn,applicantsNumber->{
-
+            applicantsBtn, applicantsNumber -> {
+                IntentHelper.startApplicantsActivity(this, job?.id!!)
             }
 
 
-            editBtn ->{
-                IntentHelper.startEditJobActivity(this,job!!)
+            editBtn -> {
+                IntentHelper.startEditJobActivity(this, job!!)
             }
         }
 
@@ -181,7 +186,7 @@ class JobDetailsActivity : BaseActivity(), JobDetailsContract.View, View.OnClick
         onBackPressed()
     }
 
-    override fun onApplySuccess(applyJobResponse: ApplyJobResponse) {
+    override fun onApplySuccess(applyJobResponse: Applicant) {
         Toast.makeText(this, getString(R.string.applied_success), Toast.LENGTH_SHORT).show()
     }
 

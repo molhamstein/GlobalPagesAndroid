@@ -1,39 +1,52 @@
 {
   "project_info": {
-    "project_number": "177463462440",
-    "firebase_url": "https://almersal-217217.firebaseio.com",
-    "project_id": "almersal-217217",
-    "storage_bucket": "almersal-217217.appspot.com"
+    "project_number": "33034891653",
+    "firebase_url": "https://almersal-c46b8.firebaseio.com",
+    "project_id": "almersal-c46b8",
+    "storage_bucket": "almersal-c46b8.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:177463462440:android:451d780ccaebb58b",
+        "mobilesdk_app_id": "1:33034891653:android:dc7c4165174103ba6114ec",
         "android_client_info": {
           "package_name": "com.almersal.android"
         }
       },
       "oauth_client": [
         {
-          "client_id": "177463462440-gncm3knnpddfdfooqrlfqvcejb1ti70e.apps.googleusercontent.com",
+          "client_id": "33034891653-gdd6mhmamqsjn0jp8214snq2pcgv0e1n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.almersal.android",
+            "certificate_hash": "515686125d9660ddf1455fe2ed037d613539c4f6"
+          }
+        },
+        {
+          "client_id": "33034891653-kufhdsjko74h2jsabchkodffl68ld8qg.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC5XZCeUfvFAKXSzsR737lhwKARfKdx144"
+          "current_key": "AIzaSyCn4rxgMR_y8miEl7j337vXAm0ujQmqaRc"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "33034891653-kufhdsjko74h2jsabchkodffl68ld8qg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "33034891653-8dr1aas3estvra3q7tr7egqk11415p5h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.almersal.ios.app"
+              }
+            }
+          ]
         }
       }
     }

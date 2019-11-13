@@ -217,5 +217,8 @@
     <string name="job_added">Job has been added successfully</string>
     <string name="job_deactived">This job has been deactivated</string>
     <string name="job_edited">Job has been edited successfully</string>
+    <string name="invalid_link">Invalid Link</string>
+    <string name="status_success">Status has been changed successfully</string>
+    <string name="status_failed">Updating status failed</string>
 
 </resources>

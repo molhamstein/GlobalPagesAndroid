@@ -9,6 +9,7 @@ import com.almersal.android.adapters.EducationAdapter
 import com.almersal.android.adapters.ExperiencesAdapter
 import com.almersal.android.adapters.ReferencesAdapter
 import com.almersal.android.adapters.SkillsAdapter
+import com.almersal.android.data.entities.BusinessGuide
 import com.almersal.android.data.entities.User
 import com.almersal.android.data.entitiesResponses.AttachmentResponse
 import com.almersal.android.di.component.DaggerUserResumeComponent
@@ -22,11 +23,16 @@ import com.almersal.android.utilities.IntentHelper
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_resume.*
 import javax.inject.Inject
 
 class UserResumeActivity : BaseActivity(), UserResumeContract.View, View.OnClickListener {
 
+
+    companion object {
+        const val user_profile_key = "User_Profile_Key"
+    }
 
     lateinit var experienceLayoutManager: LinearLayoutManager
     lateinit var skillLayoutManager: FlexboxLayoutManager
@@ -43,6 +49,7 @@ class UserResumeActivity : BaseActivity(), UserResumeContract.View, View.OnClick
     lateinit var presenter: UserResumePresenter
 
     private lateinit var progressDialog: ProgressDialog
+    private var passedUser: User? = null
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_resume)
@@ -53,7 +60,8 @@ class UserResumeActivity : BaseActivity(), UserResumeContract.View, View.OnClick
             .userResumeModule(UserResumeModule(this))
             .build()
 
-
+        val jSon = intent.getStringExtra(user_profile_key)
+        passedUser = Gson().fromJson(jSon, User::class.java)
 
         component.inject(this)
         presenter.attachView(this)
@@ -73,7 +81,11 @@ class UserResumeActivity : BaseActivity(), UserResumeContract.View, View.OnClick
 
     override fun onResume() {
         super.onResume()
-        val user = UserRepository(this).getUser()!!
+        var user = UserRepository(this).getUser()!!
+        if (passedUser != null) {
+            user = passedUser!!
+
+        }
         presenter.getUserResume(user.id!!)
 
     }
@@ -85,11 +97,23 @@ class UserResumeActivity : BaseActivity(), UserResumeContract.View, View.OnClick
         bioText.text = user?.CV?.bio
         locationText.text = user?.CV?.city?.getTitle()
         specs.text = user?.CV?.primaryIdentifier
+
+
+
+
+        if (user?.CV?.experience.isNullOrEmpty()) {
+            experiencesPlaceHolder.visibility = View.VISIBLE
+            experiences.visibility = View.GONE
+        } else {
+            experiencesPlaceHolder.visibility = View.GONE
+            experiences.visibility = View.VISIBLE
+        }
         experiencesAdapter = ExperiencesAdapter(this, user?.CV?.experience ?: mutableListOf(), false)
+
 
         referencesAdapter = ReferencesAdapter(this, user?.CV?.let {
             with(it) {
-                listOfNotNull(
+                listOf(
                     behanceLink,
                     facebookLink,
                     githubLink,
@@ -99,7 +123,27 @@ class UserResumeActivity : BaseActivity(), UserResumeContract.View, View.OnClick
             }
         } ?: listOf(), false)
 
+
+
+
+
+        if (user?.CV?.tags.isNullOrEmpty()) {
+            skillsPlaceHolder.visibility = View.VISIBLE
+            skills.visibility = View.GONE
+        } else {
+            skillsPlaceHolder.visibility = View.GONE
+            skills.visibility = View.VISIBLE
+        }
         skillsAdapter = SkillsAdapter(this, user?.CV?.tags ?: mutableListOf(), false)
+
+
+        if (user?.CV?.education.isNullOrEmpty()) {
+            educationPlaceHolder.visibility = View.VISIBLE
+            education.visibility = View.GONE
+        } else {
+            educationPlaceHolder.visibility = View.GONE
+            education.visibility = View.VISIBLE
+        }
         educationAdapter = EducationAdapter(this, user?.CV?.education ?: mutableListOf(), false)
 
         experiences.layoutManager = experienceLayoutManager
@@ -113,8 +157,6 @@ class UserResumeActivity : BaseActivity(), UserResumeContract.View, View.OnClick
         skills.adapter = skillsAdapter
 
     }
-
-
 
 
     override fun getFailed() {

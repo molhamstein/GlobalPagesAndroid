@@ -103,9 +103,9 @@ class AddNewJobActivity : BaseActivity(), View.OnClickListener, AddNewJobContrac
             ArrayAdapter(
                 this,
                 android.R.layout.simple_spinner_dropdown_item,
-                EnumsProvider.educationLevels.map { it.name })
+                EnumsProvider.educationLevels.map { it.level })
         jobType.adapter =
-            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, EnumsProvider.jobTypes.map { it.name })
+            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, EnumsProvider.jobTypes.map { it.type })
 
 
         jobDetails.jobType = EnumsProvider.jobTypes.map { it.name }[0]

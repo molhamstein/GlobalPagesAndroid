@@ -5,6 +5,6 @@ data class Applicant(
     val id: String,
     val jobId: String,
     val status: String,
-    val user: User,
-    val userId: String
+    val userId: String,
+    val user:User
 )

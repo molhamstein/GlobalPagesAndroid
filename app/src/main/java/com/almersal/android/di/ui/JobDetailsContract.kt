@@ -1,7 +1,6 @@
 package com.almersal.android.di.ui
 
 import com.almersal.android.data.entities.*
-import com.androidnetworking.interfaces.ParsedRequestListener
 
 
 class JobDetailsContract {
@@ -17,7 +16,7 @@ class JobDetailsContract {
 
     interface View : BaseContract.View {
 
-        fun onApplySuccess(applyJobResponse: ApplyJobResponse)
+        fun onApplySuccess(applyJobResponse: Applicant)
         fun onJobDetailsLoaded(jobDetails: JobDetails)
         fun onUpdateDetailsSuccess(jobDetails: JobDetails)
 

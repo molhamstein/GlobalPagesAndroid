@@ -10,8 +10,8 @@
     
     <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/icon"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:src="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +20,6 @@
     
     <TextView
         android:id="@+id/url"
-        android:visibility="gone"
         style="@style/AppTheme.TextAppearance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,6 +33,7 @@
         android:textColor="@color/grayDarkTextColor"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/icon"
         app:layout_constraintTop_toTopOf="parent" />

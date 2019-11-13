@@ -553,14 +553,14 @@ class ApiService {
     fun getJobApplicants(
         jobId: String,
         token: String,
-        requestListener: ParsedRequestListener<MutableList<JobCategory>>
+        requestListener: ParsedRequestListener<MutableList<Applicant>>
     ) {
 
         AndroidNetworking.get("${ServerInfo.jobsUrl}$jobId${ServerInfo.jobApplicants}")
             .setPriority(Priority.HIGH)
             .addHeaders("Authorization", token)
             .build()
-            .getAsObjectList(JobCategory::class.java, requestListener)
+            .getAsObjectList(Applicant::class.java, requestListener)
     }
 
 
@@ -611,14 +611,32 @@ class ApiService {
         url: String,
         jobId: String,
         token: String,
-        requestListener: ParsedRequestListener<ApplyJobResponse?>
+        requestListener: ParsedRequestListener<Applicant?>
     ) {
 
         AndroidNetworking.post("$url$jobId/applyJobOpportunity")
             .addHeaders("Authorization", token)
             .setPriority(Priority.HIGH)
             .build()
-            .getAsObject(ApplyJobResponse::class.java, requestListener)
+            .getAsObject(Applicant::class.java, requestListener)
+    }
+
+
+    fun updateApplicantStatus(
+        url: String,
+        applicationId: String,
+        applicantStatus: ApplicantStatus,
+        token: String,
+        requestListener: ParsedRequestListener<Applicant?>
+    ) {
+        val jSon = Gson().toJson(applicantStatus)
+        AndroidNetworking.put("$url$applicationId/changeStatus")
+            .setContentType("application/json")
+            .addHeaders("Authorization", token)
+            .addStringBody(jSon)
+            .setPriority(Priority.HIGH)
+            .build()
+            .getAsObject(Applicant::class.java, requestListener)
     }
 
 
