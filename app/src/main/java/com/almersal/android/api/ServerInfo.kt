@@ -64,8 +64,7 @@ class ServerInfo {
         var jobApplicants = "/employee"
 
 
-
-        var jobSearchUrl = "${jobsUrl}searchJob"
+        var jobSearchUrl = "${jobsUrl}searchJob?status=activated"
         var jobCategoriesUrl = baseUrl + "jobOpportunityCategories"
         var jobUserUrl = baseUrl + "jobOpportunityUsers/"
 
