@@ -65,14 +65,14 @@
                 android:layout_height="match_parent"
                 app:contentScrim="@color/transparent"
                 app:layout_scrollFlags="scroll|enterAlways|snap">
-    
+                
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:layout_collapseMode="parallax"
                     app:layout_scrollFlags="scroll|enterAlways|snap">
-        
-        
+                    
+                    
                     <ImageView
                         android:id="@+id/closeBtn"
                         android:layout_width="24dp"
@@ -83,72 +83,72 @@
                         android:src="@drawable/ic_close_white_24dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-        
-        
+                    
+                    
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/profile_image"
                         android:layout_width="75dp"
                         android:layout_height="75dp"
                         android:layout_marginTop="12dp"
                         android:scaleType="centerCrop"
-            
+                        
                         app:layout_constraintStart_toStartOf="@+id/closeBtn"
                         app:layout_constraintTop_toBottomOf="@+id/closeBtn" />
-        
+                    
                     <LinearLayout
                         android:id="@+id/info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginLeft="8dp"
-            
+                        
                         android:orientation="vertical"
                         app:layout_constraintStart_toEndOf="@+id/profile_image"
                         app:layout_constraintTop_toTopOf="@+id/profile_image">
-            
+                        
                         <TextView
                             android:id="@+id/name"
                             style="@style/TextAppearance.AppCompat.Large"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                
+                            
                             android:textColor="@color/white"
                             android:textStyle="bold" />
-            
+                        
                         <TextView
                             android:id="@+id/specs"
                             style="@style/AppTheme.MediumTextAppearance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
-                
+                            
                             android:textColor="@color/white"
                             android:textStyle="bold" />
-            
-            
+                        
+                        
                         <LinearLayout
                             android:id="@+id/location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
-                
+                            
                             <ImageView
                                 android:layout_width="15dp"
                                 android:layout_height="15dp"
                                 android:src="@drawable/location_ic" />
-                
+                            
                             <TextView
                                 android:id="@+id/locationText"
                                 style="@style/AppTheme.TextAppearanceSmall"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                    
+                                
                                 android:textColor="@color/white" />
                         </LinearLayout>
-        
-        
+                    
+                    
                     </LinearLayout>
-        
+                    
                     <TextView
                         android:id="@+id/bioText"
                         style="@style/AppTheme.TextAppearance"
@@ -206,13 +206,35 @@
                         android:textColor="@color/black"
                         android:textStyle="bold" />
                     
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/experiences"
+                    
+                    <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        tools:itemCount="5"
-                        tools:listitem="@layout/experience_item_layout" />
+                        android:layout_height="wrap_content">
+                        
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/experiences"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:itemCount="5"
+                            tools:listitem="@layout/experience_item_layout" />
+                        
+                        <ImageView
+                            android:id="@+id/experiencesPlaceHolder"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:src="@drawable/job_holder"
+                            android:visibility="visible"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/jobOffersSeparator"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </android.support.constraint.ConstraintLayout>
+                    
                     
                     <TextView
                         style="@style/AppTheme.TextAppearance"
@@ -223,14 +245,35 @@
                         android:textColor="@color/black"
                         android:textStyle="bold" />
                     
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/skills"
+                    
+                    <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        tools:itemCount="5"
-                        tools:listitem="@layout/skill_item_layout" />
-    
-    
+                        android:layout_height="wrap_content">
+                        
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/skills"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:itemCount="5"
+                            tools:listitem="@layout/skill_item_layout" />
+                        
+                        <ImageView
+                            android:id="@+id/skillsPlaceHolder"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:src="@drawable/job_holder"
+                            android:visibility="visible"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/jobOffersSeparator"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </android.support.constraint.ConstraintLayout>
+                    
+                    
                     <TextView
                         style="@style/AppTheme.TextAppearance"
                         android:layout_width="wrap_content"
@@ -239,16 +282,38 @@
                         android:text="@string/education"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
-    
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/education"
+                    
+                    
+                    <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        tools:itemCount="5"
-                        tools:listitem="@layout/education_item_layout" />
-    
-    
+                        android:layout_height="wrap_content">
+                        
+                        
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/education"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:itemCount="5"
+                            tools:listitem="@layout/education_item_layout" />
+                        
+                        <ImageView
+                            android:id="@+id/educationPlaceHolder"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:src="@drawable/job_holder"
+                            android:visibility="visible"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/jobOffersSeparator"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </android.support.constraint.ConstraintLayout>
+                    
+                    
                     <TextView
                         style="@style/AppTheme.TextAppearance"
                         android:layout_width="wrap_content"
@@ -257,14 +322,26 @@
                         android:text="@string/references"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
-    
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/references"
+                    
+                    <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        tools:itemCount="5"
-                        tools:listitem="@layout/reference_item_layout" />
+                        android:layout_height="wrap_content">
+                        
+                        
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/references"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:visibility="visible"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:itemCount="5"
+                            tools:listitem="@layout/reference_item_layout" />
+                        
+                    
+                    </android.support.constraint.ConstraintLayout>
                     
                     <ImageView
                         android:id="@+id/downloadCV"
@@ -276,10 +353,9 @@
             </com.brainsocket.mainlibrary.Views.Stateslayoutview>
         
         </android.support.v4.widget.NestedScrollView>
-        
-      
+    
+    
     </android.support.design.widget.CoordinatorLayout>
-    
-    
-    
+
+
 </android.support.constraint.ConstraintLayout>

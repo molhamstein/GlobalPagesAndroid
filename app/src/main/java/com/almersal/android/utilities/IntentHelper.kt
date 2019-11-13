@@ -168,6 +168,21 @@ class IntentHelper {
             }
         }
 
+
+        fun startApplicantsActivity(context: Context, jobId: String) {
+            try {
+                val intent = Intent()
+                intent.setClassName(context, ApplicantsActivity::class.java.canonicalName)
+                intent.putExtra(ApplicantsActivity.job_intent_key, jobId)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                context.startActivity(intent)
+            } catch (ex: Exception) {
+                Log.v("", "")
+                Log.v("", "")
+            }
+        }
+
+
         fun startEditJobActivity(context: Context, job: JobDetails) {
             try {
                 val intent = Intent()

@@ -4,12 +4,10 @@ import android.content.Context
 import com.almersal.android.api.ApiService
 import com.almersal.android.api.ServerInfo
 import com.almersal.android.data.entities.*
-import com.almersal.android.repositories.DataStoreRepositories
 import com.almersal.android.repositories.UserRepository
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.ParsedRequestListener
 import io.reactivex.disposables.CompositeDisposable
-import java.util.HashMap
 
 class JobDetailsPresenter(val context: Context) : JobDetailsContract.Presenter {
 
@@ -33,8 +31,8 @@ class JobDetailsPresenter(val context: Context) : JobDetailsContract.Presenter {
 
 
         ApiService().applyToJob(ServerInfo.jobUserUrl, jobId, UserRepository(context).getUser()!!.token,
-            object : ParsedRequestListener<ApplyJobResponse?> {
-                override fun onResponse(response: ApplyJobResponse?) {
+            object : ParsedRequestListener<Applicant?> {
+                override fun onResponse(response: Applicant?) {
                     view.showProgress(false)
                     if (response != null) {
                         view.onApplySuccess(response)
@@ -52,7 +50,7 @@ class JobDetailsPresenter(val context: Context) : JobDetailsContract.Presenter {
     override fun getJobDetails(jobId: String) {
         view.showProgress(true)
 
-        ApiService().getJobDetails(jobId, UserRepository(context).getUser()!!.token,
+        ApiService().getJobDetails(jobId, UserRepository(context).getUser()?.token ?:"",
             object : ParsedRequestListener<JobDetails> {
                 override fun onResponse(response: JobDetails) {
                     view.showProgress(false)

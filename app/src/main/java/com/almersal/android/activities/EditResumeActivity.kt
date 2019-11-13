@@ -350,11 +350,21 @@ class EditResumeActivity : BaseActivity(),
                 Pix.start(this, PICTURE_REQUEST, 1)
             }
             doneBtn -> {
-                if (validate(this, nameInput, specsInput, phoneInput, bioInput)) {
+                if (validate(this, nameInput, specsInput, phoneInput)) {
                     updatedProfile.phoneNumber = phoneInput.text.toString()
                     updatedProfile.username = nameInput.text.toString()
                     updatedProfile.primaryIdentifier = specsInput.text.toString()
                     updatedProfile.bio = bioInput.text.toString()
+                    // behanceLink,
+                    //                    facebookLink,
+                    //                    githubLink,
+                    //                    twitterLink,
+                    //                    websiteLink
+                    updatedProfile.behanceLink = referencesAdapter.resultData[0]
+                    updatedProfile.facebookLink = referencesAdapter.resultData[1]
+                    updatedProfile.githubLink = referencesAdapter.resultData[2]
+                    updatedProfile.twitterLink = referencesAdapter.resultData[3]
+                    updatedProfile.websiteLink = referencesAdapter.resultData[4]
                     presenter.updateProfile(updatedProfile)
                 }
             }
@@ -411,7 +421,7 @@ class EditResumeActivity : BaseActivity(),
 
         referencesAdapter = ReferencesAdapter(this, user?.CV?.let {
             with(it) {
-                listOfNotNull(
+                listOf(
                     behanceLink,
                     facebookLink,
                     githubLink,
