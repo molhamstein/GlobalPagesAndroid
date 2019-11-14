@@ -70,7 +70,7 @@ class JobsSearchActivity : BaseActivity(), JobSearchContract.View, View.OnClickL
 
         selectedTagsView.setAdapter(TagsRecyclerViewAdapter(this, DummyDataRepositories.getTagsDefaultRepositories()))
         (selectedTagsView.getAdapter() as TagsRecyclerViewAdapter).onTagSelectListener = this
-
+        backBtn.setOnClickListener(this)
 
         RxBus.listen(MessageEvent::class.java).subscribe {
             when (it.action) {
@@ -97,6 +97,9 @@ class JobsSearchActivity : BaseActivity(), JobSearchContract.View, View.OnClickL
                     filter = FilterType.JobsFilter
                 )
 
+            }
+            backBtn -> {
+                onBackPressed()
             }
         }
     }

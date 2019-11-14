@@ -12,7 +12,6 @@ import com.almersal.android.data.entitiesModel.BusinessGuideEditModel
 import com.almersal.android.data.entitiesModel.BusinessGuideModel
 import com.almersal.android.data.filtration.FilterEntity
 import com.almersal.android.enums.DaysEnum
-import com.almersal.android.repositories.UserRepository
 import io.reactivex.disposables.CompositeDisposable
 
 class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuidesContract.Presenter {
@@ -244,6 +243,28 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
                 }
             })
 
+    }
+
+    override fun getJobsByBusiness(businessId: String?) {
+        view.showProgress(true)
+        ApiService().getJobsByBusiness(ServerInfo.jobsUrl, businessId?:"", object : ParsedRequestListener<MutableList<Job>> {
+            override fun onResponse(response: MutableList<Job>?) {
+
+                if ((response != null)) {
+                    view.showProgress(false)
+                    if (response.size > 0) {
+                        view.onJobsLoaded(response)
+                        return
+                    }
+                }
+
+            }
+
+            override fun onError(anError: ANError?) {
+                view.showProgress(false)
+                
+            }
+        })
     }
 
 

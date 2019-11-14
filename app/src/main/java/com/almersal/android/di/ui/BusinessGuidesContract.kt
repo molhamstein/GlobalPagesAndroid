@@ -10,6 +10,9 @@ class BusinessGuidesContract {
 
     interface Presenter : BaseContract.Presenter<View> {
 
+
+
+        fun getJobsByBusiness(businessId: String?)
         /*for business guide action*/
         fun loadBusinessGuideByLocationWithLimit(pointEntity: PointEntity)
         fun loadBusinessGuideByLocation(
@@ -58,6 +61,7 @@ class BusinessGuidesContract {
         fun onLoadBusinessGuide(businessGuide: BusinessGuide) {}
         fun onAddBusinessGuideSuccessfully(businessGuide: BusinessGuide) {}
         fun onUpdateBusinessGuideSuccessfully(businessGuide: BusinessGuide) {}
+        fun onJobsLoaded(jobs: MutableList<Job>){}
 
     }
 

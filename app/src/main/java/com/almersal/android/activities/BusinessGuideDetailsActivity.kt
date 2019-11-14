@@ -2,19 +2,21 @@ package com.almersal.android.activities
 
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageView
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import butterknife.Optional
 import com.almersal.android.R
 import com.almersal.android.adapters.BusinessGuideProductRecyclerViewAdapter
+import com.almersal.android.adapters.JobsSearchAdapter
 import com.almersal.android.data.entities.BusinessGuide
+import com.almersal.android.data.entities.Job
 import com.almersal.android.data.entitiesModel.ProductThumbEditModel
 import com.almersal.android.data.mapping.ProductProductModelTransformation
 import com.almersal.android.di.component.DaggerBusinessGuideDetailsComponent
@@ -32,6 +34,8 @@ import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
 import com.brainsocket.mainlibrary.Listeners.OnRefreshLayoutListener
 import com.brainsocket.mainlibrary.Views.Stateslayoutview
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.business_guide_add_layout.*
+import kotlinx.android.synthetic.main.business_guide_details_layout.*
 import javax.inject.Inject
 
 class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener,
@@ -80,6 +84,11 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.getJobsByBusiness(businessGuide?.id)
+    }
+
     override fun onBaseCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.business_guide_details_layout)
         ButterKnife.bind(this)
@@ -122,6 +131,10 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
 
             }
         })
+
+
+
+
 
     }
 
@@ -216,6 +229,18 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
         businessGuideViewHolder.bind(businessGuide)
         toggleEditMode()
 
+    }
+
+    override fun onJobsLoaded(jobs: MutableList<Job>) {
+        jobsRecycler.layoutManager = LinearLayoutManager(this)
+        jobsRecycler.adapter = JobsSearchAdapter(this, jobs)
+        if (jobs.isNullOrEmpty()) {
+            jobsPlaceHolder.visibility = View.VISIBLE
+            jobsRecycler.visibility = View.GONE
+        } else {
+            jobsPlaceHolder.visibility = View.GONE
+            jobsRecycler.visibility = View.VISIBLE
+        }
     }
     /*Presenter ended*/
 

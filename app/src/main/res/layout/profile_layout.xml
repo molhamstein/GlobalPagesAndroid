@@ -5,25 +5,25 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical">
-
+    
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar_profile_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
+    
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/annonce.main.coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
+        
         <android.support.design.widget.AppBarLayout
             android:id="@+id/flexible.example.appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:elevation="0dp">
-
+            
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/flexible.example.collapsing"
                 android:layout_width="match_parent"
@@ -33,19 +33,19 @@
                 app:expandedTitleTextAppearance="@style/CollapsingTextAppearance.Inverse"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:title="">
-                
-
-            </android.support.design.widget.CollapsingToolbarLayout>
             
+            
+            </android.support.design.widget.CollapsingToolbarLayout>
+        
         </android.support.design.widget.AppBarLayout>
-
+        
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
             app:behavior_overlapTop="130dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
+            
             <android.support.v7.widget.CardView
                 android:id="@+id/flexible.example.cardview"
                 android:layout_width="match_parent"
@@ -58,27 +58,26 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/toolbar">
-
-
+                
+                
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-    
-              
+                    
+                    
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/info_Layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/profileHeaderColor"
                         android:paddingStart="@dimen/md_padding"
-                        android:paddingEnd="@dimen/md_padding"
                         android:paddingTop="@dimen/md_padding"
+                        android:paddingEnd="@dimen/md_padding"
                         android:paddingBottom="20dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
-    
-                    
-                       
+                        
+                        
                         <ImageView
                             android:id="@+id/settingBtn"
                             android:layout_width="wrap_content"
@@ -88,18 +87,18 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/ic_settings_white_24dp" />
-
+                        
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:layout_constraintTop_toBottomOf="@+id/settingBtn">
-
+                            
                             <LinearLayout
                                 android:id="@+id/userNameLayout"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
-
+                                
                                 <android.support.v7.widget.AppCompatTextView
                                     style="@style/AppTheme.TextAppearanceSmall"
                                     android:layout_width="wrap_content"
@@ -108,7 +107,7 @@
                                     android:text="@string/UserName"
                                     android:textAlignment="gravity"
                                     android:textColor="@color/lightGray" />
-
+                                
                                 <android.support.v7.widget.AppCompatTextView
                                     android:id="@+id/userName"
                                     style="@style/AppTheme.TextAppearance"
@@ -116,16 +115,16 @@
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/white"
                                     android:textStyle="bold" />
-
+                            
                             </LinearLayout>
-
+                            
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_alignParentRight="true"
                                 android:orientation="vertical">
-
+                                
                                 <android.support.v7.widget.AppCompatTextView
                                     style="@style/AppTheme.TextAppearanceSmall"
                                     android:layout_width="wrap_content"
@@ -134,7 +133,7 @@
                                     android:text="@string/AdsAdded"
                                     android:textAlignment="gravity"
                                     android:textColor="@color/lightGray" />
-
+                                
                                 <android.support.v7.widget.AppCompatTextView
                                     android:id="@+id/adsCount"
                                     style="@style/AppTheme.TextAppearance"
@@ -145,17 +144,18 @@
                                     android:textAlignment="gravity"
                                     android:textColor="@color/white"
                                     android:textStyle="bold" />
-
+                            
                             </LinearLayout>
-
+                            
                             <LinearLayout
                                 android:id="@+id/emailLayout"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/userNameLayout"
                                 android:orientation="vertical">
-
+                                
                                 <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/emailText"
                                     style="@style/AppTheme.TextAppearanceSmall"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -163,7 +163,7 @@
                                     android:text="@string/Email"
                                     android:textAlignment="gravity"
                                     android:textColor="@color/lightGray" />
-
+                                
                                 <android.support.v7.widget.AppCompatTextView
                                     android:id="@+id/userEmail"
                                     style="@style/AppTheme.TextAppearance"
@@ -171,9 +171,9 @@
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/white"
                                     android:textStyle="bold" />
-
+                            
                             </LinearLayout>
-
+                            
                             <RelativeLayout
                                 android:id="@+id/moreInfoLayout"
                                 android:layout_width="wrap_content"
@@ -182,7 +182,7 @@
                                 android:visibility="gone"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintRight_toRightOf="parent">
-
+                                
                                 <android.support.design.widget.TextInputLayout
                                     android:id="@+id/birthdateLayout"
                                     android:layout_width="match_parent"
@@ -191,7 +191,7 @@
                                     android:layout_toLeftOf="@+id/genderTabLayout"
                                     app:errorEnabled="false"
                                     app:hintEnabled="false">
-
+                                    
                                     <android.support.v7.widget.AppCompatEditText
                                         android:id="@+id/birthDate"
                                         android:layout_width="match_parent"
@@ -207,10 +207,10 @@
                                         android:textColorHint="@color/white"
                                         app:autoSizeTextType="uniform"
                                         app:backgroundTint="@color/white" />
-
-
+                                
+                                
                                 </android.support.design.widget.TextInputLayout>
-
+                                
                                 <android.support.design.widget.TabLayout
                                     android:id="@+id/genderTabLayout"
                                     android:layout_width="wrap_content"
@@ -225,13 +225,13 @@
                                     app:tabSelectedTextColor="@color/colorPrimary"
                                     app:tabTextAppearance="@style/AppTheme.TextAppearance"
                                     app:tabTextColor="@color/grayDarkTextColor" />
-
+                            
                             </RelativeLayout>
-
+                        
                         </RelativeLayout>
-
+                    
                     </android.support.constraint.ConstraintLayout>
-    
+                    
                     <android.support.v7.widget.AppCompatButton
                         android:id="@+id/cvBtn"
                         style="@style/AppTheme.NormalButtonStyle"
@@ -244,15 +244,15 @@
                         android:textStyle="bold"
                         app:backgroundTint="@color/colorPrimary"
                         app:layout_constraintBottom_toTopOf="@+id/collectionsContainer"
-                        app:layout_constraintTop_toBottomOf="@id/info_Layout"
-                        />
+                        app:layout_constraintTop_toBottomOf="@id/info_Layout" />
+                    
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/collectionsContainer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingTop="20dp"
                         app:layout_constraintTop_toBottomOf="@id/info_Layout">
-
+                        
                         <android.support.v7.widget.AppCompatTextView
                             android:id="@+id/categoryTitle"
                             style="@style/AppTheme.TextAppearance"
@@ -263,7 +263,22 @@
                             android:textColor="@color/profileHeaderColor"
                             android:textStyle="bold"
                             app:layout_constraintTop_toTopOf="parent" />
-
+                        
+                        <android.support.v7.widget.AppCompatImageButton
+                            android:id="@+id/categoriesAddLink"
+                            style="@style/AppTheme.TextAppearance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/transparent"
+                            android:padding="@dimen/md_margin"
+                            android:text="@string/Add"
+                            android:textColor="@color/profileHeaderColor"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="@id/categoryTitle"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_add_dark_24dp" />
+                        
                         <View
                             android:id="@+id/categorySperator"
                             android:layout_width="0dp"
@@ -274,7 +289,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/categoryTitle"
                             app:layout_constraintWidth_default="percent"
                             app:layout_constraintWidth_percent="0.3" />
-
+                        
                         <com.brainsocket.mainlibrary.Views.Stateslayoutview
                             android:id="@+id/myCategoriesStateLayout"
                             android:layout_width="match_parent"
@@ -286,16 +301,16 @@
                             app:RefreshbtnRes="@+id/retryBtn"
                             app:WaitingLayout="@layout/state_layout_waiting"
                             app:layout_constraintTop_toBottomOf="@id/categorySperator">
-
+                            
                             <android.support.v7.widget.RecyclerView
                                 android:id="@+id/myCategories"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/lg_margin"
                                 app:tagBackgroundColor="@color/colorPrimary" />
-
+                        
                         </com.brainsocket.mainlibrary.Views.Stateslayoutview>
-
+                        
                         <android.support.v7.widget.AppCompatTextView
                             android:id="@+id/AdsTitle"
                             style="@style/AppTheme.TextAppearance"
@@ -306,7 +321,7 @@
                             android:textColor="@color/profileHeaderColor"
                             android:textStyle="bold"
                             app:layout_constraintTop_toBottomOf="@+id/myCategoriesStateLayout" />
-
+                        
                         <android.support.v7.widget.AppCompatImageButton
                             android:id="@+id/AdsAddLink"
                             style="@style/AppTheme.TextAppearance"
@@ -321,7 +336,7 @@
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/myCategoriesStateLayout"
                             app:srcCompat="@drawable/ic_add_dark_24dp" />
-
+                        
                         <View
                             android:id="@+id/AdsSperator"
                             android:layout_width="0dp"
@@ -332,7 +347,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/AdsTitle"
                             app:layout_constraintWidth_default="percent"
                             app:layout_constraintWidth_percent="0.3" />
-
+                        
                         <com.brainsocket.mainlibrary.Views.Stateslayoutview
                             android:id="@+id/myPostsStateLayout"
                             android:layout_width="match_parent"
@@ -342,7 +357,7 @@
                             app:RefreshbtnRes="@+id/retryBtn"
                             app:WaitingLayout="@layout/state_layout_waiting"
                             app:layout_constraintTop_toBottomOf="@id/AdsSperator">
-
+                            
                             <android.support.v7.widget.RecyclerView
                                 android:id="@+id/myPosts"
                                 android:layout_width="match_parent"
@@ -350,7 +365,7 @@
                                 android:layout_marginTop="@dimen/lg_margin"
                                 app:tagBackgroundColor="@color/colorPrimary" />
                         </com.brainsocket.mainlibrary.Views.Stateslayoutview>
-
+                        
                         <android.support.v7.widget.AppCompatTextView
                             android:id="@+id/businessTitle"
                             style="@style/AppTheme.TextAppearance"
@@ -361,7 +376,7 @@
                             android:textColor="@color/profileHeaderColor"
                             android:textStyle="bold"
                             app:layout_constraintTop_toBottomOf="@+id/myPostsStateLayout" />
-
+                        
                         <android.support.v7.widget.AppCompatImageButton
                             android:id="@+id/BusinessAddLink"
                             style="@style/AppTheme.TextAppearance"
@@ -376,7 +391,7 @@
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/myPostsStateLayout"
                             app:srcCompat="@drawable/ic_add_dark_24dp" />
-
+                        
                         <View
                             android:id="@+id/BusinessSperator"
                             android:layout_width="0dp"
@@ -387,7 +402,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/businessTitle"
                             app:layout_constraintWidth_default="percent"
                             app:layout_constraintWidth_percent="0.3" />
-
+                        
                         <com.brainsocket.mainlibrary.Views.Stateslayoutview
                             android:id="@+id/myBusinessStateLayout"
                             android:layout_width="match_parent"
@@ -397,7 +412,7 @@
                             app:RefreshbtnRes="@+id/retryBtn"
                             app:WaitingLayout="@layout/state_layout_waiting"
                             app:layout_constraintTop_toBottomOf="@id/BusinessSperator">
-
+                            
                             <android.support.v7.widget.RecyclerView
                                 android:id="@+id/myBusiness"
                                 android:layout_width="match_parent"
@@ -405,9 +420,9 @@
                                 android:layout_marginTop="@dimen/lg_margin"
                                 app:tagBackgroundColor="@color/colorPrimary" />
                         </com.brainsocket.mainlibrary.Views.Stateslayoutview>
-
+                    
                     </android.support.constraint.ConstraintLayout>
-
+                    
                     <LinearLayout
                         android:id="@+id/logoutBtnContainer"
                         android:layout_width="match_parent"
@@ -417,19 +432,19 @@
                         android:visibility="invisible"
                         android:weightSum="7"
                         app:layout_constraintTop_toBottomOf="@+id/collectionsContainer">
-
+                        
                         <View
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:layout_weight="1" />
-
-
+                        
+                        
                         <com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
                             app:ms9_shadowElevation="@dimen/md_elevation">
-
+                            
                             <LinearLayout
                                 style="@style/commonNinePatchShadowItemViewStyle"
                                 android:layout_width="match_parent"
@@ -437,7 +452,7 @@
                                 android:layout_margin="@dimen/md_margin"
                                 android:background="@drawable/white_radius_bg"
                                 android:padding="@dimen/zero">
-
+                                
                                 <android.support.v7.widget.AppCompatButton
                                     android:id="@+id/logoutBtn"
                                     style="@style/AppTheme.NormalButtonStyle"
@@ -450,19 +465,19 @@
                                     android:textColor="@color/white"
                                     app:elevation="@dimen/elevation"
                                     app:layout_constraintTop_toBottomOf="@+id/forgotTextViewLink" />
-
+                            
                             </LinearLayout>
-
+                        
                         </com.sons.jawad.ninepatchlibrary.MaterialShadowContainerView>
-
+                    
                     </LinearLayout>
-
+                
                 </android.support.constraint.ConstraintLayout>
-
+            
             </android.support.v7.widget.CardView>
-
+        
         </android.support.v4.widget.NestedScrollView>
-
+        
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/flexible.example.fab"
             android:layout_width="120dp"
@@ -472,7 +487,7 @@
             app:layout_anchor="@id/flexible.example.cardview"
             app:layout_anchorGravity="top|center|center_horizontal" />
     
- 
+    
     </android.support.design.widget.CoordinatorLayout>
 
 

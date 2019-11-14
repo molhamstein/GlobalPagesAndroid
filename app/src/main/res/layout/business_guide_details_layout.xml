@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
@@ -495,16 +496,18 @@
                                 android:layout_height="150dp"
                                 android:src="@drawable/employee"
                                 
-                                app:layout_constraintTop_toBottomOf="@+id/jobOffersSeparator" />
+                                app:layout_constraintTop_toBottomOf="@+id/jobsRecycler" />
                             
                             <android.support.v7.widget.RecyclerView
                                 android:id="@+id/jobsRecycler"
                                 android:layout_width="match_parent"
-                                android:layout_height="150dp"
+                                android:layout_height="wrap_content"
                                 android:layout_alignParentTop="true"
                                 android:visibility="gone"
-                                app:SwipePager="all"
-                                app:layout_constraintTop_toBottomOf="@+id/jobOffersSeparator" />
+                                
+                                app:layout_constraintTop_toBottomOf="@+id/jobOffersSeparator"
+                                tools:itemCount="10"
+                                tools:listitem="@layout/job_search_item_layout" />
                             
                             
                             <android.support.constraint.ConstraintLayout
