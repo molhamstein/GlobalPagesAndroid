@@ -29,6 +29,7 @@ import com.brainsocket.mainlibrary.Listeners.OnRefreshLayoutListener
 import com.brainsocket.mainlibrary.ViewPagerIndicator.CircleIndicator.CircleIndicator
 import com.brainsocket.mainlibrary.Views.Stateslayoutview
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.post_details_layout.*
 import javax.inject.Inject
 
 
@@ -59,8 +60,8 @@ class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener
 
     private fun initDI() {
         val component = DaggerPostDetailsComponent.builder()
-                .postModule(PostModule(this))
-                .build()
+            .postModule(PostModule(this))
+            .build()
         component.inject(this)
 
         presenter.attachView(this)
@@ -104,6 +105,16 @@ class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener
 
             }
         })
+
+        fowardBtn.setOnClickListener {
+            val currnetItem = mediaViewPager.currentItem
+            mediaViewPager.currentItem = if (currnetItem < mediaViewPager.childCount - 1) currnetItem + 1 else 0
+
+        }
+        backBtn.setOnClickListener {
+            val currnetItem = mediaViewPager.currentItem
+            mediaViewPager.currentItem = if (currnetItem > 0) currnetItem - 1 else mediaViewPager.childCount
+        }
 
     }
 

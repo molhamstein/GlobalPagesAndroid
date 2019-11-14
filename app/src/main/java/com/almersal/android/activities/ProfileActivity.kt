@@ -42,11 +42,13 @@ import com.almersal.android.utilities.IntentHelper
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
 import com.brainsocket.mainlibrary.Listeners.OnRefreshLayoutListener
 import com.brainsocket.mainlibrary.Views.Stateslayoutview
+import kotlinx.android.synthetic.main.profile_layout.*
 import java.util.HashMap
 import javax.inject.Inject
 
 
-class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, ProfileContract.View, OnCategorySelectListener {
+class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, ProfileContract.View,
+    OnCategorySelectListener {
 
     @Inject
     lateinit var presenter: ProfilePresenter
@@ -103,6 +105,9 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     lateinit var userEmail: TextView
 
 
+    @BindView(R.id.emailText)
+    lateinit var emailText: TextView
+
 
     /*User information ended*/
 
@@ -136,13 +141,13 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
                 tab?.customView?.findViewById<TextView>(android.R.id.text1)
-                        ?.setTextColor(ContextCompat.getColor(baseContext, R.color.grayLightTextColor))
+                    ?.setTextColor(ContextCompat.getColor(baseContext, R.color.grayLightTextColor))
                 tab?.customView?.visibility = View.GONE
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 tab?.customView?.findViewById<TextView>(android.R.id.text1)
-                        ?.setTextColor(ContextCompat.getColor(baseContext, R.color.white))
+                    ?.setTextColor(ContextCompat.getColor(baseContext, R.color.white))
                 tab?.customView?.visibility = View.VISIBLE
             }
         }
@@ -159,8 +164,8 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
 
     private fun initDI() {
         val component = DaggerProfileComponent.builder()
-                .profileModule(ProfileModule(this))
-                .build()
+            .profileModule(ProfileModule(this))
+            .build()
         component.inject(this)
         presenter.attachView(this)
         presenter.subscribe()
@@ -178,7 +183,13 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
 
     private fun bindInfo(user: User) {
         userName.text = user.username
-        userEmail.text = user.email
+        if (user.CV?.primaryIdentifier.isNullOrBlank()) {
+            emailText.text = getString(R.string.position_title)
+            userEmail.text = user.CV?.primaryIdentifier
+        } else {
+            userEmail.text = user.email
+        }
+
 //        birthDate.setText((if (user.birthdate != null) user.birthdate!! else ""))
 //        if ((user.gender != null) and user.gender!!.equals(UserGender.male.gender, false)) {
 //            genderTabLayout.getTabAt(0)!!.select()
@@ -197,6 +208,10 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
         initRecyclerViews()
         initTabLayout()
         initDI()
+
+        categoriesAddLink.setOnClickListener {
+            addCategory()
+        }
         appbar.addOnOffsetChangedListener(this)
 
 
@@ -208,10 +223,12 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
             /*Instead of no subCategory Subscribed*/
             override fun onRequestPermission() {
                 val subCategorySubscriptionBottomSheet: SubCategorySubscriptionBottomSheet =
-                        SubCategorySubscriptionBottomSheet.getNewInstance(null)
+                    SubCategorySubscriptionBottomSheet.getNewInstance(null)
 
-                subCategorySubscriptionBottomSheet.show(supportFragmentManager,
-                        SubCategorySubscriptionBottomSheet.SubCategorySubscriptionBottomSheet_Tag)
+                subCategorySubscriptionBottomSheet.show(
+                    supportFragmentManager,
+                    SubCategorySubscriptionBottomSheet.SubCategorySubscriptionBottomSheet_Tag
+                )
             }
         })
 
@@ -249,6 +266,18 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
 
     }
 
+
+    fun addCategory() {
+
+        val subCategorySubscriptionBottomSheet: SubCategorySubscriptionBottomSheet =
+            SubCategorySubscriptionBottomSheet.getNewInstance(null)
+
+        subCategorySubscriptionBottomSheet.show(
+            supportFragmentManager,
+            SubCategorySubscriptionBottomSheet.SubCategorySubscriptionBottomSheet_Tag
+        )
+
+    }
     override fun onResume() {
         super.onResume()
         val user = UserRepository(context = baseContext).getUser()!!
@@ -260,6 +289,7 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
         val activityName = UserResumeActivity::class.java.canonicalName
         IntentHelper.startActivityByName(this, activityName)
     }
+
     @OnClick(R.id.flexible_example_fab)
     fun onProfileImageClick(view: View) {
         val user = UserRepository(context = baseContext).getUser()!!
@@ -388,7 +418,7 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
 
     override fun onUserBusinessesListSuccessfully(businessGuideList: MutableList<BusinessGuide>) {
         myBusiness.adapter =
-                BusinessGuideRecyclerViewAdapter(baseContext, businessGuideList, null, true)
+            BusinessGuideRecyclerViewAdapter(baseContext, businessGuideList, null, true)
     }
     /*My Businesses guide presenter ended*/
 
@@ -419,8 +449,10 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     }
 
     override fun onUserCategoriesListSuccessfully(categories: MutableList<Category>) {
-        val adapter = CategoryProfileRecyclerViewAdapter(context = baseContext,
-                categoriesList = categories, isClickable = true, onCategorySelectListener = this@ProfileActivity)
+        val adapter = CategoryProfileRecyclerViewAdapter(
+            context = baseContext,
+            categoriesList = categories, isClickable = true, onCategorySelectListener = this@ProfileActivity
+        )
         myCategories.adapter = adapter
         adapter.clearAll()
     }
@@ -449,7 +481,8 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
         user.token = currentUser.token
         UserRepository(this).addUser(user)
         bindInfo(user)
-        Toast.makeText(this, resources.getString(R.string.SubscribedCategoriesUpdateSuccessfully), Toast.LENGTH_LONG).show()
+        Toast.makeText(this, resources.getString(R.string.SubscribedCategoriesUpdateSuccessfully), Toast.LENGTH_LONG)
+            .show()
     }
     /*Profile presenter ended*/
 
@@ -457,10 +490,12 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     override fun onSelectCategory(category: Category) {
 
         val subCategorySubscriptionBottomSheet: SubCategorySubscriptionBottomSheet =
-                SubCategorySubscriptionBottomSheet.getNewInstance(category)
+            SubCategorySubscriptionBottomSheet.getNewInstance(category)
 
-        subCategorySubscriptionBottomSheet.show(supportFragmentManager,
-                SubCategorySubscriptionBottomSheet.SubCategorySubscriptionBottomSheet_Tag)
+        subCategorySubscriptionBottomSheet.show(
+            supportFragmentManager,
+            SubCategorySubscriptionBottomSheet.SubCategorySubscriptionBottomSheet_Tag
+        )
 
 //        val builder = AlertDialog.Builder(this)
 //        val dialogClickListener = DialogInterface.OnClickListener { _, which ->
@@ -485,10 +520,12 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     override fun onDeselectCategory(category: Category) {
 
         val subCategorySubscriptionBottomSheet: SubCategorySubscriptionBottomSheet =
-                SubCategorySubscriptionBottomSheet.getNewInstance(category)
+            SubCategorySubscriptionBottomSheet.getNewInstance(category)
 
-        subCategorySubscriptionBottomSheet.show(supportFragmentManager,
-                SubCategorySubscriptionBottomSheet.SubCategorySubscriptionBottomSheet_Tag)
+        subCategorySubscriptionBottomSheet.show(
+            supportFragmentManager,
+            SubCategorySubscriptionBottomSheet.SubCategorySubscriptionBottomSheet_Tag
+        )
 
 
 //        val builder = AlertDialog.Builder(this)

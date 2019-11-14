@@ -503,6 +503,19 @@ class ApiService {
     }
 
 
+    fun getJobsByBusiness(
+        url: String,
+        businessId: String,
+        requestListener: ParsedRequestListener<MutableList<Job>>
+    ) {
+        AndroidNetworking.get(url)
+            .addQueryParameter("filter[where][businessId]=", businessId)
+            .setPriority(Priority.HIGH)
+            .build()
+            .getAsObjectList(Job::class.java, requestListener)
+    }
+
+
     fun getJobDetails(
         jobId: String,
         token: String,

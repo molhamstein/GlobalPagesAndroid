@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
@@ -32,6 +33,7 @@
             android:layout_marginLeft="10dp"
             android:lineSpacingExtra="0dp"
             android:text="Senior Android Developer"
+            android:includeFontPadding="false"
             android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/image"
@@ -45,6 +47,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
             android:lineSpacingExtra="0dp"
+            android:includeFontPadding="false"
             android:text="Open System Technology"
             android:textColor="@color/grayDarkTextColor"
             android:textStyle="bold"
@@ -59,26 +62,28 @@
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
             android:lineSpacingExtra="0dp"
+            android:includeFontPadding="false"
             android:text="Damascus, Syria"
             android:textColor="@color/grayLightTextColor"
             android:textStyle="italic"
             app:layout_constraintStart_toEndOf="@id/image"
             app:layout_constraintTop_toBottomOf="@id/companyName" />
-        
+    
         <TextView
             android:id="@+id/status"
             style="@style/AppTheme.TextAppearance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
+        
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:gravity="center"
             android:text="@string/new_string"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/image"
-            app:layout_constraintTop_toBottomOf="@id/location" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
         
         <TextView
             android:id="@+id/date"
@@ -87,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
+           
             android:lineSpacingExtra="0dp"
             android:text="Today"
             android:textColor="@color/grayDarkTextColor"

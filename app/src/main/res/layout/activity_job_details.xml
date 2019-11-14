@@ -34,9 +34,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             
-            android:background="@drawable/oval_red"
+            android:background="@drawable/red_circle"
             android:gravity="center"
-            android:text="Job offer"
+            android:padding="5dp"
+            android:text="10"
             
             android:textColor="@color/white"
             android:textSize="8sp"
@@ -45,17 +46,16 @@
             app:layout_constraintTop_toTopOf="@id/applicantsBtn" />
         
         
-        <TextView
+        <ImageView
             android:id="@+id/editBtn"
-            style="@style/AppTheme.TextAppearance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
-            android:gravity="center"
-            android:text="@string/Edit"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
+            android:background="@drawable/yellow_circle"
+            android:cropToPadding="true"
+            android:padding="5dp"
+            android:src="@drawable/ic_edit_white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
         
@@ -186,7 +186,7 @@
             android:layout_width="wrap_content"
             android:layout_height="55dp"
             android:layout_marginTop="20dp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:cardBackgroundColor="@color/transparent"
             app:cardCornerRadius="10dp"
             app:cardElevation="@dimen/elevation"
@@ -198,9 +198,9 @@
                 android:id="@+id/apply"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:background="@color/colorPrimary"
                 android:shadowColor="@color/grayDarkTextColor"
                 android:text="@string/Apply"
                 android:textColor="@color/white"
@@ -213,11 +213,10 @@
             android:layout_width="wrap_content"
             android:layout_height="55dp"
             android:layout_marginTop="20dp"
-            android:visibility="gone"
-            app:cardBackgroundColor="@color/transparent"
+            android:visibility="visible"
+            app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="10dp"
             app:cardElevation="@dimen/elevation"
-            
             app:cardUseCompatPadding="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/date">
@@ -227,10 +226,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/red"
-                android:shadowColor="@color/grayDarkTextColor"
+                android:background="@drawable/red_border"
                 android:text="@string/deactivate"
-                android:textColor="@color/white"
+                android:textColor="@color/red"
                 android:textSize="12sp"
                 android:textStyle="bold" />
         </android.support.v7.widget.CardView>
@@ -600,7 +598,7 @@
             android:id="@+id/progress"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/blackTransparent"
+            android:background="@color/transparent"
             android:clickable="true"
             android:padding="160dp"
             android:visibility="gone"

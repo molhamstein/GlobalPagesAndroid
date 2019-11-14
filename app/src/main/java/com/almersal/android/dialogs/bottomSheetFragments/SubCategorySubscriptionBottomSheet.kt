@@ -46,11 +46,13 @@ import com.almersal.android.repositories.UserRepository
 import com.almersal.android.views.SuggestionTagView
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
 import com.brainsocket.mainlibrary.Views.Stateslayoutview
+import kotlinx.android.synthetic.main.activity_job_details.*
+import kotlinx.android.synthetic.main.profile_layout.*
 import javax.inject.Inject
 
 
 class SubCategorySubscriptionBottomSheet : BottomSheetDialogFragment(), OnSubCategorySelectListener,
-        OnCategorySelectListener, ProfileContract.View, TagsCollectionContact.View {
+    OnCategorySelectListener, ProfileContract.View, TagsCollectionContact.View {
 
     var subCategory: Category? = null
 
@@ -85,9 +87,9 @@ class SubCategorySubscriptionBottomSheet : BottomSheetDialogFragment(), OnSubCat
 
     private fun initDI() {
         val component = DaggerSubCategorySubscriptionComponent.builder()
-                .profileModule(ProfileModule(activity!!))
-                .tagsCollectionModule(TagsCollectionModule(activity!!))
-                .build()
+            .profileModule(ProfileModule(activity!!))
+            .tagsCollectionModule(TagsCollectionModule(activity!!))
+            .build()
         component.inject(this)
         presenter.attachView(this)
         presenter.subscribe()
@@ -158,6 +160,9 @@ class SubCategorySubscriptionBottomSheet : BottomSheetDialogFragment(), OnSubCat
         initRecyclerViews()
         initDI()
         SettingRepositories(activity!!).putFirstSubscription(false)
+        apply.setOnClickListener {
+            dismiss()
+        }
 
 //        adapter = SubCategoryRecyclerViewAdapter(context!!, subCategoryList, this)
 //        suggestionTags.setAdapter(adapter)
@@ -215,9 +220,11 @@ class SubCategorySubscriptionBottomSheet : BottomSheetDialogFragment(), OnSubCat
 
     override fun onPostCategoriesLoaded(categoriesList: MutableList<PostCategory>) {
         val res = initRecyclerView(categoriesList.filter { it.parentCategoryId.isNullOrBlank() }.toMutableList())
-        myCategories.adapter = CategoryProfileRecyclerViewAdapter(context = context!!,
-                categoriesList = res.first.toMutableList(), isClickable = true,
-                onCategorySelectListener = this@SubCategorySubscriptionBottomSheet)
+        myCategories.adapter = CategoryProfileRecyclerViewAdapter(
+            context = context!!,
+            categoriesList = res.first.toMutableList(), isClickable = true,
+            onCategorySelectListener = this@SubCategorySubscriptionBottomSheet
+        )
         if (res.second >= 0) {
             onSelectCategory(res.first[res.second])
             myCategories.smoothScrollToPosition(res.second)
@@ -227,11 +234,15 @@ class SubCategorySubscriptionBottomSheet : BottomSheetDialogFragment(), OnSubCat
     /*Post categories presenter ended */
 
 
+
+
     /*Category Events actions started*/
     override fun onSelectCategory(category: Category) {
         val res = initSubCategoryRecyclerView(category.subCategoriesList)
-        adapter = SubCategoryRecyclerViewAdapter(context = context!!, subCategoriesList = res.first,
-                onSubCategorySelectListener = this, clearAll = false)
+        adapter = SubCategoryRecyclerViewAdapter(
+            context = context!!, subCategoriesList = res.first,
+            onSubCategorySelectListener = this, clearAll = false
+        )
         suggestionTags.setAdapter(adapter)
         if (res.second > 0) {
             suggestionTags.suggestionTagsRecyclerView.smoothScrollToPosition(res.second)
@@ -240,8 +251,10 @@ class SubCategorySubscriptionBottomSheet : BottomSheetDialogFragment(), OnSubCat
     }
 
     override fun onDeselectCategory(category: Category) {
-        adapter = SubCategoryRecyclerViewAdapter(context = context!!, subCategoriesList = mutableListOf(),
-                onSubCategorySelectListener = this)
+        adapter = SubCategoryRecyclerViewAdapter(
+            context = context!!, subCategoriesList = mutableListOf(),
+            onSubCategorySelectListener = this
+        )
         suggestionTags.setAdapter(adapter)
     }
     /*Category Events actions ended*/
@@ -266,8 +279,8 @@ class SubCategorySubscriptionBottomSheet : BottomSheetDialogFragment(), OnSubCat
             }
         }
         builder.setMessage(resources.getString(R.string.doYouWantFollowNotificationsUnderThisCategory))
-                .setPositiveButton(resources.getString(R.string.Yes), dialogClickListener)
-                .setNegativeButton(resources.getString(R.string.No), dialogClickListener).show()
+            .setPositiveButton(resources.getString(R.string.Yes), dialogClickListener)
+            .setNegativeButton(resources.getString(R.string.No), dialogClickListener).show()
     }
 
     override fun onUnSelectSubCategory(subCategory: SubCategory) {
@@ -288,8 +301,8 @@ class SubCategorySubscriptionBottomSheet : BottomSheetDialogFragment(), OnSubCat
             }
         }
         builder.setMessage(resources.getString(R.string.doYouWantUnFollowNotificationsUnderThisCategory))
-                .setPositiveButton(resources.getString(R.string.Yes), dialogClickListener)
-                .setNegativeButton(resources.getString(R.string.No), dialogClickListener).show()
+            .setPositiveButton(resources.getString(R.string.Yes), dialogClickListener)
+            .setNegativeButton(resources.getString(R.string.No), dialogClickListener).show()
 
     }
     /*Subcategory Events actions ended*/
@@ -315,7 +328,8 @@ class SubCategorySubscriptionBottomSheet : BottomSheetDialogFragment(), OnSubCat
         val currentUser = UserRepository(context!!).getUser()!!
         user.token = currentUser.token
         UserRepository(context!!).addUser(user)
-        Toast.makeText(context, resources.getString(R.string.SubscribedCategoriesUpdateSuccessfully), Toast.LENGTH_LONG).show()
+        Toast.makeText(context, resources.getString(R.string.SubscribedCategoriesUpdateSuccessfully), Toast.LENGTH_LONG)
+            .show()
     }
     /*Profile Presenter ended*/
 

@@ -32,6 +32,7 @@ class JobDetailsActivity : BaseActivity(), JobDetailsContract.View, View.OnClick
 
     var editFlag: Boolean = false
     var job: JobDetails? = null
+    lateinit var jobId: String
 
     @Inject
     lateinit var presenter: JobDetailsPresenter
@@ -43,7 +44,7 @@ class JobDetailsActivity : BaseActivity(), JobDetailsContract.View, View.OnClick
             .build()
         component.inject(this)
         presenter.attachView(this)
-        val jobId: String = intent.getStringExtra(job_intent_key)
+        jobId = intent.getStringExtra(job_intent_key)
         presenter.getJobDetails(jobId)
 
         editFlag = intent.getBooleanExtra(edit_flag_key, false)
@@ -56,6 +57,11 @@ class JobDetailsActivity : BaseActivity(), JobDetailsContract.View, View.OnClick
         applicantsBtn.setOnClickListener(this)
         applicantsNumber.setOnClickListener(this)
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.getJobDetails(jobId)
     }
 
 
@@ -118,7 +124,7 @@ class JobDetailsActivity : BaseActivity(), JobDetailsContract.View, View.OnClick
         jobTypeText.visibility = if (job.jobType.isNullOrEmpty()) View.GONE else View.VISIBLE
 
 
-
+        applicantsNumber.text = job.NumberOfApplicants?.toString()
         if (job.userIsApplied) {
             apply.text = getString(R.string.applied_before)
             apply.isEnabled = false
