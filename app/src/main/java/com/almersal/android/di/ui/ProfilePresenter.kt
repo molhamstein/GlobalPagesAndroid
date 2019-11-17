@@ -8,6 +8,7 @@ import com.almersal.android.api.ServerInfo
 import com.almersal.android.data.entities.*
 import com.almersal.android.data.entitiesModel.ProfileModel
 import com.almersal.android.repositories.DataStoreRepositories
+import com.almersal.android.repositories.UserRepository
 import io.reactivex.disposables.CompositeDisposable
 import java.util.*
 
@@ -163,6 +164,61 @@ class ProfilePresenter constructor(val context: Context) : ProfileContract.Prese
 
             override fun onError(anError: ANError?) {
                 view.showUpdateProfileLoadErrorMessage(true)
+            }
+        })
+    }
+
+
+    override fun getUser(userId: String) {
+        view.showProgress(true)
+        ApiService().getUserCV(
+            ServerInfo.getUserResume + userId + "?filter={\"include\":[\"CV\"]}",
+            object : ParsedRequestListener<User> {
+                override fun onResponse(response: User?) {
+                    view.showProgress(false)
+                    if (response != null) {
+                        val token = UserRepository(context).getUser()!!.token
+                        response.token = token
+                        UserRepository(context = context).addUser(response)
+                        view.updateUserInfo(response)
+                    }
+                }
+
+                override fun onError(anError: ANError?) {
+                    view.showProgress(false)
+////                view.getFailed()
+//                if (anError != null) {
+//                    when (anError.errorCode) {
+////                        401 -> {
+////                            view.loginFail()
+////                            return
+////                        }
+//                    }
+//                }
+                    view.showLoadErrorMessage(true)
+                }
+            })
+    }
+
+
+    override fun getJobsByOwner(ownerId: String?) {
+        view.showProgress(true)
+        ApiService().getJobsByOwner(ServerInfo.jobsUrl, ownerId?:"", object : ParsedRequestListener<MutableList<Job>> {
+            override fun onResponse(response: MutableList<Job>?) {
+
+                if ((response != null)) {
+                    view.showProgress(false)
+                    if (response.size > 0) {
+                        view.onJobsLoaded(response)
+                        return
+                    }
+                }
+
+            }
+
+            override fun onError(anError: ANError?) {
+                view.showProgress(false)
+
             }
         })
     }

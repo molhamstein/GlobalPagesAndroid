@@ -27,27 +27,25 @@ data class Job(
 ) {
     val name: String
         get() {
-            return if(App.app.isArabic()) nameAr else nameEn
+            return if (App.app.isArabic() && !nameAr.isBlank()) nameAr else nameEn
         }
 
-    val description:String
+    val description: String
         get() {
-            return if(App.app.isArabic()) descriptionAr else descriptionEn
+            return if (App.app.isArabic() && !descriptionAr.isBlank()) descriptionAr else descriptionEn
         }
 
 
-    val qualifications:String
+    val qualifications: String
         get() {
-            return if(App.app.isArabic()) qualificationsAr else qualificationsEn
+            return if (App.app.isArabic() && !qualificationsAr.isBlank()) qualificationsAr else qualificationsEn
         }
 
 
-    val responsibilities:String
+    val responsibilities: String
         get() {
-            return if(App.app.isArabic()) responsibilitiesAr else responsibilitiesEn
+            return if (App.app.isArabic() && !responsibilitiesAr.isBlank())  responsibilitiesAr else responsibilitiesEn
         }
-
-
 
 
 }

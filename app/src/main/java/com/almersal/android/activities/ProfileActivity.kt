@@ -21,11 +21,9 @@ import butterknife.OnClick
 import com.almersal.android.R
 import com.almersal.android.adapters.BusinessGuideRecyclerViewAdapter
 import com.almersal.android.adapters.CategoryProfileRecyclerViewAdapter
+import com.almersal.android.adapters.JobsSearchAdapter
 import com.almersal.android.adapters.PostRecyclerViewAdapter
-import com.almersal.android.data.entities.BusinessGuide
-import com.almersal.android.data.entities.Category
-import com.almersal.android.data.entities.Post
-import com.almersal.android.data.entities.User
+import com.almersal.android.data.entities.*
 import com.almersal.android.di.component.DaggerProfileComponent
 import com.almersal.android.di.module.ProfileModule
 import com.almersal.android.di.ui.ProfileContract
@@ -63,7 +61,7 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     @BindView(R.id.myCategoriesStateLayout)
     lateinit var myCategoriesStateLayout: Stateslayoutview
 
-    @BindView(R.id.flexible_example_fab)
+    @BindView(R.id.profileImage)
     lateinit var mFab: ImageView
 
     @BindView(R.id.flexible_example_appbar)
@@ -177,13 +175,15 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
         presenter.loadUserPosts(user.id!!)
         presenter.loadUserBusinesses(user.id!!)
         presenter.loadUserCategories(user)
+        presenter.getUser(user.id!!)
+        presenter.getJobsByOwner(user.id!!)
 
-        bindInfo(user)
+
     }
 
     private fun bindInfo(user: User) {
         userName.text = user.username
-        if (user.CV?.primaryIdentifier.isNullOrBlank()) {
+        if (!user.CV?.primaryIdentifier.isNullOrBlank()) {
             emailText.text = getString(R.string.position_title)
             userEmail.text = user.CV?.primaryIdentifier
         } else {
@@ -278,6 +278,7 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
         )
 
     }
+
     override fun onResume() {
         super.onResume()
         val user = UserRepository(context = baseContext).getUser()!!
@@ -290,7 +291,7 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
         IntentHelper.startActivityByName(this, activityName)
     }
 
-    @OnClick(R.id.flexible_example_fab)
+    @OnClick(R.id.profileImage)
     fun onProfileImageClick(view: View) {
         val user = UserRepository(context = baseContext).getUser()!!
         IntentHelper.startPictureActivity(this, user.imageProfile)
@@ -547,6 +548,23 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
 //                .setPositiveButton(resources.getString(R.string.Yes), dialogClickListener)
 //                .setNegativeButton(resources.getString(R.string.No), dialogClickListener).show()
 
+    }
+
+
+    override fun updateUserInfo(user: User?) {
+        bindInfo(user ?: User())
+
+    }
+    override fun onJobsLoaded(jobs: MutableList<Job>) {
+        jobsRecycler.layoutManager = LinearLayoutManager(this)
+        jobsRecycler.adapter = JobsSearchAdapter(this, jobs)
+        if (jobs.isNullOrEmpty()) {
+            jobsPlaceHolder.visibility = View.VISIBLE
+            jobsRecycler.visibility = View.GONE
+        } else {
+            jobsPlaceHolder.visibility = View.GONE
+            jobsRecycler.visibility = View.VISIBLE
+        }
     }
 
 

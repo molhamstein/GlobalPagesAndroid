@@ -45,7 +45,7 @@ class JobsSearchAdapter(var context: Context, var data: MutableList<Job>) :
             IntentHelper.startJobDetailsActivity(context, data[position], flag)
         }
 
-        val sdf = SimpleDateFormat("MMM dd, yyyy")
+        val sdf = SimpleDateFormat("MMM dd, yyyy",Locale.ENGLISH)
         val currentDate = Date(Calendar.getInstance().timeInMillis)
         val createdDate = sdf.parse(holder.date.text.toString())
 

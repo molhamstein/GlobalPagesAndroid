@@ -515,6 +515,18 @@ class ApiService {
             .getAsObjectList(Job::class.java, requestListener)
     }
 
+    fun getJobsByOwner(
+        url: String,
+        ownerId: String,
+        requestListener: ParsedRequestListener<MutableList<Job>>
+    ) {
+        AndroidNetworking.get(url)
+            .addQueryParameter("filter[where][ownerId]=", ownerId)
+            .setPriority(Priority.HIGH)
+            .build()
+            .getAsObjectList(Job::class.java, requestListener)
+    }
+
 
     fun getJobDetails(
         jobId: String,

@@ -1,9 +1,6 @@
 package com.almersal.android.di.ui
 
-import com.almersal.android.data.entities.BusinessGuide
-import com.almersal.android.data.entities.Category
-import com.almersal.android.data.entities.Post
-import com.almersal.android.data.entities.User
+import com.almersal.android.data.entities.*
 import com.almersal.android.data.entitiesModel.ProfileModel
 
 class ProfileContract {
@@ -20,9 +17,12 @@ class ProfileContract {
         fun loadUserCategories(user: User)
 
         fun updateProfile(profileModel: ProfileModel, token: String)
+        fun getUser(userId: String)
+         fun getJobsByOwner(ownerId: String?)
     }
 
     interface View : BaseContract.View {
+        fun updateUserInfo(user: User?){}
 
         fun showUserCategoriesProgress(show: Boolean) {}
         fun showUserCategoriesLoadErrorMessage(visible: Boolean) {}
@@ -45,6 +45,9 @@ class ProfileContract {
         fun showUpdateProfileLoadErrorMessage(visible: Boolean) {}
         fun showUpdateProfileEmptyView(visible: Boolean) {}
         fun onUpdateProfileSuccessfully(user: User) {}
+        fun onJobsLoaded(response: MutableList<Job>) {
+
+        }
 
     }
 
