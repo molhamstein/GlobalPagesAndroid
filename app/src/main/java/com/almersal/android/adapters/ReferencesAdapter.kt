@@ -15,6 +15,7 @@ import android.content.Intent
 import android.net.Uri
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.Toast
 import java.lang.Exception
 
@@ -41,6 +42,8 @@ class ReferencesAdapter(var context: Context, var data: List<String?>, var editF
 
     override fun onBindViewHolder(holder: ReferenceViewHolder, position: Int) {
 
+        if (data[position].isNullOrBlank() && !editFlag)
+            holder.containerView?.visibility = View.GONE
 
         holder.icon.setImageDrawable(
             ContextCompat.getDrawable(
