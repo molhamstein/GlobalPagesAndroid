@@ -1,8 +1,10 @@
 package com.almersal.android.activities
 
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
@@ -24,6 +26,7 @@ import com.almersal.android.di.module.BusinessGuidesModule
 import com.almersal.android.di.ui.BusinessGuidesContract
 import com.almersal.android.di.ui.BusinessGuidesPresenter
 import com.almersal.android.dialogs.ContactDialog
+import com.almersal.android.dialogs.bottomSheetFragments.BusinessGuideSnippetBottomFragment
 import com.almersal.android.eventsBus.EventActions
 import com.almersal.android.eventsBus.MessageEvent
 import com.almersal.android.eventsBus.RxBus
@@ -73,6 +76,8 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
 
         presenter.attachView(this)
         presenter.subscribe()
+
+        presenter.getJobsByBusiness(businessGuide?.id)
     }
 
 
@@ -86,7 +91,7 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
 
     override fun onResume() {
         super.onResume()
-        presenter.getJobsByBusiness(businessGuide?.id)
+        //presenter.getJobsByBusiness(businessGuide?.id)
     }
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
@@ -94,7 +99,6 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
         ButterKnife.bind(this)
         initToolBar()
         appbar.addOnOffsetChangedListener(this)
-        initDI()
 
         businessGuideViewHolder = BusinessGuideViewHolder(findViewById(android.R.id.content))
         val jSon = intent.getStringExtra(BusinessGuideDetailsActivity_Tag)
@@ -105,6 +109,8 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
             val id = intent.getStringExtra(BusinessGuideDetailsActivity_Id_Tag)
             presenter.loadBusinessGuideById(id)
         }
+
+        initDI()
 
         RxBus.listen(MessageEvent::class.java).subscribe {
             when (it.action) {
@@ -232,8 +238,8 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
     }
 
     override fun onJobsLoaded(jobs: MutableList<Job>) {
-        jobsRecycler.layoutManager = LinearLayoutManager(this)
-        jobsRecycler.adapter = JobsSearchAdapter(this, jobs)
+        jobsRecycler.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        jobsRecycler.adapter = JobsSearchAdapter(this, jobs, true)
         if (jobs.isNullOrEmpty()) {
             jobsPlaceHolder.visibility = View.VISIBLE
             jobsRecycler.visibility = View.GONE

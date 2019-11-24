@@ -46,6 +46,7 @@ class ApplicantsAdapter(val context: Context, var data: MutableList<Applicant>) 
         with(data[position].user) {
             BindingUtils.loadImage(holder.image, imageProfile)
             holder.name.text = username
+            holder.phoneNumber.text = phoneNumber
             holder.positionTitle.text = CV?.primaryIdentifier
             holder.location.text = CV?.city?.getTitle()
             holder.date.text = DateNormalizer.getCustomFormate(data[position].createdAt, "MMM dd, yyyy")

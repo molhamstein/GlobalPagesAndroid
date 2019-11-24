@@ -25,6 +25,7 @@
     <string name="Login">Login</string>
     <string name="pleaseWait">Please wait &#8230;</string>
     <string name="enteremail">Enter email</string>
+    <string name="enter_business_name">Please Enter business name</string>
     <string name="entercorrectemail">Enter correct email</string>
     <string name="enterusername">Enter username</string>
     <string name="enterpassword">Enter password</string>

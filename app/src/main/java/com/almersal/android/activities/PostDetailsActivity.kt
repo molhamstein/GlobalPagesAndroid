@@ -120,8 +120,10 @@ class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener
 
     private fun toggleEditMode() {
         val user = UserRepository(this).getUser()
-        if ((user != null) && (post != null))
+        if ((user != null) && (post != null) && (user.id != null))
             menuItem?.isVisible = (post!!.ownerId == user.id)
+        else
+            menuItem?.isVisible = false
 
     }
 

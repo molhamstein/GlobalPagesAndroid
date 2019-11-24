@@ -66,6 +66,7 @@ class LocationViewerActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, 
         val location = LatLng(pointEntity.lat, pointEntity.lng)
         val markerOptions = MarkerOptions().position(location)
         markerOptions.title(resources.getString(R.string.Address))
+        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_yellow));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12.0f))
         mMap.addMarker(markerOptions)
     }

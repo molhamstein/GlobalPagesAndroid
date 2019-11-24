@@ -84,7 +84,7 @@ class BusinessGuideAddViewHolder constructor(view: View,
     fun isValid(): Boolean {
         val businessGuideModel = getBusinessGuideModel()
         if (ValidationHelper.isEmpty(businessGuideModel.nameAr)) {
-            businessName.error = context.resources.getString(R.string.enteremail)
+            businessName.error = context.resources.getString(R.string.enter_business_name)
             businessName.requestFocus()
             return false
         }

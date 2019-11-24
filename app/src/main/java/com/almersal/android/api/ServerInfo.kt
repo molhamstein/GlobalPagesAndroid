@@ -5,7 +5,7 @@ class ServerInfo {
 
     companion object {
         //        var baseUrl = "http://almersal.co/api/"
-        var baseUrl = "http://157.230.121.161:3000/api/"
+        var baseUrl = "http://almersal.co/api/"
 //        var baseUrl = "http://192.168.1.11:3000/api/"
 
         /*Registration started*/

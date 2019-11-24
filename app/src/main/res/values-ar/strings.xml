@@ -21,6 +21,7 @@
     <string name="Login">تسجيل الدخول</string>
     <string name="pleaseWait">الرجاء الإنتظار  &#8230;</string>
     <string name="enteremail">أدخل البريد الإلكتروني</string>
+    <string name="enter_business_name">الرجاء ادخال الاسم</string>
     <string name="entercorrectemail">أدخل بريد إلكتروني صحيح</string>
     <string name="enterusername">أدخل اسم المستخدم</string>
     <string name="enterpassword">أدخل كلمة السر</string>

@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import com.almersal.android.App
 import com.almersal.android.R
 import com.almersal.android.adapters.SkillsAdapter
 import com.almersal.android.adapters.SkillsAutoCompleteAdapter
@@ -21,6 +22,7 @@ import com.almersal.android.di.ui.TagsCollectionContact
 import com.almersal.android.di.ui.TagsCollectionPresenter
 import com.almersal.android.enums.EducationLevel
 import com.almersal.android.enums.JobTypes
+import com.almersal.android.repositories.UserRepository
 import com.almersal.android.utilities.EnumsProvider
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexWrap
@@ -147,6 +149,8 @@ class AddNewJobActivity : BaseActivity(), View.OnClickListener, AddNewJobContrac
             descriptionAr = descriptionArInput.text.toString()
             descriptionEn = descriptionEnInput.text.toString()
             rangeSalary = salaryInput.text.toString()
+            ownerId = UserRepository(App.app).getUser()!!.id!!
+            businessId = this@AddNewJobActivity.businessId
         }
 
     }
@@ -162,6 +166,12 @@ class AddNewJobActivity : BaseActivity(), View.OnClickListener, AddNewJobContrac
                 subCategoriesData = categoriesData[position].subCategories
                 jobDetails.category = categoriesData[position]
                 jobDetails.categoryId = categoriesData[position].id
+
+                subCategory.adapter = ArrayAdapter(
+                        this,
+                        android.R.layout.simple_spinner_dropdown_item,
+                        subCategoriesData.map { it.getTitle() }
+                )
             }
             parent?.id == subCategory.id -> {
                 jobDetails.subCategory = subCategoriesData[position]
@@ -267,18 +277,13 @@ class AddNewJobActivity : BaseActivity(), View.OnClickListener, AddNewJobContrac
         dialogSkillsAdapter.addItem(tag)
     }
 
-    override fun onJobAddedSuccess(
-        job: JobDetails,
-        flag: Boolean,
-        msg: String?
-    ) {
+    override fun onJobAddedSuccess(job: JobDetails, flag: Boolean, msg: String?) {
         if (flag) {
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
             onBackPressed()
-        } else
+        } else {
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-
-
+        }
     }
 
 

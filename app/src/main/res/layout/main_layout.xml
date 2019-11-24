@@ -26,7 +26,7 @@
             app:layout_constraintHeight_percent="0.75" />
     
     </android.support.constraint.ConstraintLayout>
-    
+
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar_main_layout"
@@ -111,15 +111,20 @@
                                 
                                 <android.support.v7.widget.AppCompatButton
                                     android:id="@+id/businessGuideBtn"
-                                    style="@style/AppTheme.SmallButtonStyle"
                                     android:layout_width="match_parent"
-                                    android:layout_height="35dp"
+                                    android:layout_height="match_parent"
                                     android:layout_weight="1"
                                     android:background="#00AFFF"
                                     android:backgroundTint="#00AFFF"
                                     android:text="@string/BusinessGuide"
+                                    android:gravity="center"
+                                    android:textAllCaps="false"
+                                    android:lines="2"
+                                    android:textColor="@color/white"
                                     android:textStyle="bold"
-                                    app:backgroundTint="#00AFFF" />
+                                    android:textSize="11sp"
+                                    android:padding="@dimen/md_padding"
+                                    />
                             </android.support.v7.widget.CardView>
                             
                             <android.support.v7.widget.CardView
@@ -133,16 +138,21 @@
                                 
                                 <android.support.v7.widget.AppCompatButton
                                     android:id="@+id/findNearByBtn"
-                                    style="@style/AppTheme.SmallButtonStyle"
                                     android:layout_width="match_parent"
-                                    android:layout_height="35dp"
+                                    android:layout_height="match_parent"
                                     android:layout_weight="1"
                                     android:background="#88CE8F"
                                     android:shadowColor="@color/grayDarkTextColor"
                                     android:text="@string/FindNearBy"
-                                    android:textStyle="bold" />
+                                    android:gravity="center"
+                                    android:textAllCaps="false"
+                                    android:lines="2"
+                                    android:textColor="@color/white"
+                                    android:textStyle="bold"
+                                    android:textSize="11sp"
+                                    android:padding="@dimen/md_padding" />
                             </android.support.v7.widget.CardView>
-                            
+
                             <android.support.v7.widget.CardView
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
@@ -151,17 +161,22 @@
                                 app:cardCornerRadius="@dimen/cardRadius"
                                 app:cardElevation="@dimen/elevation"
                                 app:cardUseCompatPadding="true">
-                                
+
                                 <android.support.v7.widget.AppCompatButton
                                     android:id="@+id/dutyPharmacyBtn"
-                                    style="@style/AppTheme.SmallButtonStyle"
                                     android:layout_width="match_parent"
-                                    android:layout_height="35dp"
+                                    android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:background="#FEACBA"
                                     android:shadowColor="@color/grayDarkTextColor"
                                     android:text="@string/OnDutyPharmacies"
-                                    android:textStyle="bold" />
+                                    android:gravity="center"
+                                    android:textAllCaps="false"
+                                    android:lines="2"
+                                    android:textColor="@color/white"
+                                    android:textStyle="bold"
+                                    android:textSize="11sp"
+                                    android:padding="@dimen/md_padding"/>
                             </android.support.v7.widget.CardView>
     
     
@@ -176,14 +191,19 @@
         
                                 <android.support.v7.widget.AppCompatButton
                                     android:id="@+id/jobsBtn"
-                                    style="@style/AppTheme.SmallButtonStyle"
                                     android:layout_width="match_parent"
-                                    android:layout_height="35dp"
+                                    android:layout_height="match_parent"
                                     android:layout_weight="1"
                                     android:background="@color/colorPrimary"
                                     android:shadowColor="@color/grayDarkTextColor"
                                     android:text="@string/job_offers"
-                                    android:textStyle="bold" />
+                                    android:gravity="center"
+                                    android:textAllCaps="false"
+                                    android:lines="2"
+                                    android:textColor="@color/white"
+                                    android:textStyle="bold"
+                                    android:textSize="11sp"
+                                    android:padding="@dimen/md_padding" />
                             </android.support.v7.widget.CardView>
                             
                       

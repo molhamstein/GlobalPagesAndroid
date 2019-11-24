@@ -257,7 +257,6 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
                         return
                     }
                 }
-
             }
 
             override fun onError(anError: ANError?) {

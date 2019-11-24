@@ -60,6 +60,8 @@ class LocationPickupActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnM
 
     var firstLocation = true
 
+    var locationSelected: LatLng? = null
+
     private fun initToolBar() {
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener { onBackPressed() }
@@ -208,9 +210,12 @@ class LocationPickupActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnM
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.location_pickup_save -> {
-                if (lastLocation != null) {
+                if (locationSelected == null && lastLocation != null)
+                    locationSelected = LatLng(lastLocation!!.latitude, lastLocation!!.longitude)
+
+                if (locationSelected != null) {
                     RxBus.publish(MessageEvent(EventActions.LocationPickupActivity_Tag,
-                            PointEntity(lastLocation!!.latitude, lastLocation!!.longitude)))
+                            PointEntity(locationSelected!!.latitude, locationSelected!!.longitude)))
                     finish()
 
                 } else {
@@ -235,6 +240,7 @@ class LocationPickupActivity : BaseActivity(), OnMapReadyCallback, GoogleMap.OnM
             else {
                 animateMarker(p0, startLatLng)
             }
+            locationSelected = p0
         }
     }
 

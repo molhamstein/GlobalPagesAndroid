@@ -360,11 +360,13 @@ class EditResumeActivity : BaseActivity(),
                     //                    githubLink,
                     //                    twitterLink,
                     //                    websiteLink
-                    updatedProfile.behanceLink = referencesAdapter.resultData[0]
-                    updatedProfile.facebookLink = referencesAdapter.resultData[1]
-                    updatedProfile.githubLink = referencesAdapter.resultData[2]
-                    updatedProfile.twitterLink = referencesAdapter.resultData[3]
-                    updatedProfile.websiteLink = referencesAdapter.resultData[4]
+                    if (referencesAdapter.resultData.size >= 5) {
+                        updatedProfile.behanceLink = referencesAdapter.resultData[0]
+                        updatedProfile.facebookLink = referencesAdapter.resultData[1]
+                        updatedProfile.githubLink = referencesAdapter.resultData[2]
+                        updatedProfile.twitterLink = referencesAdapter.resultData[3]
+                        updatedProfile.websiteLink = referencesAdapter.resultData[4]
+                    }
                     presenter.updateProfile(updatedProfile)
                 }
             }
