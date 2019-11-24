@@ -556,8 +556,8 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
 
     }
     override fun onJobsLoaded(jobs: MutableList<Job>) {
-        jobsRecycler.layoutManager = LinearLayoutManager(this)
-        jobsRecycler.adapter = JobsSearchAdapter(this, jobs)
+        jobsRecycler.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        jobsRecycler.adapter = JobsSearchAdapter(this, jobs, true)
         if (jobs.isNullOrEmpty()) {
             jobsPlaceHolder.visibility = View.VISIBLE
             jobsRecycler.visibility = View.GONE
@@ -566,6 +566,7 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
             jobsRecycler.visibility = View.VISIBLE
         }
     }
+
 
 
 }

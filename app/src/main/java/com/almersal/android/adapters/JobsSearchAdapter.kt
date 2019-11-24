@@ -18,11 +18,17 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class JobsSearchAdapter(var context: Context, var data: MutableList<Job>) :
+class JobsSearchAdapter(var context: Context, var data: MutableList<Job>, var isVertical: Boolean) :
+
     RecyclerView.Adapter<JobSearchViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JobSearchViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.job_search_item_layout, parent, false)
+        if (isVertical) {
+            val lp = view.layoutParams as ViewGroup.LayoutParams
+            lp.width = 3 * parent.measuredWidth / 4
+            view.layoutParams = lp
+        }
         return JobSearchViewHolder(view)
     }
 

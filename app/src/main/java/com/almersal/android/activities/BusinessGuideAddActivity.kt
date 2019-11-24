@@ -4,6 +4,7 @@ import android.animation.ValueAnimator
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -104,8 +105,8 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
     @BindView(R.id.areaContainer)
     lateinit var areaContainer: View
 
-    @BindView(R.id.jobAddLink)
-    lateinit var jobAddLink: TextView
+//    @BindView(R.id.jobAddLink)
+//    lateinit var jobAddLink: TextView
 
     @Inject
     lateinit var presenter: TagsCollectionPresenter
@@ -140,6 +141,26 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
 
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
+        super.onSaveInstanceState(outState, outPersistentState)
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
     private fun initRecyclerView() {
         businessImages.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         businessImages.adapter = AttachmentRecyclerViewAdapter(this, DummyDataRepositories.getAttachmentList())
@@ -156,7 +177,7 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
 
     private fun animateResult() {
 
-        ViewAnimator.animate(baseContainer).translationY(2000f)
+        ViewAnimator.animate(baseContainer).duration(1000).translationY(2000f)
                 /*.alpha(1f, 0f).andAnimate(resultContainer).translationY(1000f, 0f)
                 .alpha(0f, 1f)*/.start()
     }
@@ -232,8 +253,8 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
     @OnClick(R.id.locationEditText)
     fun onLocationEditTextClick(view: View) {
         val canonicalName = LocationPickupActivity::class.java.canonicalName
-        IntentHelper.startLocationCheckActivity(context = baseContext, activityName = canonicalName)
-
+        IntentHelper.startLocationPickupActivity(context = this, activityName = canonicalName)
+        //IntentHelper.startDutyPharmacyActivity(this);
 //        val locationPickerIntent = LocationPickerActivity.Builder()
 //                .withLocation(41.4036299, 2.1743558)
 //                .withGeolocApiKey(resources.getString(R.string.google_maps_key))
@@ -524,4 +545,7 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
     }
 
 
+    override fun finish() {
+        super.finish()
+    }
 }

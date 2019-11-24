@@ -95,6 +95,7 @@
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".activities.LocationPickupActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" /> <!-- Registration Activities started -->
         <activity android:name=".activities.SignInActivity" />
         <activity

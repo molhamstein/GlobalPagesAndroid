@@ -66,6 +66,7 @@ class ReferencesAdapter(var context: Context, var data: List<String?>, var editF
 
         })
         holder.url.text = data[position]
+        resultData[position] = data[position]
         holder.icon.setOnClickListener {
             try {
 

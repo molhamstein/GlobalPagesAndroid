@@ -141,6 +141,13 @@ class IntentHelper {
             context.startActivity(intent)
         }
 
+        fun startLocationPickupActivity(context: Context, activityName: String) {
+            val intent = Intent(context, LocationPickupActivity::class.java)
+            intent.putExtra(LocationCheckActivity.Target_Tag, activityName)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
+
         fun startActivityByName(context: Context, activityName: String) {
             try {
                 val intent = Intent()

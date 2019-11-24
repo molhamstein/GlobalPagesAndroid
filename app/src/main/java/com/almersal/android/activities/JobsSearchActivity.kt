@@ -59,7 +59,7 @@ class JobsSearchActivity : BaseActivity(), JobSearchContract.View, View.OnClickL
         presenter.attachView(this)
 
 
-        adapter = JobsSearchAdapter(this, mutableListOf())
+        adapter = JobsSearchAdapter(this, mutableListOf(), false)
         layoutManager = LinearLayoutManager(this)
         jobsRecycler.layoutManager = layoutManager
         jobsRecycler.adapter = adapter
