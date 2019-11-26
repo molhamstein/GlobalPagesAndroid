@@ -111,6 +111,7 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
     var pageId = 0
     var maxDistance = 0f
     var changeViewTypeFlag = true
+    var markerClicked = false
     private fun initToolBar() {
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener { onBackPressed() }
@@ -436,9 +437,10 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
     override fun onMapReady(googleMap: GoogleMap?) {
         mMap = googleMap!!
         mMap.uiSettings.isZoomControlsEnabled = true
-//        mMap.setOnMarkerClickListener(this)
+        mMap.setOnMarkerClickListener(this)
 //        mMap.setOnCameraMoveStartedListener(this)
         mMap.setOnCameraIdleListener(this)
+
         setUpMap()
     }
 
@@ -485,27 +487,31 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
     }
 
     override fun onCameraIdle() {
-        lastLocation?.latitude = mMap.projection.visibleRegion.latLngBounds.center.latitude
-        lastLocation?.longitude = mMap.projection.visibleRegion.latLngBounds.center.longitude
-        val currentLatLng = LatLng(lastLocation?.latitude!!, lastLocation?.longitude!!)
-        //placeMarkerOnMap(currentLatLng)
-        val distance: FloatArray? = floatArrayOf(0f, 0f, 0f)
-        Location.distanceBetween(
-            mMap.projection.visibleRegion.latLngBounds.northeast.latitude,
-            mMap.projection.visibleRegion.latLngBounds.northeast.longitude,
-            mMap.cameraPosition.target.latitude,
-            mMap.cameraPosition.target.longitude,
-            distance
-        )
+        if (!markerClicked) {
+            lastLocation?.latitude = mMap.projection.visibleRegion.latLngBounds.center.latitude
+            lastLocation?.longitude = mMap.projection.visibleRegion.latLngBounds.center.longitude
+            val currentLatLng = LatLng(lastLocation?.latitude!!, lastLocation?.longitude!!)
+            //placeMarkerOnMap(currentLatLng)
+            val distance: FloatArray? = floatArrayOf(0f, 0f, 0f)
+            Location.distanceBetween(
+                mMap.projection.visibleRegion.latLngBounds.northeast.latitude,
+                mMap.projection.visibleRegion.latLngBounds.northeast.longitude,
+                mMap.cameraPosition.target.latitude,
+                mMap.cameraPosition.target.longitude,
+                distance
+            )
 
-        maxDistance = distance!![0] / 1000
-        pageId = 0
-        businessGuidesPresenter.loadBusinessGuideByLocation(
-            pointEntity =
-            PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
-            limit = limit,
-            skip = limit * pageId, filterEntity = firstFilterEntity, maxDistance = maxDistance
-        )
+            maxDistance = distance!![0] / 1000
+            pageId = 0
+            businessGuidesPresenter.loadBusinessGuideByLocation(
+                pointEntity =
+                PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
+                limit = limit,
+                skip = limit * pageId, filterEntity = firstFilterEntity, maxDistance = maxDistance
+            )
+        } else {
+            markerClicked = false
+        }
     }
 
 
@@ -513,6 +519,7 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
         if (p0 != null) {
             if (p0.tag is BusinessGuide) {
                 Handler().postDelayed({
+                    markerClicked = true
                     val businessGuideSnippetBottomFragment =
                         BusinessGuideSnippetBottomFragment.getNewInstance(p0.tag as BusinessGuide)
                     businessGuideSnippetBottomFragment.show(
@@ -587,6 +594,7 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
                             .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)
                     )
             )
+
             marker.tag = businessGuide
         } catch (ex: Exception) {
             Log.v("", "'")

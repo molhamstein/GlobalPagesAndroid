@@ -177,9 +177,16 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
         presenter.loadUserCategories(user)
         presenter.getUser(user.id!!)
         presenter.getJobsByOwner(user.id!!)
+        JobsAddLink.setOnClickListener {
+            if (myBusiness.adapter != null && (myBusiness.adapter as BusinessGuideRecyclerViewAdapter).businessGuideList.isNotEmpty())
+                IntentHelper.startAddNewJobActivity(this, null)
+            else
+                Toast.makeText(this, "Please add some business first", Toast.LENGTH_SHORT).show()
+        }
 
 
     }
+
 
     private fun bindInfo(user: User) {
         userName.text = user.username
@@ -264,6 +271,7 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
             }
         }
 
+
     }
 
 
@@ -282,6 +290,7 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     override fun onResume() {
         super.onResume()
         val user = UserRepository(context = baseContext).getUser()!!
+        presenter.getJobsByOwner(user.id!!)
         bindInfo(user)
     }
 
@@ -555,6 +564,7 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
         bindInfo(user ?: User())
 
     }
+
     override fun onJobsLoaded(jobs: MutableList<Job>) {
         jobsRecycler.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         jobsRecycler.adapter = JobsSearchAdapter(this, jobs, true)
@@ -566,7 +576,6 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
             jobsRecycler.visibility = View.VISIBLE
         }
     }
-
 
 
 }

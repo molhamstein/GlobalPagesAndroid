@@ -204,7 +204,7 @@ class IntentHelper {
         }
 
 
-        fun startAddNewJobActivity(context: Context, businessId: String) {
+        fun startAddNewJobActivity(context: Context, businessId: String?) {
             try {
                 val intent = Intent()
                 intent.setClassName(context, AddNewJobActivity::class.java.canonicalName)

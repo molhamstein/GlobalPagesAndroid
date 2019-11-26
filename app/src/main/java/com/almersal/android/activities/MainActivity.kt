@@ -132,6 +132,15 @@ class MainActivity : BaseActivity(), VolumesContract.View,
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        val user: User? = UserRepository(baseContext).getUser()
+        if (user != null) {
+            notificationPresenter.loadUnSeenNotifications(user.id!!)
+            loadProfileImage(user)
+        }
+    }
+
     private fun initRecyclerView() {
         val snapHelper = LinearSnapHelper()
         featuredPostsRecyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)

@@ -206,14 +206,14 @@
     <string name="applied_success">تم إرسال طلبك بنجاح</string>
     <string name="base_info">المعلومات الأساسية</string>
     <string name="name_ar">الاسم(العربية)</string>
-    <string name="name_en">الاسم(الانكليزية</string>
+    <string name="name_en">الاسم(الانكليزية)</string>
     <string name="description_ar">التوصيف(العربية)</string>
     <string name="description_en">التوصيف(الانكليزية)</string>
     <string name="responsibilities_ar">المسؤوليات(العربية)</string>
     <string name="responsibilities_en">المسؤوليات(الانكليزية)</string>
     <string name="qualifications_ar">المؤهلات(العربية)</string>
     <string name="qualifications_en">المؤهلات(الانكليزية)</string>
-    <string name="job_added">تم إضافة العمل بنجاح</string>
+    <string name="job_added">تم إضافة الوظيفة بنجاح</string>
     <string name="job_deactived">تم إلغاء تفعيل هذه الوظيفة بنجاح</string>
     <string name="job_edited">تم تعديل الوظيفة بنجاح</string>
     <string name="invalid_link">الرابط غير صالح</string>

@@ -31,9 +31,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
+            android:includeFontPadding="false"
             android:lineSpacingExtra="0dp"
             android:text="Senior Android Developer"
-            android:includeFontPadding="false"
             android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/image"
@@ -46,8 +46,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
-            android:lineSpacingExtra="0dp"
             android:includeFontPadding="false"
+            android:lineSpacingExtra="0dp"
             android:text="Open System Technology"
             android:textColor="@color/grayDarkTextColor"
             android:textStyle="bold"
@@ -61,8 +61,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
-            android:lineSpacingExtra="0dp"
             android:includeFontPadding="false"
+            android:lineSpacingExtra="0dp"
             android:text="Damascus, Syria"
             android:textColor="@color/grayLightTextColor"
             android:textStyle="italic"
@@ -75,6 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
         
+            android:layout_marginStart="40dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
@@ -83,21 +84,25 @@
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
         
+            app:layout_constraintStart_toEndOf="@id/title"
+            app:layout_constraintTop_toTopOf="parent" />
+    
         <TextView
             android:id="@+id/date"
             style="@style/AppTheme.TextAppearanceSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-           
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="8dp"
+        
+            android:layout_marginRight="8dp"
             android:lineSpacingExtra="0dp"
             android:text="Today"
             android:textColor="@color/grayDarkTextColor"
             android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/title"
             app:layout_constraintTop_toBottomOf="@id/location" />
     </android.support.constraint.ConstraintLayout>
 

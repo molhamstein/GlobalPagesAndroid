@@ -38,6 +38,7 @@ class BusinessGuide {
 
     var city: City = City()
     var location: LocationEntity = LocationEntity()
+    var isSelected = false
 
 
     constructor()

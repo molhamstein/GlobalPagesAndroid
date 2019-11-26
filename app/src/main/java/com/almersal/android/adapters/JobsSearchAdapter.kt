@@ -18,15 +18,15 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class JobsSearchAdapter(var context: Context, var data: MutableList<Job>, var isVertical: Boolean) :
+class JobsSearchAdapter(var context: Context, var data: MutableList<Job>, var isHorizantal: Boolean) :
 
     RecyclerView.Adapter<JobSearchViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JobSearchViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.job_search_item_layout, parent, false)
-        if (isVertical) {
+        if (isHorizantal && data.size > 1) {
             val lp = view.layoutParams as ViewGroup.LayoutParams
-            lp.width = 3 * parent.measuredWidth / 4
+            lp.width = ViewGroup.LayoutParams.WRAP_CONTENT
             view.layoutParams = lp
         }
         return JobSearchViewHolder(view)
@@ -51,7 +51,7 @@ class JobsSearchAdapter(var context: Context, var data: MutableList<Job>, var is
             IntentHelper.startJobDetailsActivity(context, data[position], flag)
         }
 
-        val sdf = SimpleDateFormat("MMM dd, yyyy",Locale.ENGLISH)
+        val sdf = SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH)
         val currentDate = Date(Calendar.getInstance().timeInMillis)
         val createdDate = sdf.parse(holder.date.text.toString())
 

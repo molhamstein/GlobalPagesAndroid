@@ -130,9 +130,9 @@
                             android:paddingStart="0dp"
                             android:paddingLeft="0dp"
                             android:paddingTop="16dp"
-                            android:paddingBottom="8dp"
                             android:paddingEnd="@dimen/md_padding"
                             android:paddingRight="@dimen/md_padding"
+                            android:paddingBottom="8dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@id/vGuideline"
                             app:layout_constraintTop_toTopOf="@id/hGuideline">
@@ -326,8 +326,8 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
-                                        android:text="Al-Mazeh"
                                         android:layout_marginTop="-4dp"
+                                        android:text="Al-Mazeh"
                                         android:textAlignment="gravity"
                                         android:textColor="@color/white"
                                         android:textStyle="bold" />
@@ -381,6 +381,8 @@
                                 android:layout_height="wrap_content"
                                 android:padding="@dimen/md_margin"
                                 android:text="@string/Description"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
                                 android:textColor="@color/profileHeaderColor"
                                 android:textStyle="bold" />
                             
@@ -398,9 +400,9 @@
                             <android.support.v7.widget.AppCompatTextView
                                 android:id="@+id/businessDescription"
                                 style="@style/AppTheme.TextAppearance"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="start|left"
+                                android:layout_gravity="start"
                                 android:layout_marginBottom="@dimen/lg_margin"
                                 android:paddingStart="@dimen/md_margin"
                                 android:paddingLeft="@dimen/md_margin"
@@ -499,20 +501,22 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="150dp"
                                 android:padding="20dp"
+                                android:visibility="visible"
                                 android:src="@drawable/employee"
                                 app:layout_constraintTop_toBottomOf="@+id/jobsRecycler" />
-
-
+                            
+                            
                             <android.support.v7.widget.RecyclerView
                                 android:id="@+id/jobsRecycler"
-                                android:layout_width="300dp"
-                                android:layout_height="200dp"
-                                android:layout_alignParentTop="true"
-                                android:visibility="invisible"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="visible"
+                                android:orientation="horizontal"
+                                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                                 app:layout_constraintTop_toBottomOf="@+id/jobOffersSeparator"
-                                tools:itemCount="10"
+                                tools:itemCount="2"
                                 tools:listitem="@layout/job_search_item_layout" />
-
+                            
                             <android.support.constraint.ConstraintLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
