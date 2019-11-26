@@ -8,7 +8,9 @@ import com.almersal.android.api.ApiService
 import com.almersal.android.api.ServerInfo
 import com.almersal.android.data.entities.User
 import com.almersal.android.data.entitiesModel.DuplicateModel
+import com.almersal.android.data.entitiesModel.LoginModel
 import com.almersal.android.data.entitiesModel.SignUpModel
+import com.almersal.android.data.entitiesResponses.LoginResponse
 import io.reactivex.disposables.CompositeDisposable
 
 class SignUpPresenter constructor(val context: Context) : SignUpContract.Presenter {
@@ -68,6 +70,32 @@ class SignUpPresenter constructor(val context: Context) : SignUpContract.Present
                 }
                 view.showLoadErrorMessage(true)
                 Log.v("", "")
+            }
+        })
+    }
+    override fun authenticate(loginModel: LoginModel) {
+        view.showProgress(true)
+        ApiService().postUserLogin(ServerInfo.SigninUrl, loginModel, object : ParsedRequestListener<LoginResponse> {
+            override fun onResponse(response: LoginResponse?) {
+                view.showProgress(false)
+                if (response != null) {
+                    view.loginSuccessfully(response)
+                } else {
+                    view.loginFail()
+                }
+            }
+
+            override fun onError(anError: ANError?) {
+                view.showProgress(false)
+                if (anError != null) {
+                    when (anError.errorCode) {
+                        401 -> {
+                            view.loginFail()
+                            return
+                        }
+                    }
+                }
+                view.showLoadErrorMessage(true)
             }
         })
     }

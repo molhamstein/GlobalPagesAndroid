@@ -2,6 +2,8 @@ package com.almersal.android.activities
 
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -10,6 +12,8 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.almersal.android.App
 import com.almersal.android.R
+import com.almersal.android.adapters.BusinessGuideRecyclerViewAdapter
+import com.almersal.android.adapters.BusinessSelectorAdapter
 import com.almersal.android.adapters.SkillsAdapter
 import com.almersal.android.adapters.SkillsAutoCompleteAdapter
 import com.almersal.android.data.entities.*
@@ -22,6 +26,7 @@ import com.almersal.android.di.ui.TagsCollectionContact
 import com.almersal.android.di.ui.TagsCollectionPresenter
 import com.almersal.android.enums.EducationLevel
 import com.almersal.android.enums.JobTypes
+import com.almersal.android.listeners.OnBusinessSelectListener
 import com.almersal.android.repositories.UserRepository
 import com.almersal.android.utilities.EnumsProvider
 import com.google.android.flexbox.AlignItems
@@ -35,7 +40,7 @@ import kotlinx.android.synthetic.main.skills_edit_dialog.*
 import javax.inject.Inject
 
 class AddNewJobActivity : BaseActivity(), View.OnClickListener, AddNewJobContract.View, TagsCollectionContact.View,
-    AdapterView.OnItemSelectedListener {
+    AdapterView.OnItemSelectedListener, OnBusinessSelectListener {
 
 
     companion object {
@@ -50,7 +55,7 @@ class AddNewJobActivity : BaseActivity(), View.OnClickListener, AddNewJobContrac
     lateinit var skillsAdapter: SkillsAdapter
     lateinit var skillLayoutManager: FlexboxLayoutManager
 
-    lateinit var businessId: String
+    var businessId: String? = null
 
     @Inject
     lateinit var presenter: AddNewJobPresneter
@@ -75,10 +80,16 @@ class AddNewJobActivity : BaseActivity(), View.OnClickListener, AddNewJobContrac
         component.inject(this)
 
         businessId = intent.getStringExtra(businessId_key)
+        if (businessId != null) {
+            businesses.visibility = View.GONE
+        } else {
+            businesses.visibility = View.VISIBLE
+        }
 
         init()
 
         presenter.attachView(this)
+        presenter.loadUserBusinesses(UserRepository(App.app).getUser()!!.id!!)
 
         tagsCollectionPresenter.attachView(this)
         tagsCollectionPresenter.getJobCategories(true)
@@ -129,8 +140,8 @@ class AddNewJobActivity : BaseActivity(), View.OnClickListener, AddNewJobContrac
             }
             submitBtn -> {
                 submitData()
-                if (businessId.isNotEmpty())
-                    presenter.addNewJob(jobDetails, businessId)
+                if (!businessId.isNullOrEmpty())
+                    presenter.addNewJob(jobDetails, businessId!!)
                 else
                     Toast.makeText(this, "Business Id is not provided", Toast.LENGTH_SHORT).show()
             }
@@ -168,9 +179,9 @@ class AddNewJobActivity : BaseActivity(), View.OnClickListener, AddNewJobContrac
                 jobDetails.categoryId = categoriesData[position].id
 
                 subCategory.adapter = ArrayAdapter(
-                        this,
-                        android.R.layout.simple_spinner_dropdown_item,
-                        subCategoriesData.map { it.getTitle() }
+                    this,
+                    android.R.layout.simple_spinner_dropdown_item,
+                    subCategoriesData.map { it.getTitle() }
                 )
             }
             parent?.id == subCategory.id -> {
@@ -215,7 +226,7 @@ class AddNewJobActivity : BaseActivity(), View.OnClickListener, AddNewJobContrac
             skillsSearchInput.threshold = 1
             skillsSearchInput.setAdapter(skillsAutoCompleteAdapter)
             skillsSearchInput.onItemClickListener =
-                android.widget.AdapterView.OnItemClickListener { parent, view, position, id ->
+                AdapterView.OnItemClickListener { parent, view, position, id ->
 
                     addedSkill = skillsAutoCompleteAdapter.getTagAt(position)
 
@@ -323,6 +334,16 @@ class AddNewJobActivity : BaseActivity(), View.OnClickListener, AddNewJobContrac
         jobDetails.subCategory = subCategoriesData[0]
         jobDetails.subCategoryId = subCategoriesData[0].id
 
+    }
+
+    override fun onUserBusinessesListSuccessfully(businessGuideList: MutableList<BusinessGuide>) {
+        businesses.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        businesses.adapter =
+            BusinessSelectorAdapter(baseContext, businessGuideList, this)
+    }
+
+    override fun onSelectBusiness(business: BusinessGuide) {
+        businessId = business.id
     }
 
 

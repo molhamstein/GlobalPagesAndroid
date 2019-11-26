@@ -355,11 +355,7 @@ class EditResumeActivity : BaseActivity(),
                     updatedProfile.username = nameInput.text.toString()
                     updatedProfile.primaryIdentifier = specsInput.text.toString()
                     updatedProfile.bio = bioInput.text.toString()
-                    // behanceLink,
-                    //                    facebookLink,
-                    //                    githubLink,
-                    //                    twitterLink,
-                    //                    websiteLink
+
                     if (referencesAdapter.resultData.size >= 5) {
                         updatedProfile.behanceLink = referencesAdapter.resultData[0]
                         updatedProfile.facebookLink = referencesAdapter.resultData[1]
@@ -431,7 +427,7 @@ class EditResumeActivity : BaseActivity(),
                     websiteLink
                 )
             }
-        } ?: listOf(), true)
+        } ?: listOf("","","","",""), true)
 
         skillsAdapter = SkillsAdapter(this, user?.CV?.tags ?: mutableListOf(), false)
         educationAdapter = EducationAdapter(this, user?.CV?.education ?: mutableListOf(), true, this)
@@ -530,6 +526,7 @@ class EditResumeActivity : BaseActivity(),
     }
 
     override fun onProfileUpdated() {
+
         onBackPressed()
     }
 

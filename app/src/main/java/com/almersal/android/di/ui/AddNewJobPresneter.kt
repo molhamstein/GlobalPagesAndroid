@@ -4,6 +4,7 @@ import android.content.Context
 import com.almersal.android.R
 import com.almersal.android.api.ApiService
 import com.almersal.android.api.ServerInfo
+import com.almersal.android.data.entities.BusinessGuide
 import com.almersal.android.data.entities.JobDetails
 import com.almersal.android.data.entities.JobDetailsSent
 import com.almersal.android.data.entities.Tag
@@ -99,5 +100,28 @@ class AddNewJobPresneter constructor(val context: Context) : AddNewJobContract.P
                     )
                 }
             })
+    }
+
+    override fun loadUserBusinesses(
+        userId: String /*criteria: MutableMap<String, Pair<String, String>>*/
+    ) {
+        view.showProgress(true)
+        val url = ServerInfo.businessGuideUrl + "?filter[where][ownerId]=" + userId
+        ApiService().getUserBusinesses(url/*, criteria*/, object : ParsedRequestListener<MutableList<BusinessGuide>> {
+            override fun onResponse(response: MutableList<BusinessGuide>?) {
+                if ((response != null)) {
+                    view.showProgress(false)
+                    if (response.size > 0)
+                        view.onUserBusinessesListSuccessfully(response)
+
+                    return
+                }
+
+            }
+
+            override fun onError(anError: ANError?) {
+                view.showProgress(true)
+            }
+        })
     }
 }

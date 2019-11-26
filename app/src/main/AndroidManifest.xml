@@ -174,7 +174,6 @@
         <activity
             android:name=".activities.PictureActivity"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".activities.PicturesListActivity"

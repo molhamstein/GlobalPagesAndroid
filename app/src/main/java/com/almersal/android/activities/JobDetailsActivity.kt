@@ -193,6 +193,7 @@ class JobDetailsActivity : BaseActivity(), JobDetailsContract.View, View.OnClick
     }
 
     override fun onApplySuccess(applyJobResponse: Applicant) {
+        apply.text = getString(R.string.applied_before)
         Toast.makeText(this, getString(R.string.applied_success), Toast.LENGTH_SHORT).show()
     }
 

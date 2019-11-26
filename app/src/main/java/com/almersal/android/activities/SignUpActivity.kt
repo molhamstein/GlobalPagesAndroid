@@ -27,13 +27,18 @@ import android.support.v4.content.ContextCompat
 import android.widget.*
 import com.almersal.android.data.entities.User
 import com.almersal.android.data.entitiesModel.DuplicateModel
+import com.almersal.android.data.entitiesModel.LoginModel
+import com.almersal.android.data.entitiesResponses.LoginResponse
 import com.almersal.android.di.module.NotificationModule
 import com.almersal.android.di.ui.NotificationContract
 import com.almersal.android.di.ui.NotificationPresenter
 import com.almersal.android.repositories.SettingData
 import com.almersal.android.repositories.SettingRepositories
 import com.almersal.android.repositories.UserRepository
+import com.almersal.android.utilities.MainHelper
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.OnSuccessListener
+import com.google.android.gms.tasks.Task
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.iid.InstanceIdResult
 
@@ -188,18 +193,18 @@ class SignUpActivity : BaseActivity(), SignUpContract.View, NotificationContract
 
     override fun signUpSuccessfully(user: User) {
 
-        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener(object : OnSuccessListener<InstanceIdResult> {
-            override fun onSuccess(p0: InstanceIdResult?) {
-                if (p0 != null)
-                    SettingRepositories(this@SignUpActivity).addToken(p0.token)
-            }
-        })
+        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { p0 ->
+            if (p0 != null)
+                SettingRepositories(this@SignUpActivity).addToken(p0.token)
+        }
         val fireBaseToken: String? = SettingRepositories(this).getToken()
         val token: String = UserRepository(this).getUser()!!.token
         if (fireBaseToken != null) {
             notificationPresenter.registerFireBaseToken(fireBaseToken = fireBaseToken, token = token)
         }
-        IntentHelper.startMainActivity(this)
+
+        presenter.authenticate(LoginModel(getUser().email,getUser().password))
+
         finish()
         Log.v("", "")
     }
@@ -227,6 +232,37 @@ class SignUpActivity : BaseActivity(), SignUpContract.View, NotificationContract
         if (visible) {
             Toast.makeText(baseContext, R.string.checkInternetConnection, Toast.LENGTH_LONG).show()
         }
+    }
+
+    override fun loginSuccessfully(loginResponse: LoginResponse) {
+        loginResponse.user.token = loginResponse.id
+        UserRepository(context = this).addUser(loginResponse.user)
+//        FirebaseMessaging.getInstance().subscribeToTopic(Utl.client.getUser().getUid())
+
+        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener { p0 ->
+            if (p0.isSuccessful) {
+                val token: String? = p0.result?.token
+                if (token != null)
+                    SettingRepositories(this@SignUpActivity).addToken(token)
+            } else {
+                Log.v("AAA", "")
+            }
+            //                this.sendRegistrationToServer(token)
+        }
+
+        val fireBaseToken: String? = SettingRepositories(this).getToken()
+        val token: String = UserRepository(this).getUser()!!.token
+        if (fireBaseToken != null) {
+            notificationPresenter.registerFireBaseToken(fireBaseToken = fireBaseToken, token = token)
+        }
+        IntentHelper.startMainActivity(this)
+        Log.v("", "")
+    }
+
+    override fun loginFail() {
+        MainHelper.hideKeyboard(findViewById(android.R.id.content))
+        Toast.makeText(baseContext, R.string.invalidEmailorPassword, Toast.LENGTH_LONG).show()
+        Log.v("", "")
     }
 
     /*Presenter ended*/
