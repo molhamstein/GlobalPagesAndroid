@@ -125,8 +125,12 @@ class JobDetailsActivity : BaseActivity(), JobDetailsContract.View, View.OnClick
 
 
         applicantsNumber.text = job.NumberOfApplicants?.toString()
+        if (job.NumberOfApplicants ?: 0 == 0) {
+            applicantsNumber.visibility = View.GONE
+        }
         if (job.userIsApplied) {
             apply.text = getString(R.string.applied_before)
+            bottomApply.text = apply.text
             apply.isEnabled = false
         }
 
@@ -137,7 +141,7 @@ class JobDetailsActivity : BaseActivity(), JobDetailsContract.View, View.OnClick
 
     override fun onClick(v: View?) {
         when (v) {
-            apply -> {
+            apply, bottomApply -> {
                 presenter.applyToJob(job?.id ?: "")
             }
             deactivate -> {
@@ -145,7 +149,8 @@ class JobDetailsActivity : BaseActivity(), JobDetailsContract.View, View.OnClick
             }
 
             applicantsBtn, applicantsNumber -> {
-                IntentHelper.startApplicantsActivity(this, job?.id!!)
+                if (job?.NumberOfApplicants ?: 0 > 0)
+                    IntentHelper.startApplicantsActivity(this, job?.id!!)
             }
 
 
@@ -194,6 +199,8 @@ class JobDetailsActivity : BaseActivity(), JobDetailsContract.View, View.OnClick
 
     override fun onApplySuccess(applyJobResponse: Applicant) {
         apply.text = getString(R.string.applied_before)
+        bottomApply.text = apply.text
+
         Toast.makeText(this, getString(R.string.applied_success), Toast.LENGTH_SHORT).show()
     }
 

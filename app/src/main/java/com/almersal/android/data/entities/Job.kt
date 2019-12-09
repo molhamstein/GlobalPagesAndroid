@@ -3,7 +3,7 @@ package com.almersal.android.data.entities
 import com.almersal.android.App
 
 data class Job(
-    val business: JobBusiness,
+    val business: JobBusiness?,
     val businessId: String,
     val category: JobCategory,
     val categoryId: String,
