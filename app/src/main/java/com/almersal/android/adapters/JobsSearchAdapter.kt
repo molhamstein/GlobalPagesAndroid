@@ -38,11 +38,11 @@ class JobsSearchAdapter(var context: Context, var data: MutableList<Job>, var is
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: JobSearchViewHolder, position: Int) {
-        BindingUtils.loadBusinessImage(holder.image, data[position].business.logo)
+        BindingUtils.loadBusinessImage(holder.image, data[position].business?.logo ?: "")
         holder.title.text = data[position].name
-        holder.companyName.text = data[position].business.name
+        holder.companyName.text = data[position].business?.name
         holder.location.text =
-            data[position].business.city?.getTitle() + ", " + data[position].business.location?.getTitle()
+            data[position].business?.city?.getTitle() + ", " + data[position].business?.location?.getTitle()
 
         holder.date.text = DateNormalizer.getCustomFormate(data[position].creationDate, "MMM dd, yyyy")
         holder.containerView?.setOnClickListener {

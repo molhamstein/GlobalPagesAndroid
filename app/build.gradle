@@ -15,8 +15,8 @@ android {
         applicationId 'com.almersal.android' /*"com.brainsocket.globalpages"*/
         minSdkVersion MIN_VERSION
         targetSdkVersion COMPILE_VERSION
-        versionCode 13
-        versionName '1.2.9'
+        versionCode 17
+        versionName '1.3.4'
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

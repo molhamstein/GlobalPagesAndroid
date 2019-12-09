@@ -159,11 +159,9 @@
             android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
             android:name=".activities.ProductDetailsActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".activities.ProductAddActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
         <activity
             android:name=".activities.LocationViewerActivity"

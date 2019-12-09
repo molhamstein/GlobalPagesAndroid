@@ -21,11 +21,11 @@ class BusinessGuideProductRecyclerViewAdapter constructor(var context: Context, 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.product_item_layout, parent, false)
-        if (isVertical) {
-            val lp = view.layoutParams as ViewGroup.LayoutParams
-            lp.width = 3 * parent.measuredWidth / 4
-            view.layoutParams = lp
-        }
+//        if (isVertical) {
+//            val lp = view.layoutParams as ViewGroup.LayoutParams
+//            lp.width = 3 * parent.measuredWidth / 4
+//            view.layoutParams = lp
+//        }
         return ProductViewHolder(view)
     }
 
