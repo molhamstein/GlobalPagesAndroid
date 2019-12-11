@@ -48,6 +48,8 @@ class UserResumeActivity : BaseActivity(), UserResumeContract.View, View.OnClick
     @Inject
     lateinit var presenter: UserResumePresenter
 
+    var update_user = true
+
     private lateinit var progressDialog: ProgressDialog
     private var passedUser: User? = null
 
@@ -61,6 +63,7 @@ class UserResumeActivity : BaseActivity(), UserResumeContract.View, View.OnClick
             .build()
 
         val jSon = intent.getStringExtra(user_profile_key)
+        update_user = intent.getBooleanExtra("update_user", true)
         passedUser = Gson().fromJson(jSon, User::class.java)
 
         component.inject(this)
@@ -92,6 +95,11 @@ class UserResumeActivity : BaseActivity(), UserResumeContract.View, View.OnClick
 
 
     override fun updateUserInfo(user: User?) {
+        if (update_user) {
+            val token = UserRepository(this).getUser()!!.token
+            user?.token = token
+            UserRepository(context = this).addUser(user!!)
+        }
         BindingUtils.loadProfileImage(profile_image, user?.imageProfile)
         name.text = user?.username
         bioText.text = user?.CV?.bio

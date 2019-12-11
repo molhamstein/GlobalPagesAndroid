@@ -118,12 +118,12 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
             filterQuery += "&locationId=${filterEntity.area?.id}"
         }
 
-        filterQuery += "&units=kilometers&maxDistance=$maxDistance"
+        filterQuery += "&units=kilometres&maxDistance=$maxDistance"
         //http://192.168.1.8:3000/api/businesses/searchByLocation?lat=33.514&lng=36.31&codeCat=pharmacies
         // &limit=100&skip=0&openingDay=0&units=kilometers&maxDistance=3000
         // &cityId=123&locationId=123&catId=123&subCatId=123
 
-        val url = ServerInfo.businessGuideUrl + "/searchByLocation?lat=" +
+        val url = ServerInfo.businessGuideUrl + "/newSearchByLocation?lat=" +
                 pointEntity.lat.toString() + "&lng=" + pointEntity.lng.toString() +
                 "&limit=$limit&skip=$skip" + filterQuery
 
@@ -143,7 +143,7 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
 
 
 
-        val url = ServerInfo.businessGuideUrl + "/searchByLocation?lat=" +
+        val url = ServerInfo.businessGuideUrl + "/newSearchByLocation?lat=" +
                 pointEntity.lat.toString() + "&lng=" + pointEntity.lng.toString() +
                 "&limit=100"+ "&subCatId=${subCategory.id}"+"&units=kilometers&maxDistance=$maxDistance&status=activated"
 

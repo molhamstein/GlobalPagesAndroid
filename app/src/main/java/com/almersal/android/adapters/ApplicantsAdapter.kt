@@ -56,6 +56,7 @@ class ApplicantsAdapter(val context: Context, var data: MutableList<Applicant>) 
             val jSon = Gson().toJson(data[position].user)
             val intent = Intent()
             intent.putExtra(UserResumeActivity.user_profile_key, jSon)
+            intent.putExtra("update_user", false)
             intent.setClassName(context, activityName)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)

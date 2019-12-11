@@ -496,8 +496,8 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
             Location.distanceBetween(
                 mMap.projection.visibleRegion.latLngBounds.northeast.latitude,
                 mMap.projection.visibleRegion.latLngBounds.northeast.longitude,
-                mMap.cameraPosition.target.latitude,
-                mMap.cameraPosition.target.longitude,
+                mMap.projection.visibleRegion.latLngBounds.southwest.latitude,
+                mMap.projection.visibleRegion.latLngBounds.southwest.longitude,
                 distance
             )
 
