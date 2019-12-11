@@ -42,9 +42,8 @@ class UserResumePresenter(val context: Context) : UserResumeContract.Presenter {
                 override fun onResponse(response: User?) {
                     view.showProgress(false)
                     if (response != null) {
-                        val token = UserRepository(context).getUser()!!.token
-                        response.token = token
-                        UserRepository(context = context).addUser(response)
+
+
                         view.updateUserInfo(response)
                     } else {
                         view.getFailed()
