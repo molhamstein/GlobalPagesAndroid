@@ -42,9 +42,11 @@ class SplashActivity : BaseActivity(), TagsCollectionContact.View, NotificationC
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.splash_layout)
+        val extras = intent.extras?:Bundle()
+
         initDI()
         Handler(mainLooper).postDelayed({
-            IntentHelper.startMainActivity(baseContext)
+            IntentHelper.startMainActivity(baseContext,extras?: Bundle())
             finish()
         }, Splash_Delay)
 

@@ -1,5 +1,7 @@
 package com.almersal.android.viewHolders
 
+import android.content.Context
+import android.support.v4.view.ViewPager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
@@ -7,38 +9,28 @@ import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.almersal.android.R
+import com.almersal.android.adapters.MediaViewPagerAdapter
+import com.almersal.android.data.entities.Post
+import com.almersal.android.data.entities.Product
 import com.almersal.android.data.entities.ProductThumb
+import com.almersal.android.normalization.DateNormalizer
 import com.almersal.android.utilities.BindingUtils
+import com.brainsocket.mainlibrary.ViewPagerIndicator.CircleIndicator.CircleIndicator
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.product_main_fixed_layout.*
+import org.jetbrains.annotations.Nullable
 
-class ProductViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) {
 
-    init {
-        ButterKnife.bind(this, view)
+
+class ProductViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+
+    fun bind(product: Product) {
+        product_Title.text = product.title
+        product_details.text = product.description
+        product_Tag.text = product.category.getTitle()
+        product_city.text = product.city.getTitle()
+        product_area.text = product.location.getTitle()
+
+        BindingUtils.loadProductImage(product_Image, product)
     }
-
-
-    @BindView(R.id.editProduct)
-    lateinit var editProduct: ImageView
-
-    @BindView(R.id.productImage)
-    lateinit var productImage: ImageView
-
-    @BindView(R.id.productTitle)
-    lateinit var productTitle: TextView
-
-    @BindView(R.id.productDetails)
-    lateinit var productDetails: TextView
-
-
-    fun bind(productThumb: ProductThumb, isOwner: Boolean) {
-        BindingUtils.loadProductImage(productImage, productThumb)
-        productTitle.text = productThumb.name
-        productDetails.text = productThumb.description
-        if (!isOwner) {
-            editProduct.visibility = View.INVISIBLE
-        } else {
-            editProduct.visibility = View.VISIBLE
-        }
-    }
-
 }

@@ -239,6 +239,18 @@ class ApiService {
             .getAsObject(Post::class.java, requestListener)
     }
 
+
+    fun getProduct(url: String, requestListener: ParsedRequestListener<Product>) {
+//        val criteria = Gson().toJson(filtration)
+
+        AndroidNetworking.get(url)
+//                .setContentType("application/json")
+            .setPriority(Priority.HIGH)
+//                .addQueryParameter("filter", criteria)
+            .build()
+            .getAsObject(Product::class.java, requestListener)
+    }
+
     fun postPost(url: String, postModel: PostModel, token: String, requestListener: ParsedRequestListener<Post>) {
         val json = Gson().toJson(postModel)
         AndroidNetworking.post(url)
@@ -662,6 +674,49 @@ class ApiService {
             .setPriority(Priority.HIGH)
             .build()
             .getAsObject(Applicant::class.java, requestListener)
+    }
+
+
+    fun getProducts(
+        url: String,
+        requestListener: ParsedRequestListener<MutableList<Product>>
+    ) {
+        AndroidNetworking.get(url)
+//                .setContentType("application/json")
+            .setPriority(Priority.HIGH)
+            .build()
+            .getAsObjectList(Product::class.java, requestListener)
+    }
+
+
+
+    fun addProduct(url: String, product: ProductAddModel, token: String, requestListener: ParsedRequestListener<Product>) {
+        val json = Gson().toJson(product)
+        AndroidNetworking.post(url)
+            .setContentType("application/json")
+            .addHeaders("Authorization", token)
+            .addStringBody(json)
+//                .setPriority(Priority.HIGH)
+//                .addPathParameter("userId", businessGuide.ownerId)
+//                .addQueryParameter("userId", businessGuide.ownerId)
+            .addBodyParameter(product)
+            .build()
+            .getAsObject(Product::class.java, requestListener)
+    }
+
+
+    fun updateProduct(url: String, product: ProductAddModel, token: String, requestListener: ParsedRequestListener<Product>) {
+        val json = Gson().toJson(product)
+        AndroidNetworking.put(url )
+            .setContentType("application/json")
+            .addHeaders("Authorization", token)
+            .addStringBody(json)
+//                .setPriority(Priority.HIGH)
+//                .addPathParameter("userId", businessGuide.ownerId)
+//                .addQueryParameter("userId", businessGuide.ownerId)
+            .addBodyParameter(product)
+            .build()
+            .getAsObject(Product::class.java, requestListener)
     }
 
 

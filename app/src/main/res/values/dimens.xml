@@ -27,6 +27,7 @@
 
     <dimen name="postItemWidth">160dp</dimen>
     <dimen name="postItemHeight">160dp</dimen>
+    <dimen name="postItemMaxHeight">180dp</dimen>
     <dimen name="businessItemWidth">250dp</dimen>
 
     <dimen name="xsm_btn_height">20dp</dimen>

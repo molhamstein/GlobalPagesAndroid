@@ -221,5 +221,9 @@
     <string name="invalid_link">Invalid Link</string>
     <string name="status_success">Status has been changed successfully</string>
     <string name="status_failed">Updating status failed</string>
+    <string name="market">Market</string>
+    <string name="newspaper">Newspaper</string>
+    <string name="my_products">My Products</string>
+    <string name="add_new_product">Add New Product</string>
 
 </resources>

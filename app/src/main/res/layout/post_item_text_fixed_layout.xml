@@ -20,7 +20,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/post_Image"
+                android:id="@+id/product_Image"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
@@ -32,7 +32,7 @@
                 app:layout_constraintRight_toRightOf="parent" />
 
             <TextView
-                android:id="@+id/post_Title"
+                android:id="@+id/product_Title"
                 style="@style/AppTheme.TextAppearance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -45,13 +45,13 @@
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintHeight_percent="0.5"
-                app:layout_constraintTop_toBottomOf="@+id/post_Image" />
+                app:layout_constraintTop_toBottomOf="@+id/product_Image" />
 
             <RelativeLayout
                 android:id="@+id/tagContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/post_Title">
+                app:layout_constraintTop_toBottomOf="@+id/product_Title">
 
                 <View
                     android:layout_width="match_parent"
@@ -60,7 +60,7 @@
                     android:background="@color/lightGray" />
 
                 <TextView
-                    android:id="@+id/post_Tag"
+                    android:id="@+id/product_Tag"
                     style="@style/AppTheme.TextAppearance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -87,14 +87,14 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/post_Details_Container"
+                android:id="@+id/product_Details_Container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@+id/tagContainer">
 
                 <TextView
-                    android:id="@+id/post_details"
+                    android:id="@+id/product_details"
                     style="@style/AppTheme.TextAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -121,12 +121,12 @@
                 android:visibility="gone">
 
                 <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/post_city"
+                    android:id="@+id/product_city"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
                 <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/post_area"
+                    android:id="@+id/product_area"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 

@@ -6,6 +6,7 @@ import com.androidnetworking.interfaces.ParsedRequestListener
 import com.almersal.android.api.ApiService
 import com.almersal.android.api.ServerInfo
 import com.almersal.android.data.entities.Post
+import com.almersal.android.data.entities.Product
 import com.almersal.android.data.entitiesModel.PostEditModel
 import com.almersal.android.data.entitiesModel.PostModel
 
@@ -102,5 +103,7 @@ class PostPresenter constructor(val context: Context) : PostContract.Presenter {
             }
         })
     }
+
+
 
 }

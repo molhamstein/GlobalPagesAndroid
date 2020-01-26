@@ -422,6 +422,71 @@
                                 app:tagBackgroundColor="@color/colorPrimary" />
                         </com.brainsocket.mainlibrary.Views.Stateslayoutview>
                         
+                        
+                        
+                        
+                        <!--  -->
+    
+    
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/productTitle"
+                            style="@style/AppTheme.TextAppearance"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/md_margin"
+                            android:text="@string/my_products"
+                            android:textColor="@color/profileHeaderColor"
+                            android:textStyle="bold"
+                            app:layout_constraintTop_toBottomOf="@+id/myBusinessStateLayout" />
+    
+                        <android.support.v7.widget.AppCompatImageButton
+                            android:id="@+id/productsAddLink"
+                            style="@style/AppTheme.TextAppearance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/transparent"
+                            android:padding="@dimen/md_margin"
+                            android:text="@string/Add"
+                            android:textColor="@color/profileHeaderColor"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/myBusinessStateLayout"
+                            app:srcCompat="@drawable/ic_add_dark_24dp" />
+    
+                        <View
+                            android:id="@+id/productsSeparator"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/sperator"
+                            android:background="@color/colorPrimary"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/productTitle"
+                            app:layout_constraintWidth_default="percent"
+                            app:layout_constraintWidth_percent="0.3" />
+    
+                        <com.brainsocket.mainlibrary.Views.Stateslayoutview
+                            android:id="@+id/myProductsStateLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:NoConnectionLayout="@layout/state_layout_no_connection_min"
+                            app:NoDataLayout="@layout/state_layout_no_data"
+                            app:RefreshbtnRes="@+id/retryBtn"
+                            app:WaitingLayout="@layout/state_layout_waiting"
+                            app:layout_constraintTop_toBottomOf="@id/productsSeparator">
+        
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/myProducts"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/lg_margin"
+                                app:tagBackgroundColor="@color/colorPrimary" />
+                        </com.brainsocket.mainlibrary.Views.Stateslayoutview>
+    
+    
+                        <!--  -->
+                        
+                        
                         <android.support.v7.widget.AppCompatTextView
                             android:id="@+id/jobOffersText"
                             style="@style/AppTheme.TextAppearance"
@@ -431,7 +496,7 @@
                             android:text="@string/job_offers"
                             android:textColor="@color/profileHeaderColor"
                             android:textStyle="bold"
-                            app:layout_constraintTop_toBottomOf="@+id/myBusinessStateLayout" />
+                            app:layout_constraintTop_toBottomOf="@+id/myProductsStateLayout" />
                         <android.support.v7.widget.AppCompatImageButton
                             android:id="@+id/JobsAddLink"
                             style="@style/AppTheme.TextAppearance"
@@ -444,7 +509,7 @@
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/myBusinessStateLayout"
+                            app:layout_constraintTop_toBottomOf="@+id/myProductsStateLayout"
                             app:srcCompat="@drawable/ic_add_dark_24dp" />
                         
                         

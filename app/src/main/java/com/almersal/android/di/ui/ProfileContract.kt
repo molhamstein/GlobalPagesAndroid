@@ -18,11 +18,12 @@ class ProfileContract {
 
         fun updateProfile(profileModel: ProfileModel, token: String)
         fun getUser(userId: String)
-         fun getJobsByOwner(ownerId: String?)
+        fun getJobsByOwner(ownerId: String?)
+        fun getProductsByOwner(ownerId: String?)
     }
 
     interface View : BaseContract.View {
-        fun updateUserInfo(user: User?){}
+        fun updateUserInfo(user: User?) {}
 
         fun showUserCategoriesProgress(show: Boolean) {}
         fun showUserCategoriesLoadErrorMessage(visible: Boolean) {}
@@ -41,13 +42,18 @@ class ProfileContract {
         fun showUserBusinessesEmptyView(visible: Boolean) {}
         fun onUserBusinessesListSuccessfully(businessGuideList: MutableList<BusinessGuide>) {}
 
+
+        fun showUserProductsProgress(show: Boolean) {}
+        fun showUserProductsLoadErrorMessage(visible: Boolean) {}
+        fun showUserProductsEmptyView(visible: Boolean) {}
+        fun onUserProductsListSuccessfully(productsList: MutableList<Product>) {}
+
         fun showUpdateProfileProgress(show: Boolean) {}
         fun showUpdateProfileLoadErrorMessage(visible: Boolean) {}
         fun showUpdateProfileEmptyView(visible: Boolean) {}
         fun onUpdateProfileSuccessfully(user: User) {}
-        fun onJobsLoaded(response: MutableList<Job>) {
 
-        }
+        fun onJobsLoaded(response: MutableList<Job>) {}
 
     }
 

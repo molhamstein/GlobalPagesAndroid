@@ -20,7 +20,7 @@ class Attachment {
 //    }
 
 
-    constructor(name: String, type: String, thumbnail: String) {
+    constructor(name: String, type: String = "image", thumbnail: String  = name) {
         this.name = name
         this.type = type
         this.thumbnail = thumbnail

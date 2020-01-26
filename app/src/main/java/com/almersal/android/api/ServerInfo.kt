@@ -6,7 +6,7 @@ class ServerInfo {
     companion object {
         //        var baseUrl = "http://almersal.co/api/"
         var baseUrl = "http://almersal.co/api/"
-//        var baseUrl = "http://192.168.1.11:3000/api/"
+//        var baseUrl = "http://192.168.1.7:3000/api/"
 
         /*Registration started*/
         var SigninUrl = baseUrl + "users/login/?include=user"
@@ -28,12 +28,16 @@ class ServerInfo {
         var businessCategoriesUrl = baseUrl + "businessCategories"
 
         var postCategoriesUrl = baseUrl + "postCategories"
+        var productCategoriesUrl = baseUrl + "productCategories"
 
         var citiesUrl = baseUrl + "cities"
         /*Tagging ended*/
 
 
         var volumeUrl = baseUrl + "volumes"
+        var productsUrl = baseUrl + "marketProducts"
+        var addProductUrl = productsUrl + "/addProduct"
+        var updateProductUrl = productsUrl + "/updateProduct"
 
         var businessGuideUrl = baseUrl + "businesses"
 
@@ -41,6 +45,8 @@ class ServerInfo {
         var imagesBaseUrl = baseUrl + "attachments/images/upload/"
 
         var postUrl = baseUrl + "posts"
+
+
 
         var uploadImageUrl = baseUrl + "attachments/images/upload"
 

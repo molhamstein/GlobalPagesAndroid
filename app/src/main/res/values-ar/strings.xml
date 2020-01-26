@@ -219,6 +219,10 @@
     <string name="invalid_link">الرابط غير صالح</string>
     <string name="status_success">تم تغيير حالة الطلب بنجاح</string>
     <string name="status_failed">فشلت عملية تغيير الحالة</string>
+    <string name="market">تسوق</string>
+    <string name="newspaper">الجريدة</string>
+    <string name="my_products">منتجاتي</string>
+    <string name="add_new_product">إضافة منتج جديد </string>
 
 
 </resources>

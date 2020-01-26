@@ -43,5 +43,9 @@
         <!--<item name="font">@font/antipasto_extrabold</item>-->
         <!--<item name="app:fontFamily">@font/antipasto_extrabold</item>-->
     </style>
+    
+    <style name="AppTheme.RoundedCornerMaterialButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:background">@drawable/rounded_shape</item>
+    </style>
 
 </resources>

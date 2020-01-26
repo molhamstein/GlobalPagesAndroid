@@ -145,7 +145,7 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
 
         tagsCollectionPresenter.attachView(this)
         tagsCollectionPresenter.subscribe()
-        tagsCollectionPresenter.loadPostCategories(withCache = true)
+        tagsCollectionPresenter.loadPostCategories(true)
         tagsCollectionPresenter.loadCities(withCache = true)
 
         attachmentPresenter.attachView(this)
@@ -175,7 +175,7 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
 
         categoryStateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
             override fun onRefresh() {
-                tagsCollectionPresenter.loadPostCategories(false)
+                tagsCollectionPresenter.loadPostCategories(true)
             }
 
             override fun onRequestPermission() {

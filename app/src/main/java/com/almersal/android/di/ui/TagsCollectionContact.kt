@@ -2,10 +2,7 @@ package com.almersal.android.di.ui
 
 import com.almersal.android.api.ApiService
 import com.almersal.android.api.ServerInfo
-import com.almersal.android.data.entities.BusinessGuideCategory
-import com.almersal.android.data.entities.City
-import com.almersal.android.data.entities.JobCategory
-import com.almersal.android.data.entities.PostCategory
+import com.almersal.android.data.entities.*
 import com.almersal.android.repositories.DataStoreRepositories
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.ParsedRequestListener
@@ -22,6 +19,7 @@ class TagsCollectionContact {
         fun loadBusinessCategories(withCache: Boolean)
         fun loadPostCategories(withCache: Boolean)
         fun loadCities(withCache: Boolean)
+        fun loadProductCategories()
         fun getJobCategories(withCache: Boolean)
     }
 
@@ -30,6 +28,7 @@ class TagsCollectionContact {
         fun onPostCategoriesLoaded(categoriesList: MutableList<PostCategory>) {}
         fun onCitiesLoaded(citiesList: MutableList<City>) {}
 
+
         fun showBusinessCategoriesProgress(show: Boolean) {}
         fun showBusinessCategoriesLoadErrorMessage(visible: Boolean) {}
         fun showBusinessCategoriesEmptyView(visible: Boolean) {}
@@ -37,6 +36,7 @@ class TagsCollectionContact {
         fun showPostCategoriesProgress(show: Boolean) {}
         fun showPostCategoriesLoadErrorMessage(visible: Boolean) {}
         fun showPostCategoriesEmptyView(visible: Boolean) {}
+
 
 
         fun showCitiesProgress(show: Boolean) {}

@@ -15,7 +15,8 @@ class BusinessGuide {
     var openingDaysEnabled: Boolean = false
     var id: String = ""
     var ownerId: String = ""
-    var products: MutableList<ProductThumb> = mutableListOf()
+    var products: MutableList<Product> = mutableListOf()
+    var myMarketProducts: MutableList<Product> = mutableListOf()
 
     var categoryId: String = ""
     var subCategoryId: String = ""

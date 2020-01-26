@@ -1,5 +1,7 @@
 package com.almersal.android.di.ui
 
+import com.almersal.android.data.entities.Post
+import com.almersal.android.data.entities.Product
 import com.almersal.android.data.entities.Volume
 
 /**
@@ -12,6 +14,7 @@ class VolumesContract {
         fun loadNextVolume()
         fun loadPreviousVolume()
         fun loadVolumeById(id: String)
+        fun loadProducts(categoryId: String? = null, subCategoryId: String? = null, skip: Int, limit: Int)
     }
 
     interface View : BaseContract.View {
@@ -21,6 +24,7 @@ class VolumesContract {
         fun enableNext()
         fun disablePrev()
         fun enablePrev()
+        fun bindProducts(products: MutableList<Product>){}
     }
 
 }

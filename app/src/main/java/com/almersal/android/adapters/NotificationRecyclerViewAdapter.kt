@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.almersal.android.R
+import com.almersal.android.data.entities.Job
 import com.almersal.android.data.entities.NotificationEntity
 import com.almersal.android.enums.NotificationsTypeEnum
 import com.almersal.android.eventsBus.EventActions
@@ -14,8 +15,11 @@ import com.almersal.android.eventsBus.RxBus
 import com.almersal.android.utilities.IntentHelper
 import com.almersal.android.viewHolders.NotificationViewHolder
 
-class NotificationRecyclerViewAdapter constructor(val context: Context, private val notificationList: MutableList<NotificationEntity>) :
-        RecyclerView.Adapter<NotificationViewHolder>() {
+class NotificationRecyclerViewAdapter constructor(
+    val context: Context,
+    private val notificationList: MutableList<NotificationEntity>
+) :
+    RecyclerView.Adapter<NotificationViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationViewHolder {
@@ -30,15 +34,26 @@ class NotificationRecyclerViewAdapter constructor(val context: Context, private 
             RxBus.publish(MessageEvent(EventActions.Notification_Delete_By_Id, poJo.id))
         }
         holder.itemView.setOnClickListener {
-            when (poJo._type) {
-                NotificationsTypeEnum.ADD_NEW_VOLUME.type -> {
-                    poJo.clicked = true
-                    RxBus.publish(MessageEvent(EventActions.Notification_Set_Clicked, poJo))
-                    IntentHelper.startVolumesActivity(context, poJo.data.volumeId)
-                }
-            }
+
+            poJo.clicked = true
+            RxBus.publish(MessageEvent(EventActions.Notification_Set_Clicked, poJo))
+            handleNotificationId(poJo)
+
         }
 
+    }
+
+
+    fun handleNotificationId(poJo: NotificationEntity) {
+        with(poJo.data) {
+            when {
+                volumeId.isNotEmpty() -> IntentHelper.startVolumesActivity(context, volumeId)
+                marketProductId.isNotEmpty() -> IntentHelper.startProductDetailsActivity(context, marketProductId)
+                businessId.isNotEmpty() -> IntentHelper.startBusinessGuideDetailsActivity(context, businessId)
+                jobId.isNotEmpty() -> IntentHelper.startJobDetailsActivity(context, jobId)
+                adId.isNotEmpty() -> IntentHelper.startPostDetailsActivity(context, adId)
+            }
+        }
     }
 
     override fun getItemCount(): Int = notificationList.size

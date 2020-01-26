@@ -15,6 +15,7 @@ import butterknife.Optional
 import com.almersal.android.R
 import com.almersal.android.adapters.MediaViewPagerAdapter
 import com.almersal.android.data.entities.Post
+import com.almersal.android.data.entities.Product
 import com.almersal.android.di.component.DaggerPostDetailsComponent
 import com.almersal.android.di.module.PostModule
 import com.almersal.android.di.ui.PostContract
@@ -42,6 +43,7 @@ class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener
 
     var post: Post? = null
 
+
     var menuItem: MenuItem? = null
 
     lateinit var postViewHolder: PostViewHolder
@@ -57,6 +59,7 @@ class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener
 
     @Inject
     lateinit var presenter: PostPresenter
+
 
     private fun initDI() {
         val component = DaggerPostDetailsComponent.builder()
@@ -93,12 +96,14 @@ class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener
         } else {
             val id = intent.getStringExtra(PostDetailsActivity_Id_Tag)
             presenter.loadPost(id)
+
         }
 
         stateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
             override fun onRefresh() {
                 val id = intent.getStringExtra(PostDetailsActivity_Id_Tag)
                 presenter.loadPost(id)
+
             }
 
             override fun onRequestPermission() {
@@ -120,10 +125,12 @@ class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener
 
     private fun toggleEditMode() {
         val user = UserRepository(this).getUser()
+
         if ((user != null) && (post != null) && (user.id != null))
             menuItem?.isVisible = (post!!.ownerId == user.id)
         else
             menuItem?.isVisible = false
+
 
     }
 
@@ -146,8 +153,10 @@ class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener
     @Optional
     @OnClick(R.id.contactBtn, R.id.contactTextBtn)
     fun onContactButtonClick(view: View) {
-        val contactDialog = ContactPostDialog.newInstance(post!!.owner.phoneNumber)
-        contactDialog.show(supportFragmentManager, ContactPostDialog.ContactPostDialog_Tag)
+        if (post != null) {
+            val contactDialog = ContactPostDialog.newInstance(post!!.owner.phoneNumber)
+            contactDialog.show(supportFragmentManager, ContactPostDialog.ContactPostDialog_Tag)
+        }
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
@@ -185,6 +194,8 @@ class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener
         postViewHolder.bind(post)
         toggleEditMode()
     }
+
+
     /*Presenter ended*/
 
 }

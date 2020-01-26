@@ -107,6 +107,30 @@ class TagsCollectionPresenter constructor(val context: Context) : TagsCollection
             })
     }
 
+    override fun loadProductCategories() {
+        view.showPostCategoriesProgress(true)
+        val criteriaCategory: MutableMap<String, String> = HashMap()//[ownerId]
+        criteriaCategory["include"] = "subCategories"
+
+        ApiService().getPostCategories(
+            ServerInfo.productCategoriesUrl,
+            criteriaCategory,
+            object : ParsedRequestListener<MutableList<PostCategory>> {
+                override fun onResponse(response: MutableList<PostCategory>?) {
+                    view.showPostCategoriesProgress(false)
+                    if (response != null) {
+                        view.onPostCategoriesLoaded(response)
+                    } else {
+                        view.showPostCategoriesEmptyView(true)
+                    }
+                }
+
+                override fun onError(anError: ANError?) {
+                    view.showPostCategoriesProgress(false)
+                    view.showPostCategoriesLoadErrorMessage(true)
+                }
+            })
+    }
     override fun loadCities(withCache: Boolean) {
         view.showCitiesProgress(true)
         if (withCache) {

@@ -19,10 +19,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.almersal.android.R
-import com.almersal.android.adapters.BusinessGuideRecyclerViewAdapter
-import com.almersal.android.adapters.CategoryProfileRecyclerViewAdapter
-import com.almersal.android.adapters.JobsSearchAdapter
-import com.almersal.android.adapters.PostRecyclerViewAdapter
+import com.almersal.android.adapters.*
 import com.almersal.android.data.entities.*
 import com.almersal.android.di.component.DaggerProfileComponent
 import com.almersal.android.di.module.ProfileModule
@@ -58,6 +55,9 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     @BindView(R.id.myBusinessStateLayout)
     lateinit var myBusinessStateLayout: Stateslayoutview
 
+    @BindView(R.id.myProductsStateLayout)
+    lateinit var myProductsStateLayout: Stateslayoutview
+
     @BindView(R.id.myCategoriesStateLayout)
     lateinit var myCategoriesStateLayout: Stateslayoutview
 
@@ -79,6 +79,8 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     @BindView(R.id.myBusiness)
     lateinit var myBusiness: RecyclerView
 
+    @BindView(R.id.myProducts)
+    lateinit var myProducts: RecyclerView
 //    @BindView(R.id.genderTabLayout)
 //    lateinit var genderTabLayout: TabLayout
 //
@@ -121,6 +123,7 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
         myPosts.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
 
         myBusiness.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        myProducts.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
     }
 
     private fun initTabLayout() {
@@ -171,12 +174,9 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
         val criteria: MutableMap<String, Pair<String, String>> = HashMap()//[ownerId]
         val user = UserRepository(context = baseContext).getUser()!!
         criteria["where"] = Pair("ownerId", user.id!!)
-
-        presenter.loadUserPosts(user.id!!)
-        presenter.loadUserBusinesses(user.id!!)
-        presenter.loadUserCategories(user)
         presenter.getUser(user.id!!)
-        presenter.getJobsByOwner(user.id!!)
+
+        bindInfo(user)
         JobsAddLink.setOnClickListener {
             if (myBusiness.adapter != null && (myBusiness.adapter as BusinessGuideRecyclerViewAdapter).businessGuideList.isNotEmpty())
                 IntentHelper.startAddNewJobActivity(this, null)
@@ -204,7 +204,11 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
 //            genderTabLayout.getTabAt(1)!!.select()
 //        }
         BindingUtils.loadProfileImage(mFab, user.imageProfile)
+        presenter.loadUserPosts(user.id!!)
+        presenter.loadUserBusinesses(user.id!!)
         presenter.loadUserCategories(user)
+        presenter.getJobsByOwner(user.id!!)
+        presenter.getProductsByOwner(user.id!!)
 
     }
 
@@ -261,6 +265,17 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
             }
         })
 
+        myProductsStateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
+            override fun onRefresh() {
+                val user = UserRepository(this@ProfileActivity).getUser()!!
+                presenter.getProductsByOwner(user.id!!)
+            }
+
+            override fun onRequestPermission() {
+
+            }
+        })
+
         RxBus.listen(MessageEvent::class.java).subscribe {
             when (it.action) {
                 EventActions.SubCategorySubscriptionBottomSheet_Tag -> {
@@ -290,7 +305,7 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     override fun onResume() {
         super.onResume()
         val user = UserRepository(context = baseContext).getUser()!!
-        presenter.getJobsByOwner(user.id!!)
+
         bindInfo(user)
     }
 
@@ -315,6 +330,13 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     @OnClick(R.id.BusinessAddLink)
     fun onBusinessAddLink(view: View) {
         IntentHelper.startBusinessAddActivity(context = baseContext)
+        Log.v("Clicked", view.id.toString())
+    }
+
+    @OnClick(R.id.productsAddLink)
+    fun onProductsAddLink(view: View) {
+        if (myBusiness.adapter != null && (myBusiness.adapter as BusinessGuideRecyclerViewAdapter).businessGuideList.isNotEmpty())
+            IntentHelper.startProductAddActivity(context = baseContext)
         Log.v("Clicked", view.id.toString())
     }
 
@@ -432,6 +454,36 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     }
     /*My Businesses guide presenter ended*/
 
+    override fun showUserProductsProgress(show: Boolean) {
+        if (show) {
+            myProductsStateLayout.FlipLayout(LayoutStatesEnum.Waitinglayout)
+        } else {
+            myProductsStateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+        }
+    }
+
+    override fun showUserProductsLoadErrorMessage(visible: Boolean) {
+        if (visible) {
+            myProductsStateLayout.FlipLayout(LayoutStatesEnum.Noconnectionlayout)
+        } else {
+            myProductsStateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+        }
+    }
+
+    override fun showUserProductsEmptyView(visible: Boolean) {
+        if (visible) {
+            myProductsStateLayout.FlipLayout(LayoutStatesEnum.Nodatalayout)
+        } else {
+            myProductsStateLayout.FlipLayout(LayoutStatesEnum.SuccessLayout)
+        }
+    }
+
+    override fun onUserProductsListSuccessfully(productsList: MutableList<Product>) {
+
+
+        myProducts.adapter =
+            ProductsRecyclerViewAdapter(baseContext, productsList)
+    }
 
     /*My Categories presenter started */
     override fun showUserCategoriesProgress(show: Boolean) {

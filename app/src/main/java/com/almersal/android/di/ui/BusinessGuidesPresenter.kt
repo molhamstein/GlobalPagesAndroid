@@ -142,10 +142,9 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
 //        var s = "filter[where][price][between][0]=0&filter[where][price][between][1]=7"
 
 
-
         val url = ServerInfo.businessGuideUrl + "/newSearchByLocation?lat=" +
                 pointEntity.lat.toString() + "&lng=" + pointEntity.lng.toString() +
-                "&limit=100"+ "&subCatId=${subCategory.id}"+"&units=kilometers&maxDistance=$maxDistance&status=activated"
+                "&limit=100" + "&subCatId=${subCategory.id}" + "&units=kilometers&maxDistance=$maxDistance&status=activated"
 
         loadBusinessGuideByUrl(url)
     }
@@ -172,14 +171,14 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
 //                "&filter[where][locationPoint][near]=" +
 //                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[limit]=1000"
         val url = ServerInfo.businessGuideUrl + "/searchByLocation?lat=" + pointEntity.lat +
-                "&lng=" + pointEntity.lng + "&openingDay=" + daysEnum.number.toString() + "&codeCat=pharmacies"+
+                "&lng=" + pointEntity.lng + "&openingDay=" + daysEnum.number.toString() + "&codeCat=pharmacies" +
                 "&units=kilometers&maxDistance=$maxDistance&status=activated"
         loadBusinessGuideByUrl(url)
     }
 
     override fun loadBusinessGuideById(id: String) {
         view.showProgress(true)
-        val url = ServerInfo.businessGuideUrl + "/" + id
+        val url = ServerInfo.businessGuideUrl + "/" + id + "?filter[include]=myMarketProducts"
         ApiService().getBusinessGuide(url,/* criteria,*/ object : ParsedRequestListener<BusinessGuide> {
             override fun onResponse(response: BusinessGuide?) {
                 view.showProgress(false)
@@ -247,26 +246,27 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
 
     override fun getJobsByBusiness(businessId: String?) {
         view.showProgress(true)
-        ApiService().getJobsByBusiness(ServerInfo.jobsUrl, businessId?:"", object : ParsedRequestListener<MutableList<Job>> {
-            override fun onResponse(response: MutableList<Job>?) {
+        ApiService().getJobsByBusiness(
+            ServerInfo.jobsUrl,
+            businessId ?: "",
+            object : ParsedRequestListener<MutableList<Job>> {
+                override fun onResponse(response: MutableList<Job>?) {
 
-                if ((response != null)) {
-                    view.showProgress(false)
-                    if (response.size > 0) {
-                        view.onJobsLoaded(response)
-                        return
+                    if ((response != null)) {
+                        view.showProgress(false)
+                        if (response.size > 0) {
+                            view.onJobsLoaded(response)
+                            return
+                        }
                     }
                 }
-            }
 
-            override fun onError(anError: ANError?) {
-                view.showProgress(false)
-                
-            }
-        })
+                override fun onError(anError: ANError?) {
+                    view.showProgress(false)
+
+                }
+            })
     }
-
-
 
 
 }
