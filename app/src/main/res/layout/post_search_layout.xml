@@ -127,6 +127,7 @@
                         app:tagBackgroundColor="@color/colorPrimary" />
 
                     <View
+                        
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/sperator"
                         android:layout_marginBottom="@dimen/md_margin"
@@ -180,6 +181,7 @@
                         app:tagBackgroundColor="@color/colorPrimary" />
 
                     <View
+                        android:id="@+id/cityLine"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/sperator"
                         android:layout_marginBottom="@dimen/md_margin"

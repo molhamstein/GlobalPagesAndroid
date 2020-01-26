@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     
@@ -157,6 +158,37 @@
                                 android:maxLines="1"
                                 app:backgroundTint="@color/lightGray" />
                             
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/businesses"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginRight="8dp"
+                                android:visibility="gone"
+                                tools:itemCount="6"
+                                tools:listitem="@layout/city_item_layout" />
+                            
+                            <TextView
+                                style="@style/AppTheme.TextAppearance"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/price"
+                                android:textColor="@color/lightGray" />
+                            
+                            <android.support.v7.widget.AppCompatEditText
+                                android:id="@+id/price"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/Optional"
+                                android:imeOptions="actionDone"
+                                android:inputType="text"
+                                android:lines="3"
+                                android:maxLines="1"
+                                app:backgroundTint="@color/lightGray" />
+                            
                             <TextView
                                 style="@style/AppTheme.TextAppearance"
                                 android:layout_width="match_parent"
@@ -211,7 +243,7 @@
                                 </LinearLayout>
                             
                             </HorizontalScrollView>
-                       
+                            
                             
                             <android.support.v4.widget.Space
                                 android:layout_width="match_parent"
@@ -377,14 +409,14 @@
                                     android:layout_width="0dp"
                                     android:layout_height="@dimen/sm_btn_height"
                                     android:layout_margin="@dimen/md_margin"
-                                    android:layout_marginBottom="@dimen/lg_margin"
                                     android:layout_marginTop="@dimen/lg_margin"
+                                    android:layout_marginBottom="@dimen/lg_margin"
                                     android:layout_weight="4"
                                     android:background="@drawable/button_bg"
-                                    android:paddingEnd="@dimen/lg_padding"
-                                    android:paddingLeft="@dimen/lg_padding"
-                                    android:paddingRight="@dimen/lg_padding"
                                     android:paddingStart="@dimen/lg_padding"
+                                    android:paddingLeft="@dimen/lg_padding"
+                                    android:paddingEnd="@dimen/lg_padding"
+                                    android:paddingRight="@dimen/lg_padding"
                                     android:shadowColor="@color/black"
                                     android:text="@string/Submit"
                                     android:textColor="@color/white"

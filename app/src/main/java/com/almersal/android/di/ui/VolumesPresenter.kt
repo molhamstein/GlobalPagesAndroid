@@ -106,11 +106,12 @@ class VolumesPresenter constructor(val context: Context) : VolumesContract.Prese
         loadData(/*criteria*/)
     }
 
-    override fun loadProducts(categoryId: String?, subCategoryId: String?, skip: Int, limit: Int) {
+    override fun loadProducts(keyword: String?, categoryId: String?, subCategoryId: String?, skip: Int, limit: Int) {
         view.showProgress(true)
         val filterCategory = if (categoryId == null) "" else "filter[where][categoryId]=$categoryId"
         val filterSubCategory = if (categoryId == null) "" else "filter[where][subCategoryId]=$subCategoryId"
-        ApiService().getProducts(ServerInfo.productsUrl + "?$filterCategory&$filterSubCategory" +
+        val filterKeyword = if (keyword == null) "" else "filter[keyword]=$keyword"
+        ApiService().getProducts(ServerInfo.productsUrl + "?$filterCategory&$filterSubCategory&$filterKeyword" +
                 "filter[limit]=$limit&filter[skip]=$skip&filter[order]=creationDate DESC",
             object : ParsedRequestListener<MutableList<Product>> {
                 override fun onResponse(response: MutableList<Product>?) {

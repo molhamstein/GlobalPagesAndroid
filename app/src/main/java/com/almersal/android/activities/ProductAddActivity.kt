@@ -38,9 +38,11 @@ import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
 import com.github.florent37.viewanimator.ViewAnimator
 import com.google.android.gms.location.places.ui.PlacePicker
+import kotlinx.android.synthetic.main.activity_add_new_job.*
 
 import kotlinx.android.synthetic.main.product_add_layout.*
 import kotlinx.android.synthetic.main.product_add_layout.baseContainer
+import kotlinx.android.synthetic.main.product_add_layout.businesses
 import kotlinx.android.synthetic.main.product_add_layout.categoryStateLayout
 import kotlinx.android.synthetic.main.product_add_layout.cityStateLayout
 import kotlinx.android.synthetic.main.product_add_layout.stateLayout
@@ -74,6 +76,7 @@ class ProductAddActivity : BaseActivity(), ProductContract.View, TagsCollectionC
 
     @Inject
     lateinit var productPresenter: ProductPresenter
+    var businessId: String? = null
     var product: Product? = null
 
     private fun initToolBar() {
@@ -133,6 +136,13 @@ class ProductAddActivity : BaseActivity(), ProductContract.View, TagsCollectionC
         initToolBar()
         initRecyclerViews()
         initDI()
+
+        businessId = intent.getStringExtra(AddNewJobActivity.businessId_key)
+        if (businessId != null) {
+            businesses.visibility = View.GONE
+        } else {
+            businesses.visibility = View.VISIBLE
+        }
 
         productAddViewHolder = ProductAddViewHolder(findViewById(android.R.id.content))
 

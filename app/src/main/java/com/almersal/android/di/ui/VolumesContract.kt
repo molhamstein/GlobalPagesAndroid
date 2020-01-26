@@ -14,7 +14,7 @@ class VolumesContract {
         fun loadNextVolume()
         fun loadPreviousVolume()
         fun loadVolumeById(id: String)
-        fun loadProducts(categoryId: String? = null, subCategoryId: String? = null, skip: Int, limit: Int)
+        fun loadProducts(keyword : String? = null,categoryId: String? = null, subCategoryId: String? = null, skip: Int, limit: Int)
     }
 
     interface View : BaseContract.View {
