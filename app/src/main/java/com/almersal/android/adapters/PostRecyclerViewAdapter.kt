@@ -32,7 +32,7 @@ class PostRecyclerViewAdapter @JvmOverloads constructor(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         var view = LayoutInflater.from(context).inflate(R.layout.post_item_layout, parent, false)
 
-        if(isFixed)
+        if (isFixed)
             view = LayoutInflater.from(context).inflate(R.layout.post_item_fixed_layout, parent, false)
         when (viewType) {
 
@@ -73,7 +73,6 @@ class PostRecyclerViewAdapter @JvmOverloads constructor(
     }
 
 
-
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
 
         if (products != null) {
@@ -95,31 +94,34 @@ class PostRecyclerViewAdapter @JvmOverloads constructor(
         }
     }
 
-    fun filterByCriteria(filterEntity: FilterEntity) {
+    fun filterByCriteria(filterEntity: FilterEntity, flagMarket: Boolean) {
         this.filterEntity = filterEntity
 
-        if (postFilterList == null)
-            postFilterList = postsList
+        if (!flagMarket) {
 
-        postsList = postFilterList!!.filter {
-            var result = true
-            if ((filterEntity.query != null) and (!filterEntity.query.isNullOrEmpty()))
-                result = result and it.title.contains(filterEntity.query!!, false)
-            if (filterEntity.category != null)
-                result = result and (it.category == filterEntity.category)
-            if (filterEntity.subCategory != null)
-                result = result and (it.subCategory == filterEntity.subCategory)
-            if (filterEntity.city != null)
-                result = result and (it.city == filterEntity.city)
-            if (filterEntity.area != null)
-                result = result and (it.location == filterEntity.area)
-            result
-        }.toMutableList()
+            if (postFilterList == null)
+                postFilterList = postsList
 
-        notifyDataSetChanged()
+            postsList = postFilterList!!.filter {
+                var result = true
+                if ((filterEntity.query != null) and (!filterEntity.query.isNullOrEmpty()))
+                    result = result and it.title.contains(filterEntity.query!!, false)
+                if (filterEntity.category != null)
+                    result = result and (it.category == filterEntity.category)
+                if (filterEntity.subCategory != null)
+                    result = result and (it.subCategory == filterEntity.subCategory)
+                if (filterEntity.city != null)
+                    result = result and (it.city == filterEntity.city)
+                if (filterEntity.area != null)
+                    result = result and (it.location == filterEntity.area)
+                result
+            }.toMutableList()
+
+            notifyDataSetChanged()
+        }
     }
 
-    fun excludeFilter(tagEntity: TagEntity) {
+    fun excludeFilter(tagEntity: TagEntity,flagMarket: Boolean) {
         if (filterEntity == null)
             return
 
@@ -140,7 +142,7 @@ class PostRecyclerViewAdapter @JvmOverloads constructor(
                 filterEntity!!.query = null
             }
         }
-        filterByCriteria(filterEntity!!)
+        filterByCriteria(filterEntity!!,flagMarket)
     }
 
 }

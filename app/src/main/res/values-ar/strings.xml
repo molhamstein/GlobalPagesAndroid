@@ -223,6 +223,7 @@
     <string name="newspaper">الجريدة</string>
     <string name="my_products">منتجاتي</string>
     <string name="add_new_product">إضافة منتج جديد </string>
+    <string name="price">السعر</string>
 
 
 </resources>

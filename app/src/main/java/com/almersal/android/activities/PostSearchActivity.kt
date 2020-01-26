@@ -96,9 +96,8 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
 
                 filterCities.visibility = View.GONE
                 cityHeader.visibility = View.GONE
+                cityLine.visibility = View.GONE
 
-                keywordHeader.visibility = View.GONE
-                filter_searchKeyword.visibility = View.GONE
 
 
             }

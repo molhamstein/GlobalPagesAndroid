@@ -225,5 +225,6 @@
     <string name="newspaper">Newspaper</string>
     <string name="my_products">My Products</string>
     <string name="add_new_product">Add New Product</string>
+    <string name="price">Price</string>
 
 </resources>

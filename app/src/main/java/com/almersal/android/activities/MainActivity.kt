@@ -309,12 +309,14 @@ class MainActivity : BaseActivity(), VolumesContract.View,
         if (marketSelected) {
             val categoryId = filterEntity.category?.id
             val subcategoryId = filterEntity.subCategory?.id
+            val keyword = filterEntity.query
             pageId = 0
-            presenter.loadProducts(categoryId, subcategoryId, limit * pageId, limit)
+            (volumesRecyclerView.adapter as PostRecyclerViewAdapter).filterByCriteria(filterEntity,true)
+            presenter.loadProducts(keyword,categoryId, subcategoryId, limit * pageId, limit)
         } else {
 
             if (volumesRecyclerView.adapter != null) {
-                (volumesRecyclerView.adapter as PostRecyclerViewAdapter).filterByCriteria(filterEntity)
+                (volumesRecyclerView.adapter as PostRecyclerViewAdapter).filterByCriteria(filterEntity,false)
             }
 
         }
@@ -526,7 +528,7 @@ class MainActivity : BaseActivity(), VolumesContract.View,
     override fun onSelectTag(tagEntity: TagEntity) {
         if (volumesRecyclerView.adapter != null) {
             val adapter = volumesRecyclerView.adapter as PostRecyclerViewAdapter
-            adapter.excludeFilter(tagEntity)
+            adapter.excludeFilter(tagEntity,marketSelected)
             selectedTagsView.setAdapter(
                 (TagsRecyclerViewAdapter(
                     baseContext, adapter.filterEntity!!.getTags(),
@@ -609,7 +611,7 @@ class MainActivity : BaseActivity(), VolumesContract.View,
         )
         volumesRecyclerView.adapter = adapter
         if (filter != null)
-            adapter.filterByCriteria(filter)
+            adapter.filterByCriteria(filter,false)
     }
 
     override fun noMoreData() {

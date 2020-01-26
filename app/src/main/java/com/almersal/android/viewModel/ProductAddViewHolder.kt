@@ -1,6 +1,7 @@
 package com.almersal.android.viewModel
 
 import android.content.Context
+import android.support.v7.widget.AppCompatEditText
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.EditText
@@ -45,6 +46,8 @@ class ProductAddViewHolder constructor(view: View) : RecyclerView.ViewHolder(vie
     @BindView(R.id.productLocations)
     lateinit var productLocations: RecyclerView
 
+    @BindView(R.id.price)
+    lateinit var price: AppCompatEditText
 
     init {
         ButterKnife.bind(this, view)
@@ -119,7 +122,7 @@ class ProductAddViewHolder constructor(view: View) : RecyclerView.ViewHolder(vie
     fun bindProduct(product: Product) {
         productId.text = product.id
 
-
+        price.setText((product.price?:null).toString())
         productTitle.setText(product.title)
         productDescription.setText(product.description)
 
