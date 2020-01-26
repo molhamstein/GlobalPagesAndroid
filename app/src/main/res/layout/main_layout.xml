@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     
@@ -26,7 +27,7 @@
             app:layout_constraintHeight_percent="0.75" />
     
     </android.support.constraint.ConstraintLayout>
-
+    
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar_main_layout"
@@ -48,7 +49,7 @@
         <android.support.design.widget.AppBarLayout
             android:id="@+id/main.appbar"
             android:layout_width="match_parent"
-            android:layout_height="230dp"
+            android:layout_height="275dp"
             android:layout_margin="0dp"
             android:background="@color/transparent"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -70,8 +71,7 @@
                     <com.brainsocket.mainlibrary.Views.Stateslayoutview
                         android:id="@+id/featuredPostStatesLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_above="@+id/SearchContainer"
+                        android:layout_height="130dp"
                         app:NoConnectionLayout="@layout/state_layout_no_connection"
                         app:NoDataLayout="@layout/state_layout_no_data_white"
                         app:RefreshbtnRes="@+id/retryBtn"
@@ -89,16 +89,16 @@
                     
                     <ScrollView
                         android:id="@+id/SearchContainer"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_above="@+id/previousBtn1"
+                        android:layout_below="@id/featuredPostStatesLayout"
+                        
                         app:layout_collapseMode="pin">
                         
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:weightSum="4">
+                            android:orientation="horizontal">
                             
                             <android.support.v7.widget.CardView
                                 android:layout_width="0dp"
@@ -116,15 +116,14 @@
                                     android:layout_weight="1"
                                     android:background="#00AFFF"
                                     android:backgroundTint="#00AFFF"
-                                    android:text="@string/BusinessGuide"
                                     android:gravity="center"
-                                    android:textAllCaps="false"
                                     android:lines="2"
-                                    android:textColor="@color/white"
-                                    android:textStyle="bold"
-                                    android:textSize="11sp"
                                     android:padding="@dimen/md_padding"
-                                    />
+                                    android:text="@string/BusinessGuide"
+                                    android:textAllCaps="false"
+                                    android:textColor="@color/white"
+                                    android:textSize="11sp"
+                                    android:textStyle="bold" />
                             </android.support.v7.widget.CardView>
                             
                             <android.support.v7.widget.CardView
@@ -142,44 +141,45 @@
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
                                     android:background="#88CE8F"
+                                    android:gravity="center"
+                                    android:lines="2"
+                                    android:padding="@dimen/md_padding"
                                     android:shadowColor="@color/grayDarkTextColor"
                                     android:text="@string/FindNearBy"
-                                    android:gravity="center"
                                     android:textAllCaps="false"
-                                    android:lines="2"
                                     android:textColor="@color/white"
-                                    android:textStyle="bold"
                                     android:textSize="11sp"
-                                    android:padding="@dimen/md_padding" />
+                                    android:textStyle="bold" />
                             </android.support.v7.widget.CardView>
-
+                            
                             <android.support.v7.widget.CardView
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:visibility="gone"
                                 app:cardBackgroundColor="@color/transparent"
                                 app:cardCornerRadius="@dimen/cardRadius"
                                 app:cardElevation="@dimen/elevation"
                                 app:cardUseCompatPadding="true">
-
+                                
                                 <android.support.v7.widget.AppCompatButton
                                     android:id="@+id/dutyPharmacyBtn"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:background="#FEACBA"
+                                    android:gravity="center"
+                                    android:lines="2"
+                                    android:padding="@dimen/md_padding"
                                     android:shadowColor="@color/grayDarkTextColor"
                                     android:text="@string/OnDutyPharmacies"
-                                    android:gravity="center"
                                     android:textAllCaps="false"
-                                    android:lines="2"
                                     android:textColor="@color/white"
-                                    android:textStyle="bold"
                                     android:textSize="11sp"
-                                    android:padding="@dimen/md_padding"/>
+                                    android:textStyle="bold" />
                             </android.support.v7.widget.CardView>
-    
-    
+                            
+                            
                             <android.support.v7.widget.CardView
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
@@ -188,40 +188,29 @@
                                 app:cardCornerRadius="@dimen/cardRadius"
                                 app:cardElevation="@dimen/elevation"
                                 app:cardUseCompatPadding="true">
-        
+                                
                                 <android.support.v7.widget.AppCompatButton
                                     android:id="@+id/jobsBtn"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
                                     android:background="@color/colorPrimary"
+                                    android:gravity="center"
+                                    android:lines="2"
+                                    android:padding="@dimen/md_padding"
                                     android:shadowColor="@color/grayDarkTextColor"
                                     android:text="@string/job_offers"
-                                    android:gravity="center"
                                     android:textAllCaps="false"
-                                    android:lines="2"
                                     android:textColor="@color/white"
-                                    android:textStyle="bold"
                                     android:textSize="11sp"
-                                    android:padding="@dimen/md_padding" />
+                                    android:textStyle="bold" />
                             </android.support.v7.widget.CardView>
-                            
-                      
+                        
+                        
                         </LinearLayout>
                     
                     </ScrollView>
-                    
-                    
-                    <ImageView
-                        android:id="@+id/previousBtn1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_gravity="bottom"
-                        android:layout_marginBottom="@dimen/sm_margin"
-                        android:contentDescription="@string/contentDescription"
-                        android:src="@drawable/ic_previous_volume_24dp"
-                        android:visibility="invisible" />
+                
                 
                 </RelativeLayout>
             
@@ -233,7 +222,7 @@
             android:id="@+id/nestedview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="105dp"
             android:background="@color/milkyColor"
             android:fillViewport="true"
             android:minHeight="25dp"
@@ -243,6 +232,7 @@
                 android:id="@+id/stateLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
                 android:minHeight="250dp"
                 app:NoConnectionLayout="@layout/state_layout_no_connection"
                 app:NoDataLayout="@layout/state_layout_no_data"
@@ -252,7 +242,11 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/volumesRecyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    app:layoutManager="android.support.v7.widget.StaggeredGridLayoutManager"
+                    app:spanCount="2"
+                    tools:itemCount="5"
+                    tools:listitem="@layout/product_main_item_layout" />
             
             </com.brainsocket.mainlibrary.Views.Stateslayoutview>
         
@@ -264,56 +258,8 @@
             android:background="@color/milkyColor"
             android:orientation="vertical"
             app:layout_anchor="@id/main.appbar"
-            app:layout_anchorGravity="bottom"
-            app:layout_collapseMode="pin">
+            app:layout_anchorGravity="bottom">
             
-            <RelativeLayout
-                android:id="@+id/browse_Container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/md_margin"
-                app:layout_collapseMode="pin">
-                
-                <ImageView
-                    android:id="@+id/previousBtn"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:contentDescription="@string/contentDescription"
-                    android:padding="@dimen/xsm_padding"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_previous_volume_24dp" />
-                
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/volumeTitle"
-                    style="@style/AppTheme.TextAppearanceCenter"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toStartOf="@+id/nextBtn"
-                    android:layout_toLeftOf="@+id/nextBtn"
-                    android:layout_toEndOf="@+id/previousBtn"
-                    android:layout_toRightOf="@+id/previousBtn"
-                    android:fontFamily="@font/cairo_regular"
-                    android:gravity="center"
-                    android:shadowColor="@color/grayDarkTextColor"
-                    android:shadowRadius="@integer/textShadow"
-                    android:text="03/08/2018"
-                    android:textColor="@color/grayDarkTextColor"
-                    android:textStyle="bold" />
-                
-                <ImageView
-                    android:id="@+id/nextBtn"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:clickable="false"
-                    android:contentDescription="@string/contentDescription"
-                    android:padding="@dimen/xsm_padding"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_next_volume_24dp" />
-            
-            </RelativeLayout>
             
             <android.support.v7.widget.CardView
                 android:id="@+id/filter_container"
@@ -322,7 +268,8 @@
                 app:cardBackgroundColor="@color/white"
                 app:cardElevation="@dimen/cardview_default_elevation"
                 app:cardPreventCornerOverlap="true"
-                app:cardUseCompatPadding="false">
+                app:cardUseCompatPadding="false"
+                app:layout_collapseMode="pin">
                 
                 <RelativeLayout
                     android:id="@+id/searchContainer"
@@ -337,6 +284,7 @@
                         android:layout_centerInParent="true"
                         android:layout_toStartOf="@id/searchFilterBtn"
                         android:layout_toLeftOf="@id/searchFilterBtn"
+                        android:animateLayoutChanges="true"
                         android:textAlignment="gravity" />
                     
                     <!--<com.almersal.android.views.SearchTagViewView&ndash;&gt;-->
@@ -398,7 +346,118 @@
                 </RelativeLayout>
             
             </android.support.v7.widget.CardView>
-        
+            
+            <android.support.v7.widget.CardView
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="@dimen/cardview_default_elevation"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="false"
+                app:layout_collapseMode="parallax">
+                
+                <LinearLayout
+                    android:id="@+id/tabContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:animateLayoutChanges="true"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/sm_padding">
+                    
+                    <android.support.v7.widget.AppCompatButton
+                        android:id="@+id/marketBtn"
+                        style="@style/AppTheme.RoundedCornerMaterialButton"
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/grayLightTextColor"
+                        
+                        android:drawableTop="@drawable/market_wrapper"
+                        android:gravity="center"
+                        android:lines="2"
+                        android:padding="10dp"
+                        
+                        android:text="@string/market"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                    
+                    <android.support.v7.widget.AppCompatButton
+                        android:id="@+id/newsPaperBtn"
+                        style="@style/AppTheme.RoundedCornerMaterialButton"
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="2"
+                        android:backgroundTint="@color/blue"
+                        android:drawableTop="@drawable/news_paper_wrapper"
+                        android:gravity="center"
+                        android:lines="2"
+                        android:padding="10dp"
+                        android:text="@string/newspaper"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+                
+                </LinearLayout>
+            
+            </android.support.v7.widget.CardView>
+            
+            
+            <RelativeLayout
+                android:id="@+id/browse_Container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/md_margin"
+                app:layout_collapseMode="pin">
+                
+                <ImageView
+                    android:id="@+id/previousBtn"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="@string/contentDescription"
+                    android:padding="@dimen/xsm_padding"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_previous_volume_24dp" />
+                
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/volumeTitle"
+                    style="@style/AppTheme.TextAppearanceCenter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/nextBtn"
+                    android:layout_toLeftOf="@+id/nextBtn"
+                    android:layout_toEndOf="@+id/previousBtn"
+                    android:layout_toRightOf="@+id/previousBtn"
+                    android:fontFamily="@font/cairo_regular"
+                    android:gravity="center"
+                    android:shadowColor="@color/grayDarkTextColor"
+                    android:shadowRadius="@integer/textShadow"
+                    android:text="03/08/2018"
+                    android:textColor="@color/grayDarkTextColor"
+                    android:textStyle="bold" />
+                
+                <ImageView
+                    android:id="@+id/nextBtn"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginRight="0dp"
+                    android:clickable="false"
+                    android:contentDescription="@string/contentDescription"
+                    android:padding="@dimen/xsm_padding"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_next_volume_24dp" />
+            
+            </RelativeLayout>
         </LinearLayout>
     
     </android.support.design.widget.CoordinatorLayout>

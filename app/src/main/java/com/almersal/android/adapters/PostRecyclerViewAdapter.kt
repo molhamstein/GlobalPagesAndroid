@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.almersal.android.R
 import com.almersal.android.data.entities.Post
+import com.almersal.android.data.entities.Product
 import com.almersal.android.data.entities.TagEntity
 import com.almersal.android.data.filtration.FilterEntity
 import com.almersal.android.enums.PostType
@@ -14,10 +15,13 @@ import com.almersal.android.utilities.IntentHelper
 import com.almersal.android.viewHolders.PostViewHolder
 
 
-class PostRecyclerViewAdapter constructor(var context: Context, private var postsList: MutableList<Post>,
-                                          private var isFixed: Boolean = false,
-                                          private var postFilterList: MutableList<Post>? = null) :
-        RecyclerView.Adapter<PostViewHolder>() {
+class PostRecyclerViewAdapter @JvmOverloads constructor(
+    var context: Context, private var postsList: MutableList<Post> = mutableListOf(),
+    private var isFixed: Boolean = false,
+    private var postFilterList: MutableList<Post>? = null,
+    private var products: MutableList<Product>? = null
+) :
+    RecyclerView.Adapter<PostViewHolder>() {
 
     var filterEntity: FilterEntity? = null
 
@@ -28,7 +32,10 @@ class PostRecyclerViewAdapter constructor(var context: Context, private var post
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         var view = LayoutInflater.from(context).inflate(R.layout.post_item_layout, parent, false)
 
+        if(isFixed)
+            view = LayoutInflater.from(context).inflate(R.layout.post_item_fixed_layout, parent, false)
         when (viewType) {
+
             PostType.WITH_TEXT.type -> {
                 view = LayoutInflater.from(context).inflate(R.layout.post_item_text_layout, parent, false)
             }
@@ -38,23 +45,53 @@ class PostRecyclerViewAdapter constructor(var context: Context, private var post
             PostType.WITH_TEXT_VERTICAL.type -> {
                 view = LayoutInflater.from(context).inflate(R.layout.post_item_text_fixed_layout, parent, false)
             }
+            PostType.ONLY_IMAGE.type -> {
+                if (!isFixed)
+                    view = LayoutInflater.from(context).inflate(R.layout.product_main_item_layout, parent, false)
+                else
+                    view = LayoutInflater.from(context).inflate(R.layout.product_main_fixed_layout, parent, false)
+            }
         }
 
         return PostViewHolder(view)
     }
 
-    override fun getItemCount(): Int = postsList.size
+    fun addProducts(data: List<Product>) {
+        if (products == null)
+            products = mutableListOf()
+        products!!.addAll(data)
+        notifyDataSetChanged()
+    }
 
-    override fun getItemViewType(position: Int): Int =
-            postsList[position].getPostType() + (if (isFixed) 2 else 0)
+    override fun getItemCount(): Int = if (products != null) products!!.size else postsList.size
+
+    override fun getItemViewType(position: Int): Int {
+        return if (products != null)
+            products!![position].getPostType()
+        else
+            postsList[position].getPostType()
+    }
+
+
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        val poJo = postsList[position]
-        holder.bind(poJo)
 
-        holder.itemView.setOnClickListener {
-            //            IntentHelper.startPostDetailsActivity(context, poJo)
-            IntentHelper.startPostDetailsActivity(context, poJo.id)
+        if (products != null) {
+            val poJo = products!![position]
+            holder.bind(poJo)
+
+            holder.itemView.setOnClickListener {
+                //            IntentHelper.startPostDetailsActivity(context, poJo)
+                IntentHelper.startProductDetailsActivity(context, poJo.id)
+            }
+        } else {
+            val poJo = postsList[position]
+            holder.bind(poJo)
+
+            holder.itemView.setOnClickListener {
+                //            IntentHelper.startPostDetailsActivity(context, poJo)
+                IntentHelper.startPostDetailsActivity(context, poJo.id)
+            }
         }
     }
 

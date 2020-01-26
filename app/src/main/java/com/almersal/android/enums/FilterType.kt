@@ -2,5 +2,5 @@ package com.almersal.android.enums
 
 
 enum class FilterType(val type: Int) {
-    PostFilter(1), BusinessFilter(2),JobsFilter(3)
+    PostFilter(1), BusinessFilter(2),JobsFilter(3),ProductFilter(4)
 }

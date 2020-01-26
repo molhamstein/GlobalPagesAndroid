@@ -27,6 +27,7 @@ public class Stateslayoutview extends RelativeLayout implements View.OnClickList
 
     int RefreshbtnRes = -1;
     int PermissionbtnRes = -1;
+    public LayoutStatesEnum currentState = null;
 
     public Stateslayoutview(Context context) {
         super(context);
@@ -69,7 +70,7 @@ public class Stateslayoutview extends RelativeLayout implements View.OnClickList
     }
 
     public void FlipLayout(LayoutStatesEnum statesEnum) {
-
+        currentState = statesEnum;
         switch (statesEnum) {
             case Noconnectionlayout:
                 if (NoConnectionResId != -1) {

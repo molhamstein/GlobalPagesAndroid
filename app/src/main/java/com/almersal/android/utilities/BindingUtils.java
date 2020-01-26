@@ -10,11 +10,7 @@ import android.widget.ImageView;
 
 import com.almersal.android.R;
 import com.almersal.android.configrations.GlideApp;
-import com.almersal.android.data.entities.Attachment;
-import com.almersal.android.data.entities.BusinessGuide;
-import com.almersal.android.data.entities.MediaEntity;
-import com.almersal.android.data.entities.Post;
-import com.almersal.android.data.entities.ProductThumb;
+import com.almersal.android.data.entities.*;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
@@ -87,6 +83,26 @@ public class BindingUtils {
 
             Context context = view.getContext();
             String url = /*ServerInfo.Companion.getImagesBaseUrl() +*/ post.getMedia().get(0).getUrl();
+            if (!url.startsWith("http"))
+                url = "http://" + url;
+            GlideApp.with(context).load(url).error(R.drawable.ic_launcher_web)
+                    .placeholder(R.drawable.ic_launcher_web).into(view);
+        } catch (Exception ex) {
+            Log.v("image load", ex.getMessage());
+        }
+    }
+
+    public static void loadProductImage(ImageView view,/* View container,*/ Product product) {
+        try {
+            /*if (post.getImage().isEmpty()) {
+                view.setVisibility(View.GONE);
+                return;
+            } else {
+                container.setVisibility(View.GONE);
+            }*/
+
+            Context context = view.getContext();
+            String url = /*ServerInfo.Companion.getImagesBaseUrl() +*/ product.getMedia().get(0);
             if (!url.startsWith("http"))
                 url = "http://" + url;
             GlideApp.with(context).load(url).error(R.drawable.ic_launcher_web)

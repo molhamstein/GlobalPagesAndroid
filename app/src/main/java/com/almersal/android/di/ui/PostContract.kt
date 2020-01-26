@@ -1,6 +1,7 @@
 package com.almersal.android.di.ui
 
 import com.almersal.android.data.entities.Post
+import com.almersal.android.data.entities.Product
 import com.almersal.android.data.entitiesModel.PostEditModel
 import com.almersal.android.data.entitiesModel.PostModel
 
@@ -13,6 +14,9 @@ class PostContract {
 
         fun loadFeaturedPost()
         fun loadPost(id: String)
+
+
+
     }
 
     interface View : BaseContract.View {
@@ -26,7 +30,7 @@ class PostContract {
         fun showFeaturedPostLoadErrorMessage(visible: Boolean) {}
         fun showFeaturedPostEmptyView(visible: Boolean) {}
         fun onFeaturedPostLoadedSuccessfully(postList: MutableList<Post>) {}
-        fun onPostLoadedSuccessfully(post: Post){}
+        fun onPostLoadedSuccessfully(post: Post) {}
     }
 
 }

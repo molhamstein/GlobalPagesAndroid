@@ -7,9 +7,10 @@ class DummyDataRepositories {
 
     companion object {
 
-        fun getTagsDefaultRepositories() = mutableListOf<TagEntity>().apply {
+        fun getTagsDefaultRepositories(flagWithCities: Boolean = true) = mutableListOf<TagEntity>().apply {
             add(TagEntity("كل الأصناف", "All categories"))
-            add(TagEntity("كل المدن", "All cities"))
+            if (flagWithCities)
+                add(TagEntity("كل المدن", "All cities"))
         }
 
         fun getCategoriesList() = mutableListOf<Category>().apply {
@@ -88,75 +89,177 @@ class DummyDataRepositories {
 //        }
 
         fun getPostList() = mutableListOf<Post>().apply {
-            add(Post("mercedes E350", "نضيفة خالية برا جوا زنار نضافة", "activated",
+            add(
+                Post(
+                    "mercedes E350", "نضيفة خالية برا جوا زنار نضافة", "activated",
                     "https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg"
                     , PostCategory("سيارات للبيع", "cars for sale", "1"),
                     SubCategory("مرسيدس", "mercedes", "1"),
                     City("دمشق", "Damascus", "1"),
                     LocationEntity("البرامكة", "Baramka", "1")
-            ))
-            add(Post("iphone X", "bla bla bla bla", "activated",
+                )
+            )
+            add(
+                Post(
+                    "iphone X", "bla bla bla bla", "activated",
                     ""
                     , PostCategory("هواتف للبيع", "phones for sale", "1"),
                     SubCategory("iphone", "iphone", "1"),
                     City("حلب", "Aleppo", "2"),
                     LocationEntity("الشاغور", "Al Shaggor", "2")
-            ))
-            add(Post("BMW x5", "bla bla bla bla", "activated",
+                )
+            )
+            add(
+                Post(
+                    "BMW x5", "bla bla bla bla", "activated",
                     "https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg"
                     , PostCategory("سيارات للبيع", "cars for sale", "1"),
                     SubCategory("BMW", "BMW", "1"),
                     City("حمص", "Homs", "3"),
                     LocationEntity("الصالحية", "Al Salheh", "3")
-            ))
-            add(Post("iphone X", "bla bla bla bla", "activated",
+                )
+            )
+            add(
+                Post(
+                    "iphone X", "bla bla bla bla", "activated",
                     "https://images.pexels.com/photos/3510/hand-apple-iphone-smartphone.jpg?cs=srgb&dl=apple-apps-hand-3510.jpg&fm=jpg"
                     , PostCategory("هواتف للبيع", "phones for sale", "1"),
                     SubCategory("iphone", "iphone", "1"),
                     City("حماة", "Hama", "4"),
                     LocationEntity("باب سريجة", "Bab Sreja", "4")
-            ))
-            add(Post("BMW x5", "bla bla bla bla", "activated",
+                )
+            )
+            add(
+                Post(
+                    "BMW x5", "bla bla bla bla", "activated",
                     ""
                     , PostCategory("سيارات للبيع", "cars for sale", "1"),
                     SubCategory("BMW", "BMW", "1"),
                     City("السويداء", "Sywida", "5"),
                     LocationEntity("المهجرين", "Al mohajreen", "5")
-            ))
-            add(Post("mercedes E350", "نضيفة خالية برا جوا زنار نضافة", "activated",
+                )
+            )
+            add(
+                Post(
+                    "mercedes E350", "نضيفة خالية برا جوا زنار نضافة", "activated",
                     "https://images.pexels.com/photos/3510/hand-apple-iphone-smartphone.jpg?cs=srgb&dl=apple-apps-hand-3510.jpg&fm=jpg"
                     , PostCategory("سيارات للبيع", "cars for sale", "1"),
                     SubCategory("مرسيدس", "mercedes", "1"),
                     City("السويداء", "Sywida", "5"),
                     LocationEntity("المهجرين", "Al mohajreen", "5")
-            ))
+                )
+            )
         }
 
         fun getBusinessGuideList() = mutableListOf<BusinessGuide>().apply {
-            add(BusinessGuide("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
-                    "Honda Car", "Honda Car", BusinessGuideCategory("سيارات", "Cars", "1"), SubCategory("مارسيديس", "Marcedes", "1")))
-            add(BusinessGuide("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
-                    "Honda Car", "Honda Car", BusinessGuideCategory("سيارات", "Cars", "1"), SubCategory("مارسيديس", "Marcedes", "1")))
-            add(BusinessGuide("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
-                    "Honda Car", "Honda Car", BusinessGuideCategory("سيارات", "Cars", "1"), SubCategory("مارسيديس", "Marcedes", "1")))
-            add(BusinessGuide("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
-                    "Honda Car", "Honda Car", BusinessGuideCategory("سيارات", "Cars", "1"), SubCategory("مارسيديس", "Marcedes", "1")))
-            add(BusinessGuide("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
-                    "Honda Car", "Honda Car", BusinessGuideCategory("سيارات", "Cars", "1"), SubCategory("مارسيديس", "Marcedes", "1")))
-            add(BusinessGuide("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
-                    "Honda Car", "Honda Car", BusinessGuideCategory("سيارات", "Cars", "1"), SubCategory("مارسيديس", "Marcedes", "1")))
-            add(BusinessGuide("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
-                    "Honda Car", "Honda Car", BusinessGuideCategory("سيارات", "Cars", "1"), SubCategory("مارسيديس", "Marcedes", "1")))
-            add(BusinessGuide("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
-                    "Honda Car", "Honda Car", BusinessGuideCategory("سيارات", "Cars", "1"), SubCategory("مارسيديس", "Marcedes", "1")))
-            add(BusinessGuide("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
-                    "Honda Car", "Honda Car", BusinessGuideCategory("سيارات", "Cars", "1"), SubCategory("مارسيديس", "Marcedes", "1")))
-            add(BusinessGuide("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
-                    "Honda Car", "Honda Car", BusinessGuideCategory("سيارات", "Cars", "1"), SubCategory("مارسيديس", "Marcedes", "1")))
-            add(BusinessGuide("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
-                    "Honda Car", "Honda Car", BusinessGuideCategory("سيارات", "Cars", "1"), SubCategory("مارسيديس", "Marcedes", "1")))
-            add(BusinessGuide("https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
-                    "Honda Car", "Honda Car", BusinessGuideCategory("سيارات", "Cars", "1"), SubCategory("مارسيديس", "Marcedes", "1")))
+            add(
+                BusinessGuide(
+                    "https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
+                    "Honda Car",
+                    "Honda Car",
+                    BusinessGuideCategory("سيارات", "Cars", "1"),
+                    SubCategory("مارسيديس", "Marcedes", "1")
+                )
+            )
+            add(
+                BusinessGuide(
+                    "https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
+                    "Honda Car",
+                    "Honda Car",
+                    BusinessGuideCategory("سيارات", "Cars", "1"),
+                    SubCategory("مارسيديس", "Marcedes", "1")
+                )
+            )
+            add(
+                BusinessGuide(
+                    "https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
+                    "Honda Car",
+                    "Honda Car",
+                    BusinessGuideCategory("سيارات", "Cars", "1"),
+                    SubCategory("مارسيديس", "Marcedes", "1")
+                )
+            )
+            add(
+                BusinessGuide(
+                    "https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
+                    "Honda Car",
+                    "Honda Car",
+                    BusinessGuideCategory("سيارات", "Cars", "1"),
+                    SubCategory("مارسيديس", "Marcedes", "1")
+                )
+            )
+            add(
+                BusinessGuide(
+                    "https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
+                    "Honda Car",
+                    "Honda Car",
+                    BusinessGuideCategory("سيارات", "Cars", "1"),
+                    SubCategory("مارسيديس", "Marcedes", "1")
+                )
+            )
+            add(
+                BusinessGuide(
+                    "https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
+                    "Honda Car",
+                    "Honda Car",
+                    BusinessGuideCategory("سيارات", "Cars", "1"),
+                    SubCategory("مارسيديس", "Marcedes", "1")
+                )
+            )
+            add(
+                BusinessGuide(
+                    "https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
+                    "Honda Car",
+                    "Honda Car",
+                    BusinessGuideCategory("سيارات", "Cars", "1"),
+                    SubCategory("مارسيديس", "Marcedes", "1")
+                )
+            )
+            add(
+                BusinessGuide(
+                    "https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
+                    "Honda Car",
+                    "Honda Car",
+                    BusinessGuideCategory("سيارات", "Cars", "1"),
+                    SubCategory("مارسيديس", "Marcedes", "1")
+                )
+            )
+            add(
+                BusinessGuide(
+                    "https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
+                    "Honda Car",
+                    "Honda Car",
+                    BusinessGuideCategory("سيارات", "Cars", "1"),
+                    SubCategory("مارسيديس", "Marcedes", "1")
+                )
+            )
+            add(
+                BusinessGuide(
+                    "https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
+                    "Honda Car",
+                    "Honda Car",
+                    BusinessGuideCategory("سيارات", "Cars", "1"),
+                    SubCategory("مارسيديس", "Marcedes", "1")
+                )
+            )
+            add(
+                BusinessGuide(
+                    "https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
+                    "Honda Car",
+                    "Honda Car",
+                    BusinessGuideCategory("سيارات", "Cars", "1"),
+                    SubCategory("مارسيديس", "Marcedes", "1")
+                )
+            )
+            add(
+                BusinessGuide(
+                    "https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?cs=srgb&dl=automobile-cars-headlights-120049.jpg&fm=jpg",
+                    "Honda Car",
+                    "Honda Car",
+                    BusinessGuideCategory("سيارات", "Cars", "1"),
+                    SubCategory("مارسيديس", "Marcedes", "1")
+                )
+            )
         }
 
         fun getAttachmentList() = mutableListOf<Attachment>().apply {

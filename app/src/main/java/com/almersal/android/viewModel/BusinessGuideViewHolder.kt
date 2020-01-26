@@ -10,7 +10,7 @@ import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.almersal.android.R
-import com.almersal.android.adapters.BusinessGuideProductRecyclerViewAdapter
+import com.almersal.android.adapters.ProductsRecyclerViewAdapter
 import com.almersal.android.adapters.MediaViewPagerAdapter
 import com.almersal.android.data.entities.BusinessGuide
 import com.almersal.android.repositories.DataStoreRepositories
@@ -89,8 +89,8 @@ class BusinessGuideViewHolder constructor(view: View) : RecyclerView.ViewHolder(
             isOwner = user.id == businessGuide.ownerId
         if (!isOwner)
             ProductAddLink.visibility = View.INVISIBLE
-        businessGuideProductRecyclerView.adapter = BusinessGuideProductRecyclerViewAdapter(context,
-                businessGuide.products, isOwner, businessGuide, true)
+        businessGuideProductRecyclerView.adapter = ProductsRecyclerViewAdapter(context,
+                businessGuide.myMarketProducts, isOwner, businessGuide, true)
 
     }
 

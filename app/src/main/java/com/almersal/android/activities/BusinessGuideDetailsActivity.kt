@@ -1,7 +1,6 @@
 package com.almersal.android.activities
 
 import android.os.Bundle
-import android.os.Handler
 import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -15,10 +14,11 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import butterknife.Optional
 import com.almersal.android.R
-import com.almersal.android.adapters.BusinessGuideProductRecyclerViewAdapter
+import com.almersal.android.adapters.ProductsRecyclerViewAdapter
 import com.almersal.android.adapters.JobsSearchAdapter
 import com.almersal.android.data.entities.BusinessGuide
 import com.almersal.android.data.entities.Job
+import com.almersal.android.data.entities.Product
 import com.almersal.android.data.entitiesModel.ProductThumbEditModel
 import com.almersal.android.data.mapping.ProductProductModelTransformation
 import com.almersal.android.di.component.DaggerBusinessGuideDetailsComponent
@@ -26,7 +26,6 @@ import com.almersal.android.di.module.BusinessGuidesModule
 import com.almersal.android.di.ui.BusinessGuidesContract
 import com.almersal.android.di.ui.BusinessGuidesPresenter
 import com.almersal.android.dialogs.ContactDialog
-import com.almersal.android.dialogs.bottomSheetFragments.BusinessGuideSnippetBottomFragment
 import com.almersal.android.eventsBus.EventActions
 import com.almersal.android.eventsBus.MessageEvent
 import com.almersal.android.eventsBus.RxBus
@@ -37,7 +36,6 @@ import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
 import com.brainsocket.mainlibrary.Listeners.OnRefreshLayoutListener
 import com.brainsocket.mainlibrary.Views.Stateslayoutview
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.business_guide_add_layout.*
 import kotlinx.android.synthetic.main.business_guide_details_layout.*
 import javax.inject.Inject
 
@@ -98,6 +96,7 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
         setContentView(R.layout.business_guide_details_layout)
         ButterKnife.bind(this)
         initToolBar()
+        initDI()
         appbar.addOnOffsetChangedListener(this)
 
         businessGuideViewHolder = BusinessGuideViewHolder(findViewById(android.R.id.content))
@@ -110,16 +109,16 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
             presenter.loadBusinessGuideById(id)
         }
 
-        initDI()
+
 
         RxBus.listen(MessageEvent::class.java).subscribe {
             when (it.action) {
                 EventActions.ProductAddActivity_Tag -> {
                     try {
-                        val productThumbModel: ProductThumbEditModel = it.message as ProductThumbEditModel
+                        val product: Product = it.message as Product
                         (businessGuideViewHolder.businessGuideProductRecyclerView.adapter
-                                as BusinessGuideProductRecyclerViewAdapter)
-                            .addOrUpdateItem(ProductProductModelTransformation.productTransform(productThumbModel))
+                                as ProductsRecyclerViewAdapter)
+                            .addOrUpdateItem(product)
                     } catch (ex: Exception) {
                         Log.v("", "")
                     }
@@ -159,7 +158,7 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
 
     @OnClick(R.id.ProductAddLink)
     fun onProductAddLinkClick(view: View) {
-        IntentHelper.startProductAddActivity(baseContext, businessGuide!!)
+        IntentHelper.startProductAddActivity(baseContext, businessGuide?.id!!)
     }
 
     @OnClick(R.id.jobAddLink)

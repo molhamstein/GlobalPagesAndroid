@@ -3,6 +3,7 @@ package com.almersal.android.utilities
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
@@ -16,9 +17,10 @@ import com.google.gson.Gson
 class IntentHelper {
 
     companion object {
-        fun startMainActivity(context: Context) {
+        fun startMainActivity(context: Context, extras: Bundle = Bundle()) {
             val intent = Intent(context, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or  Intent.FLAG_ACTIVITY_CLEAR_TOP
+            intent.putExtras(extras)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             context.startActivity(intent)
         }
 
@@ -88,6 +90,13 @@ class IntentHelper {
         fun startPostDetailsActivity(context: Context, id: String) {
             val intent = Intent(context, PostDetailsActivity::class.java)
             intent.putExtra(PostDetailsActivity.PostDetailsActivity_Id_Tag, id)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
+
+        fun startProductDetailsActivity(context: Context, id: String) {
+            val intent = Intent(context, ProductDetailsActivity::class.java)
+            intent.putExtra(ProductDetailsActivity.PostDetailsActivity_Id_Tag, id)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
@@ -175,6 +184,19 @@ class IntentHelper {
             }
         }
 
+        fun startJobDetailsActivity(context: Context, jobId: String) {
+            try {
+                val intent = Intent()
+                intent.setClassName(context, JobDetailsActivity::class.java.canonicalName)
+                intent.putExtra(JobDetailsActivity.job_intent_key, jobId)
+                intent.putExtra(JobDetailsActivity.edit_flag_key, false)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                context.startActivity(intent)
+            } catch (ex: Exception) {
+                Log.v("", "")
+                Log.v("", "")
+            }
+        }
 
         fun startApplicantsActivity(context: Context, jobId: String) {
             try {
@@ -230,21 +252,18 @@ class IntentHelper {
             context.startActivity(intent)
         }
 
-        fun startProductAddActivity(context: Context, businessGuide: BusinessGuide) {
+        fun startProductAddActivity(context: Context, businessId: String? = null) {
             val intent = Intent(context, ProductAddActivity::class.java)
-            val jSon = Gson().toJson(businessGuide)
-            intent.putExtra(ProductAddActivity.ProductAddActivity_Tag, jSon)
+            intent.putExtra(ProductAddActivity.businessId_key, businessId)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
 
-        fun startProductAddActivity(context: Context, businessGuide: BusinessGuide, productThumb: ProductThumb) {
+        fun startProductAddActivity(context: Context, businessId: String?, product: Product) {
             val intent = Intent(context, ProductAddActivity::class.java)
-            val jSon = Gson().toJson(businessGuide)
-            intent.putExtra(ProductAddActivity.ProductAddActivity_Tag, jSon)
-
-            val jSonProduct = Gson().toJson(productThumb)
-            intent.putExtra(ProductAddActivity.ProductAddActivity_Product_Tag, jSonProduct)
+            intent.putExtra(ProductAddActivity.businessId_key, businessId)
+            val jSonProduct = Gson().toJson(product)
+            intent.putExtra(ProductAddActivity.ProductAddActivity_Tag, jSonProduct)
 
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)

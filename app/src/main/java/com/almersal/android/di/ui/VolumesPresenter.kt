@@ -3,6 +3,8 @@ package com.almersal.android.di.ui
 import android.content.Context
 import com.almersal.android.api.ApiService
 import com.almersal.android.api.ServerInfo
+import com.almersal.android.data.entities.Post
+import com.almersal.android.data.entities.Product
 import com.almersal.android.data.entities.Volume
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.ParsedRequestListener
@@ -28,30 +30,32 @@ class VolumesPresenter constructor(val context: Context) : VolumesContract.Prese
         subscriptions.clear()
     }
 
+
     private fun loadData(/*criteria: MutableMap<String, String>*/) {
         ApiService().getVolumes(ServerInfo.volumeUrl + "?filter[where][status]=activated&filter[skip]=" +
-                index.toString() + "&filter[limit]=1&filter[order]=creationDate DESC"/*, criteria*/, object : ParsedRequestListener<MutableList<Volume>> {
-            override fun onResponse(response: MutableList<Volume>?) {
-                if ((response != null)) {
-                    val poJo = response.firstOrNull()
-                    if (poJo != null) {
-                        view.showProgress(false)
-                        view.loadedData(poJo)
-                        view.enablePrev()
-                        return
-                    } else {
-                        view.disablePrev()
-                        view.showProgress(false)
+                index.toString() + "&filter[limit]=1&filter[order]=creationDate DESC"/*, criteria*/,
+            object : ParsedRequestListener<MutableList<Volume>> {
+                override fun onResponse(response: MutableList<Volume>?) {
+                    if ((response != null)) {
+                        val poJo = response.firstOrNull()
+                        if (poJo != null) {
+                            view.showProgress(false)
+                            view.loadedData(poJo)
+                            view.enablePrev()
+                            return
+                        } else {
+                            view.disablePrev()
+                            view.showProgress(false)
+                        }
                     }
+                    view.disablePrev()
+                    view.showProgress(false)
                 }
-                view.disablePrev()
-                view.showProgress(false)
-            }
 
-            override fun onError(anError: ANError?) {
-                view.showLoadErrorMessage(true)
-            }
-        })
+                override fun onError(anError: ANError?) {
+                    view.showLoadErrorMessage(true)
+                }
+            })
 
     }
 
@@ -102,31 +106,56 @@ class VolumesPresenter constructor(val context: Context) : VolumesContract.Prese
         loadData(/*criteria*/)
     }
 
-    override fun loadVolumeById(id: String) {
-        ApiService().getVolumes(ServerInfo.volumeUrl +
-                "?filter[where][status]=activated&filter[where][id]=" + id
-                , object : ParsedRequestListener<MutableList<Volume>> {
-            override fun onResponse(response: MutableList<Volume>?) {
-                if ((response != null)) {
-                    val poJo = response.firstOrNull()
-                    if (poJo != null) {
+    override fun loadProducts(categoryId: String?, subCategoryId: String?, skip: Int, limit: Int) {
+        view.showProgress(true)
+        val filterCategory = if (categoryId == null) "" else "filter[where][categoryId]=$categoryId"
+        val filterSubCategory = if (categoryId == null) "" else "filter[where][subCategoryId]=$subCategoryId"
+        ApiService().getProducts(ServerInfo.productsUrl + "?$filterCategory&$filterSubCategory" +
+                "filter[limit]=$limit&filter[skip]=$skip&filter[order]=creationDate DESC",
+            object : ParsedRequestListener<MutableList<Product>> {
+                override fun onResponse(response: MutableList<Product>?) {
+                    if ((response != null)) {
                         view.showProgress(false)
-                        view.loadedData(poJo)
-                        view.enablePrev()
+                        view.bindProducts(response)
                         return
                     } else {
-                        view.disablePrev()
+                        view.showEmptyView(true)
                         view.showProgress(false)
                     }
                 }
-                view.disablePrev()
-                view.showProgress(false)
-            }
 
-            override fun onError(anError: ANError?) {
-                view.showLoadErrorMessage(true)
-            }
-        })
+
+                override fun onError(anError: ANError?) {
+                    view.showLoadErrorMessage(true)
+                }
+            })
+    }
+
+    override fun loadVolumeById(id: String) {
+        ApiService().getVolumes(ServerInfo.volumeUrl +
+                "?filter[where][status]=activated&filter[where][id]=" + id
+            , object : ParsedRequestListener<MutableList<Volume>> {
+                override fun onResponse(response: MutableList<Volume>?) {
+                    if ((response != null)) {
+                        val poJo = response.firstOrNull()
+                        if (poJo != null) {
+                            view.showProgress(false)
+                            view.loadedData(poJo)
+                            view.enablePrev()
+                            return
+                        } else {
+                            view.disablePrev()
+                            view.showProgress(false)
+                        }
+                    }
+                    view.disablePrev()
+                    view.showProgress(false)
+                }
+
+                override fun onError(anError: ANError?) {
+                    view.showLoadErrorMessage(true)
+                }
+            })
 
     }
 

@@ -12,6 +12,14 @@ class NotificationEntity {
 
     class DataClass {
         var volumeId: String = ""
+        var marketProductId: String = ""
+        var businessId: String = ""
+        var jobId: String = ""
+        var adId: String = ""
     }
+
+
+
+
 
 }

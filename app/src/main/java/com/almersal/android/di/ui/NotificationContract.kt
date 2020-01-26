@@ -35,7 +35,9 @@ class NotificationContract {
 
         fun onNotificationSetClickedSuccessfully() {}
 
-        fun onRegisterFireBaseTokenSuccessfully() {}
+        fun onRegisterFireBaseTokenSuccessfully() {
+
+        }
         fun onRegisterFireBaseTokenFailed() {}
 
         fun onNotificationsDeleteProgress(show: Boolean) {}

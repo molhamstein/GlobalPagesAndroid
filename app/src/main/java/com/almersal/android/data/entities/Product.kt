@@ -7,7 +7,7 @@ import com.almersal.android.enums.PostType
 //import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.google.gson.annotations.SerializedName
 
-open class Post {
+open class Product {
 
     constructor()
 
@@ -26,13 +26,13 @@ open class Post {
     }
 
     var businessId = ""
-    var title: String = ""
+    var title: String? = null
         get() {
-            if (field.isNotEmpty()) return field
+            if (!field.isNullOrEmpty()) return field
             return if (App.app.isArabic()) titleAr else titleEn
         }
-    var titleAr: String = ""
-    var titleEn: String = ""
+    var titleAr: String? = null
+    var titleEn: String? = null
     var description: String = ""
         get() {
             if (field.isNotEmpty()) return field
@@ -49,19 +49,28 @@ open class Post {
     var id: String = ""
     var ownerId: String = ""
     var categoryId: String = ""
+
     var subCategoryId: String = ""
 
     var cityId: String = ""
     var locationId: String = ""
 
     var userId: String = ""
+    var price:Int? = null
 
 
     //    @JsonProperty("isFeatured")
     @SerializedName("isFeatured")
     var featured: String = ""
 
-    val media: MutableList<MediaEntity> = mutableListOf()
+    val media: MutableList<String> = mutableListOf()
+    fun getMedias(): MutableList<MediaEntity> {
+        val result = mutableListOf<MediaEntity>()
+        media.forEach {
+            result.add(MediaEntity(it, "image", it))
+        }
+        return result
+    }
 
 
     var owner: Owner = Owner()
@@ -73,12 +82,9 @@ open class Post {
     var city: City = City()
     var location: LocationEntity = LocationEntity()
 
+    val business: BusinessGuide? = null
     fun getPostType(): Int {
-        if (!businessId.isEmpty()) return PostType.ONLY_IMAGE.type
-        if (media.size > 0) {
-            return PostType.WITH_IMAGE.type
-        }
-        return PostType.WITH_TEXT.type
+        return PostType.ONLY_IMAGE.type
     }
 
     fun getRealCreationDate() {

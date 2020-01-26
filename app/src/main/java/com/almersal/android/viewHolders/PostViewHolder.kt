@@ -8,6 +8,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.almersal.android.R
 import com.almersal.android.data.entities.Post
+import com.almersal.android.data.entities.Product
 import com.almersal.android.utilities.BindingUtils
 
 
@@ -17,22 +18,22 @@ class PostViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         ButterKnife.bind(this, view)
     }
 
-    @BindView(R.id.post_Title)
+    @BindView(R.id.product_Title)
     lateinit var postTitle: TextView
 
-    @BindView(R.id.post_Image)
+    @BindView(R.id.product_Image)
     lateinit var postImage: ImageView
 
-    @BindView(R.id.post_city)
+    @BindView(R.id.product_city)
     lateinit var postCity: TextView
 
-    @BindView(R.id.post_area)
+    @BindView(R.id.product_area)
     lateinit var postArea: TextView
 
-    @BindView(R.id.post_details)
+    @BindView(R.id.product_details)
     lateinit var postDetails: TextView
 
-    @BindView(R.id.post_Tag)
+    @BindView(R.id.product_Tag)
     lateinit var postTag: TextView
 
 
@@ -44,6 +45,16 @@ class PostViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         postArea.text = post.location.getTitle()
 
         BindingUtils.loadPostImage(postImage, post)
+    }
+
+    fun bind(product: Product) {
+        postTitle.text = product.title
+        postDetails.text = product.description
+        postTag.text = (product.price ?: 0).toString()
+        postCity.text = product.city.getTitle()
+        postArea.text = product.location.getTitle()
+
+        BindingUtils.loadProductImage(postImage, product)
     }
 
 

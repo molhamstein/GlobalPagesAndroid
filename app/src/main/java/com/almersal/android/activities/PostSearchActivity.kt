@@ -28,6 +28,7 @@ import com.almersal.android.eventsBus.RxBus
 import com.almersal.android.listeners.OnCategorySelectListener
 import com.almersal.android.listeners.OnCitySelectListener
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.post_search_layout.*
 import javax.inject.Inject
 
 
@@ -90,6 +91,17 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
         presenter.attachView(this)
         presenter.subscribe()
         when {
+            filterType() == FilterType.ProductFilter -> {
+                presenter.loadProductCategories()
+
+                filterCities.visibility = View.GONE
+                cityHeader.visibility = View.GONE
+
+                keywordHeader.visibility = View.GONE
+                filter_searchKeyword.visibility = View.GONE
+
+
+            }
             filterType() == FilterType.PostFilter ->
                 presenter.loadPostCategories(true)
             filterType() == FilterType.BusinessFilter ->
@@ -107,6 +119,8 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
         if (res == FilterType.JobsFilter.type)
             return FilterType.JobsFilter
 
+        if (res == FilterType.ProductFilter.type)
+            return FilterType.ProductFilter
         return FilterType.BusinessFilter
     }
 
@@ -237,7 +251,7 @@ class PostSearchActivity : BaseActivity(), OnCategorySelectListener, OnCitySelec
         if (filterLocations.adapter != null)
             filterEntity.area = (filterLocations.adapter as LocationEntityRecyclerViewAdapter).getCurrentLocation()
 
-        if (filterType() == FilterType.PostFilter) {
+        if (filterType() == FilterType.PostFilter || filterType() == FilterType.ProductFilter) {
             RxBus.publish(MessageEvent(EventActions.Post_Filter_Activity_Tag, filterEntity))
         } else if (filterType() == FilterType.BusinessFilter) {
             RxBus.publish(MessageEvent(EventActions.Business_Filter_Activity_Tag, filterEntity))

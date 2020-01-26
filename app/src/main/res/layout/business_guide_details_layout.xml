@@ -63,19 +63,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fillViewport="true"
-            app:behavior_overlapTop="60dp"
+            
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
             
-            <android.support.v7.widget.CardView
+            <LinearLayout
                 android:id="@+id/flexible.example.cardview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
+                android:background="@color/colorPrimaryDark"
                 android:fillViewport="true"
-                app:cardBackgroundColor="@color/transparent"
-                app:cardCornerRadius="4dp"
-                app:cardElevation="15dp"
-                app:cardUseCompatPadding="true"
+                android:orientation="vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                
+                android:elevation="10dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/toolbar">
@@ -381,10 +382,10 @@
                                 android:layout_height="wrap_content"
                                 android:padding="@dimen/md_margin"
                                 android:text="@string/Description"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
                                 android:textColor="@color/profileHeaderColor"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
                             
                             <View
                                 android:id="@+id/categorySperator"
@@ -408,6 +409,8 @@
                                 android:paddingLeft="@dimen/md_margin"
                                 android:paddingEnd="@dimen/zero"
                                 android:paddingRight="@dimen/zero"
+                                android:paddingBottom="10dp"
+                                
                                 android:text="Ad desctiption that advert about they add, description the app about the description the app about the plah plah ....."
                                 android:textAlignment="gravity"
                                 android:textColor="@color/grayDarkTextColor"
@@ -453,8 +456,9 @@
                             <android.support.v7.widget.RecyclerView
                                 android:id="@+id/businessGuideProductRecyclerView"
                                 android:layout_width="match_parent"
-                                android:layout_height="150dp"
+                                android:layout_height="170dp"
                                 android:layout_alignParentTop="true"
+                                
                                 app:SwipePager="all"
                                 app:layout_constraintTop_toBottomOf="@+id/servicesAndProductsSperator" />
                             
@@ -501,8 +505,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="150dp"
                                 android:padding="20dp"
-                                android:visibility="visible"
                                 android:src="@drawable/employee"
+                                android:visibility="visible"
                                 app:layout_constraintTop_toBottomOf="@+id/jobsRecycler" />
                             
                             
@@ -510,8 +514,8 @@
                                 android:id="@+id/jobsRecycler"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:visibility="visible"
                                 android:orientation="horizontal"
+                                android:visibility="visible"
                                 app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                                 app:layout_constraintTop_toBottomOf="@+id/jobOffersSeparator"
                                 tools:itemCount="2"
@@ -562,7 +566,7 @@
                 
                 </com.brainsocket.mainlibrary.Views.Stateslayoutview>
             
-            </android.support.v7.widget.CardView>
+            </LinearLayout>
         
         </android.support.v4.widget.NestedScrollView>
     

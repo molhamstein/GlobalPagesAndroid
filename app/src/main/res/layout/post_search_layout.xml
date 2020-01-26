@@ -52,6 +52,7 @@
                     android:padding="@dimen/md_padding">
 
                     <TextView
+                        android:id="@+id/keywordHeader"
                         style="@style/AppTheme.TextAppearance"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -164,6 +165,7 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/cityHeader"
                         style="@style/AppTheme.TextAppearance"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

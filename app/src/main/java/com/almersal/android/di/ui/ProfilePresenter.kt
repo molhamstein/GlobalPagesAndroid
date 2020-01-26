@@ -70,7 +70,7 @@ class ProfilePresenter constructor(val context: Context) : ProfileContract.Prese
         userId: String /*criteria: MutableMap<String, Pair<String, String>>*/
     ) {
         view.showUserBusinessesProgress(true)
-        val url = ServerInfo.businessGuideUrl + "?filter[where][ownerId]=" + userId
+        val url = ServerInfo.businessGuideUrl + "?filter[where][ownerId]=" + userId+"&filter[include]=myMarketProducts"
         ApiService().getUserBusinesses(url/*, criteria*/, object : ParsedRequestListener<MutableList<BusinessGuide>> {
             override fun onResponse(response: MutableList<BusinessGuide>?) {
                 if ((response != null)) {
@@ -219,6 +219,29 @@ class ProfilePresenter constructor(val context: Context) : ProfileContract.Prese
             override fun onError(anError: ANError?) {
                 view.showProgress(false)
 
+            }
+        })
+    }
+
+
+    override fun getProductsByOwner(ownerId: String?) {
+        view.showUserProductsProgress(true)
+        val url = ServerInfo.productsUrl + "?filter[where][ownerId]=" + ownerId
+        ApiService().getProducts(url/*, criteria*/, object : ParsedRequestListener<MutableList<Product>> {
+            override fun onResponse(response: MutableList<Product>?) {
+                if ((response != null)) {
+                    view.showUserProductsProgress(false)
+                    if (response.size > 0)
+                        view.onUserProductsListSuccessfully(response)
+                    else
+                        view.showUserProductsProgress(true)
+                    return
+                }
+                view.showUserProductsEmptyView(true)
+            }
+
+            override fun onError(anError: ANError?) {
+                view.showUserProductsLoadErrorMessage(true)
             }
         })
     }

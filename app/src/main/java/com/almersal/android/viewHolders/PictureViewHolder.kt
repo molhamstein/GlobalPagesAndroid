@@ -28,23 +28,22 @@ class PictureViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) 
         context = view.context
     }
 
-    fun bind(poJo: MediaEntity) {
-        if (poJo.url.endsWith("mp4", true))
+    fun bind(poJo: Any) {
+        var url = if (poJo is MediaEntity) poJo.url else poJo as String
+        if (url.endsWith("mp4", true))
             videoImageView.visibility = View.VISIBLE
         else
             videoImageView.visibility = View.GONE
 
-        var url = poJo.url
-        if (videoImageView.visibility == View.VISIBLE) {
-            url = poJo.thumbnail
-        }
+
+
         if (!url.startsWith("http"))
             url = "http://" + url
 
         BindingUtils.loadMediaImage(pictureImage, url)
         itemView.setOnClickListener {
             if (videoImageView.visibility == View.VISIBLE)
-                IntentHelper.startVideoActivity(context, poJo.url)
+                IntentHelper.startVideoActivity(context, url)
         }
 
     }
