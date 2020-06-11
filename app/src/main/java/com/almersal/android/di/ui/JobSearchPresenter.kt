@@ -23,6 +23,7 @@ class JobSearchPresenter(val context: Context) : JobSearchContract.Presenter {
                 if ((response != null)) {
                     view.showProgress(false)
                     if (response.size > 0) {
+                        view.showEmptyView(false)
                         view.onJobsLoaded(response)
                         return
                     }

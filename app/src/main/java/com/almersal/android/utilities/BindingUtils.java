@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -120,6 +121,20 @@ public class BindingUtils {
             Context context = imageView.getContext();
             GlideApp.with(context).load(url).error(R.drawable.ic_launcher_web)
                     .placeholder(R.drawable.ic_launcher_web).into(imageView);
+        } catch (Exception ex) {
+            Log.v("image load", ex.getMessage());
+        }
+    }
+
+    public static void loadMediaImage(ImageView imageView, MediaEntity mediaEntity, String type) {
+        try {
+            String url = /* ServerInfo.Companion.getImagesBaseUrl() +*/ mediaEntity.getUrl();
+
+            if (!url.startsWith("http"))
+                url = "http://" + url;
+            Context context = imageView.getContext();
+            GlideApp.with(context).load(url).error(type != "Product" ? R.drawable.ic_launcher_web : R.drawable.product_place_holder)
+                    .placeholder(type != "Product" ? R.drawable.ic_launcher_web : R.drawable.product_place_holder).into(imageView);
         } catch (Exception ex) {
             Log.v("image load", ex.getMessage());
         }

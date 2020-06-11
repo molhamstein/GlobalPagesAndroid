@@ -28,6 +28,7 @@ import com.almersal.android.enums.EducationLevel
 import com.almersal.android.enums.JobTypes
 import com.almersal.android.listeners.OnBusinessSelectListener
 import com.almersal.android.repositories.UserRepository
+import com.almersal.android.utilities.AnalyticsEvents
 import com.almersal.android.utilities.EnumsProvider
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexWrap
@@ -39,7 +40,8 @@ import kotlinx.android.synthetic.main.skills_edit_dialog.*
 
 import javax.inject.Inject
 
-class AddNewJobActivity : BaseActivity(), View.OnClickListener, AddNewJobContract.View, TagsCollectionContact.View,
+class AddNewJobActivity : BaseActivity(), View.OnClickListener, AddNewJobContract.View,
+    TagsCollectionContact.View,
     AdapterView.OnItemSelectedListener, OnBusinessSelectListener {
 
 
@@ -79,6 +81,7 @@ class AddNewJobActivity : BaseActivity(), View.OnClickListener, AddNewJobContrac
             .build()
         component.inject(this)
 
+        mFirebaseAnalytics.logEvent(AnalyticsEvents.ADD_JOB_OPENED, null)
         businessId = intent.getStringExtra(businessId_key)
         if (businessId != null) {
             businesses.visibility = View.GONE
@@ -107,7 +110,8 @@ class AddNewJobActivity : BaseActivity(), View.OnClickListener, AddNewJobContrac
         skillsMain.adapter = skillsAdapter
 
         skillsDialog =
-            AlertDialog.Builder(this).setView(layoutInflater.inflate(R.layout.skills_edit_dialog, null))
+            AlertDialog.Builder(this)
+                .setView(layoutInflater.inflate(R.layout.skills_edit_dialog, null))
                 .create()
 
 
@@ -118,7 +122,10 @@ class AddNewJobActivity : BaseActivity(), View.OnClickListener, AddNewJobContrac
                 android.R.layout.simple_spinner_dropdown_item,
                 EnumsProvider.educationLevels.map { it.level })
         jobType.adapter =
-            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, EnumsProvider.jobTypes.map { it.type })
+            ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_dropdown_item,
+                EnumsProvider.jobTypes.map { it.type })
 
 
         jobDetails.jobType = EnumsProvider.jobTypes.map { it.name }[0]
@@ -237,7 +244,12 @@ class AddNewJobActivity : BaseActivity(), View.OnClickListener, AddNewJobContrac
                     android.os.Handler().postDelayed({ presenter.getTags(s.toString()) }, 500)
                 }
 
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
 
                 }
 
@@ -251,7 +263,8 @@ class AddNewJobActivity : BaseActivity(), View.OnClickListener, AddNewJobContrac
                 if (addedSkill == null) {
                     val searchText = skillsSearchInput.text.toString()
                     if (searchText.isNotEmpty()) {
-                        val index = skillsAutoCompleteAdapter.data.map { it.name }.indexOf(searchText)
+                        val index =
+                            skillsAutoCompleteAdapter.data.map { it.name }.indexOf(searchText)
                         if (index != -1) {
                             addedSkill = skillsAutoCompleteAdapter.getTagAt(index)
                             dialogSkillsAdapter.addItem(addedSkill)
@@ -313,7 +326,8 @@ class AddNewJobActivity : BaseActivity(), View.OnClickListener, AddNewJobContrac
     }
 
     override fun onJobCategoriesLoaded(categoriesList: MutableList<JobCategory>) {
-        categoriesData = categoriesList.filter { it.parentCategoryId.isNullOrBlank() }.toMutableList()
+        categoriesData =
+            categoriesList.filter { it.parentCategoryId.isNullOrBlank() }.toMutableList()
         category.adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_dropdown_item,

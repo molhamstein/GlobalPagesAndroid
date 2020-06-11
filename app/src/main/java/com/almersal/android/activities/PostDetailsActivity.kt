@@ -23,6 +23,7 @@ import com.almersal.android.di.ui.PostPresenter
 import com.almersal.android.dialogs.ContactPostDialog
 import com.almersal.android.normalization.DateNormalizer
 import com.almersal.android.repositories.UserRepository
+import com.almersal.android.utilities.AnalyticsEvents
 import com.almersal.android.utilities.IntentHelper
 import com.almersal.android.viewModel.PostViewHolder
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
@@ -34,7 +35,8 @@ import kotlinx.android.synthetic.main.post_details_layout.*
 import javax.inject.Inject
 
 
-class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, PostContract.View {
+class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener,
+    PostContract.View {
 
     companion object {
         const val PostDetailsActivity_Tag = "PostDetailsActivity_Tag"
@@ -89,9 +91,13 @@ class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener
 
         postViewHolder = PostViewHolder(findViewById(android.R.id.content))
 
+
         val json = intent.getStringExtra(PostDetailsActivity_Tag)
         if (!json.isNullOrBlank()) {
             post = Gson().fromJson(json, Post::class.java)
+            val bundle = Bundle();
+            bundle.putString("ad_id", post?.id);
+            mFirebaseAnalytics.logEvent(AnalyticsEvents.AD_DETAILS_OPENED, bundle);
             postViewHolder.bind(post!!)
         } else {
             val id = intent.getStringExtra(PostDetailsActivity_Id_Tag)
@@ -113,12 +119,14 @@ class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener
 
         fowardBtn.setOnClickListener {
             val currnetItem = mediaViewPager.currentItem
-            mediaViewPager.currentItem = if (currnetItem < mediaViewPager.childCount - 1) currnetItem + 1 else 0
+            mediaViewPager.currentItem =
+                if (currnetItem < mediaViewPager.childCount - 1) currnetItem + 1 else 0
 
         }
         backBtn.setOnClickListener {
             val currnetItem = mediaViewPager.currentItem
-            mediaViewPager.currentItem = if (currnetItem > 0) currnetItem - 1 else mediaViewPager.childCount
+            mediaViewPager.currentItem =
+                if (currnetItem > 0) currnetItem - 1 else mediaViewPager.childCount
         }
 
     }
@@ -154,6 +162,9 @@ class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener
     @OnClick(R.id.contactBtn, R.id.contactTextBtn)
     fun onContactButtonClick(view: View) {
         if (post != null) {
+            val bundle = Bundle() ;
+            bundle.putString("ad_id",post?.id)
+            mFirebaseAnalytics.logEvent(AnalyticsEvents.SHOW_ADD_CONTACT,bundle)
             val contactDialog = ContactPostDialog.newInstance(post!!.owner.phoneNumber)
             contactDialog.show(supportFragmentManager, ContactPostDialog.ContactPostDialog_Tag)
         }
@@ -191,6 +202,9 @@ class PostDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener
 
     override fun onPostLoadedSuccessfully(post: Post) {
         this.post = post
+        val bundle = Bundle();
+        bundle.putString("ad_id", post.id);
+        mFirebaseAnalytics.logEvent(AnalyticsEvents.AD_DETAILS_OPENED, bundle);
         postViewHolder.bind(post)
         toggleEditMode()
     }

@@ -11,7 +11,7 @@
         android:layout_margin="@dimen/md_margin"
         android:padding="0dp"
         app:cardBackgroundColor="@color/colorPrimaryDark"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="@dimen/cardRadius"
         app:cardMaxElevation="@dimen/cardview_default_radius"
         app:cardUseCompatPadding="true"
         app:contentPadding="0dp"

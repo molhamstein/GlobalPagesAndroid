@@ -11,7 +11,7 @@ class JobDetailsContract {
         fun getJobDetails(jobId: String)
 
         //        fun getJobApplicants(jobId: String)
-        fun deactivateJob(jobId: String, jobStatus: JobStatus)
+        fun deactivateJob(jobId: String, jobStatus: Status)
     }
 
     interface View : BaseContract.View {

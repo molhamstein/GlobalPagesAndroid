@@ -8,9 +8,11 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import butterknife.ButterKnife
 import butterknife.OnClick
+import com.almersal.android.App
 import com.almersal.android.R
 import com.almersal.android.adapters.*
 import com.almersal.android.data.entities.*
@@ -22,10 +24,12 @@ import com.almersal.android.enums.MediaTypeEnum
 import com.almersal.android.eventsBus.EventActions
 import com.almersal.android.eventsBus.MessageEvent
 import com.almersal.android.eventsBus.RxBus
+import com.almersal.android.listeners.OnBusinessSelectListener
 import com.almersal.android.listeners.OnCategorySelectListener
 import com.almersal.android.listeners.OnCitySelectListener
 import com.almersal.android.repositories.DummyDataRepositories
 import com.almersal.android.repositories.UserRepository
+import com.almersal.android.utilities.AnalyticsEvents
 import com.almersal.android.utilities.IntentHelper
 import com.almersal.android.viewModel.ProductAddViewHolder
 
@@ -49,8 +53,9 @@ import kotlinx.android.synthetic.main.product_add_layout.stateLayout
 import kotlinx.android.synthetic.main.product_add_layout.toolbar
 import net.alhazmy13.mediapicker.Video.VideoPicker
 
-class ProductAddActivity : BaseActivity(), ProductContract.View, TagsCollectionContact.View, AttachmentContract.View
-    , OnCategorySelectListener, OnCitySelectListener {
+class ProductAddActivity : BaseActivity(), ProductContract.View, TagsCollectionContact.View,
+    AttachmentContract.View
+    , OnCategorySelectListener, OnCitySelectListener, OnBusinessSelectListener {
 
 
     companion object {
@@ -86,14 +91,16 @@ class ProductAddActivity : BaseActivity(), ProductContract.View, TagsCollectionC
 
     private fun initRecyclerViews() {
         productImages.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        productImages.adapter = AttachmentRecyclerViewAdapter(this, DummyDataRepositories.getAttachmentList())
+        productImages.adapter =
+            AttachmentRecyclerViewAdapter(this, DummyDataRepositories.getAttachmentList())
 
 
 
         productCategories.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
 
 
-        productSubCategories.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        productSubCategories.layoutManager =
+            LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
 
 
         productCities.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
@@ -122,6 +129,7 @@ class ProductAddActivity : BaseActivity(), ProductContract.View, TagsCollectionC
 
         productPresenter.attachView(this)
         productPresenter.subscribe()
+        productPresenter.loadUserBusinesses(UserRepository(App.app).getUser()!!.id!!)
 
 
         addAttachmentBtn.setOnClickListener { onAddAttachmentClick() }
@@ -144,6 +152,7 @@ class ProductAddActivity : BaseActivity(), ProductContract.View, TagsCollectionC
             businesses.visibility = View.VISIBLE
         }
 
+
         productAddViewHolder = ProductAddViewHolder(findViewById(android.R.id.content))
 
         val productString: String? = intent.extras?.getString(ProductAddActivity_Tag, null)
@@ -151,6 +160,11 @@ class ProductAddActivity : BaseActivity(), ProductContract.View, TagsCollectionC
             product = Gson().fromJson(productString, Product::class.java)
             productAddViewHolder.bindProduct(product!!)
             productAddBtn.setText(R.string.Update)
+            (toolbar.findViewById(R.id.toolbarTitle) as TextView).text =
+                getString(R.string.update_product)
+        }
+        else{
+            mFirebaseAnalytics.logEvent(AnalyticsEvents.NEW_PRODUCT_OPENED,null)
         }
 
         categoryStateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
@@ -191,10 +205,15 @@ class ProductAddActivity : BaseActivity(), ProductContract.View, TagsCollectionC
             val token = UserRepository(baseContext).getUser()!!.token
             val userId = UserRepository(baseContext).getUser()!!.id
             if (productAddViewHolder.isAdd())
-                productPresenter.addProduct(productAddViewHolder.getProductModel(userId ?: ""), token)
+                productPresenter.addProduct(
+                    productAddViewHolder.getProductModel(
+                        userId ?: "",
+                        businessId
+                    ), token
+                )
             else
                 productPresenter.updateProduct(
-                    productAddViewHolder.getProductModel(userId ?: "")
+                    productAddViewHolder.getProductModel(userId ?: "", businessId)
                     , token
                 )
         }
@@ -269,7 +288,11 @@ class ProductAddActivity : BaseActivity(), ProductContract.View, TagsCollectionC
 
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS -> {
@@ -314,7 +337,8 @@ class ProductAddActivity : BaseActivity(), ProductContract.View, TagsCollectionC
 
 
     override fun onAddProductFail() {
-        Toast.makeText(this@ProductAddActivity, R.string.unexpectedErrorHappend, Toast.LENGTH_LONG).show()
+        Toast.makeText(this@ProductAddActivity, R.string.unexpectedErrorHappend, Toast.LENGTH_LONG)
+            .show()
         Log.v("", "")
     }
 
@@ -326,7 +350,8 @@ class ProductAddActivity : BaseActivity(), ProductContract.View, TagsCollectionC
     }
 
     override fun onUpdateProductFail() {
-        Toast.makeText(this@ProductAddActivity, R.string.unexpectedErrorHappend, Toast.LENGTH_LONG).show()
+        Toast.makeText(this@ProductAddActivity, R.string.unexpectedErrorHappend, Toast.LENGTH_LONG)
+            .show()
         Log.v("", "")
     }
 
@@ -362,7 +387,11 @@ class ProductAddActivity : BaseActivity(), ProductContract.View, TagsCollectionC
 
     override fun onCitiesLoaded(citiesList: MutableList<City>) {
         productCities.adapter =
-            CityRecyclerViewAdapter(context = baseContext, citiesListList = citiesList, onCitySelectListener = this)
+            CityRecyclerViewAdapter(
+                context = baseContext,
+                citiesListList = citiesList,
+                onCitySelectListener = this
+            )
     }
 
 
@@ -454,6 +483,16 @@ class ProductAddActivity : BaseActivity(), ProductContract.View, TagsCollectionC
 
     override fun onSelectCity(city: City) {
         productLocations.adapter = LocationEntityRecyclerViewAdapter(baseContext, city.locations)
+    }
+
+    override fun onUserBusinessesListSuccessfully(businessGuideList: MutableList<BusinessGuide>) {
+        businesses.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        businesses.adapter =
+            BusinessSelectorAdapter(baseContext, businessGuideList, this)
+    }
+
+    override fun onSelectBusiness(business: BusinessGuide) {
+        businessId = business.id
     }
 
 

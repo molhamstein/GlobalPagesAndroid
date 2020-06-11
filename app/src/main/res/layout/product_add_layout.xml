@@ -42,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/AddSubmitted"
+                    android:text="@string/product_submitted"
                     android:textAlignment="gravity"
                     android:textColor="@color/black"
                     app:layout_constraintBottom_toTopOf="@+id/submittedIcon" />
@@ -65,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/WeWillReviewYourAdAndContactYouBack"
+                    android:text="@string/we_will_review_your_product_and_contact_you_back"
                     android:textAlignment="gravity"
                     android:textColor="@color/black"
                     app:layout_constraintTop_toBottomOf="@+id/submittedIcon" />
@@ -184,7 +184,7 @@
                                 android:layout_height="wrap_content"
                                 android:hint="@string/Optional"
                                 android:imeOptions="actionDone"
-                                android:inputType="text"
+                                android:inputType="number"
                                 android:lines="3"
                                 android:maxLines="1"
                                 app:backgroundTint="@color/lightGray" />

@@ -30,6 +30,7 @@ import com.almersal.android.eventsBus.EventActions
 import com.almersal.android.eventsBus.MessageEvent
 import com.almersal.android.eventsBus.RxBus
 import com.almersal.android.repositories.UserRepository
+import com.almersal.android.utilities.AnalyticsEvents
 import com.almersal.android.utilities.IntentHelper
 import com.almersal.android.viewModel.BusinessGuideViewHolder
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
@@ -103,6 +104,9 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
         val jSon = intent.getStringExtra(BusinessGuideDetailsActivity_Tag)
         if (!jSon.isNullOrBlank()) {
             businessGuide = Gson().fromJson(jSon, BusinessGuide::class.java)
+            val bundle = Bundle() ;
+            bundle.putString("business_id",businessGuide?.id)
+            mFirebaseAnalytics.logEvent(AnalyticsEvents.BUSINESS_DETAILS_OPENED,bundle)
             businessGuideViewHolder.bind(businessGuide!!)
         } else {
             val id = intent.getStringExtra(BusinessGuideDetailsActivity_Id_Tag)
@@ -195,9 +199,13 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
     @Optional
     @OnClick(R.id.contactContainer, R.id.contactBtn)
     fun onContactContainerClick(view: View) {
+        val bundle = Bundle() ;
+        bundle.putString("business_id",businessGuide?.id)
+        mFirebaseAnalytics.logEvent(AnalyticsEvents.SHOW_BUSINESS_CONTACT,bundle)
         val contactDialog = ContactDialog.newInstance(
             businessGuide!!.phone1,
-            businessGuide!!.phone2, businessGuide!!.fax
+            businessGuide!!.phone2,
+            businessGuide!!.fax
         )
         contactDialog.show(supportFragmentManager, ContactDialog.ContactDialog_Tag)
         Log.v("View Clicked", view.id.toString())
@@ -231,6 +239,9 @@ class BusinessGuideDetailsActivity : BaseActivity(), AppBarLayout.OnOffsetChange
 
     override fun onLoadBusinessGuide(businessGuide: BusinessGuide) {
         this.businessGuide = businessGuide
+        val bundle = Bundle() ;
+        bundle.putString("business_id",businessGuide?.id)
+        mFirebaseAnalytics.logEvent(AnalyticsEvents.BUSINESS_DETAILS_OPENED,bundle)
         businessGuideViewHolder.bind(businessGuide)
         toggleEditMode()
 

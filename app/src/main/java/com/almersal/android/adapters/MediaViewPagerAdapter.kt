@@ -11,8 +11,15 @@ import com.almersal.android.data.entities.MediaEntity
 import com.almersal.android.utilities.BindingUtils
 import com.almersal.android.utilities.IntentHelper
 
-class MediaViewPagerAdapter constructor(var context: Context, private var mediaList: MutableList<MediaEntity>) : PagerAdapter() {
+class MediaViewPagerAdapter constructor(
+    var context: Context,
+    private var mediaList: MutableList<MediaEntity>
+) : PagerAdapter() {
     private val inflater: LayoutInflater = LayoutInflater.from(context)
+
+    init {
+        if (mediaList.size == 0) mediaList = mutableListOf(MediaEntity("", "image", ""))
+    }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val poJo = mediaList[position]
@@ -24,7 +31,7 @@ class MediaViewPagerAdapter constructor(var context: Context, private var mediaL
             videoImageView.visibility = View.VISIBLE
         else
             videoImageView.visibility = View.GONE
-        BindingUtils.loadMediaImage(mediaView, poJo)
+        BindingUtils.loadMediaImage(mediaView, poJo, "Product")
         view.setOnClickListener {
             if (videoImageView.visibility == View.VISIBLE)
                 IntentHelper.startVideoActivity(context, poJo.url)

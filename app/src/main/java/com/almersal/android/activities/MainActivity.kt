@@ -1,19 +1,16 @@
 package com.almersal.android.activities
 
-import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewCompat
+import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.*
 import android.util.Log
 import android.view.View
 import android.view.animation.AnticipateOvershootInterpolator
-import android.view.animation.BounceInterpolator
-import android.view.animation.DecelerateInterpolator
-import android.view.animation.LinearInterpolator
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -42,9 +39,9 @@ import com.almersal.android.listeners.OnTagSelectListener
 import com.almersal.android.repositories.DummyDataRepositories
 import com.almersal.android.repositories.SettingRepositories
 import com.almersal.android.repositories.UserRepository
+import com.almersal.android.utilities.AnalyticsEvents
 import com.almersal.android.utilities.BindingUtils
 import com.almersal.android.utilities.IntentHelper
-import com.almersal.android.utilities.MyBounceInterpolator
 import com.almersal.android.views.SelectedTagsView
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
 import com.brainsocket.mainlibrary.Listeners.OnRefreshLayoutListener
@@ -77,6 +74,9 @@ class MainActivity : BaseActivity(), VolumesContract.View,
 
     @BindView(R.id.volumesRecyclerView)
     lateinit var volumesRecyclerView: RecyclerView
+
+    @BindView(R.id.nestedview)
+    lateinit var nestedView: NestedScrollView
 
     @BindView(R.id.stateLayout)
     lateinit var stateLayout: Stateslayoutview
@@ -116,13 +116,15 @@ class MainActivity : BaseActivity(), VolumesContract.View,
     @BindView(R.id.loginBtn)
     lateinit var loginBtn: ImageView
 
+    var loading = true
+
 
     var featuredPosition: Int = 0
     var featuredDirectionInc = true
     val featuredPostsTimer: Timer = Timer()
     var marketSelected = false
 
-    var limit = 100
+    var limit = 10
     var pageId = 0
 
     private fun initToolBar() {
@@ -165,16 +167,34 @@ class MainActivity : BaseActivity(), VolumesContract.View,
         }
     }
 
-    private fun initRecyclerView() {
+    private fun initRecyclerView(withSnapHelper: Boolean = true) {
         val snapHelper = LinearSnapHelper()
-        featuredPostsRecyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        snapHelper.attachToRecyclerView(featuredPostsRecyclerView)
+        featuredPostsRecyclerView.layoutManager =
+            LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        if (withSnapHelper) snapHelper.attachToRecyclerView(featuredPostsRecyclerView)
 
-        selectedTagsView.setAdapter(TagsRecyclerViewAdapter(this, DummyDataRepositories.getTagsDefaultRepositories()))
+        selectedTagsView.setAdapter(
+            TagsRecyclerViewAdapter(
+                this,
+                DummyDataRepositories.getTagsDefaultRepositories()
+            )
+        )
         (selectedTagsView.getAdapter() as TagsRecyclerViewAdapter).onTagSelectListener = this
 
         volumesRecyclerView.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         volumesRecyclerView.adapter = PostRecyclerViewAdapter(MainActivity@ this, mutableListOf())
+        nestedView.setOnScrollChangeListener(object : NestedScrollView.OnScrollChangeListener {
+            override fun onScrollChange(
+                v: NestedScrollView?,
+                scrollX: Int,
+                scrollY: Int,
+                oldScrollX: Int,
+                oldScrollY: Int
+            ) {
+
+            }
+
+        })
     }
 
     private fun loadProfileImage(user: User) {
@@ -183,13 +203,13 @@ class MainActivity : BaseActivity(), VolumesContract.View,
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.main_layout)
-        val extras = intent.extras?:Bundle()
+        val extras = intent.extras ?: Bundle()
         with(extras) {
-            val volumeId = getString("volumeId","")
-            val marketProductId = getString("marketProductId","")
-            val businessId = getString("businessId","")
-            val jobId = getString("jobId","")
-            val adId = getString("adId","")
+            val volumeId = getString("volumeId", "")
+            val marketProductId = getString("marketProductId", "")
+            val businessId = getString("businessId", "")
+            val jobId = getString("jobId", "")
+            val adId = getString("adId", "")
 
             when {
                 volumeId.isNotEmpty() -> {
@@ -311,12 +331,18 @@ class MainActivity : BaseActivity(), VolumesContract.View,
             val subcategoryId = filterEntity.subCategory?.id
             val keyword = filterEntity.query
             pageId = 0
-            (volumesRecyclerView.adapter as PostRecyclerViewAdapter).filterByCriteria(filterEntity,true)
-            presenter.loadProducts(keyword,categoryId, subcategoryId, limit * pageId, limit)
+            (volumesRecyclerView.adapter as PostRecyclerViewAdapter).filterByCriteria(
+                filterEntity,
+                true
+            )
+            presenter.loadProducts(keyword, categoryId, subcategoryId, limit * pageId, limit)
         } else {
 
             if (volumesRecyclerView.adapter != null) {
-                (volumesRecyclerView.adapter as PostRecyclerViewAdapter).filterByCriteria(filterEntity,false)
+                (volumesRecyclerView.adapter as PostRecyclerViewAdapter).filterByCriteria(
+                    filterEntity,
+                    false
+                )
             }
 
         }
@@ -328,13 +354,18 @@ class MainActivity : BaseActivity(), VolumesContract.View,
     @OnClick(R.id.marketBtn)
     fun onMarketBtnClicked(view: View) {
 
+        pageId = 0
+        loading = true
         if (!marketSelected) {
+            mFirebaseAnalytics.logEvent(AnalyticsEvents.HOME_MARKET_PRESSED, null)
+            initRecyclerView(false);
             selectedTagsView.setAdapter(
                 TagsRecyclerViewAdapter(
                     this,
                     DummyDataRepositories.getTagsDefaultRepositories(false)
                 )
             )
+            (selectedTagsView.getAdapter() as TagsRecyclerViewAdapter).onTagSelectListener = this
             marketSelected = true
             browse_Container.visibility = View.GONE
             val m1 = ValueAnimator.ofFloat(1f, 2f)
@@ -350,6 +381,10 @@ class MainActivity : BaseActivity(), VolumesContract.View,
 
                 marketBtn.layoutParams = lp1
                 newsPaperBtn.layoutParams = lp2
+                if(lp1.weight == 2.0f && lp2.weight == 1.0f){
+                    pageId = 0
+                    presenter.loadProducts(limit = limit, skip = limit * pageId)
+                }
 
             }
             m1.start()
@@ -364,14 +399,13 @@ class MainActivity : BaseActivity(), VolumesContract.View,
                 newsPaperBtn,
                 ColorStateList.valueOf(ContextCompat.getColor(this, R.color.grayLightTextColor))
             )
-            pageId = 0
-            presenter.loadProducts(limit = limit, skip = limit * pageId)
-
-            volumesRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
-                override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
 
 
+
+            nestedView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+                if ((scrollY >= ((v?.getChildAt(v?.childCount - 1)?.measuredHeight
+                        ?: 0) - (v?.measuredHeight ?: 0))) && scrollY > oldScrollY
+                ) {
                     val lm = volumesRecyclerView.layoutManager as StaggeredGridLayoutManager
                     val visibleItemCount = lm.childCount
                     val totalItemCount = lm.itemCount
@@ -383,7 +417,7 @@ class MainActivity : BaseActivity(), VolumesContract.View,
                         pastVisibleItems = firstVisibleItems[0]
                     }
                     if (stateLayout.currentState != LayoutStatesEnum.Waitinglayout) {
-                        if (visibleItemCount + pastVisibleItems >= totalItemCount) {
+                        if (visibleItemCount + pastVisibleItems >= totalItemCount && loading) {
                             pageId++
                             presenter.loadProducts(
                                 limit = limit,
@@ -394,6 +428,7 @@ class MainActivity : BaseActivity(), VolumesContract.View,
                     }
                 }
             })
+
         }
 
 
@@ -404,13 +439,17 @@ class MainActivity : BaseActivity(), VolumesContract.View,
     fun onNewspaperBtnClicked(view: View) {
 
         if (marketSelected) {
+            mFirebaseAnalytics.logEvent(AnalyticsEvents.HOME_NEWSPAPER_PRESSED, null)
+            initRecyclerView(false)
             selectedTagsView.setAdapter(
                 TagsRecyclerViewAdapter(
                     this,
                     DummyDataRepositories.getTagsDefaultRepositories()
                 )
             )
-            volumesRecyclerView.clearOnScrollListeners()
+            (selectedTagsView.getAdapter() as TagsRecyclerViewAdapter).onTagSelectListener =
+                this
+
             browse_Container.visibility = View.VISIBLE
             val m1 = ValueAnimator.ofFloat(1f, 2f)
             m1.duration = 1000
@@ -424,6 +463,10 @@ class MainActivity : BaseActivity(), VolumesContract.View,
 
                 marketBtn.layoutParams = lp1
                 newsPaperBtn.layoutParams = lp2
+                if (lp1.weight == 1.0f && lp2.weight == 2.0f) {
+                    marketSelected = false;
+                    presenter.loadDefaultVolume()
+                }
 
             }
             m1.start()
@@ -433,15 +476,20 @@ class MainActivity : BaseActivity(), VolumesContract.View,
             )
             ViewCompat.setBackgroundTintList(
                 marketBtn,
-                ColorStateList.valueOf(ContextCompat.getColor(this, R.color.grayLightTextColor))
+                ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.grayLightTextColor
+                    )
+                )
             )
-            marketSelected = false;
-            presenter.loadDefaultVolume()
+
         }
     }
 
     @OnClick(R.id.businessGuideBtn)
     fun onBusinessGuideClick(view: View) {
+        mFirebaseAnalytics.logEvent(AnalyticsEvents.HOME_GUIDE_BTN_PRESSES, null);
         val activityName = BusinessGuideSearchActivity::class.java.canonicalName
         IntentHelper.startLocationCheckActivity(this, activityName)
 //        IntentHelper.startBusinessGuideSearchActivity(this)
@@ -450,6 +498,7 @@ class MainActivity : BaseActivity(), VolumesContract.View,
 
     @OnClick(R.id.findNearByBtn)
     fun onFindNearByClick(view: View) {
+        mFirebaseAnalytics.logEvent(AnalyticsEvents.HOME_NEARBY_BTN_PRESSED, null);
         val activityName = FindNearByActivity::class.java.canonicalName
         IntentHelper.startLocationCheckActivity(this, activityName)
         Log.v("View Clicked", view.id.toString())
@@ -457,6 +506,8 @@ class MainActivity : BaseActivity(), VolumesContract.View,
 
     @OnClick(R.id.dutyPharmacyBtn)
     fun onDutyPharmacyClick(view: View) {
+        mFirebaseAnalytics.logEvent(AnalyticsEvents.HOME_PHARMACIES_BTN_PRESSES, null);
+
         val activityName = PharmacyDutySearchActivity::class.java.canonicalName
         IntentHelper.startLocationCheckActivity(this, activityName)
 //        IntentHelper.startDutyPharmacyActivity(this)
@@ -466,6 +517,7 @@ class MainActivity : BaseActivity(), VolumesContract.View,
 
     @OnClick(R.id.jobsBtn)
     fun onJobsBtnClicked(view: View) {
+        mFirebaseAnalytics.logEvent(AnalyticsEvents.HOME_JOBS_BTN_PRESSED, null)
         val activityName = JobsSearchActivity::class.java.canonicalName
         IntentHelper.startActivityByName(this, activityName)
 //        IntentHelper.startDutyPharmacyActivity(this)
@@ -516,7 +568,8 @@ class MainActivity : BaseActivity(), VolumesContract.View,
 
     @OnClick(R.id.searchFilterBtn)
     fun onSearchFilterBtnClick(view: View) {
-        val list = (selectedTagsView.selectedTags.adapter as TagsRecyclerViewAdapter).tagsListList
+        val list =
+            (selectedTagsView.selectedTags.adapter as TagsRecyclerViewAdapter).tagsListList
         IntentHelper.startPostSearchFilterActivityForResult(
             MainActivity@ this,
             list,
@@ -528,7 +581,7 @@ class MainActivity : BaseActivity(), VolumesContract.View,
     override fun onSelectTag(tagEntity: TagEntity) {
         if (volumesRecyclerView.adapter != null) {
             val adapter = volumesRecyclerView.adapter as PostRecyclerViewAdapter
-            adapter.excludeFilter(tagEntity,marketSelected)
+            adapter.excludeFilter(tagEntity, marketSelected)
             selectedTagsView.setAdapter(
                 (TagsRecyclerViewAdapter(
                     baseContext, adapter.filterEntity!!.getTags(),
@@ -540,7 +593,8 @@ class MainActivity : BaseActivity(), VolumesContract.View,
     }
 
     override fun onTagClick(tagEntity: TagEntity) {
-        val list = (selectedTagsView.selectedTags.adapter as TagsRecyclerViewAdapter).tagsListList
+        val list =
+            (selectedTagsView.selectedTags.adapter as TagsRecyclerViewAdapter).tagsListList
         IntentHelper.startPostSearchFilterActivityForResult(
             MainActivity@ this,
             list,
@@ -593,8 +647,15 @@ class MainActivity : BaseActivity(), VolumesContract.View,
 
     override fun bindProducts(products: MutableList<Product>) {
         var adapter: PostRecyclerViewAdapter
+        if (products.size < limit)
+            loading = false
+
+
+
         if (pageId == 0) {
             adapter = PostRecyclerViewAdapter(MainActivity@ this, products = products)
+            adapter.filterEntity =
+                (volumesRecyclerView.adapter as PostRecyclerViewAdapter).filterEntity
             volumesRecyclerView.adapter = adapter
         } else
             (volumesRecyclerView.adapter as PostRecyclerViewAdapter).addProducts(products)
@@ -611,7 +672,7 @@ class MainActivity : BaseActivity(), VolumesContract.View,
         )
         volumesRecyclerView.adapter = adapter
         if (filter != null)
-            adapter.filterByCriteria(filter,false)
+            adapter.filterByCriteria(filter, false)
     }
 
     override fun noMoreData() {
@@ -672,7 +733,8 @@ class MainActivity : BaseActivity(), VolumesContract.View,
     }
 
     override fun onFeaturedPostLoadedSuccessfully(postList: MutableList<Post>) {
-        featuredPostsRecyclerView.adapter = PostSliderRecyclerViewAdapter(context = baseContext, postList = postList)
+        featuredPostsRecyclerView.adapter =
+            PostSliderRecyclerViewAdapter(context = baseContext, postList = postList)
 
         featuredPostsTimer.scheduleAtFixedRate(AutoScrollTask(), 2000, 5000)
     }

@@ -112,7 +112,7 @@ class VolumesPresenter constructor(val context: Context) : VolumesContract.Prese
         val filterSubCategory = if (categoryId == null) "" else "filter[where][subCategoryId]=$subCategoryId"
         val filterKeyword = if (keyword == null) "" else "filter[keyword]=$keyword"
         ApiService().getProducts(ServerInfo.productsUrl + "?$filterCategory&$filterSubCategory&$filterKeyword" +
-                "filter[limit]=$limit&filter[skip]=$skip&filter[order]=creationDate DESC",
+                "filter[limit]=$limit&filter[skip]=$skip&filter[where][status]=activated&filter[order]=creationDate DESC",
             object : ParsedRequestListener<MutableList<Product>> {
                 override fun onResponse(response: MutableList<Product>?) {
                     if ((response != null)) {

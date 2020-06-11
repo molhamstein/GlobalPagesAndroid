@@ -33,23 +33,29 @@ class PostRecyclerViewAdapter @JvmOverloads constructor(
         var view = LayoutInflater.from(context).inflate(R.layout.post_item_layout, parent, false)
 
         if (isFixed)
-            view = LayoutInflater.from(context).inflate(R.layout.post_item_fixed_layout, parent, false)
+            view =
+                LayoutInflater.from(context).inflate(R.layout.post_item_fixed_layout, parent, false)
         when (viewType) {
 
             PostType.WITH_TEXT.type -> {
-                view = LayoutInflater.from(context).inflate(R.layout.post_item_text_layout, parent, false)
+                view = LayoutInflater.from(context)
+                    .inflate(R.layout.post_item_text_layout, parent, false)
             }
             PostType.WITH_IMAGE_VERTICAL.type -> {
-                view = LayoutInflater.from(context).inflate(R.layout.post_item_fixed_layout, parent, false)
+                view = LayoutInflater.from(context)
+                    .inflate(R.layout.post_item_fixed_layout, parent, false)
             }
             PostType.WITH_TEXT_VERTICAL.type -> {
-                view = LayoutInflater.from(context).inflate(R.layout.post_item_text_fixed_layout, parent, false)
+                view = LayoutInflater.from(context)
+                    .inflate(R.layout.post_item_text_fixed_layout, parent, false)
             }
             PostType.ONLY_IMAGE.type -> {
                 if (!isFixed)
-                    view = LayoutInflater.from(context).inflate(R.layout.product_main_item_layout, parent, false)
+                    view = LayoutInflater.from(context)
+                        .inflate(R.layout.product_main_item_layout, parent, false)
                 else
-                    view = LayoutInflater.from(context).inflate(R.layout.product_main_fixed_layout, parent, false)
+                    view = LayoutInflater.from(context)
+                        .inflate(R.layout.product_main_fixed_layout, parent, false)
             }
         }
 
@@ -59,8 +65,11 @@ class PostRecyclerViewAdapter @JvmOverloads constructor(
     fun addProducts(data: List<Product>) {
         if (products == null)
             products = mutableListOf()
-        products!!.addAll(data)
-        notifyDataSetChanged()
+        if (data.isNotEmpty()) {
+            val start = products!!.size;
+            products!!.addAll(data)
+            notifyDataSetChanged()
+        }
     }
 
     override fun getItemCount(): Int = if (products != null) products!!.size else postsList.size
@@ -121,7 +130,7 @@ class PostRecyclerViewAdapter @JvmOverloads constructor(
         }
     }
 
-    fun excludeFilter(tagEntity: TagEntity,flagMarket: Boolean) {
+    fun excludeFilter(tagEntity: TagEntity, flagMarket: Boolean) {
         if (filterEntity == null)
             return
 
@@ -142,7 +151,7 @@ class PostRecyclerViewAdapter @JvmOverloads constructor(
                 filterEntity!!.query = null
             }
         }
-        filterByCriteria(filterEntity!!,flagMarket)
+        filterByCriteria(filterEntity!!, flagMarket)
     }
 
 }

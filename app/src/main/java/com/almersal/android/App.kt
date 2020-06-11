@@ -13,6 +13,7 @@ import com.almersal.android.repositories.UserRepository
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.gsonparserfactory.GsonParserFactory
 import com.almersal.android.utilities.LocaleUtils
+import com.almersal.android.utilities.TypefaceUtil
 import com.crashlytics.android.Crashlytics
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
@@ -49,6 +50,8 @@ class App : MultiDexApplication(), NotificationContract.View {
     override fun onCreate() {
         super.onCreate()
         MultiDex.install(this)
+        TypefaceUtil.overrideFont(applicationContext, "SERIF", "fonts/cairo_regular.ttf");
+
         app = this
         initDI()
 

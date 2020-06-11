@@ -5,17 +5,15 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.CompoundButton
-import android.widget.ToggleButton
 import com.almersal.android.R
 import com.almersal.android.data.entities.BusinessGuide
 import com.almersal.android.listeners.OnBusinessSelectListener
-import com.almersal.android.listeners.OnCitySelectListener
 import com.almersal.android.viewHolders.BusinessViewHolder
 import kotlinx.android.synthetic.main.business_item_layout.*
 
 class BusinessSelectorAdapter constructor(
     var context: Context, var data: MutableList<BusinessGuide>
-    , var onCitySelectListener: OnBusinessSelectListener? = null
+    , var onBusinessSelectListener: OnBusinessSelectListener? = null
 ) :
     RecyclerView.Adapter<BusinessViewHolder>() {
 
@@ -36,7 +34,7 @@ class BusinessSelectorAdapter constructor(
             override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
                 if (isChecked) {
                     setCheck(pojo)
-                    onCitySelectListener?.onSelectBusiness(pojo)
+                    onBusinessSelectListener?.onSelectBusiness(pojo)
                 } else {
                     buttonView?.setOnCheckedChangeListener(null)
                     pojo.isSelected = false

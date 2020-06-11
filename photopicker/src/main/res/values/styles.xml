@@ -6,6 +6,7 @@
 
     <style name="PixAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:screenOrientation">portrait</item>
+        <item name="android:typeface">serif</item>
     </style>
 
 </resources>

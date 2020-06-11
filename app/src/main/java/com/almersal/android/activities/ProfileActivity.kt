@@ -32,6 +32,7 @@ import com.almersal.android.eventsBus.MessageEvent
 import com.almersal.android.eventsBus.RxBus
 import com.almersal.android.listeners.OnCategorySelectListener
 import com.almersal.android.repositories.UserRepository
+import com.almersal.android.utilities.AnalyticsEvents
 import com.almersal.android.utilities.BindingUtils
 import com.almersal.android.utilities.IntentHelper
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
@@ -135,23 +136,29 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
 //        genderTabLayout.addTab(maleTab)
 //        genderTabLayout.addTab(femaleTab)
 
-        val onTabSelectedListener: TabLayout.OnTabSelectedListener = object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-                Log.v("", "")
-            }
+        val onTabSelectedListener: TabLayout.OnTabSelectedListener =
+            object : TabLayout.OnTabSelectedListener {
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                    Log.v("", "")
+                }
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-                tab?.customView?.findViewById<TextView>(android.R.id.text1)
-                    ?.setTextColor(ContextCompat.getColor(baseContext, R.color.grayLightTextColor))
-                tab?.customView?.visibility = View.GONE
-            }
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                    tab?.customView?.findViewById<TextView>(android.R.id.text1)
+                        ?.setTextColor(
+                            ContextCompat.getColor(
+                                baseContext,
+                                R.color.grayLightTextColor
+                            )
+                        )
+                    tab?.customView?.visibility = View.GONE
+                }
 
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                tab?.customView?.findViewById<TextView>(android.R.id.text1)
-                    ?.setTextColor(ContextCompat.getColor(baseContext, R.color.white))
-                tab?.customView?.visibility = View.VISIBLE
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    tab?.customView?.findViewById<TextView>(android.R.id.text1)
+                        ?.setTextColor(ContextCompat.getColor(baseContext, R.color.white))
+                    tab?.customView?.visibility = View.VISIBLE
+                }
             }
-        }
 
 //        genderTabLayout.addOnTabSelectedListener(onTabSelectedListener)
 //
@@ -190,6 +197,9 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
 
     private fun bindInfo(user: User) {
         userName.text = user.username
+        if (user.balance == null)
+            balance.visibility = View.GONE
+        balance.text = user.balance?.toString()
         if (!user.CV?.primaryIdentifier.isNullOrBlank()) {
             emailText.text = getString(R.string.position_title)
             userEmail.text = user.CV?.primaryIdentifier
@@ -214,6 +224,8 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.profile_layout)
+
+        mFirebaseAnalytics.logEvent(AnalyticsEvents.PROFILE_OPENED, null)
         ButterKnife.bind(this)
         initToolBar()
         initRecyclerViews()
@@ -513,7 +525,9 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     override fun onUserCategoriesListSuccessfully(categories: MutableList<Category>) {
         val adapter = CategoryProfileRecyclerViewAdapter(
             context = baseContext,
-            categoriesList = categories, isClickable = true, onCategorySelectListener = this@ProfileActivity
+            categoriesList = categories,
+            isClickable = true,
+            onCategorySelectListener = this@ProfileActivity
         )
         myCategories.adapter = adapter
         adapter.clearAll()
@@ -534,7 +548,11 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
     override fun showUpdateProfileLoadErrorMessage(visible: Boolean) {
         if (visible) {
             bindInfo(UserRepository(this).getUser()!!)
-            Toast.makeText(this, resources.getString(R.string.checkInternetConnection), Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                this,
+                resources.getString(R.string.checkInternetConnection),
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 
@@ -543,7 +561,11 @@ class ProfileActivity : BaseActivity(), AppBarLayout.OnOffsetChangedListener, Pr
         user.token = currentUser.token
         UserRepository(this).addUser(user)
         bindInfo(user)
-        Toast.makeText(this, resources.getString(R.string.SubscribedCategoriesUpdateSuccessfully), Toast.LENGTH_LONG)
+        Toast.makeText(
+            this,
+            resources.getString(R.string.SubscribedCategoriesUpdateSuccessfully),
+            Toast.LENGTH_LONG
+        )
             .show()
     }
     /*Profile presenter ended*/

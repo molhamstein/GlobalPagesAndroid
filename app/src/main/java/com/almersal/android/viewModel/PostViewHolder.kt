@@ -3,6 +3,7 @@ package com.almersal.android.viewModel
 import android.content.Context
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.RecyclerView
+import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.TextView
 import butterknife.BindView
@@ -69,6 +70,8 @@ class PostViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) {
         postInLocation.text = inLocation
 
         postDescription.text = post.description
+        postDescription.movementMethod = LinkMovementMethod.getInstance()
+
         postCreatedDate.text = DateNormalizer.getCanonicalDateTime(post.creationDate)
     }
 

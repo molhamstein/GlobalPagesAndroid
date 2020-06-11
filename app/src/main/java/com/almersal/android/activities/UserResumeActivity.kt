@@ -18,6 +18,7 @@ import com.almersal.android.di.ui.UserResumeContract
 import com.almersal.android.di.ui.UserResumePresenter
 import com.almersal.android.dialogs.ProgressDialog
 import com.almersal.android.repositories.UserRepository
+import com.almersal.android.utilities.AnalyticsEvents
 import com.almersal.android.utilities.BindingUtils
 import com.almersal.android.utilities.IntentHelper
 import com.google.android.flexbox.AlignItems
@@ -64,6 +65,11 @@ class UserResumeActivity : BaseActivity(), UserResumeContract.View, View.OnClick
 
         val jSon = intent.getStringExtra(user_profile_key)
         update_user = intent.getBooleanExtra("update_user", true)
+        if (update_user)
+            mFirebaseAnalytics.logEvent(AnalyticsEvents.CV_EDIT_OPENED, null)
+        else
+            mFirebaseAnalytics.logEvent(AnalyticsEvents.CV_OPENED, null)
+
         passedUser = Gson().fromJson(jSon, User::class.java)
 
         component.inject(this)
@@ -116,7 +122,8 @@ class UserResumeActivity : BaseActivity(), UserResumeContract.View, View.OnClick
             experiencesPlaceHolder.visibility = View.GONE
             experiences.visibility = View.VISIBLE
         }
-        experiencesAdapter = ExperiencesAdapter(this, user?.CV?.experience ?: mutableListOf(), false)
+        experiencesAdapter =
+            ExperiencesAdapter(this, user?.CV?.experience ?: mutableListOf(), false)
 
 
         referencesAdapter = ReferencesAdapter(this, user?.CV?.let {

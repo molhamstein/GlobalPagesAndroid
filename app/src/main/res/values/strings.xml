@@ -226,5 +226,10 @@
     <string name="my_products">My Products</string>
     <string name="add_new_product">Add New Product</string>
     <string name="price">Price</string>
+    <string name="we_will_review_your_product_and_contact_you_back">We Will Review Your Product And Contact You Back</string>
+    <string name="update_product">Update Product</string>
+    <string name="product_submitted">Product Submitted</string>
+    <string name="balance">Balance</string>
+    <string name="product_deactivated">This product has been deactivated</string>
 
 </resources>

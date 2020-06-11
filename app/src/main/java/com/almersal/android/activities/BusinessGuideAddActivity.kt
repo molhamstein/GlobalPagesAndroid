@@ -39,6 +39,7 @@ import com.almersal.android.listeners.OnSubCategorySelectListener
 import com.almersal.android.repositories.DummyDataRepositories
 import com.almersal.android.repositories.SettingData
 import com.almersal.android.repositories.UserRepository
+import com.almersal.android.utilities.AnalyticsEvents
 import com.almersal.android.utilities.IntentHelper
 import com.almersal.android.viewModel.BusinessGuideAddViewHolder
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
@@ -53,8 +54,8 @@ import com.fxn.pix.Pix
 import com.fxn.utility.PermUtil
 
 class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, AttachmentContract.View
-        , BusinessGuidesContract.View, OnCategorySelectListener, OnSubCategorySelectListener
-        , OnCitySelectListener, OnOpenDayListListener {
+    , BusinessGuidesContract.View, OnCategorySelectListener, OnSubCategorySelectListener
+    , OnCitySelectListener, OnOpenDayListListener {
 
     companion object {
 
@@ -122,10 +123,10 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
 
     private fun initDI() {
         val component = DaggerBusinessGuideAddComponent.builder()
-                .tagsCollectionModule(TagsCollectionModule(this))
-                .businessGuidesModule(BusinessGuidesModule(this))
-                .attachmentModule(AttachmentModule(this))
-                .build()
+            .tagsCollectionModule(TagsCollectionModule(this))
+            .businessGuidesModule(BusinessGuidesModule(this))
+            .attachmentModule(AttachmentModule(this))
+            .build()
         component.inject(this)
 
         presenter.attachView(this)
@@ -163,11 +164,13 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
 
     private fun initRecyclerView() {
         businessImages.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        businessImages.adapter = AttachmentRecyclerViewAdapter(this, DummyDataRepositories.getAttachmentList())
+        businessImages.adapter =
+            AttachmentRecyclerViewAdapter(this, DummyDataRepositories.getAttachmentList())
 
         businessCategories.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
 
-        businessSubCategories.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        businessSubCategories.layoutManager =
+            LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
 
         adCities.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
 
@@ -178,8 +181,8 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
     private fun animateResult() {
 
         ViewAnimator.animate(baseContainer).duration(1000).translationY(2000f)
-                /*.alpha(1f, 0f).andAnimate(resultContainer).translationY(1000f, 0f)
-                .alpha(0f, 1f)*/.start()
+            /*.alpha(1f, 0f).andAnimate(resultContainer).translationY(1000f, 0f)
+            .alpha(0f, 1f)*/.start()
     }
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
@@ -188,13 +191,18 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
         initRecyclerView()
         initDI()
 
-        businessGuideAddViewHolder = BusinessGuideAddViewHolder(findViewById(android.R.id.content), this)
+        businessGuideAddViewHolder =
+            BusinessGuideAddViewHolder(findViewById(android.R.id.content), this)
 
-        val businessGuideString: String? = intent.extras?.getString(BusinessGuideAddActivity_Tag, null)
+        val businessGuideString: String? =
+            intent.extras?.getString(BusinessGuideAddActivity_Tag, null)
         if (!businessGuideString.isNullOrEmpty()) {
-            val businessGuide: BusinessGuide = Gson().fromJson(businessGuideString, BusinessGuide::class.java)
+            val businessGuide: BusinessGuide =
+                Gson().fromJson(businessGuideString, BusinessGuide::class.java)
             businessGuideAddViewHolder.bindBusinessGuide(businessGuide)
             businessAddBtn.setText(R.string.Update)
+        } else {
+            mFirebaseAnalytics.logEvent(AnalyticsEvents.NEW_BUSINESS_OPENED, null)
         }
 
         RxBus.listen(MessageEvent::class.java).subscribe {
@@ -235,10 +243,15 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
 
             val token = UserRepository(baseContext).getUser()!!.token
             if (businessGuideAddViewHolder.isAdd())
-                businessGuidesPresenter.addBusinessGuide(businessGuideAddViewHolder.getBusinessGuideModel(), token)
+                businessGuidesPresenter.addBusinessGuide(
+                    businessGuideAddViewHolder.getBusinessGuideModel(),
+                    token
+                )
             else
-                businessGuidesPresenter.updateBusinessGuide(businessGuideAddViewHolder.getBusinessGuideModel()
-                        as BusinessGuideEditModel, token)
+                businessGuidesPresenter.updateBusinessGuide(
+                    businessGuideAddViewHolder.getBusinessGuideModel()
+                            as BusinessGuideEditModel, token
+                )
         }
     }
 
@@ -246,7 +259,8 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
     @Optional
     @OnClick(R.id.editOpenDaysTextView, R.id.openDayLayout)
     fun onEditOpenDaysTextViewClick(view: View) {
-        val openDaysDialog = OpenDaysDialog.newInstance(businessGuideAddViewHolder.openDayList, this)
+        val openDaysDialog =
+            OpenDaysDialog.newInstance(businessGuideAddViewHolder.openDayList, this)
         openDaysDialog.show(supportFragmentManager, OpenDaysDialog.OpenDaysDialog_Tag)
     }
 
@@ -298,7 +312,6 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
     }
 
 
-
     @OnClick(R.id.adBackHomeBtn)
     fun onAdBackHomeButtonClick(view: View) {
         finishAffinity()
@@ -327,7 +340,11 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
 
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS -> {
@@ -335,7 +352,11 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
                 if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Pix.start(this@BusinessGuideAddActivity, PICTURE_REQUEST, 1)
                 } else {
-                    Toast.makeText(this@BusinessGuideAddActivity, resources.getString(R.string.Approve_Permissions_To_Pick_Images), Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this@BusinessGuideAddActivity,
+                        resources.getString(R.string.Approve_Permissions_To_Pick_Images),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
                 return
             }
@@ -370,8 +391,10 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
     }
 
     override fun onCitiesLoaded(citiesList: MutableList<City>) {
-        adCities.adapter = CityRecyclerViewAdapter(context = baseContext, citiesListList = citiesList,
-                onCitySelectListener = this)
+        adCities.adapter = CityRecyclerViewAdapter(
+            context = baseContext, citiesListList = citiesList,
+            onCitySelectListener = this
+        )
     }
 
     override fun onSelectCity(city: City) {
@@ -412,22 +435,29 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
 
     override fun onBusinessCategoriesLoaded(categoriesList: MutableList<BusinessGuideCategory>) {
         val list = categoriesList.filter { it.parentCategoryId.isNullOrBlank() }.toMutableList()
-        businessCategories.adapter = CategoryRecyclerViewAdapter(context = this,
-                categoriesList = list.toMutableList(), onCategorySelectListener = this)
+        businessCategories.adapter = CategoryRecyclerViewAdapter(
+            context = this,
+            categoriesList = list.toMutableList(), onCategorySelectListener = this
+        )
         Log.v("", "")
     }
 
     override fun onSelectCategory(category: Category) {
         if (category.id == SettingData.pharmacyCategoryId) {
             businessGuideAddViewHolder.openDayLayout.visibility = View.VISIBLE
-            ViewAnimator.animate(businessGuideAddViewHolder.openDayLabel).textColor(ContextCompat.getColor(this, R.color.grayLightTextColor),
-                    ContextCompat.getColor(this, R.color.red), ContextCompat.getColor(this, R.color.grayLightTextColor))
-                    .duration(1000).repeatMode(ValueAnimator.REVERSE).start()
+            ViewAnimator.animate(businessGuideAddViewHolder.openDayLabel).textColor(
+                ContextCompat.getColor(this, R.color.grayLightTextColor),
+                ContextCompat.getColor(this, R.color.red),
+                ContextCompat.getColor(this, R.color.grayLightTextColor)
+            )
+                .duration(1000).repeatMode(ValueAnimator.REVERSE).start()
         } else {
             businessGuideAddViewHolder.openDayLayout.visibility = View.GONE
         }
-        businessSubCategories.adapter = SubCategoryRecyclerViewAdapter(context = this,
-                subCategoriesList = category.subCategoriesList, onSubCategorySelectListener = this)
+        businessSubCategories.adapter = SubCategoryRecyclerViewAdapter(
+            context = this,
+            subCategoriesList = category.subCategoriesList, onSubCategorySelectListener = this
+        )
         if (!category.subCategoriesList.isEmpty()) {
             subCategoryLayout.visibility = View.VISIBLE
         } else {
@@ -440,9 +470,12 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
     override fun onSelectSubCategory(subCategory: SubCategory) {
         if (subCategory.id == SettingData.pharmacyCategoryId) {
             businessGuideAddViewHolder.openDayLayout.visibility = View.VISIBLE
-            ViewAnimator.animate(businessGuideAddViewHolder.openDayLabel).textColor(ContextCompat.getColor(this, R.color.grayLightTextColor),
-                    ContextCompat.getColor(this, R.color.red), ContextCompat.getColor(this, R.color.grayLightTextColor))
-                    .duration(1000).repeatMode(ValueAnimator.REVERSE).start()
+            ViewAnimator.animate(businessGuideAddViewHolder.openDayLabel).textColor(
+                ContextCompat.getColor(this, R.color.grayLightTextColor),
+                ContextCompat.getColor(this, R.color.red),
+                ContextCompat.getColor(this, R.color.grayLightTextColor)
+            )
+                .duration(1000).repeatMode(ValueAnimator.REVERSE).start()
         } else {
             businessGuideAddViewHolder.openDayLayout.visibility = View.GONE
         }
@@ -492,7 +525,7 @@ class BusinessGuideAddActivity : BaseActivity(), TagsCollectionContact.View, Att
 
     override fun onLoadAttachmentListSuccessfully(filePath: String, thumbnail: String) {
         (businessImages.adapter as AttachmentRecyclerViewAdapter)
-                .addItem(Attachment(filePath, MediaTypeEnum.IMAGES.type, thumbnail))
+            .addItem(Attachment(filePath, MediaTypeEnum.IMAGES.type, thumbnail))
         Toast.makeText(baseContext, R.string.uploadFileSuccessfully, Toast.LENGTH_LONG).show()
         Log.v("", "")
     }

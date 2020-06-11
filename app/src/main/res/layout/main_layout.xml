@@ -49,7 +49,7 @@
         <android.support.design.widget.AppBarLayout
             android:id="@+id/main.appbar"
             android:layout_width="match_parent"
-            android:layout_height="275dp"
+            android:layout_height="270dp"
             android:layout_margin="0dp"
             android:background="@color/transparent"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -112,12 +112,13 @@
                                 <android.support.v7.widget.AppCompatButton
                                     android:id="@+id/businessGuideBtn"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
+                                    android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:background="#00AFFF"
                                     android:backgroundTint="#00AFFF"
                                     android:gravity="center"
                                     android:lines="2"
+                                    android:fontFamily="@font/cairo_regular"
                                     android:padding="@dimen/md_padding"
                                     android:text="@string/BusinessGuide"
                                     android:textAllCaps="false"
@@ -128,7 +129,7 @@
                             
                             <android.support.v7.widget.CardView
                                 android:layout_width="0dp"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 app:cardBackgroundColor="@color/transparent"
                                 app:cardCornerRadius="@dimen/cardRadius"
@@ -138,12 +139,14 @@
                                 <android.support.v7.widget.AppCompatButton
                                     android:id="@+id/findNearByBtn"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
+                                    android:layout_height="40dp"
                                     android:layout_weight="1"
                                     android:background="#88CE8F"
                                     android:gravity="center"
                                     android:lines="2"
-                                    android:padding="@dimen/md_padding"
+                                    
+                                    android:fontFamily="@font/cairo_regular"
+                                    android:padding="0dp"
                                     android:shadowColor="@color/grayDarkTextColor"
                                     android:text="@string/FindNearBy"
                                     android:textAllCaps="false"
@@ -155,8 +158,8 @@
                             <android.support.v7.widget.CardView
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:visibility="gone"
+                                android:layout_weight="0"
+                                android:visibility="visible"
                                 app:cardBackgroundColor="@color/transparent"
                                 app:cardCornerRadius="@dimen/cardRadius"
                                 app:cardElevation="@dimen/elevation"
@@ -194,10 +197,12 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:background="@color/colorPrimary"
+                                    android:background="@color/job_background"
                                     android:gravity="center"
                                     android:lines="2"
-                                    android:padding="@dimen/md_padding"
+                                    
+                                    android:fontFamily="@font/cairo_regular"
+                                    android:padding="0dp"
                                     android:shadowColor="@color/grayDarkTextColor"
                                     android:text="@string/job_offers"
                                     android:textAllCaps="false"
@@ -222,18 +227,20 @@
             android:id="@+id/nestedview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="105dp"
+            android:layout_marginTop="80dp"
             android:background="@color/milkyColor"
             android:fillViewport="true"
-            android:minHeight="25dp"
+            android:minHeight="250dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
             
             <com.brainsocket.mainlibrary.Views.Stateslayoutview
                 android:id="@+id/stateLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:animateLayoutChanges="true"
+                android:gravity="center"
                 android:minHeight="250dp"
+                android:nestedScrollingEnabled="false"
                 app:NoConnectionLayout="@layout/state_layout_no_connection"
                 app:NoDataLayout="@layout/state_layout_no_data"
                 app:RefreshbtnRes="@+id/retryBtn"
@@ -243,6 +250,7 @@
                     android:id="@+id/volumesRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:nestedScrollingEnabled="false"
                     app:layoutManager="android.support.v7.widget.StaggeredGridLayoutManager"
                     app:spanCount="2"
                     tools:itemCount="5"
@@ -374,12 +382,12 @@
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1"
                         android:backgroundTint="@color/grayLightTextColor"
-                        
+                     
                         android:drawableTop="@drawable/market_wrapper"
                         android:gravity="center"
                         android:lines="2"
                         android:padding="10dp"
-                        
+                        android:fontFamily="@font/cairo_regular"
                         android:text="@string/market"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
@@ -393,6 +401,7 @@
                         android:layout_height="80dp"
                         android:layout_marginStart="10dp"
                         android:layout_weight="2"
+                        android:fontFamily="@font/cairo_regular"
                         android:backgroundTint="@color/blue"
                         android:drawableTop="@drawable/news_paper_wrapper"
                         android:gravity="center"
@@ -401,7 +410,7 @@
                         android:text="@string/newspaper"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
-                        android:textSize="10sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
                 
                 </LinearLayout>

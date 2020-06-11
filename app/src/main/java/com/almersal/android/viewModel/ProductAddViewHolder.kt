@@ -72,16 +72,17 @@ class ProductAddViewHolder constructor(view: View) : RecyclerView.ViewHolder(vie
 
     fun isAdd(): Boolean = productId.text.isNullOrEmpty()
 
-    fun getProductModel(userId: String): ProductAddModel {
+    fun getProductModel(userId: String, businessId: String? = null): ProductAddModel {
         val product = ProductAddModel()
         product.id = productId.text.toString()
+        product.businessId = businessId
 
         var title = productTitle.text.toString()
         product.titleAr = title
         product.titleEn = title
 //        postModel.name = postModel.title
         product.descriptionAr = productDescription.text.toString()
-        product.descriptionEn= productDescription.text.toString()
+        product.descriptionEn = productDescription.text.toString()
 
         for (item in (productImages.adapter as AttachmentRecyclerViewAdapter).attachmentList) {
             product.media.add(item.thumbnail)
@@ -122,7 +123,7 @@ class ProductAddViewHolder constructor(view: View) : RecyclerView.ViewHolder(vie
     fun bindProduct(product: Product) {
         productId.text = product.id
 
-        price.setText((product.price?:null).toString())
+        price.setText((product.price ?: null).toString())
         productTitle.setText(product.title)
         productDescription.setText(product.description)
 

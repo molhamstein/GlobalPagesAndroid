@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -53,6 +54,9 @@ class BusinessGuideViewHolder constructor(view: View) : RecyclerView.ViewHolder(
     @BindView(R.id.ProductAddLink)
     lateinit var ProductAddLink: View
 
+    @BindView(R.id.jobAddLink)
+    lateinit var jobAddLink: View
+
     @BindView(R.id.vipBadge)
     lateinit var vipBadge: ImageView
 
@@ -64,10 +68,13 @@ class BusinessGuideViewHolder constructor(view: View) : RecyclerView.ViewHolder(
     }
 
     fun bind(businessGuide: BusinessGuide) {
-        mediaViewPager.adapter = MediaViewPagerAdapter(context, businessGuide.covers/* DummyDataRepositories.getMediaList()*/)
+        mediaViewPager.adapter = MediaViewPagerAdapter(
+            context,
+            businessGuide.covers/* DummyDataRepositories.getMediaList()*/
+        )
         viewPagerIndicator.setViewPager(mediaViewPager)
 
-        vipBadge.visibility = if(businessGuide.vip) View.VISIBLE else View.GONE
+        vipBadge.visibility = if (businessGuide.vip) View.VISIBLE else View.GONE
         businessTitle.text = businessGuide.getName()
 
         businessCategory.text = businessGuide.category.getTitle()
@@ -75,22 +82,34 @@ class BusinessGuideViewHolder constructor(view: View) : RecyclerView.ViewHolder(
         businessSubCategories.text = businessGuide.subCategory.getTitle()
         businessSubCategories2.text = businessGuide.subCategory.getTitle()
 
-        businessCity.text = DataStoreRepositories(context).findCityById(businessGuide.cityId)?.getTitle()
-        businessLocation.text = DataStoreRepositories(context).findLocationById(businessGuide.cityId,
-                businessGuide.locationId)?.getTitle()
+        businessCity.text =
+            DataStoreRepositories(context).findCityById(businessGuide.cityId)?.getTitle()
+        businessLocation.text = DataStoreRepositories(context).findLocationById(
+            businessGuide.cityId,
+            businessGuide.locationId
+        )?.getTitle()
 
         businessDescription.text = businessGuide.description
-
-        businessGuideProductRecyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        businessDescription.movementMethod = LinkMovementMethod.getInstance()
+        businessGuideProductRecyclerView.layoutManager =
+            LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
 
         val user = UserRepository(context).getUser()
         var isOwner = false
         if (user != null)
             isOwner = user.id == businessGuide.ownerId
-        if (!isOwner)
+        if (!isOwner) {
             ProductAddLink.visibility = View.INVISIBLE
-        businessGuideProductRecyclerView.adapter = ProductsRecyclerViewAdapter(context,
-                businessGuide.myMarketProducts, isOwner, businessGuide, true)
+            jobAddLink.visibility = View.INVISIBLE
+
+        }
+
+        if (businessGuide.myMarketProducts.isEmpty())
+            businessGuideProductRecyclerView.visibility = View.GONE
+        businessGuideProductRecyclerView.adapter = ProductsRecyclerViewAdapter(
+            context,
+            businessGuide.myMarketProducts, isOwner, businessGuide, true
+        )
 
     }
 

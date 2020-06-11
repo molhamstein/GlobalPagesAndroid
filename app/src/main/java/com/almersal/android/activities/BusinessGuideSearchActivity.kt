@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
@@ -57,8 +58,10 @@ import com.google.android.gms.maps.model.*
 import javax.inject.Inject
 
 
-class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListener, OnMapReadyCallback,
-    BusinessGuidesContract.View, TagsCollectionContact.View, OnTagSelectListener, OnCategorySelectListener,
+class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListener,
+    OnMapReadyCallback,
+    BusinessGuidesContract.View, TagsCollectionContact.View, OnTagSelectListener,
+    OnCategorySelectListener,
     GoogleMap.OnCameraIdleListener {
 
     companion object {
@@ -139,15 +142,25 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
                         pageId++
                         businessGuidesPresenter.loadBusinessGuideByLocation(
                             pointEntity =
-                            PointEntity(lat = lastLocation!!.latitude, lng = lastLocation!!.longitude),
+                            PointEntity(
+                                lat = lastLocation!!.latitude,
+                                lng = lastLocation!!.longitude
+                            ),
                             limit = limit,
-                            skip = limit * pageId, filterEntity = firstFilterEntity, maxDistance = maxDistance
+                            skip = limit * pageId,
+                            filterEntity = firstFilterEntity,
+                            maxDistance = maxDistance
 
                         )
                     }
             }
         })
-        selectedTagsView.setAdapter(TagsRecyclerViewAdapter(this, DummyDataRepositories.getTagsDefaultRepositories()))
+        selectedTagsView.setAdapter(
+            TagsRecyclerViewAdapter(
+                this,
+                DummyDataRepositories.getTagsDefaultRepositories()
+            )
+        )
         (selectedTagsView.getAdapter() as TagsRecyclerViewAdapter).onTagSelectListener = this
 
     }
@@ -204,7 +217,8 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
         ) {
             ActivityCompat.requestPermissions(
                 this,
-                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                LOCATION_PERMISSION_REQUEST_CODE
             )
             return
         }
@@ -241,7 +255,11 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
             return
         }
         //2
-        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null /* Looper */)
+        fusedLocationClient.requestLocationUpdates(
+            locationRequest,
+            locationCallback,
+            null /* Looper */
+        )
     }
 
     private fun createLocationRequest() {
@@ -352,7 +370,8 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
     @OnClick(R.id.selectedTagsView)
     fun onTagSearchViewClick(view: View) {
         try {
-            val fragment = supportFragmentManager.findFragmentByTag(SubCategoryBottomSheet.SubCategoryBottomSheet_Tag)
+            val fragment =
+                supportFragmentManager.findFragmentByTag(SubCategoryBottomSheet.SubCategoryBottomSheet_Tag)
             if (fragment != null) {
                 (fragment as SubCategoryBottomSheet).dismiss()
             }
@@ -479,7 +498,11 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
     }
     /*GPS Track Ended*/
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         createLocationRequest()
         Log.v("", "")
@@ -548,7 +571,11 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
         if (visible) {
             progressBar.visibility = View.GONE
             refreshBtn.visibility = View.VISIBLE
-            Toast.makeText(baseContext, R.string.NoInternetConnectionTryRefreshData, Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                baseContext,
+                R.string.NoInternetConnectionTryRefreshData,
+                Toast.LENGTH_LONG
+            ).show()
         } else {
             progressBar.visibility = View.GONE
             refreshBtn.visibility = View.GONE
@@ -557,7 +584,8 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
 
     override fun showBusinessGuideEmptyView(visible: Boolean) {
         if (pageId == 0) {
-            businessGuideRecyclerView.adapter = BusinessGuideRecyclerViewAdapter(this, mutableListOf())
+            businessGuideRecyclerView.adapter =
+                BusinessGuideRecyclerViewAdapter(this, mutableListOf())
             mMap.clear()
             Toast.makeText(baseContext, R.string.NoDataFound, Toast.LENGTH_LONG).show()
         }
@@ -566,10 +594,13 @@ class BusinessGuideSearchActivity : BaseActivity(), GoogleMap.OnMarkerClickListe
     override fun onLoadBusinessGuideListSuccessfully(businessGuideList: MutableList<BusinessGuide>) {
 
         if (pageId == 0) {
-            businessGuideRecyclerView.adapter = BusinessGuideRecyclerViewAdapter(this, businessGuideList)
+            businessGuideRecyclerView.adapter =
+                BusinessGuideRecyclerViewAdapter(this, businessGuideList)
             mMap.clear()
         } else
-            (businessGuideRecyclerView.adapter as BusinessGuideRecyclerViewAdapter).addAll(businessGuideList)
+            (businessGuideRecyclerView.adapter as BusinessGuideRecyclerViewAdapter).addAll(
+                businessGuideList
+            )
         var viewTypeToggle = findViewById<CompoundButton>(R.id.viewTypeToggle)
         if (changeViewTypeFlag) {
             changeViewTypeFlag = false

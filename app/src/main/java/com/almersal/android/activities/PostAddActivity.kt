@@ -28,6 +28,7 @@ import com.almersal.android.listeners.OnCategorySelectListener
 import com.almersal.android.listeners.OnCitySelectListener
 import com.almersal.android.repositories.DummyDataRepositories
 import com.almersal.android.repositories.UserRepository
+import com.almersal.android.utilities.AnalyticsEvents
 import com.almersal.android.utilities.IntentHelper
 import com.almersal.android.viewModel.PostAddViewHolder
 import com.brainsocket.mainlibrary.Enums.LayoutStatesEnum
@@ -172,6 +173,10 @@ class PostAddActivity : BaseActivity(), PostContract.View, TagsCollectionContact
             postAddViewHolder.bindPost(post)
             adAddBtn.setText(R.string.Update)
         }
+        else{
+            mFirebaseAnalytics.logEvent(AnalyticsEvents.NEW_AD_OPENED,null)
+        }
+
 
         categoryStateLayout.setOnRefreshLayoutListener(object : OnRefreshLayoutListener {
             override fun onRefresh() {

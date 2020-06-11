@@ -21,13 +21,13 @@ import kotlinx.android.synthetic.main.product_main_fixed_layout.*
 import org.jetbrains.annotations.Nullable
 
 
-
-class ProductViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+class ProductViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView),
+    LayoutContainer {
 
     fun bind(product: Product) {
         product_Title.text = product.title
         product_details.text = product.description
-        product_Tag.text = product.category.getTitle()
+        product_Tag.text = (product.price ?: 0).toString()
         product_city.text = product.city.getTitle()
         product_area.text = product.location.getTitle()
 

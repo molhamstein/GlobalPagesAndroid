@@ -35,6 +35,7 @@ import com.almersal.android.di.ui.NotificationPresenter
 import com.almersal.android.repositories.SettingData
 import com.almersal.android.repositories.SettingRepositories
 import com.almersal.android.repositories.UserRepository
+import com.almersal.android.utilities.AnalyticsEvents
 import com.almersal.android.utilities.MainHelper
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.OnSuccessListener
@@ -62,9 +63,9 @@ class SignUpActivity : BaseActivity(), SignUpContract.View, NotificationContract
 
     private fun initDI() {
         val component = DaggerSignUpComponent.builder()
-                .signUpModule(SignUpModule(this))
-                .notificationModule(NotificationModule(this))
-                .build()
+            .signUpModule(SignUpModule(this))
+            .notificationModule(NotificationModule(this))
+            .build()
         component.inject(this)
         presenter.attachView(this)
         presenter.subscribe()
@@ -75,10 +76,14 @@ class SignUpActivity : BaseActivity(), SignUpContract.View, NotificationContract
     }
 
     private fun initTabLayout() {
-        val maleTab = genderTabLayout.newTab().setCustomView(CustomTabView(context = baseContext)
-                .setGender(R.string.male, R.mipmap.ic_male_24dp)).setText(R.string.male)
-        val femaleTab = genderTabLayout.newTab().setCustomView(CustomTabView(context = baseContext)
-                .setGender(R.string.female, R.mipmap.ic_female_24dp)).setText(R.string.female)
+        val maleTab = genderTabLayout.newTab().setCustomView(
+            CustomTabView(context = baseContext)
+                .setGender(R.string.male, R.mipmap.ic_male_24dp)
+        ).setText(R.string.male)
+        val femaleTab = genderTabLayout.newTab().setCustomView(
+            CustomTabView(context = baseContext)
+                .setGender(R.string.female, R.mipmap.ic_female_24dp)
+        ).setText(R.string.female)
 
         genderTabLayout.addTab(maleTab)
         genderTabLayout.addTab(femaleTab)
@@ -90,13 +95,13 @@ class SignUpActivity : BaseActivity(), SignUpContract.View, NotificationContract
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
                 tab?.customView?.findViewById<TextView>(android.R.id.text1)
-                        ?.setTextColor(ContextCompat.getColor(baseContext, R.color.grayLightTextColor))
+                    ?.setTextColor(ContextCompat.getColor(baseContext, R.color.grayLightTextColor))
                 tab?.customView?.findViewById<ImageView>(R.id.gender_icon)?.alpha = 0.3f
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 tab?.customView?.findViewById<TextView>(android.R.id.text1)
-                        ?.setTextColor(ContextCompat.getColor(baseContext, R.color.grayDarkTextColor))
+                    ?.setTextColor(ContextCompat.getColor(baseContext, R.color.grayDarkTextColor))
                 tab?.customView?.findViewById<ImageView>(R.id.gender_icon)?.alpha = 1.0f
             }
         })
@@ -128,15 +133,15 @@ class SignUpActivity : BaseActivity(), SignUpContract.View, NotificationContract
     private fun initDatePicker() {
         val date: java.util.GregorianCalendar = java.util.GregorianCalendar(Locale.ENGLISH)
         val datePicker = DatePickerDialog(this, R.style.AppTheme_DialogSlideAnimwithback,
-                DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, month: Int,
-                                                     dayOfMonth: Int ->
-                    date.set(Calendar.YEAR, year)
-                    date.set(Calendar.MONTH, month)
-                    date.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                    birthdate.setText(DateNormalizer.getCanonicalDateFormat(date = date.time))
-                    viewHolder.birthdateLayout.error = null
-                }
-                , date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH))
+            DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, month: Int,
+                                                 dayOfMonth: Int ->
+                date.set(Calendar.YEAR, year)
+                date.set(Calendar.MONTH, month)
+                date.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                birthdate.setText(DateNormalizer.getCanonicalDateFormat(date = date.time))
+                viewHolder.birthdateLayout.error = null
+            }
+            , date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH))
         datePicker.show()
     }
 
@@ -182,8 +187,8 @@ class SignUpActivity : BaseActivity(), SignUpContract.View, NotificationContract
             }
         }
         builder.setMessage(resources.getString(R.string.doYouWantAddFirstBusiness))
-                .setPositiveButton(resources.getString(R.string.Yes), dialogClickListener)
-                .setNegativeButton(resources.getString(R.string.No), dialogClickListener).show()
+            .setPositiveButton(resources.getString(R.string.Yes), dialogClickListener)
+            .setNegativeButton(resources.getString(R.string.No), dialogClickListener).show()
         // return viewHolder.businessOwnerCheckBox.isChecked
     }
 
@@ -192,7 +197,7 @@ class SignUpActivity : BaseActivity(), SignUpContract.View, NotificationContract
     }
 
     override fun signUpSuccessfully(user: User) {
-
+        mFirebaseAnalytics.logEvent(AnalyticsEvents.SIGN_UP_SUCCESS, null)
         FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { p0 ->
             if (p0 != null)
                 SettingRepositories(this@SignUpActivity).addToken(p0.token)
@@ -200,10 +205,13 @@ class SignUpActivity : BaseActivity(), SignUpContract.View, NotificationContract
         val fireBaseToken: String? = SettingRepositories(this).getToken()
         val token: String = UserRepository(this).getUser()!!.token
         if (fireBaseToken != null) {
-            notificationPresenter.registerFireBaseToken(fireBaseToken = fireBaseToken, token = token)
+            notificationPresenter.registerFireBaseToken(
+                fireBaseToken = fireBaseToken,
+                token = token
+            )
         }
 
-        presenter.authenticate(LoginModel(getUser().email,getUser().password))
+        presenter.authenticate(LoginModel(getUser().email, getUser().password))
 
         finish()
         Log.v("", "")
@@ -253,7 +261,10 @@ class SignUpActivity : BaseActivity(), SignUpContract.View, NotificationContract
         val fireBaseToken: String? = SettingRepositories(this).getToken()
         val token: String = UserRepository(this).getUser()!!.token
         if (fireBaseToken != null) {
-            notificationPresenter.registerFireBaseToken(fireBaseToken = fireBaseToken, token = token)
+            notificationPresenter.registerFireBaseToken(
+                fireBaseToken = fireBaseToken,
+                token = token
+            )
         }
         IntentHelper.startMainActivity(this)
         Log.v("", "")
