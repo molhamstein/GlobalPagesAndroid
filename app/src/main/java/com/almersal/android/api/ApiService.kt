@@ -20,7 +20,11 @@ class ApiService {
 
 
     /*Registration started*/
-    fun postUserLogin(url: String, loginModel: LoginModel, requestListener: ParsedRequestListener<LoginResponse>) {
+    fun postUserLogin(
+        url: String,
+        loginModel: LoginModel,
+        requestListener: ParsedRequestListener<LoginResponse>
+    ) {
         AndroidNetworking.post(url)
             .addBodyParameter(loginModel)
             .setPriority(Priority.HIGH)
@@ -43,7 +47,11 @@ class ApiService {
             .getAsJSONObject(requestListener)
     }
 
-    fun postUserSignUp(url: String, signUpModel: SignUpModel, requestListener: ParsedRequestListener<User>) {
+    fun postUserSignUp(
+        url: String,
+        signUpModel: SignUpModel,
+        requestListener: ParsedRequestListener<User>
+    ) {
         AndroidNetworking.post(url)
             .setContentType("application/json")
             .setPriority(Priority.HIGH)
@@ -168,7 +176,10 @@ class ApiService {
 
 
     /*JobBusiness Guides started*/
-    fun getBusinessGuides(url: String, requestListener: ParsedRequestListener<MutableList<BusinessGuide>>) {
+    fun getBusinessGuides(
+        url: String,
+        requestListener: ParsedRequestListener<MutableList<BusinessGuide>>
+    ) {
         AndroidNetworking.get(url)
 //                .setContentType("application/json")
             .setPriority(Priority.HIGH)
@@ -251,7 +262,30 @@ class ApiService {
             .getAsObject(Product::class.java, requestListener)
     }
 
-    fun postPost(url: String, postModel: PostModel, token: String, requestListener: ParsedRequestListener<Post>) {
+
+    fun deactivateProduct(
+        url: String,
+        status: Status,
+        token: String,
+        requestListener: ParsedRequestListener<Product>
+    ) {
+
+        val jSon = Gson().toJson(status)
+        AndroidNetworking.patch(url)
+            .setPriority(Priority.HIGH)
+            .setContentType("application/json")
+            .addHeaders("Authorization", token)
+            .addStringBody(jSon)
+            .build()
+            .getAsObject(Product::class.java, requestListener)
+    }
+
+    fun postPost(
+        url: String,
+        postModel: PostModel,
+        token: String,
+        requestListener: ParsedRequestListener<Post>
+    ) {
         val json = Gson().toJson(postModel)
         AndroidNetworking.post(url)
             .setContentType("application/json")
@@ -265,7 +299,12 @@ class ApiService {
             .getAsObject(Post::class.java, requestListener)
     }
 
-    fun putPost(url: String, postModel: PostEditModel, token: String, requestListener: ParsedRequestListener<Post>) {
+    fun putPost(
+        url: String,
+        postModel: PostEditModel,
+        token: String,
+        requestListener: ParsedRequestListener<Post>
+    ) {
         val json = Gson().toJson(postModel)
         AndroidNetworking.put(url + "/" + postModel.id)
             .setContentType("application/json")
@@ -353,7 +392,10 @@ class ApiService {
 
 
     /*Notification started*/
-    fun getNotifications(url: String, requestListener: ParsedRequestListener<MutableList<NotificationEntity>>) {
+    fun getNotifications(
+        url: String,
+        requestListener: ParsedRequestListener<MutableList<NotificationEntity>>
+    ) {
 //        val criteria = Gson().toJson(filtration)
         AndroidNetworking.get(url)
 //                .setContentType("application/json")
@@ -363,7 +405,11 @@ class ApiService {
             .getAsObjectList(NotificationEntity::class.java, requestListener)
     }
 
-    fun putNotificationClear(url: String, context: Context, requestListener: StringRequestListener) {
+    fun putNotificationClear(
+        url: String,
+        context: Context,
+        requestListener: StringRequestListener
+    ) {
         val token = UserRepository(context).getUser()!!.token
         AndroidNetworking.put(url)
             .addHeaders("Authorization", token)
@@ -415,7 +461,12 @@ class ApiService {
             .getAsObject(NotificationEntity::class.java, requestListener)
     }
 
-    fun putFireBaseToken(url: String, token: String, fireBaseToken: String, requestListener: StringRequestListener) {
+    fun putFireBaseToken(
+        url: String,
+        token: String,
+        fireBaseToken: String,
+        requestListener: StringRequestListener
+    ) {
         AndroidNetworking.post(url)
             .setContentType("application/json")
             .addHeaders("Authorization", token)
@@ -433,11 +484,18 @@ class ApiService {
             .getAsObject(User::class.java, requestListener)
     }
 
-    fun getTags(url: String, keyword: String, requestListener: ParsedRequestListener<MutableList<Tag>>) {
+    fun getTags(
+        url: String,
+        keyword: String,
+        requestListener: ParsedRequestListener<MutableList<Tag>>
+    ) {
 
         AndroidNetworking.get(url)
             .setPriority(Priority.HIGH)
-            .addQueryParameter("filter", "{\"where\":{\"name\":{\"like\":\"$keyword\",\"options\":\"i\"}}}")
+            .addQueryParameter(
+                "filter",
+                "{\"where\":{\"name\":{\"like\":\"$keyword\",\"options\":\"i\"}}}"
+            )
             .build()
             .getAsObjectList(Tag::class.java, requestListener)
     }
@@ -602,7 +660,7 @@ class ApiService {
 
 
     fun deactivateJob(
-        jobStatus: JobStatus,
+        jobStatus: Status,
         jobId: String,
         token: String,
         requestListener: ParsedRequestListener<JobDetails>
@@ -689,8 +747,12 @@ class ApiService {
     }
 
 
-
-    fun addProduct(url: String, product: ProductAddModel, token: String, requestListener: ParsedRequestListener<Product>) {
+    fun addProduct(
+        url: String,
+        product: ProductAddModel,
+        token: String,
+        requestListener: ParsedRequestListener<Product>
+    ) {
         val json = Gson().toJson(product)
         AndroidNetworking.post(url)
             .setContentType("application/json")
@@ -705,9 +767,14 @@ class ApiService {
     }
 
 
-    fun updateProduct(url: String, product: ProductAddModel, token: String, requestListener: ParsedRequestListener<Product>) {
+    fun updateProduct(
+        url: String,
+        product: ProductAddModel,
+        token: String,
+        requestListener: ParsedRequestListener<Product>
+    ) {
         val json = Gson().toJson(product)
-        AndroidNetworking.put(url )
+        AndroidNetworking.put(url)
             .setContentType("application/json")
             .addHeaders("Authorization", token)
             .addStringBody(json)

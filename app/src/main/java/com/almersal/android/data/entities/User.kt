@@ -24,6 +24,7 @@ class User {
 
     var imageProfile: String = ""
     var phoneNumber: String = ""
+    var balance: Int? = null
 
     var postCategoriesIds: MutableList<String>? = null
     var CV: UserResume? = null

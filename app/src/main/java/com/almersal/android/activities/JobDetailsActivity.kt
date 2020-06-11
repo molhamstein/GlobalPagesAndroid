@@ -1,6 +1,7 @@
 package com.almersal.android.activities
 
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.Toast
 import com.almersal.android.R
@@ -11,6 +12,7 @@ import com.almersal.android.di.module.JobDetailsModule
 import com.almersal.android.di.ui.JobDetailsContract
 import com.almersal.android.di.ui.JobDetailsPresenter
 import com.almersal.android.normalization.DateNormalizer
+import com.almersal.android.utilities.AnalyticsEvents
 import com.almersal.android.utilities.BindingUtils
 import com.almersal.android.utilities.EnumsProvider
 import com.almersal.android.utilities.IntentHelper
@@ -45,6 +47,9 @@ class JobDetailsActivity : BaseActivity(), JobDetailsContract.View, View.OnClick
         component.inject(this)
         presenter.attachView(this)
         jobId = intent.getStringExtra(job_intent_key)
+        val bundle = Bundle() ;
+        bundle.putString("job_id",jobId)
+        mFirebaseAnalytics.logEvent(AnalyticsEvents.JOB_DETAILS_OPENED,bundle)
         presenter.getJobDetails(jobId)
 
         editFlag = intent.getBooleanExtra(edit_flag_key, false)
@@ -94,7 +99,7 @@ class JobDetailsActivity : BaseActivity(), JobDetailsContract.View, View.OnClick
         descriptionValue.text = job.description
         descriptionValue.visibility = if (job.description.isNullOrEmpty()) View.GONE else View.VISIBLE
         descriptionText.visibility = if (job.description.isNullOrEmpty()) View.GONE else View.VISIBLE
-
+        descriptionText.movementMethod = LinkMovementMethod.getInstance()
         categoryName.text = job.category?.getTitle()
         subCategoryName.text = job.subCategory?.getTitle()
         subCategoryName.visibility = if (job.subCategory?.getTitle().isNullOrBlank()) View.GONE else View.VISIBLE
@@ -145,7 +150,7 @@ class JobDetailsActivity : BaseActivity(), JobDetailsContract.View, View.OnClick
                 presenter.applyToJob(job?.id ?: "")
             }
             deactivate -> {
-                presenter.deactivateJob(job?.id!!, JobStatus("deactivated"))
+                presenter.deactivateJob(job?.id!!, Status("deactivated"))
             }
 
             applicantsBtn, applicantsNumber -> {

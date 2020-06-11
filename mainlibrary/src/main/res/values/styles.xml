@@ -13,6 +13,7 @@
         <item name="android:windowAnimationStyle">@style/ActivityAnimation</item>
         <item name="android:dialogTheme">@style/AppTheme.DialogSlideAnim</item>
         <item name="android:alertDialogTheme">@style/AppAlertTheme</item>
+        <item name="android:typeface">serif</item>
     </style>
 
     <style name="Theme.Transparent" parent="Theme.AppCompat.Light.NoActionBar">

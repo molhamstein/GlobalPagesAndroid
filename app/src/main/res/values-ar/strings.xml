@@ -224,6 +224,11 @@
     <string name="my_products">منتجاتي</string>
     <string name="add_new_product">إضافة منتج جديد </string>
     <string name="price">السعر</string>
+    <string name="we_will_review_your_product_and_contact_you_back">سنتابع منتجك ونقوم بالاتصال بك \n مرة أخرى</string>
+    <string name="update_product">تعديل المنتج</string>
+    <string name="product_submitted">تمت عملية الإضافة</string>
+    <string name="balance">الرصيد</string>
+    <string name="product_deactivated">تم الغاء تفعيل المنتج</string>
 
 
 </resources>

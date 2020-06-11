@@ -38,23 +38,25 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
 
     private fun loadBusinessGuideByUrl(url: String) {
         view.showBusinessGuideProgress(true)
-        ApiService().getBusinessGuides(url, object : ParsedRequestListener<MutableList<BusinessGuide>> {
-            override fun onResponse(response: MutableList<BusinessGuide>?) {
+        ApiService().getBusinessGuides(
+            url,
+            object : ParsedRequestListener<MutableList<BusinessGuide>> {
+                override fun onResponse(response: MutableList<BusinessGuide>?) {
 
-                if ((response != null)) {
-                    view.showBusinessGuideProgress(false)
-                    if (response.size > 0) {
-                        view.onLoadBusinessGuideListSuccessfully(response)
-                        return
+                    if ((response != null)) {
+                        view.showBusinessGuideProgress(false)
+                        if (response.size > 0) {
+                            view.onLoadBusinessGuideListSuccessfully(response)
+                            return
+                        }
                     }
+                    view.showBusinessGuideEmptyView(true)
                 }
-                view.showBusinessGuideEmptyView(true)
-            }
 
-            override fun onError(anError: ANError?) {
-                view.showBusinessGuideLoadErrorMessage(true)
-            }
-        })
+                override fun onError(anError: ANError?) {
+                    view.showBusinessGuideLoadErrorMessage(true)
+                }
+            })
     }
 
     override fun loadBusinessGuideList(subCategory: SubCategory) {
@@ -74,7 +76,8 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
 //        val criteria: MutableMap<String, Pair<String, String>> = HashMap()
 //        criteria["where"] = Pair("subCategoryId", subCategory.id)
 
-        val url = ServerInfo.businessGuideUrl + "?filter[where][subCategoryId]=" + subCategory.id + "&filter[limit]=3"
+        val url =
+            ServerInfo.businessGuideUrl + "?filter[where][subCategoryId]=" + subCategory.id + "&filter[limit]=3"
         loadBusinessGuideByUrl(url)
 
     }
@@ -95,10 +98,10 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
         maxDistance: Float?
     ) {
 
-        var filterQuery = ""
+        var filterQuery = "?filter[where][status]=activated"
         val language = App.app.isArabic()
 
-        if (!filterEntity?.query.isNullOrEmpty())
+        if (!filterEntity?.query.isNullOrBlank())
             filterQuery += if (language) {
                 "&keyword=${filterEntity?.query}"
             } else {
@@ -118,14 +121,15 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
             filterQuery += "&locationId=${filterEntity.area?.id}"
         }
 
-        filterQuery += "&units=kilometres&maxDistance=$maxDistance"
-        //http://192.168.1.8:3000/api/businesses/searchByLocation?lat=33.514&lng=36.31&codeCat=pharmacies
-        // &limit=100&skip=0&openingDay=0&units=kilometers&maxDistance=3000
-        // &cityId=123&locationId=123&catId=123&subCatId=123
+        var locationQuery =
+            "&lat=${pointEntity.lat}&lng=${pointEntity.lng}&units=kilometres&maxDistance=$maxDistance"
 
-        val url = ServerInfo.businessGuideUrl + "/newSearchByLocation?lat=" +
-                pointEntity.lat.toString() + "&lng=" + pointEntity.lng.toString() +
-                "&limit=$limit&skip=$skip" + filterQuery
+        if (filterEntity?.query.isNullOrBlank())
+            filterQuery += locationQuery
+
+        filterQuery += "&filter[include] =myMarketProducts "
+        val url =
+            ServerInfo.businessGuideUrl + "/newSearchByLocation?limit=$limit&skip=$skip" + filterQuery
 
 //        val url = ServerInfo.businessGuideUrl + "?filter[where][locationPoint][near]=" +
 //                pointEntity.lat.toString() + "," + pointEntity.lng.toString() + "&filter[where][status]=activated" +
@@ -149,7 +153,10 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
         loadBusinessGuideByUrl(url)
     }
 
-    override fun loadBusinessGuideByLocationAndCategory(pointEntity: PointEntity, subCategory: SubCategory) {
+    override fun loadBusinessGuideByLocationAndCategory(
+        pointEntity: PointEntity,
+        subCategory: SubCategory
+    ) {
 //        var s = "filter[where][price][between][0]=0&filter[where][price][between][1]=7"
 
         val url = ServerInfo.businessGuideUrl + "?filter[where][subCategoryId]=" + subCategory.id +
@@ -179,20 +186,22 @@ class BusinessGuidesPresenter constructor(val context: Context) : BusinessGuides
     override fun loadBusinessGuideById(id: String) {
         view.showProgress(true)
         val url = ServerInfo.businessGuideUrl + "/" + id + "?filter[include]=myMarketProducts"
-        ApiService().getBusinessGuide(url,/* criteria,*/ object : ParsedRequestListener<BusinessGuide> {
-            override fun onResponse(response: BusinessGuide?) {
-                view.showProgress(false)
-                if (response != null) {
-                    view.onLoadBusinessGuide(response)
-                    return
+        ApiService().getBusinessGuide(
+            url,/* criteria,*/
+            object : ParsedRequestListener<BusinessGuide> {
+                override fun onResponse(response: BusinessGuide?) {
+                    view.showProgress(false)
+                    if (response != null) {
+                        view.onLoadBusinessGuide(response)
+                        return
+                    }
+                    view.showEmptyView(true)
                 }
-                view.showEmptyView(true)
-            }
 
-            override fun onError(anError: ANError?) {
-                view.showLoadErrorMessage(true)
-            }
-        })
+                override fun onError(anError: ANError?) {
+                    view.showLoadErrorMessage(true)
+                }
+            })
 
     }
 

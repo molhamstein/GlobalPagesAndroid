@@ -21,6 +21,7 @@ import com.almersal.android.di.ui.SigninPresenter
 import com.almersal.android.dialogs.ProgressDialog
 import com.almersal.android.repositories.SettingRepositories
 import com.almersal.android.repositories.UserRepository
+import com.almersal.android.utilities.AnalyticsEvents
 import com.almersal.android.utilities.IntentHelper
 import com.almersal.android.utilities.MainHelper
 import com.almersal.android.viewModel.SigninViewHolder
@@ -63,6 +64,7 @@ class SignInActivity : BaseActivity(), SigninContract.View, NotificationContract
         ButterKnife.bind(this)
         initDI()
 
+        mFirebaseAnalytics.logEvent(AnalyticsEvents.LOGIN_OPENED, null)
         viewHolder = SigninViewHolder(findViewById(android.R.id.content))
         viewHolder.password.typeface = Typeface.DEFAULT
         viewHolder.password.transformationMethod = PasswordTransformationMethod()
@@ -100,6 +102,7 @@ class SignInActivity : BaseActivity(), SigninContract.View, NotificationContract
     }
 
     override fun loginSuccessfully(loginResponse: LoginResponse) {
+        mFirebaseAnalytics.logEvent(AnalyticsEvents.LOGIN_SUCCESS, null)
         loginResponse.user.token = loginResponse.id
         UserRepository(context = this).addUser(loginResponse.user)
 //        FirebaseMessaging.getInstance().subscribeToTopic(Utl.client.getUser().getUid())

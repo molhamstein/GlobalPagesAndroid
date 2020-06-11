@@ -3,6 +3,7 @@ package com.almersal.android.activities
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Adapter
 import com.almersal.android.R
@@ -33,7 +34,8 @@ import com.google.android.flexbox.FlexboxLayoutManager
 import kotlinx.android.synthetic.main.activity_jobs_search.*
 import javax.inject.Inject
 
-class JobsSearchActivity : BaseActivity(), JobSearchContract.View, View.OnClickListener, OnTagSelectListener {
+class JobsSearchActivity : BaseActivity(), JobSearchContract.View, View.OnClickListener,
+    OnTagSelectListener {
 
 
     @Inject
@@ -63,12 +65,34 @@ class JobsSearchActivity : BaseActivity(), JobSearchContract.View, View.OnClickL
         layoutManager = LinearLayoutManager(this)
         jobsRecycler.layoutManager = layoutManager
         jobsRecycler.adapter = adapter
+        jobsRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+
+                val visibleItemCount = layoutManager.childCount
+                val totalItemCount = layoutManager.itemCount
+                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+                if (progressBar.visibility == View.GONE)
+                    if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
+                        && firstVisibleItemPosition >= 0
+                        && totalItemCount >= limit
+                    ) {
+                        skip += limit
+                        loadData(false)
+                    }
+            }
+        })
 
         loadData(true)
         selectedTagsView.setOnClickListener(this)
         searchBtn.setOnClickListener(this)
 
-        selectedTagsView.setAdapter(TagsRecyclerViewAdapter(this, DummyDataRepositories.getTagsDefaultRepositories()))
+        selectedTagsView.setAdapter(
+            TagsRecyclerViewAdapter(
+                this,
+                DummyDataRepositories.getTagsDefaultRepositories()
+            )
+        )
         (selectedTagsView.getAdapter() as TagsRecyclerViewAdapter).onTagSelectListener = this
         backBtn.setOnClickListener(this)
 
@@ -90,7 +114,8 @@ class JobsSearchActivity : BaseActivity(), JobSearchContract.View, View.OnClickL
     override fun onClick(v: View?) {
         when (v) {
             selectedTagsView, searchBtn -> {
-                val list = (selectedTagsView.selectedTags.adapter as TagsRecyclerViewAdapter).tagsListList
+                val list =
+                    (selectedTagsView.selectedTags.adapter as TagsRecyclerViewAdapter).tagsListList
                 IntentHelper.startPostSearchFilterActivityForResult(
                     activity = this,
                     tagList = list,
@@ -124,6 +149,7 @@ class JobsSearchActivity : BaseActivity(), JobSearchContract.View, View.OnClickL
         filter["cityId"] = filterEntity.city?.id
         filter["keyword"] = filterEntity.query
 
+        skip = 0
         loadData(true)
 
 
@@ -168,6 +194,11 @@ class JobsSearchActivity : BaseActivity(), JobSearchContract.View, View.OnClickL
         } else {
             progressBar.visibility = View.GONE
         }
+    }
+
+    override fun showEmptyView(visible: Boolean) {
+        if (visible) emptyView.visibility = View.VISIBLE
+        else emptyView.visibility = View.GONE
     }
 
 

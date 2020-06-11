@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.TextureView
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -15,11 +16,13 @@ import butterknife.Optional
 import com.almersal.android.R
 import com.almersal.android.data.entities.Product
 import com.almersal.android.data.entities.ProductThumb
+import com.almersal.android.data.entities.Status
 import com.almersal.android.di.component.DaggerProductDetailsComponent
 import com.almersal.android.di.module.ProductModule
 import com.almersal.android.di.ui.*
 import com.almersal.android.dialogs.ContactPostDialog
 import com.almersal.android.repositories.UserRepository
+import com.almersal.android.utilities.AnalyticsEvents
 import com.almersal.android.viewModel.ProductViewHolder
 import com.brainsocket.mainlibrary.Listeners.OnRefreshLayoutListener
 import com.brainsocket.mainlibrary.Views.Stateslayoutview
@@ -29,7 +32,8 @@ import kotlinx.android.synthetic.main.post_details_layout.*
 import javax.inject.Inject
 
 
-class ProductDetailsActivity : BaseActivity(), ProductContract.View, AppBarLayout.OnOffsetChangedListener {
+class ProductDetailsActivity : BaseActivity(), ProductContract.View,
+    AppBarLayout.OnOffsetChangedListener {
 
 
     companion object {
@@ -95,12 +99,23 @@ class ProductDetailsActivity : BaseActivity(), ProductContract.View, AppBarLayou
         appbar.addOnOffsetChangedListener(this)
         initDI()
 
+        deactivate.setOnClickListener {
+            presenter.deactivateProduct(product?.id ?: "")
+        }
+
         productViewHolder = ProductViewHolder(findViewById(android.R.id.content))
 
         val json = intent.getStringExtra(PostDetailsActivity_Tag)
         if (!json.isNullOrBlank()) {
             product = Gson().fromJson(json, Product::class.java)
+            val bundle = Bundle() ;
+            bundle.putString("product_id",product?.id)
+            mFirebaseAnalytics.logEvent(AnalyticsEvents.PRODUCT_DETAILS_OPENED,bundle)
             productViewHolder.bind(product!!)
+            val user = UserRepository(this).getUser()
+            deactivateBtn.visibility =
+                if (product!!.ownerId == user?.id && product!!.status == "activated") View.VISIBLE else View.INVISIBLE
+
         } else {
 
             val id = intent.getStringExtra(PostDetailsActivity_Id_Tag)
@@ -121,12 +136,14 @@ class ProductDetailsActivity : BaseActivity(), ProductContract.View, AppBarLayou
 
             fowardBtn.setOnClickListener {
                 val currnetItem = mediaViewPager.currentItem
-                mediaViewPager.currentItem = if (currnetItem < mediaViewPager.childCount - 1) currnetItem + 1 else 0
+                mediaViewPager.currentItem =
+                    if (currnetItem < mediaViewPager.childCount - 1) currnetItem + 1 else 0
 
             }
             backBtn.setOnClickListener {
                 val currnetItem = mediaViewPager.currentItem
-                mediaViewPager.currentItem = if (currnetItem > 0) currnetItem - 1 else mediaViewPager.childCount
+                mediaViewPager.currentItem =
+                    if (currnetItem > 0) currnetItem - 1 else mediaViewPager.childCount
             }
 
         }
@@ -135,9 +152,9 @@ class ProductDetailsActivity : BaseActivity(), ProductContract.View, AppBarLayou
 
     private fun toggleEditMode() {
         val user = UserRepository(this).getUser()
-        if ((user != null) && (product != null) && (user.id != null))
+        if ((user != null) && (product != null) && (user.id != null)) {
             menuItem?.isVisible = (product!!.ownerId == user.id)
-        else
+        } else
             menuItem?.isVisible = false
 
 
@@ -148,9 +165,13 @@ class ProductDetailsActivity : BaseActivity(), ProductContract.View, AppBarLayou
     @OnClick(R.id.contactBtn, R.id.contactTextBtn)
     fun onContactButtonClick(view: View) {
         if (product != null) {
+            val bundle = Bundle() ;
+            bundle.putString("product_id",product?.id)
+            mFirebaseAnalytics.logEvent(AnalyticsEvents.SHOW_PRODUCT_CONTACT,bundle)
             val contactDialog =
                 ContactPostDialog.newInstance(
-                    product!!.business?.phone1 ?: product!!.business?.phone1 ?: product!!.owner.phoneNumber
+                    product!!.business?.phone1 ?: product!!.business?.phone1
+                    ?: product!!.owner.phoneNumber
                 )
             contactDialog.show(supportFragmentManager, ContactPostDialog.ContactPostDialog_Tag)
         }
@@ -172,10 +193,16 @@ class ProductDetailsActivity : BaseActivity(), ProductContract.View, AppBarLayou
     }
 
 
-
     override fun onProductLoadedSuccessfully(product: Product) {
         this.product = product
         productViewHolder.bind(product)
+        val user = UserRepository(this).getUser()
+        deactivateBtn.visibility =
+            if (product!!.ownerId == user?.id &&  product!!.status == "activated") View.VISIBLE else View.INVISIBLE
     }
 
+    override fun onProductDeactivatedSuccessfully() {
+        Toast.makeText(this, getString(R.string.product_deactivated), Toast.LENGTH_SHORT).show()
+        onBackPressed()
+    }
 }

@@ -1,5 +1,6 @@
 package com.almersal.android.di.ui
 
+import com.almersal.android.data.entities.BusinessGuide
 import com.almersal.android.data.entities.Post
 import com.almersal.android.data.entities.Product
 import com.almersal.android.data.entities.ProductAddModel
@@ -13,6 +14,11 @@ class ProductContract {
         fun loadProduct(id: String)
         fun addProduct(product: ProductAddModel, token: String)
         fun updateProduct(product: ProductAddModel, token: String)
+        fun loadUserBusinesses(
+            userId: String /*criteria: MutableMap<String, Pair<String, String>>*/
+        )
+
+        fun deactivateProduct(id: String)
 
     }
 
@@ -24,6 +30,8 @@ class ProductContract {
         fun onUpdateProductFail() {}
 
         fun onProductLoadedSuccessfully(product: Product) {}
+        fun onUserBusinessesListSuccessfully(businessGuideList: MutableList<BusinessGuide>) {}
+        fun onProductDeactivatedSuccessfully(){}
     }
 
 }

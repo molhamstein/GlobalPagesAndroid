@@ -66,7 +66,7 @@ class JobDetailsPresenter(val context: Context) : JobDetailsContract.Presenter {
     }
 
 
-    override fun deactivateJob(jobId: String, jobStatus: JobStatus) {
+    override fun deactivateJob(jobId: String, jobStatus: Status) {
         view.showProgress(true)
 
         ApiService().deactivateJob(jobStatus, jobId, UserRepository(context).getUser()!!.token,

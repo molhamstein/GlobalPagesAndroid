@@ -229,12 +229,12 @@ class ProfilePresenter constructor(val context: Context) : ProfileContract.Prese
         val url = ServerInfo.productsUrl + "?filter[where][ownerId]=" + ownerId
         ApiService().getProducts(url/*, criteria*/, object : ParsedRequestListener<MutableList<Product>> {
             override fun onResponse(response: MutableList<Product>?) {
+                view.showUserProductsProgress(false)
                 if ((response != null)) {
-                    view.showUserProductsProgress(false)
                     if (response.size > 0)
                         view.onUserProductsListSuccessfully(response)
                     else
-                        view.showUserProductsProgress(true)
+                        view.showUserProductsEmptyView(true)
                     return
                 }
                 view.showUserProductsEmptyView(true)

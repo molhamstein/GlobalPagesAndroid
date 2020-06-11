@@ -3,6 +3,7 @@ package com.almersal.android.viewModel
 import android.content.Context
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.RecyclerView
+import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -78,10 +79,12 @@ class ProductViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) 
         postCity.text = product.city.getTitle()
         postLocation.text = product.location.getTitle()
 
-        val inLocation = context.resources.getString(R.string.In) + " " + product.location.getTitle()
+        val inLocation =
+            context.resources.getString(R.string.In) + " " + product.location.getTitle()
         postInLocation.text = inLocation
 
         postDescription.text = product.description
+        postDescription.movementMethod = LinkMovementMethod.getInstance()
         postCreatedDate.text = DateNormalizer.getCanonicalDateTime(product.creationDate)
     }
 }

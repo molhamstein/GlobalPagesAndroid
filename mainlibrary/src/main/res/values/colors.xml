@@ -23,5 +23,6 @@
 
     <color name="blue">#1a4cb6</color>
     <color name="red">#F44336</color>
+    <color name="job_background">#EF98AB</color>
 
 </resources>
